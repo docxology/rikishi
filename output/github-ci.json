@@ -1,0 +1,14 @@
+{
+  "repository": "docxology/rikishi",
+  "run_id": 39353670513,
+  "job_id": 118403467988,
+  "source_commit": "6ba660c66bee0ff981c2908e507b38d86b223629",
+  "url": "https://github.com/docxology/rikishi/actions/runs/39353670513",
+  "conclusion": "failure",
+  "steps": [],
+  "runner_id": 0,
+  "classification": "external_actions_budget_block",
+  "annotation": "The job was not started because an Actions budget is preventing further use.",
+  "hosted_checks_executed": false,
+  "local_gate": {"tests_passed": 81, "combined_coverage_percent": 94.1340782122905}
+}

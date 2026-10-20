@@ -123,3 +123,13 @@ Matplotlib SVG paths and blank EOF lines in preserved/generated documents. Those
 generated and template bytes are retained. Authored source is checked separately;
 the manuscript source EOF was normalized and its outputs regenerated. This is
 separate from the passing test, coverage, lint, and artifact-verification gates.
+
+## Hosted CI observation
+
+The first private GitHub Actions run, `39353670513`, failed before a runner was
+assigned: zero steps ran and the runner ID was zero. Its failure annotation was:
+"The job was not started because an Actions budget is preventing further use."
+This is an external execution block; it is not a passing hosted gate and provides
+no evidence about Linux execution. The local full gate passed 81 tests with
+94.13% combined line/branch coverage. See `output/github-ci.json` and the
+[original run](https://github.com/docxology/rikishi/actions/runs/39353670513).
