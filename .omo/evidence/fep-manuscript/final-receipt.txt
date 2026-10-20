@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Volumes/GitVault/Username/docxology/Private/rikishi
+configfile: pyproject.toml
+plugins: anyio-4.15.1, cov-7.0.0
+collected 15 items
+
+tests/test_fep.py ...............                                        [100%]
+
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.13-final-0 _______________
+
+Name                 Stmts   Miss Branch BrPart  Cover   Missing
+----------------------------------------------------------------
+src/rikishi/fep.py      82      0     14      0   100%
+----------------------------------------------------------------
+TOTAL                   82      0     14      0   100%
+Required test coverage of 90.0% reached. Total coverage: 100.00%
+============================== 15 passed in 0.40s ==============================
+{
+  "artifact_hashes_verified": 5,
+  "docx_archive_and_image": "pass",
+  "html_local_figure": "pass",
+  "pdf_text": "pass",
+  "negative_control": "prior must sum to one",
+  "source_inspection_commit": "9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de",
+  "lean_compiled": false
+}

@@ -1,0 +1,12 @@
+extension formulas 6
+{"files": 144, "formulas": 212845, "terms": 34885, "edges": 71701, "source_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c"}
+taxonomy status Theorem proved True
+{
+  "artifact_hashes_verified": 7,
+  "docx_archive_and_image": "pass",
+  "html_local_figure": "pass",
+  "pdf_text": "pass",
+  "negative_control": "prior must sum to one",
+  "source_inspection_commit": "9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de",
+  "lean_compiled": false
+}

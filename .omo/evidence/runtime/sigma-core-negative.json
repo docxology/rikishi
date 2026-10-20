@@ -1,0 +1,10 @@
+{
+  "status": "ContradictoryAxioms",
+  "outcome": "inconclusive",
+  "proved": false,
+  "returncode": 0,
+  "log": "/Volumes/GitVault/Username/docxology/Private/rikishi/.omo/evidence/runtime/sigma-core-negative.log",
+  "profile": "/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/core",
+  "query": "(subclass Human Artifact)",
+  "prover": "e"
+}

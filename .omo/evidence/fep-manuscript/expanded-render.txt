@@ -1,0 +1,64 @@
+Generating HTML from /Volumes/GitVault/Username/docxology/Private/rikishi/output/manuscript/rikishi.md
+  Generated DOCX: rikishi.docx (135.8 KB, 0.1s)
+{
+  "renderer": "docxology/template native PDFRenderer, WebRenderer, render_docx",
+  "template_revision": "efce6d6f5b3c4e8e2bbf92d8250855a0a9389ae8",
+  "source_sha256": "33e9aea762b53bb83b99dd6c7eb5e128cd2707156bfb63660b57b5cc4b391969",
+  "corpus_export_sha256": "97da585c455633d52d0fe9f8f4a0d07f162c6dcf649d0e6e0a103f6922500d5f",
+  "substitutions": {
+    "SUMO_COMMIT": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+    "CORPUS_FILES": "144",
+    "CORPUS_FORMULAS": "212845",
+    "CORPUS_TERMS": "34885",
+    "CORPUS_EDGES": "71701",
+    "CORPUS_PARSE_ERRORS": "0"
+  },
+  "numerical_result": {
+    "evidence": 0.5,
+    "surprise": 0.6931471805599453,
+    "free_energy": 0.9162907318741549,
+    "kl_to_posterior": 0.2231435513142097,
+    "exact_posterior": [
+      0.8,
+      0.2
+    ],
+    "identity_residual": -1.1102230246251565e-16
+  },
+  "artifacts": [
+    {
+      "path": "output/manuscript/pdf/rikishi.pdf",
+      "bytes": 192371,
+      "sha256": "9fed81e2719ca2bbc0c683f0239fa3a5483fd3f3932389c0cdfc9e8d843f6177"
+    },
+    {
+      "path": "output/manuscript/web/manuscript__rikishi.html",
+      "bytes": 29022,
+      "sha256": "7b78228e89de843f9b8812090943d8bdc260c23197449fa9fc756b6e0c8b00f4"
+    },
+    {
+      "path": "output/manuscript/docx/rikishi.docx",
+      "bytes": 139064,
+      "sha256": "bfc440e2c158d11af084602f64d2cf2dc6d7471dd76c802f0f88e2bc455cb124"
+    },
+    {
+      "path": "output/manuscript/figures/fep-free-energy.png",
+      "bytes": 68686,
+      "sha256": "b09ab8a2d03c4cccc1357218978f02bae50e8c1ceea8ed52427c80f91ca56cbd"
+    },
+    {
+      "path": "output/manuscript/figures/corpus-files.png",
+      "bytes": 69011,
+      "sha256": "1c648cb151717fc82c9084c6775e2cc9a0c965b838e8d688425c76f2390126a9"
+    },
+    {
+      "path": "output/manuscript/rikishi.md",
+      "bytes": 11945,
+      "sha256": "b91d8777742587d39d1c25a097b41d13892fe03417e3584abd70ad5b7d04d0a8"
+    },
+    {
+      "path": "output/manuscript/fep-example.json",
+      "bytes": 8923,
+      "sha256": "d7bf4d3056d2ac4c7b25f55118890f0e82ac496e9d5e72e877e417b6904a81dc"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "patches": [{
+    "repository": "sigmakee",
+    "path": "config/patches/sigma-compound-type-guards.patch",
+    "sha256": "184c6e055cd9cbb75950d3da1b5177f8efa95878ec917f54efd759a8f4f90889",
+    "source": "src/java/com/articulate/sigma/FormulaPreprocessor.java",
+    "before_sha256": "f4d7f6acf61166a08d3dd42589850d26c6a5d5e3bcd36b125cdda374fafa7147",
+    "after_sha256": "5642a5ad83d3d725236ca37c061cb37c08e95df1af70e4f4d40f2c0a4256f290"
+  }],
+  "repositories": {
+    "sumo": {"url": "https://github.com/ontologyportal/sumo.git", "commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c"},
+    "sigmakee": {"url": "https://github.com/ontologyportal/sigmakee.git", "commit": "d3cc7b43b38b0b45692291a1b33fe2b1a3de0095"},
+    "SigmaUtils": {"url": "https://github.com/ontologyportal/SigmaUtils.git", "commit": "959c2d950a2727436ebd71f51db8fe7c43ad25bd"},
+    "sigmaAntlr": {"url": "https://github.com/ontologyportal/sigmaAntlr.git", "commit": "f887aa85496ddc63f68daca101bda8e1990daedc"},
+    "TPTP-ANTLR": {"url": "https://github.com/ontologyportal/TPTP-ANTLR.git", "commit": "cd2dbdf5915fe3a2f2d6930adb06b7584e63a0a9"},
+    "eprover": {"url": "https://github.com/eprover/eprover.git", "commit": "3b7afc70fe77d3118bb95144c4735ca45f5f31cf"}
+  }
+}

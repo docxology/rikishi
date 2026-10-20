@@ -1,0 +1,19 @@
+Title:           Rikishi: a reproducible SUMO ontology operator
+Author:          Daniel Ari Friedman
+Creator:         LaTeX via pandoc
+Producer:        xdvipdfmx (20260317)
+CreationDate:    Mon Oct 19 18:27:38 2026 PDT
+Custom Metadata: no
+Metadata Stream: no
+Tagged:          no
+UserProperties:  no
+Suspects:        no
+Form:            none
+JavaScript:      no
+Pages:           5
+Encrypted:       no
+Page size:       612 x 792 pts (letter)
+Page rot:        0
+File size:       193042 bytes
+Optimized:       no
+PDF version:     1.7

@@ -1,0 +1,17 @@
+[KButilities] SIGMA_HOME set to /Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/core
+WARN   [Configuration.validateMissingPreferences()]                  Missing config preference: eaxfilterExec. Setting default value: /Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/runtime/Programs/E/e_axfilter
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: verbnetDir value: . Reason: Directory value is empty. Setting default value: 
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: systemsDir value: /home/theuser. Reason: Directory does not exist. Setting default value: /Volumes/GitVault/Username/docxology/Private/rikishi
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: eaxfilterExec value: /Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/runtime/Programs/E/e_axfilter. Reason: Executable file does not exist. Setting default value: /Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/runtime/Programs/E/e_axfilter
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: jeditExec value: /usr/bin/jedit. Reason: Executable file does not exist. Setting default value: /usr/share/jedit/jedit
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: leoExec value: /home/theuser/Programs/Leo-III/bin/leo3. Reason: Executable file does not exist. Setting default value: /Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/runtime/Programs/Leo-III/leo3
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: sigmaRsExec value: /home/theuser/workspace/sigma-rs/target/release/sumo. Reason: Executable file does not exist. Setting default value: /Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/runtime/workspace/sigma-rs/target/release/sumo
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: tptpExec value: /home/theuser/workspace/TPTP4X/tptp4X. Reason: Executable file does not exist. Setting default value: /Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/runtime/workspace/TPTP4X/tptp4X
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: smtpEmailAddress value: . Reason: String value is empty. Setting default value: 
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: smtpEmailUser value: . Reason: String value is empty. Setting default value: 
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: smtpEmailPassword value: . Reason: String value is empty. Setting default value: 
+WARN   [Configuration.setDefaultForInvalidKey()]                     Invalid config preference: smtpEmailServer value: . Reason: String value is empty. Setting default value: 
+(ExtensionFn Oval) -> ( ! [V__X] : (s__instance(V__X,s__ExtensionFn(s__Oval)) ) )
+(ExtensionFn Oval)+ -> ( ! [V__X] : (s__subclass(V__X,s__ExtensionFn(s__Oval)) ) )
+Human -> ( ! [V__X] : (s__instance(V__X,s__Human) ) )
+PASS: compound instance/subclass guards and atomic control

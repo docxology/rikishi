@@ -1,0 +1,9 @@
+{
+  "artifact_hashes_verified": 7,
+  "docx_archive_and_image": "pass",
+  "html_local_figure": "pass",
+  "pdf_text": "pass",
+  "negative_control": "prior must sum to one",
+  "source_inspection_commit": "9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de",
+  "lean_compiled": false
+}

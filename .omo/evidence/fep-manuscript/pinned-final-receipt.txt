@@ -1,0 +1,13 @@
+{
+  "renderer_imported_modules_verified": 256,
+  "active_template_worktree_used": false,
+  "artifact_hashes_verified": 7,
+  "docx_archive_and_image": "pass",
+  "html_local_figure": "pass",
+  "pdf_text": "pass",
+  "negative_control": "prior must sum to one",
+  "source_inspection_commit": "9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de",
+  "lean_compiled": false
+}
+Positive control: 1625 archived files verified; archive 4b3e086f104817f01e4d64c488ffe966d4f6651819c1775b7bba93a7f95d47fc
+Negative control rejected altered snapshot: Renderer snapshot differs from pinned archive: pyproject.toml

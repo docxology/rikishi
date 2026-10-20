@@ -1,0 +1,444 @@
+{
+  "units": "nats",
+  "prior": [
+    0.5,
+    0.5
+  ],
+  "likelihood": [
+    0.8,
+    0.2
+  ],
+  "candidate": [
+    0.5,
+    0.5
+  ],
+  "result": {
+    "evidence": 0.5,
+    "surprise": 0.6931471805599453,
+    "free_energy": 0.9162907318741549,
+    "kl_to_posterior": 0.2231435513142097,
+    "exact_posterior": [
+      0.8,
+      0.2
+    ],
+    "identity_residual": -1.1102230246251565e-16
+  },
+  "optimum": {
+    "evidence": 0.5,
+    "surprise": 0.6931471805599453,
+    "free_energy": 0.6931471805599453,
+    "kl_to_posterior": 0.0,
+    "exact_posterior": [
+      0.8,
+      0.2
+    ],
+    "identity_residual": 0.0
+  },
+  "scan": [
+    {
+      "q_state_zero": 0.0,
+      "free_energy": 2.3025850929940455
+    },
+    {
+      "q_state_zero": 0.01,
+      "free_energy": 2.2327206150279992
+    },
+    {
+      "q_state_zero": 0.02,
+      "free_energy": 2.1768200924919157
+    },
+    {
+      "q_state_zero": 0.03,
+      "free_energy": 2.1262540939806818
+    },
+    {
+      "q_state_zero": 0.04,
+      "free_energy": 2.0791891708150767
+    },
+    {
+      "q_state_zero": 0.05,
+      "free_energy": 2.034755131592178
+    },
+    {
+      "q_state_zero": 0.06,
+      "free_energy": 1.9924399088262474
+    },
+    {
+      "q_state_zero": 0.07,
+      "free_energy": 1.9519055407939616
+    },
+    {
+      "q_state_zero": 0.08,
+      "free_energy": 1.912912172335867
+    },
+    {
+      "q_state_zero": 0.09,
+      "free_energy": 1.8752807773957576
+    },
+    {
+      "q_state_zero": 0.1,
+      "free_energy": 1.8388726834906082
+    },
+    {
+      "q_state_zero": 0.11,
+      "free_energy": 1.8035773763521914
+    },
+    {
+      "q_state_zero": 0.12,
+      "free_energy": 1.769304778386949
+    },
+    {
+      "q_state_zero": 0.13,
+      "free_energy": 1.7359801197598559
+    },
+    {
+      "q_state_zero": 0.14,
+      "free_energy": 1.7035403973733223
+    },
+    {
+      "q_state_zero": 0.15,
+      "free_energy": 1.6719318510200707
+    },
+    {
+      "q_state_zero": 0.16,
+      "free_energy": 1.6411081158135197
+    },
+    {
+      "q_state_zero": 0.17,
+      "free_energy": 1.6110288385763056
+    },
+    {
+      "q_state_zero": 0.18,
+      "free_energy": 1.5816586211823713
+    },
+    {
+      "q_state_zero": 0.19,
+      "free_energy": 1.5529661997194741
+    },
+    {
+      "q_state_zero": 0.2,
+      "free_energy": 1.5249237972318797
+    },
+    {
+      "q_state_zero": 0.21,
+      "free_energy": 1.497506606541643
+    },
+    {
+      "q_state_zero": 0.22,
+      "free_energy": 1.4706923721162892
+    },
+    {
+      "q_state_zero": 0.23,
+      "free_energy": 1.4444610484394202
+    },
+    {
+      "q_state_zero": 0.24,
+      "free_energy": 1.418794518238299
+    },
+    {
+      "q_state_zero": 0.25,
+      "free_energy": 1.3936763580952645
+    },
+    {
+      "q_state_zero": 0.26,
+      "free_energy": 1.3690916419714534
+    },
+    {
+      "q_state_zero": 0.27,
+      "free_energy": 1.345026775363078
+    },
+    {
+      "q_state_zero": 0.28,
+      "free_energy": 1.3214693544330016
+    },
+    {
+      "q_state_zero": 0.29,
+      "free_energy": 1.2984080456765972
+    },
+    {
+      "q_state_zero": 0.3,
+      "free_energy": 1.2758324826031846
+    },
+    {
+      "q_state_zero": 0.31,
+      "free_energy": 1.2537331766212922
+    },
+    {
+      "q_state_zero": 0.32,
+      "free_energy": 1.2321014398632542
+    },
+    {
+      "q_state_zero": 0.33,
+      "free_energy": 1.2109293181122758
+    },
+    {
+      "q_state_zero": 0.34,
+      "free_energy": 1.190209532332127
+    },
+    {
+      "q_state_zero": 0.35,
+      "free_energy": 1.1699354275674514
+    },
+    {
+      "q_state_zero": 0.36,
+      "free_energy": 1.1501009281971832
+    },
+    {
+      "q_state_zero": 0.37,
+      "free_energy": 1.1307004986966231
+    },
+    {
+      "q_state_zero": 0.38,
+      "free_energy": 1.111729109204379
+    },
+    {
+      "q_state_zero": 0.39,
+      "free_energy": 1.0931822053054787
+    },
+    {
+      "q_state_zero": 0.4,
+      "free_energy": 1.0750556815368328
+    },
+    {
+      "q_state_zero": 0.41,
+      "free_energy": 1.05734585819994
+    },
+    {
+      "q_state_zero": 0.42,
+      "free_energy": 1.0400494611315383
+    },
+    {
+      "q_state_zero": 0.43,
+      "free_energy": 1.0231636041383267
+    },
+    {
+      "q_state_zero": 0.44,
+      "free_energy": 1.0066857738489208
+    },
+    {
+      "q_state_zero": 0.45,
+      "free_energy": 0.9906138167765064
+    },
+    {
+      "q_state_zero": 0.46,
+      "free_energy": 0.9749459284204965
+    },
+    {
+      "q_state_zero": 0.47,
+      "free_energy": 0.9596806442659578
+    },
+    {
+      "q_state_zero": 0.48,
+      "free_energy": 0.9448168325665367
+    },
+    {
+      "q_state_zero": 0.49,
+      "free_energy": 0.9303536888208209
+    },
+    {
+      "q_state_zero": 0.5,
+      "free_energy": 0.9162907318741549
+    },
+    {
+      "q_state_zero": 0.51,
+      "free_energy": 0.902627801598423
+    },
+    {
+      "q_state_zero": 0.52,
+      "free_energy": 0.8893650581217409
+    },
+    {
+      "q_state_zero": 0.53,
+      "free_energy": 0.8765029825987642
+    },
+    {
+      "q_state_zero": 0.54,
+      "free_energy": 0.8640423795309051
+    },
+    {
+      "q_state_zero": 0.55,
+      "free_energy": 0.8519843806645171
+    },
+    {
+      "q_state_zero": 0.56,
+      "free_energy": 0.8403304505145339
+    },
+    {
+      "q_state_zero": 0.57,
+      "free_energy": 0.829082393581542
+    },
+    {
+      "q_state_zero": 0.58,
+      "free_energy": 0.8182423633523556
+    },
+    {
+      "q_state_zero": 0.59,
+      "free_energy": 0.8078128731983595
+    },
+    {
+      "q_state_zero": 0.6,
+      "free_energy": 0.7977968093128548
+    },
+    {
+      "q_state_zero": 0.61,
+      "free_energy": 0.7881974458591028
+    },
+    {
+      "q_state_zero": 0.62,
+      "free_energy": 0.7790184625356054
+    },
+    {
+      "q_state_zero": 0.63,
+      "free_energy": 0.7702639648054517
+    },
+    {
+      "q_state_zero": 0.64,
+      "free_energy": 0.7619385070836138
+    },
+    {
+      "q_state_zero": 0.65,
+      "free_energy": 0.7540471192314842
+    },
+    {
+      "q_state_zero": 0.66,
+      "free_energy": 0.7465953367737621
+    },
+    {
+      "q_state_zero": 0.67,
+      "free_energy": 0.7395892353315132
+    },
+    {
+      "q_state_zero": 0.68,
+      "free_energy": 0.7330354698600936
+    },
+    {
+      "q_state_zero": 0.69,
+      "free_energy": 0.7269413193957341
+    },
+    {
+      "q_state_zero": 0.7,
+      "free_energy": 0.7213147381552287
+    },
+    {
+      "q_state_zero": 0.71,
+      "free_energy": 0.7161644140062433
+    },
+    {
+      "q_state_zero": 0.72,
+      "free_energy": 0.7114998355402498
+    },
+    {
+      "q_state_zero": 0.73,
+      "free_energy": 0.7073313692479284
+    },
+    {
+      "q_state_zero": 0.74,
+      "free_energy": 0.7036703486339061
+    },
+    {
+      "q_state_zero": 0.75,
+      "free_energy": 0.7005291775353193
+    },
+    {
+      "q_state_zero": 0.76,
+      "free_energy": 0.6979214504559559
+    },
+    {
+      "q_state_zero": 0.77,
+      "free_energy": 0.6958620934346794
+    },
+    {
+      "q_state_zero": 0.78,
+      "free_energy": 0.6943675298891506
+    },
+    {
+      "q_state_zero": 0.79,
+      "free_energy": 0.6934558770921064
+    },
+    {
+      "q_state_zero": 0.8,
+      "free_energy": 0.6931471805599452
+    },
+    {
+      "q_state_zero": 0.81,
+      "free_energy": 0.6934636958251419
+    },
+    {
+      "q_state_zero": 0.82,
+      "free_energy": 0.6944302300656411
+    },
+    {
+      "q_state_zero": 0.83,
+      "free_energy": 0.6960745602371781
+    },
+    {
+      "q_state_zero": 0.84,
+      "free_energy": 0.6984279502519946
+    },
+    {
+      "q_state_zero": 0.85,
+      "free_energy": 0.7015257982361477
+    },
+    {
+      "q_state_zero": 0.86,
+      "free_energy": 0.7054084573670011
+    },
+    {
+      "q_state_zero": 0.87,
+      "free_energy": 0.710122292531137
+    },
+    {
+      "q_state_zero": 0.88,
+      "free_energy": 0.7157210639358323
+    },
+    {
+      "q_state_zero": 0.89,
+      "free_energy": 0.7222677746786768
+    },
+    {
+      "q_state_zero": 0.9,
+      "free_energy": 0.7298371945946959
+    },
+    {
+      "q_state_zero": 0.91,
+      "free_energy": 0.7385194012774471
+    },
+    {
+      "q_state_zero": 0.92,
+      "free_energy": 0.7484249089951589
+    },
+    {
+      "q_state_zero": 0.93,
+      "free_energy": 0.7596923902308559
+    },
+    {
+      "q_state_zero": 0.94,
+      "free_energy": 0.7725008710407439
+    },
+    {
+      "q_state_zero": 0.95,
+      "free_energy": 0.7870902065842769
+    },
+    {
+      "q_state_zero": 0.96,
+      "free_energy": 0.8037983585847776
+    },
+    {
+      "q_state_zero": 0.97,
+      "free_energy": 0.823137394527985
+    },
+    {
+      "q_state_zero": 0.98,
+      "free_energy": 0.8459775058168207
+    },
+    {
+      "q_state_zero": 0.99,
+      "free_energy": 0.8741521411305065
+    },
+    {
+      "q_state_zero": 1.0,
+      "free_energy": 0.916290731874155
+    }
+  ],
+  "interpretation": "Finite numerical illustration; proposed ontology connections are not a proof of the Free Energy Principle."
+}

@@ -1,0 +1,32 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Volumes/GitVault/Username/docxology/Private/rikishi
+configfile: pyproject.toml
+plugins: anyio-4.15.1, cov-7.0.0
+collected 20 items
+
+tests/test_runtime.py ...........F........                               [100%]
+
+=================================== FAILURES ===================================
+______________ test_compatibility_patch_integrity_and_idempotence ______________
+tests/test_runtime.py:141: in test_compatibility_patch_integrity_and_idempotence
+    apply(tmp_path, specification)
+scripts/runtime-bootstrap.py:94: in apply_compatibility_patch
+    raise RuntimeError("Compatibility patch produced unexpected content")
+E   RuntimeError: Compatibility patch produced unexpected content
+----------------------------- Captured stdout call -----------------------------
++ git apply --check /Volumes/GitVault/Local/caches/rikishi/tmp/pytest-of-4d/pytest-29/test_compatibility_patch_integ0/fix.patch
++ git apply /Volumes/GitVault/Local/caches/rikishi/tmp/pytest-of-4d/pytest-29/test_compatibility_patch_integ0/fix.patch
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.13-final-0 _______________
+
+Name                     Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------
+src/rikishi/runtime.py      48      1     14      0    98%   67
+--------------------------------------------------------------------
+TOTAL                       48      1     14      0    98%
+Coverage JSON written to file .omo/evidence/runtime/coverage.json
+Required test coverage of 90% reached. Total coverage: 98.39%
+=========================== short test summary info ============================
+FAILED tests/test_runtime.py::test_compatibility_patch_integrity_and_idempotence
+========================= 1 failed, 19 passed in 7.78s =========================

@@ -1,0 +1,42 @@
+{
+  "repositories": {
+    "sumo": {
+      "commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+      "pinned": true,
+      "changes": []
+    },
+    "sigmakee": {
+      "commit": "d3cc7b43b38b0b45692291a1b33fe2b1a3de0095",
+      "pinned": true,
+      "changes": [
+        " M src/java/com/articulate/sigma/FormulaPreprocessor.java"
+      ]
+    },
+    "SigmaUtils": {
+      "commit": "959c2d950a2727436ebd71f51db8fe7c43ad25bd",
+      "pinned": true,
+      "changes": []
+    },
+    "sigmaAntlr": {
+      "commit": "f887aa85496ddc63f68daca101bda8e1990daedc",
+      "pinned": true,
+      "changes": []
+    },
+    "TPTP-ANTLR": {
+      "commit": "cd2dbdf5915fe3a2f2d6930adb06b7584e63a0a9",
+      "pinned": true,
+      "changes": []
+    },
+    "eprover": {
+      "commit": "3b7afc70fe77d3118bb95144c4735ca45f5f31cf",
+      "pinned": true,
+      "changes": [
+        " M Makefile.vars",
+        "?? PROVER/epatternize"
+      ]
+    }
+  },
+  "eprover": true,
+  "sigma_jar": true,
+  "sumo_files": 144
+}

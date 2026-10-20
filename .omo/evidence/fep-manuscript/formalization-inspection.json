@@ -1,0 +1,23 @@
+{
+  "commit": "9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de",
+  "working_tree_clean": true,
+  "source": "lean/FepSketches/finite_information.lean",
+  "declarations": [
+    {
+      "name": "FEP.FiniteInformation.finiteKL_nonneg",
+      "line": 43,
+      "url": "https://github.com/ActiveInferenceInstitute/fep_formal/blob/9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de/lean/FepSketches/finite_information.lean#L43"
+    },
+    {
+      "name": "FEP.FiniteInformation.finiteKL_self",
+      "line": 49,
+      "url": "https://github.com/ActiveInferenceInstitute/fep_formal/blob/9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de/lean/FepSketches/finite_information.lean#L49"
+    },
+    {
+      "name": "FEP.FiniteInformation.finiteKL_eq_crossEntropy_sub_entropy",
+      "line": 146,
+      "url": "https://github.com/ActiveInferenceInstitute/fep_formal/blob/9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de/lean/FepSketches/finite_information.lean#L146"
+    }
+  ],
+  "verification_scope": "Pinned committed source inspection only; no Lean compilation or proof transport into SUMO performed."
+}

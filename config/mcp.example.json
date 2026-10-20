@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "rikishi": {
+      "command": "uv",
+      "args": ["run", "--directory", "${RIKISHI_ROOT}", "--locked", "rikishi-mcp"],
+      "env": {"RIKISHI_ROOT": "${RIKISHI_ROOT}"}
+    }
+  }
+}

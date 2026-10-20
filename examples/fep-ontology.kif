@@ -1,0 +1,14 @@
+; Rikishi research extension. Proposed vocabulary only; not part of upstream SUMO.
+; No axiom here proves a mathematical free-energy or biological theorem.
+
+(subclass RikishiVariationalInference Reasoning)
+(documentation RikishiVariationalInference EnglishLanguage
+  "A proposed class for finite-model posterior optimization processes in Rikishi. Its mathematical semantics and correspondence to Lean are obligations, not established axioms of SUMO.")
+
+(subclass RikishiFiniteGenerativeModel Proposition)
+(documentation RikishiFiniteGenerativeModel EnglishLanguage
+  "A proposed representation of a finite prior and observation likelihood. Normalization and support conditions are checked by Rikishi numerical code, not implied by this class assertion.")
+
+(instance RikishiBinaryInferenceExample RikishiVariationalInference)
+(documentation RikishiBinaryInferenceExample EnglishLanguage
+  "The example uses uniform binary prior, likelihoods 0.8 and 0.2, posterior 0.8 and 0.2, natural logarithms, and objective F(q)=sum q log(q/p(s,o)). This description supplies no proof transport from Lean.")

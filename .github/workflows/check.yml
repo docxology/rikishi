@@ -1,0 +1,19 @@
+name: Package checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  portable:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff
+        with:
+          enable-cache: true
+      - run: uv sync --locked
+      - run: uv run ruff check src tests scripts
+      - run: uv run pytest -m 'not integration'
+      - run: uv build

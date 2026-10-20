@@ -1,0 +1,138 @@
+{
+  "observed_at": "2026-10-20T01:25:36.693665+00:00",
+  "tests": {
+    "name": "pytest",
+    "errors": "0",
+    "failures": "0",
+    "skipped": "0",
+    "tests": "81",
+    "time": "11.134",
+    "timestamp": "2026-10-19T18:24:15.156430-07:00",
+    "hostname": "timelock.local"
+  },
+  "coverage": {
+    "covered_lines": 540,
+    "num_statements": 572,
+    "percent_covered": 94.1340782122905,
+    "percent_covered_display": "94",
+    "missing_lines": 32,
+    "excluded_lines": 0,
+    "percent_statements_covered": 94.4055944055944,
+    "percent_statements_covered_display": "94",
+    "num_branches": 144,
+    "num_partial_branches": 8,
+    "covered_branches": 134,
+    "missing_branches": 10,
+    "percent_branches_covered": 93.05555555555556,
+    "percent_branches_covered_display": "93"
+  },
+  "corpus": {
+    "source_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+    "source_clean": true,
+    "parse_errors": [],
+    "discovered_files": 144,
+    "schema_version": 1,
+    "files": 144,
+    "formulas": 212845,
+    "terms": 34885,
+    "edges": 71701
+  },
+  "runtime_positive": {
+    "status": "Theorem",
+    "outcome": "entailed",
+    "proved": true,
+    "atp_returncode": 0,
+    "consistency": "not_established",
+    "returncode": 0,
+    "log": "/Volumes/GitVault/Username/docxology/Private/rikishi/.omo/evidence/runtime/sigma-structured-positive.log",
+    "profile": "/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/core",
+    "query": "(subclass Human Animal)",
+    "prover": "e"
+  },
+  "runtime_negative": {
+    "status": "ContradictoryAxioms",
+    "outcome": "inconsistent_translated_axioms",
+    "proved": false,
+    "atp_returncode": 0,
+    "consistency": "contradictory_translated_axioms_detected",
+    "returncode": 0,
+    "log": "/Volumes/GitVault/Username/docxology/Private/rikishi/.omo/evidence/runtime/sigma-structured-negative.log",
+    "profile": "/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/core",
+    "query": "(subclass Human Artifact)",
+    "prover": "e"
+  },
+  "render_receipt": "output/manuscript/render-receipt.json",
+  "artifacts": [
+    {
+      "path": "output/manuscript/pdf/rikishi.pdf",
+      "bytes": 193042,
+      "sha256": "00845ebc2defba182f74487ae0e8f4b41ad0f635fd6d902bc8d8770ab7e63cab"
+    },
+    {
+      "path": "output/manuscript/web/manuscript__rikishi.html",
+      "bytes": 29496,
+      "sha256": "74a14f5ddeb000e7db7174b9daa4e08455c096163e0ccb58c22920a79a638d65"
+    },
+    {
+      "path": "output/manuscript/docx/rikishi.docx",
+      "bytes": 139289,
+      "sha256": "1c9d4c1d51faeace788fe3da33c41993d4fdea51ddc571da9cd530a632731eed"
+    },
+    {
+      "path": "output/manuscript/figures/fep-free-energy.png",
+      "bytes": 68686,
+      "sha256": "b09ab8a2d03c4cccc1357218978f02bae50e8c1ceea8ed52427c80f91ca56cbd"
+    },
+    {
+      "path": "output/manuscript/figures/corpus-files.png",
+      "bytes": 69011,
+      "sha256": "1c648cb151717fc82c9084c6775e2cc9a0c965b838e8d688425c76f2390126a9"
+    },
+    {
+      "path": "output/manuscript/rikishi.md",
+      "bytes": 12375,
+      "sha256": "1bcf2bf2362f27d16575fc6efce3c1a67e2d7dd8ba46cda31a0de9c5e79645fd"
+    },
+    {
+      "path": "output/manuscript/fep-example.json",
+      "bytes": 8923,
+      "sha256": "d7bf4d3056d2ac4c7b25f55118890f0e82ac496e9d5e72e877e417b6904a81dc"
+    }
+  ],
+  "repository": "https://github.com/docxology/rikishi",
+  "visibility": "private",
+  "review": {
+    "status": "CLEAR",
+    "recommendation": "APPROVE",
+    "report": ".omo/evidence/rikishi-code-review.md"
+  },
+  "browser": {
+    "dashboard": {
+      "url": "http://127.0.0.1:8765",
+      "verified": [
+        "desktop and 390px mobile",
+        "term search and empty results",
+        "graph navigation",
+        "theme switching",
+        "pinned source links",
+        "finite free-energy slider"
+      ]
+    },
+    "sigma": {
+      "url": "http://127.0.0.1:8085/sigma/KBs.jsp",
+      "verified": [
+        "four selected core constituents",
+        "74 available top-level files",
+        "Human source assertions and WordNet lexical entries"
+      ]
+    }
+  },
+  "packaging": "Source distribution and wheel built; isolated wheel installation verified",
+  "limitations": [
+    "Current translated core produced ContradictoryAxioms; cause unresolved. Full-core inference is diagnostic.",
+    "FEP mappings proposed. Lean source inspected at pinned revision; no Lean compilation or proof transport."
+  ],
+  "warnings": [
+    "One upstream Starlette/httpx deprecation warning during tests; no failing tests."
+  ]
+}

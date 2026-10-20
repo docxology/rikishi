@@ -1,0 +1,2 @@
+Exception in thread "main" java.lang.AssertionError: Compound class was flattened into an Atom: (ExtensionFn Oval)
+	at RuntimeTypeGuardRegression.main(RuntimeTypeGuardRegression.java:16)

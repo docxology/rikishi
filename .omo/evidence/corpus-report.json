@@ -1,0 +1,841 @@
+{
+  "corpus": {
+    "source_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+    "source_clean": true,
+    "parse_errors": [],
+    "discovered_files": 144,
+    "schema_version": 1,
+    "files": 144,
+    "formulas": 212845,
+    "terms": 34885,
+    "edges": 71701,
+    "top_files": [
+      {
+        "path": "mondial.kif",
+        "formulas": 40472
+      },
+      {
+        "path": "WorldAirports.kif",
+        "formulas": 36960
+      },
+      {
+        "path": "domainEnglishFormat.kif",
+        "formulas": 34494
+      },
+      {
+        "path": "Mid-level-ontology.kif",
+        "formulas": 10119
+      },
+      {
+        "path": "pictureList.kif",
+        "formulas": 9773
+      },
+      {
+        "path": "Merge.kif",
+        "formulas": 5520
+      },
+      {
+        "path": "SimpleFacts/CarBrands.kif",
+        "formulas": 5242
+      },
+      {
+        "path": "CountriesAndRegions.kif",
+        "formulas": 4038
+      },
+      {
+        "path": "Muscles.kif",
+        "formulas": 3408
+      },
+      {
+        "path": "naics.kif",
+        "formulas": 3360
+      },
+      {
+        "path": "Geography.kif",
+        "formulas": 2988
+      },
+      {
+        "path": "Languages.kif",
+        "formulas": 2988
+      },
+      {
+        "path": "Economy.kif",
+        "formulas": 2466
+      },
+      {
+        "path": "Translations/chinese_format.kif",
+        "formulas": 2313
+      },
+      {
+        "path": "Government.kif",
+        "formulas": 2258
+      },
+      {
+        "path": "ComputingBrands.kif",
+        "formulas": 2123
+      },
+      {
+        "path": "Medicine.kif",
+        "formulas": 1954
+      },
+      {
+        "path": "GeochronologicTimes.kif",
+        "formulas": 1654
+      },
+      {
+        "path": "Translations/japanese_format.kif",
+        "formulas": 1486
+      },
+      {
+        "path": "Transportation.kif",
+        "formulas": 1478
+      },
+      {
+        "path": "arteries.kif",
+        "formulas": 1426
+      },
+      {
+        "path": "Food.kif",
+        "formulas": 1320
+      },
+      {
+        "path": "Cars.kif",
+        "formulas": 1303
+      },
+      {
+        "path": "FinancialOntology.kif",
+        "formulas": 1239
+      },
+      {
+        "path": "Weather.kif",
+        "formulas": 1154
+      },
+      {
+        "path": "Anatomy.kif",
+        "formulas": 1136
+      },
+      {
+        "path": "Media.kif",
+        "formulas": 1097
+      },
+      {
+        "path": "emotion.kif",
+        "formulas": 1038
+      },
+      {
+        "path": "ComputerInput.kif",
+        "formulas": 998
+      },
+      {
+        "path": "Dining.kif",
+        "formulas": 937
+      },
+      {
+        "path": "WMD.kif",
+        "formulas": 937
+      },
+      {
+        "path": "pictureList-ImageNet.kif",
+        "formulas": 887
+      },
+      {
+        "path": "UXExperimentalTerms.kif",
+        "formulas": 883
+      },
+      {
+        "path": "QoSontology.kif",
+        "formulas": 846
+      },
+      {
+        "path": "english_format.kif",
+        "formulas": 834
+      },
+      {
+        "path": "Translations/french_format.kif",
+        "formulas": 804
+      },
+      {
+        "path": "Translations/relations-ro-sgml.kif",
+        "formulas": 803
+      },
+      {
+        "path": "Translations/relations-ro.kif",
+        "formulas": 803
+      },
+      {
+        "path": "Translations/portuguese_format.kif",
+        "formulas": 802
+      },
+      {
+        "path": "NameTermFormat.kif",
+        "formulas": 782
+      },
+      {
+        "path": "Hotel.kif",
+        "formulas": 752
+      },
+      {
+        "path": "engineering.kif",
+        "formulas": 736
+      },
+      {
+        "path": "development/DimensioningAmenities.kif",
+        "formulas": 730
+      },
+      {
+        "path": "MilitaryProcesses.kif",
+        "formulas": 631
+      },
+      {
+        "path": "HouseholdAppliances.kif",
+        "formulas": 624
+      },
+      {
+        "path": "Translations/arabic_format.kif",
+        "formulas": 603
+      },
+      {
+        "path": "development/ROE_Series.kif",
+        "formulas": 598
+      },
+      {
+        "path": "People.kif",
+        "formulas": 561
+      },
+      {
+        "path": "development/ROE_Master.kif",
+        "formulas": 554
+      },
+      {
+        "path": "Military.kif",
+        "formulas": 523
+      },
+      {
+        "path": "Trees.kif",
+        "formulas": 520
+      },
+      {
+        "path": "Sports.kif",
+        "formulas": 515
+      },
+      {
+        "path": "Music.kif",
+        "formulas": 509
+      },
+      {
+        "path": "development/Society.kif",
+        "formulas": 475
+      },
+      {
+        "path": "Astronomy.kif",
+        "formulas": 440
+      },
+      {
+        "path": "Animals.kif",
+        "formulas": 439
+      },
+      {
+        "path": "Cellular&TelephoneArchitecture.kif",
+        "formulas": 439
+      },
+      {
+        "path": "GymEquipment.kif",
+        "formulas": 432
+      },
+      {
+        "path": "VirusProteinAndCellPart.kif",
+        "formulas": 400
+      },
+      {
+        "path": "MilitaryDevices.kif",
+        "formulas": 397
+      },
+      {
+        "path": "tinySUMO.kif",
+        "formulas": 351
+      },
+      {
+        "path": "tinyIntSUMO.kif",
+        "formulas": 336
+      },
+      {
+        "path": "development/tinySUMOGDPR.kif",
+        "formulas": 331
+      },
+      {
+        "path": "mappings/DHS_Taxonomy.kif",
+        "formulas": 294
+      },
+      {
+        "path": "development/Cyber.kif",
+        "formulas": 285
+      },
+      {
+        "path": "development/GDPRTerms.kif",
+        "formulas": 266
+      },
+      {
+        "path": "NavalModeling.kif",
+        "formulas": 261
+      },
+      {
+        "path": "mappings/HotelDetail.kif",
+        "formulas": 246
+      },
+      {
+        "path": "Objects.kif",
+        "formulas": 243
+      },
+      {
+        "path": "Biography.kif",
+        "formulas": 221
+      },
+      {
+        "path": "mappings/ISCOgroups.kif",
+        "formulas": 220
+      },
+      {
+        "path": "ArabicCulture.kif",
+        "formulas": 211
+      },
+      {
+        "path": "development/Biography.kif",
+        "formulas": 209
+      },
+      {
+        "path": "development/SupplyChain.kif",
+        "formulas": 209
+      },
+      {
+        "path": "MilitaryPersons.kif",
+        "formulas": 192
+      },
+      {
+        "path": "development/Facebook.kif",
+        "formulas": 182
+      },
+      {
+        "path": "Facebook.kif",
+        "formulas": 180
+      },
+      {
+        "path": "Law.kif",
+        "formulas": 156
+      },
+      {
+        "path": "development/TravelPolicies.kif",
+        "formulas": 143
+      },
+      {
+        "path": "development/ROE_Supplementary.kif",
+        "formulas": 139
+      },
+      {
+        "path": "development/NIEM-Scenario-Concepts.kif",
+        "formulas": 131
+      },
+      {
+        "path": "Communications.kif",
+        "formulas": 126
+      },
+      {
+        "path": "Catalog.kif",
+        "formulas": 112
+      },
+      {
+        "path": "development/Auto.kif",
+        "formulas": 112
+      },
+      {
+        "path": "development/LinkedInDegrees.kif",
+        "formulas": 112
+      },
+      {
+        "path": "development/Enumerations.kif",
+        "formulas": 105
+      },
+      {
+        "path": "capabilities.kif",
+        "formulas": 101
+      },
+      {
+        "path": "development/Offers.kif",
+        "formulas": 100
+      },
+      {
+        "path": "tests/RCC.kif",
+        "formulas": 91
+      },
+      {
+        "path": "Translations/spanish_format.kif",
+        "formulas": 88
+      },
+      {
+        "path": "development/tinyMed.kif",
+        "formulas": 79
+      },
+      {
+        "path": "TransnationalIssues.kif",
+        "formulas": 76
+      },
+      {
+        "path": "WeatherStatecraft.kif",
+        "formulas": 73
+      },
+      {
+        "path": "ClimateStatecraft.kif",
+        "formulas": 67
+      },
+      {
+        "path": "development/PolishCulture.kif",
+        "formulas": 62
+      },
+      {
+        "path": "development/modals.kif",
+        "formulas": 62
+      },
+      {
+        "path": "mappings/FOAFmap.kif",
+        "formulas": 53
+      },
+      {
+        "path": "FOAFmap.kif",
+        "formulas": 52
+      },
+      {
+        "path": "development/Transport_2024.kif",
+        "formulas": 51
+      },
+      {
+        "path": "development/Antenna.kif",
+        "formulas": 49
+      },
+      {
+        "path": "development/MedReason.kif",
+        "formulas": 38
+      },
+      {
+        "path": "ModSim.kif",
+        "formulas": 37
+      },
+      {
+        "path": "CCTrep.kif",
+        "formulas": 36
+      },
+      {
+        "path": "TransportDetail.kif",
+        "formulas": 30
+      },
+      {
+        "path": "development/CommonSense.kif",
+        "formulas": 29
+      },
+      {
+        "path": "tinyHOL.kif",
+        "formulas": 23
+      },
+      {
+        "path": "Justice.kif",
+        "formulas": 20
+      },
+      {
+        "path": "nlg_supplement_formats.kif",
+        "formulas": 20
+      },
+      {
+        "path": "tests/Lists.kif",
+        "formulas": 19
+      },
+      {
+        "path": "development/Robot.kif",
+        "formulas": 18
+      },
+      {
+        "path": "development/HOL.kif",
+        "formulas": 16
+      },
+      {
+        "path": "tests/TQM10.kif",
+        "formulas": 14
+      },
+      {
+        "path": "Elements&Molecules.kif",
+        "formulas": 13
+      },
+      {
+        "path": "tests/SP04.kif",
+        "formulas": 13
+      },
+      {
+        "path": "development/GDPR.kif",
+        "formulas": 12
+      },
+      {
+        "path": "tests/TQM8.kif",
+        "formulas": 11
+      },
+      {
+        "path": "WordnetFormulas.kif",
+        "formulas": 9
+      },
+      {
+        "path": "development/BrazilianCulture.kif",
+        "formulas": 6
+      },
+      {
+        "path": "GentleM.kif",
+        "formulas": 5
+      },
+      {
+        "path": "tests/PreMedMurder.kif",
+        "formulas": 5
+      },
+      {
+        "path": "tests/SP02.kif",
+        "formulas": 5
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/3a_Forbiddance_univConj/3a_f_univConj_KIF.kif",
+        "formulas": 5
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/4a_O_then_P_aBridgeTooFar/4a_o_then_p_abridgetoofar_KIF.kif",
+        "formulas": 5
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/4c_O_then_P_BTF_2HopConj/4c_o_then_p_btf_2hopconj_KIF.kif",
+        "formulas": 5
+      },
+      {
+        "path": "tests/TQM3.kif",
+        "formulas": 5
+      },
+      {
+        "path": "tests/TQM9.kif",
+        "formulas": 5
+      },
+      {
+        "path": "development/HOLtests/modal1.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/1a_Obligation_univConj/1a_o_univconj_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/1c_Obligation_parallel/1c_o_parallel_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/1d_Obligation_nHopsConj/1d_o_nhops_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/1e_Obligation_existNHops/1e_o_existnhops_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/1g_Obligation_UO1_existConj/1g_o_uo1_existConj_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/1h_Obligation_UO1_univConj/1h_o_uo1_univConj_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/2a_Permission_chained_univConj/2a_p_chained_univconj.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/2b_Permission_chained_existConj/2b_p_chained_existconj_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/4b_O_then_P_stopsAtLastO/4_o_then_p_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/4d_O_then_P_SALO_2HopConj/4d_o_then_p_salo_2hopconj_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/1_obligation_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/3_forbiddance_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/4_o_then_p_KIF.kif",
+        "formulas": 4
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/1i_Obligation_singleO/1i_o_singleO_KIF.kif",
+        "formulas": 3
+      },
+      {
+        "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/2_permission_KIF.kif",
+        "formulas": 3
+      },
+      {
+        "path": "DARPA_ARC.kif",
+        "formulas": 1
+      },
+      {
+        "path": "development/Useful-terms_2023.kif",
+        "formulas": 0
+      }
+    ],
+    "top_predicates": [
+      {
+        "predicate": "termFormat",
+        "count": 54745
+      },
+      {
+        "predicate": "instance",
+        "count": 23784
+      },
+      {
+        "predicate": "documentation",
+        "count": 20563
+      },
+      {
+        "predicate": "subclass",
+        "count": 12274
+      },
+      {
+        "predicate": "located",
+        "count": 11355
+      },
+      {
+        "predicate": "externalImage",
+        "count": 10743
+      },
+      {
+        "predicate": "=>",
+        "count": 9527
+      },
+      {
+        "predicate": "abbreviation",
+        "count": 9297
+      },
+      {
+        "predicate": "member",
+        "count": 7926
+      },
+      {
+        "predicate": "names",
+        "count": 6769
+      },
+      {
+        "predicate": "format",
+        "count": 6285
+      },
+      {
+        "predicate": "geographicSubregion",
+        "count": 5808
+      },
+      {
+        "predicate": "populationAtTime",
+        "count": 4327
+      },
+      {
+        "predicate": "domain",
+        "count": 4224
+      },
+      {
+        "predicate": "subAttribute",
+        "count": 2293
+      },
+      {
+        "predicate": "landAreaOnly",
+        "count": 1855
+      },
+      {
+        "predicate": "capitalCity",
+        "count": 1527
+      },
+      {
+        "predicate": "firstInstanceCreated",
+        "count": 1016
+      },
+      {
+        "predicate": "latitude",
+        "count": 888
+      },
+      {
+        "predicate": "longitude",
+        "count": 888
+      },
+      {
+        "predicate": "meetsSpatially",
+        "count": 800
+      },
+      {
+        "predicate": "codeMapping",
+        "count": 696
+      },
+      {
+        "predicate": "equal",
+        "count": 585
+      },
+      {
+        "predicate": "ethnicityPercentInRegion",
+        "count": 521
+      },
+      {
+        "predicate": "sectorCompositionOfGDPInPeriod",
+        "count": 458
+      },
+      {
+        "predicate": "domainSubclass",
+        "count": 457
+      },
+      {
+        "predicate": "beliefGroupPercentInRegion",
+        "count": 455
+      },
+      {
+        "predicate": "subrelation",
+        "count": 429
+      },
+      {
+        "predicate": "connectedBodyPartTypes",
+        "count": 421
+      },
+      {
+        "predicate": "range",
+        "count": 356
+      }
+    ],
+    "relations": [
+      {
+        "predicate": "instance",
+        "count": 23784
+      },
+      {
+        "predicate": "subclass",
+        "count": 12203
+      },
+      {
+        "predicate": "located",
+        "count": 11353
+      },
+      {
+        "predicate": "member",
+        "count": 7926
+      },
+      {
+        "predicate": "geographicSubregion",
+        "count": 5808
+      },
+      {
+        "predicate": "subAttribute",
+        "count": 2293
+      },
+      {
+        "predicate": "capitalCity",
+        "count": 1527
+      },
+      {
+        "predicate": "meetsSpatially",
+        "count": 800
+      },
+      {
+        "predicate": "subrelation",
+        "count": 429
+      },
+      {
+        "predicate": "range",
+        "count": 356
+      },
+      {
+        "predicate": "economyType",
+        "count": 331
+      },
+      {
+        "predicate": "disjoint",
+        "count": 329
+      },
+      {
+        "predicate": "muscleOrigin",
+        "count": 319
+      },
+      {
+        "predicate": "relatedInternalConcept",
+        "count": 311
+      },
+      {
+        "predicate": "roomTempState",
+        "count": 293
+      },
+      {
+        "predicate": "organizationalObjective",
+        "count": 291
+      },
+      {
+        "predicate": "muscleInsertion",
+        "count": 261
+      },
+      {
+        "predicate": "ennervates",
+        "count": 233
+      },
+      {
+        "predicate": "suppliesBlood",
+        "count": 231
+      },
+      {
+        "predicate": "currencyType",
+        "count": 173
+      },
+      {
+        "predicate": "meetsTemporally",
+        "count": 169
+      },
+      {
+        "predicate": "antagonistMuscles",
+        "count": 136
+      },
+      {
+        "predicate": "flowsInto",
+        "count": 136
+      },
+      {
+        "predicate": "hasHeadq",
+        "count": 133
+      },
+      {
+        "predicate": "typicalPart",
+        "count": 108
+      },
+      {
+        "predicate": "subOrganization",
+        "count": 100
+      },
+      {
+        "predicate": "contraryAttribute",
+        "count": 99
+      },
+      {
+        "predicate": "rangeSubclass",
+        "count": 78
+      },
+      {
+        "predicate": "successorAttribute",
+        "count": 76
+      },
+      {
+        "predicate": "initialPart",
+        "count": 75
+      }
+    ]
+  },
+  "report": {
+    "html": "/Volumes/GitVault/Username/docxology/Private/rikishi/output/dashboard.html",
+    "data": "/Volumes/GitVault/Username/docxology/Private/rikishi/output/corpus.json",
+    "svg": "/Volumes/GitVault/Username/docxology/Private/rikishi/output/corpus-files.svg",
+    "png": "/Volumes/GitVault/Username/docxology/Private/rikishi/output/corpus-files.png"
+  }
+}

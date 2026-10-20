@@ -1,0 +1,20 @@
+diff --git a/src/java/com/articulate/sigma/FormulaPreprocessor.java b/src/java/com/articulate/sigma/FormulaPreprocessor.java
+--- a/src/java/com/articulate/sigma/FormulaPreprocessor.java
++++ b/src/java/com/articulate/sigma/FormulaPreprocessor.java
+@@ -425,12 +425,14 @@ public class FormulaPreprocessor {
+             String t = type.substring(0, type.length() - 1);
+             if (t.equals("Entity")) return null;
+             return new Expr.SExpr(new Expr.Atom("subclass"),
+-                    List.of(new Expr.Var(varName), new Expr.Atom(t)));
++                    List.of(new Expr.Var(varName), t.startsWith("(")
++                            ? SuokifVisitor.parseAny(t).result.get(0).expr : new Expr.Atom(t)));
+         } else {
+             if (type.equals("Entity") || type.equals("World")
+                     || type.equals("ObjectiveNorm")) return null;
+             if (addOnlyNonNumericTypes && kb.isSubclass(type, "Quantity")) return null;
+             return new Expr.SExpr(new Expr.Atom("instance"),
+-                    List.of(new Expr.Var(varName), new Expr.Atom(type)));
++                    List.of(new Expr.Var(varName), type.startsWith("(")
++                            ? SuokifVisitor.parseAny(type).result.get(0).expr : new Expr.Atom(type)));
+         }
+     }

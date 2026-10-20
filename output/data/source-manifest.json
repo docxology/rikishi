@@ -1,0 +1,722 @@
+[
+  {
+    "path": "Anatomy.kif",
+    "sha256": "fbe005e3824a051036b4b0a25010836612e2a8840c51292a2a7a225071e02c9e",
+    "formulas": 1136
+  },
+  {
+    "path": "Animals.kif",
+    "sha256": "da9a4df335b42a70f08136023d9faa6615a8911b22b9f4cef0737d29278af902",
+    "formulas": 439
+  },
+  {
+    "path": "ArabicCulture.kif",
+    "sha256": "86e4c28d00ab5fd7df763028f0e082c8d9fceb56a3872855f8a5d810911ccc96",
+    "formulas": 211
+  },
+  {
+    "path": "Astronomy.kif",
+    "sha256": "c76b195e742b22110006b6d76527e83f066812b9fdfaf5f4e79bab4e4f65e195",
+    "formulas": 440
+  },
+  {
+    "path": "Biography.kif",
+    "sha256": "586d287bb6688139b459c7fcfe4f85cee4609d1e07b06af928d8282893880907",
+    "formulas": 221
+  },
+  {
+    "path": "CCTrep.kif",
+    "sha256": "c07cd0685b672746f87207f6f9fba37c623e1703afb875687b13d10aa832b06b",
+    "formulas": 36
+  },
+  {
+    "path": "Cars.kif",
+    "sha256": "aef72dc80120d1a6e4ea4329407bb313ce43f78a701626a9f0345f1c3aed29ff",
+    "formulas": 1303
+  },
+  {
+    "path": "Catalog.kif",
+    "sha256": "508f6cbb29476f1283e325214bb70a4b88d93c3aede1d48859d9916b171708e9",
+    "formulas": 112
+  },
+  {
+    "path": "Cellular&TelephoneArchitecture.kif",
+    "sha256": "0aee55b27956beb7550ecce4d7fda1f330afb0faec1e2e3d8b82bf389be1d0d7",
+    "formulas": 439
+  },
+  {
+    "path": "ClimateStatecraft.kif",
+    "sha256": "1bb8c15c914f4924cca2650eb712c5d56eabecb08028574eb0fba84e8deb6ab0",
+    "formulas": 67
+  },
+  {
+    "path": "Communications.kif",
+    "sha256": "6376815627034acafcfe28f17c2dcbc41b79217bebd647e6b9788cf03141c868",
+    "formulas": 126
+  },
+  {
+    "path": "ComputerInput.kif",
+    "sha256": "4ab99849578a4f5c1d4ae4e317a6e04fa62f0ac931347d2f408e30532f770eca",
+    "formulas": 998
+  },
+  {
+    "path": "ComputingBrands.kif",
+    "sha256": "95d394e92ccdc25901fe3043a29025a37cc56c0e6f9a3dfa9c43e102f238cc69",
+    "formulas": 2123
+  },
+  {
+    "path": "CountriesAndRegions.kif",
+    "sha256": "4c304df935335dc2c958edd2b0f35e7d9a4905bf374982f7ba3e582646900fb8",
+    "formulas": 4038
+  },
+  {
+    "path": "DARPA_ARC.kif",
+    "sha256": "07998d76d1f94643571dfd13c8e02eb02ccbf5b7fc59dc007d2e769c5295a2ea",
+    "formulas": 1
+  },
+  {
+    "path": "Dining.kif",
+    "sha256": "46e831331592f7e8531b0049c6889edf3f8036d0fdad2f5931fb8871fe4442b5",
+    "formulas": 937
+  },
+  {
+    "path": "Economy.kif",
+    "sha256": "c42464f4c1e2d204e6d2cf330b86649f425caae7c73efc5f8cbbd4b68c095b43",
+    "formulas": 2466
+  },
+  {
+    "path": "Elements&Molecules.kif",
+    "sha256": "7c9a057b4659fd3ac5d46ef034448e3dd28e0a424f4c343f45acdc00e3b2c5e3",
+    "formulas": 13
+  },
+  {
+    "path": "FOAFmap.kif",
+    "sha256": "93f4029d1a561d8ee42f2a8da13209103a358bf0f5cc8791e3a49bd33afcc71f",
+    "formulas": 52
+  },
+  {
+    "path": "Facebook.kif",
+    "sha256": "c8b1fc61d4531ba4cce188f894d05f183112d26fa3cd5e2cd5ae51ec9b89140d",
+    "formulas": 180
+  },
+  {
+    "path": "FinancialOntology.kif",
+    "sha256": "074eb6b569e8a96a95e5dea8302399c455cc5a6f4e7f4ca026d9465ef83d111b",
+    "formulas": 1239
+  },
+  {
+    "path": "Food.kif",
+    "sha256": "0e1e4317659af4915bcf4d4f2d3579cf7a776e0a7131837ac86e86a300634758",
+    "formulas": 1320
+  },
+  {
+    "path": "GentleM.kif",
+    "sha256": "d0c5ffad47c085d97b79d206f016c1d26fbfaf5c948a87fe34b1b1ffce194300",
+    "formulas": 5
+  },
+  {
+    "path": "GeochronologicTimes.kif",
+    "sha256": "f76d095e05d3480bc9a2695f2c172835b9eae3b15a613ab00c10039804f47f7d",
+    "formulas": 1654
+  },
+  {
+    "path": "Geography.kif",
+    "sha256": "3fc1274a1658e9c76163f463e93763dceb040c296fb47e4fb2ce395eaa0bce9a",
+    "formulas": 2988
+  },
+  {
+    "path": "Government.kif",
+    "sha256": "a527576e1b169a5ca541ab8aaf2a51b6c5c029ba0079fd1430cbc33d74f0edba",
+    "formulas": 2258
+  },
+  {
+    "path": "GymEquipment.kif",
+    "sha256": "664cce52f0ca890beb1db9bb0507193386d0ed38335e6aad769f8a6e95d2e9d7",
+    "formulas": 432
+  },
+  {
+    "path": "Hotel.kif",
+    "sha256": "646b182be4f03cef4ddba140da13402a3a173a5ace147d3fded982e7fc4348f7",
+    "formulas": 752
+  },
+  {
+    "path": "HouseholdAppliances.kif",
+    "sha256": "d2b1606eb990297d683c23f40b3c770c4cc6ae1350132d1a0ed40908243b6877",
+    "formulas": 624
+  },
+  {
+    "path": "Justice.kif",
+    "sha256": "4c0060fc8625791cf0b604321f98673f0d449d819efa2906f00a48e6d6375ee3",
+    "formulas": 20
+  },
+  {
+    "path": "Languages.kif",
+    "sha256": "90c1673e9a1010850569438a2ff750d91213626452c72e101f5ce3ae851fe43d",
+    "formulas": 2988
+  },
+  {
+    "path": "Law.kif",
+    "sha256": "ebf981201bd109b65c36e8df6d665acc582c99f780ec74867986e43e7a1cd85c",
+    "formulas": 156
+  },
+  {
+    "path": "Media.kif",
+    "sha256": "bb8fb9e2dcb48fa10a36bdcb81c8e2b96cb205d2d0fcb7411f2192805e424b5a",
+    "formulas": 1097
+  },
+  {
+    "path": "Medicine.kif",
+    "sha256": "fe75655f3a0df6cee52eada732b43931c864d5590b40d6201a6a8258df5c3dc2",
+    "formulas": 1954
+  },
+  {
+    "path": "Merge.kif",
+    "sha256": "2e4c3d6b8392a4cb6fbeccb6eb7441e11d6b45592082333285c951fd7c7d3e14",
+    "formulas": 5520
+  },
+  {
+    "path": "Mid-level-ontology.kif",
+    "sha256": "b6c0e10b2aa94d98f4fe97cb7e827e11af6316a8851050aa317331135d08dfcd",
+    "formulas": 10119
+  },
+  {
+    "path": "Military.kif",
+    "sha256": "b59281f36f1a3ce9add7a5208fdabc6888989e42026ac7f922a5c603b55620ff",
+    "formulas": 523
+  },
+  {
+    "path": "MilitaryDevices.kif",
+    "sha256": "c4047568efb5f3f2f9af12ede6c14da049cfe7debc0c94b59bdc9dd9eccd8364",
+    "formulas": 397
+  },
+  {
+    "path": "MilitaryPersons.kif",
+    "sha256": "410e17711b3129d66b4e255771a02880f19182ffc0688758236a63611a066570",
+    "formulas": 192
+  },
+  {
+    "path": "MilitaryProcesses.kif",
+    "sha256": "2e5f4c13aa3c326cd6fd0c7c67da254383f39f8dfabb6f9eeb979c491cd22de2",
+    "formulas": 631
+  },
+  {
+    "path": "ModSim.kif",
+    "sha256": "6a31833798a651a5e6e264064af0538169802736b9edd04cfd46d58195c39550",
+    "formulas": 37
+  },
+  {
+    "path": "Muscles.kif",
+    "sha256": "c884aa3c8603b6cc26d213e38442e33e61136b8174ce7ce9f5355cdbdaaddd0a",
+    "formulas": 3408
+  },
+  {
+    "path": "Music.kif",
+    "sha256": "196323d7e3790cbd7d3324b57eebaa456a4f8e88cebeecb708429cb75479bef8",
+    "formulas": 509
+  },
+  {
+    "path": "NameTermFormat.kif",
+    "sha256": "1c793d6781464fc4160e3c40aca0b88c090be5d9d7476625feea2c1720defbe7",
+    "formulas": 782
+  },
+  {
+    "path": "NavalModeling.kif",
+    "sha256": "13dcc4049148e2cb75f587bb2c5703422f9be831db97e8e3d462c27c5092da4c",
+    "formulas": 261
+  },
+  {
+    "path": "Objects.kif",
+    "sha256": "fa0e871bd6a9476892df6180bbc202d59f0927f7c8b3d429f3d68a7110d9c8cd",
+    "formulas": 243
+  },
+  {
+    "path": "People.kif",
+    "sha256": "a72de08ee91aa9688c5a5ea9d04243119220661ee2ddef1d94adec4effb164ed",
+    "formulas": 561
+  },
+  {
+    "path": "QoSontology.kif",
+    "sha256": "35ec6c6eb1bdeb39c469c88e208b8543eaf92274dbdce6996d20b016643bbcaf",
+    "formulas": 846
+  },
+  {
+    "path": "SimpleFacts/CarBrands.kif",
+    "sha256": "6b953f8f2469f6201e36c1364e10951851f706c53bd8bec6c073efc674c4a2e6",
+    "formulas": 5242
+  },
+  {
+    "path": "Sports.kif",
+    "sha256": "a03286bdb9c5cf1d2a1e5a5017a225904fd17d56869cf7eb6e21fb16bdd8e55b",
+    "formulas": 515
+  },
+  {
+    "path": "Translations/arabic_format.kif",
+    "sha256": "c2123fc5e4b6b230832e8c96aa898a4291defba4b6c3e9a456b0e64cd81506b9",
+    "formulas": 603
+  },
+  {
+    "path": "Translations/chinese_format.kif",
+    "sha256": "ee601dc83c0050b948f1184e4a306f3846e6ffea129055655faf187fa7b6c220",
+    "formulas": 2313
+  },
+  {
+    "path": "Translations/french_format.kif",
+    "sha256": "830e70e892dd0d9030ffbc121873bbcf7ec4725e8e0233df8e7523d4a201a31c",
+    "formulas": 804
+  },
+  {
+    "path": "Translations/japanese_format.kif",
+    "sha256": "f43b028854ef54d614bff1f2d5bbde6be6c85bbaae8cded28c0ce88f43e27d76",
+    "formulas": 1486
+  },
+  {
+    "path": "Translations/portuguese_format.kif",
+    "sha256": "784d7ab44c907ec478967afc840031fa4bf29c52623d34d05c540a022c4ca389",
+    "formulas": 802
+  },
+  {
+    "path": "Translations/relations-ro-sgml.kif",
+    "sha256": "b7054e3aec08072472ae4f2f744fb87724564cf57a3e0a63c15525af3b85bd76",
+    "formulas": 803
+  },
+  {
+    "path": "Translations/relations-ro.kif",
+    "sha256": "e7c730e3f943d6d6bea9fdc001462534716a2a3190f1a2d4eea5b3bd15b8f931",
+    "formulas": 803
+  },
+  {
+    "path": "Translations/spanish_format.kif",
+    "sha256": "267a50bc75908965b271184299971018702f71eaafe6b023445ad064a2eab2af",
+    "formulas": 88
+  },
+  {
+    "path": "TransnationalIssues.kif",
+    "sha256": "abba48e36722e81fc8bef776e1e06a5d6059c1d54645364d1909c02534800b1a",
+    "formulas": 76
+  },
+  {
+    "path": "TransportDetail.kif",
+    "sha256": "4a02e297a1a84c6a895632648d4ea4f0eb9d3693ef77bbc3d7130c8d2c1c6a58",
+    "formulas": 30
+  },
+  {
+    "path": "Transportation.kif",
+    "sha256": "29668b30f595f76422322cd8fa23d6ee66e95e8dd2cd8b03087688f2079a06c7",
+    "formulas": 1478
+  },
+  {
+    "path": "Trees.kif",
+    "sha256": "e05ca9a72e2a2b30cf05b18503eb17b0599ad3423bb7a82dcf069bfb31a3f479",
+    "formulas": 520
+  },
+  {
+    "path": "UXExperimentalTerms.kif",
+    "sha256": "bf91481669181395444017399488c2ddd3ef8659641a6f7c907388af326e520d",
+    "formulas": 883
+  },
+  {
+    "path": "VirusProteinAndCellPart.kif",
+    "sha256": "f91c8a64eb8feeb2b49afd5e07a519f9a7f0152b3cd1333e79879fe519c6f053",
+    "formulas": 400
+  },
+  {
+    "path": "WMD.kif",
+    "sha256": "a01c04aad9dfcaafa5f7cd4cfa94353039a6d4c2b4480ed283f1d5da46a212e0",
+    "formulas": 937
+  },
+  {
+    "path": "Weather.kif",
+    "sha256": "206648a5c73f8f47b139afc7903b880583a6d24c2853d53200ed0859c07904ef",
+    "formulas": 1154
+  },
+  {
+    "path": "WeatherStatecraft.kif",
+    "sha256": "69dec57b17cc3cb51a564805d457657df8d410fb33bda891c9de429a5209114f",
+    "formulas": 73
+  },
+  {
+    "path": "WordnetFormulas.kif",
+    "sha256": "c3797971cab53d34d996a8560f55130e8203f763eafbe8edee37a7c610792b96",
+    "formulas": 9
+  },
+  {
+    "path": "WorldAirports.kif",
+    "sha256": "91f4c1fb5deabf67b1916daf82b86782a8aef3d3a4c1811cb3a8d24536ffd16f",
+    "formulas": 36960
+  },
+  {
+    "path": "arteries.kif",
+    "sha256": "65e2b849571db9a444b664b7d5a55a0bdc51b67df0e83bde9cd470efd850b5df",
+    "formulas": 1426
+  },
+  {
+    "path": "capabilities.kif",
+    "sha256": "57ccdb0098346eb3a3b6ccb5742f9a660c44d716c4d6b557f7a2efba4d6daf62",
+    "formulas": 101
+  },
+  {
+    "path": "development/Antenna.kif",
+    "sha256": "7afb86979fb922b8ef3992ddff85fae36bc11ff7302add89052a8c9ddc67d2c1",
+    "formulas": 49
+  },
+  {
+    "path": "development/Auto.kif",
+    "sha256": "99c3a08fa3232e5e16d4a65a3987118f35f5ebe24a055ad64941bfe6339cc64b",
+    "formulas": 112
+  },
+  {
+    "path": "development/Biography.kif",
+    "sha256": "a84beac3bc9d8e7b19f5738e806b6d745cf49b71defe4dde2812c9ce3ae8242a",
+    "formulas": 209
+  },
+  {
+    "path": "development/BrazilianCulture.kif",
+    "sha256": "7546e878fb06e276d9d7362ab6278c825cbe2ece9ead8959cc06aa947bbae81a",
+    "formulas": 6
+  },
+  {
+    "path": "development/CommonSense.kif",
+    "sha256": "074b8aa113cd507dcfd1a4ffcb81655c8d1a0c31eff551daca3a20efd5acc981",
+    "formulas": 29
+  },
+  {
+    "path": "development/Cyber.kif",
+    "sha256": "9e1a6c2f30d8619b9c097790ff1c664d6cea85de5a95aba4cf1d84bbb6034b73",
+    "formulas": 285
+  },
+  {
+    "path": "development/DimensioningAmenities.kif",
+    "sha256": "62b1df01778aa5630c22cc8041204ed3fd3e1393bf1d3318e12b80f4cf7dcd59",
+    "formulas": 730
+  },
+  {
+    "path": "development/Enumerations.kif",
+    "sha256": "d2db1b3272d19c756736dcc96c22d69a1eba8246069369741d4ce2f8d3dbb3fe",
+    "formulas": 105
+  },
+  {
+    "path": "development/Facebook.kif",
+    "sha256": "26e67b97a74e7efbb83755f3871b61d84a3aae7fda7cce6ea2b4e3b902b13479",
+    "formulas": 182
+  },
+  {
+    "path": "development/GDPR.kif",
+    "sha256": "963e18524a5247b178acad64ce03d45a35525af26dddd06a79808deef156e6f6",
+    "formulas": 12
+  },
+  {
+    "path": "development/GDPRTerms.kif",
+    "sha256": "854c228c468bfdf955947146dff5ae06da27141c3213d0f0cbfdbb06f00409fe",
+    "formulas": 266
+  },
+  {
+    "path": "development/HOL.kif",
+    "sha256": "b9998941800ab7c55da5f923e92a7411453dda699e8547c1f46217b5f288c71e",
+    "formulas": 16
+  },
+  {
+    "path": "development/HOLtests/modal1.kif",
+    "sha256": "33e7ecceb2cab3dc8bd36d7aec5268e7dbac9f8a05775aaab8a2bdee87f1522f",
+    "formulas": 4
+  },
+  {
+    "path": "development/LinkedInDegrees.kif",
+    "sha256": "b3dbc5d7b16c9cf2be8493c0e1f16e037672c4aa4dd47536f661a57fbf3d4c04",
+    "formulas": 112
+  },
+  {
+    "path": "development/MedReason.kif",
+    "sha256": "75030436716330cdfc5ebd98b199ed803ab8ed4a0adf0c88d4cc3c728cc2ba22",
+    "formulas": 38
+  },
+  {
+    "path": "development/NIEM-Scenario-Concepts.kif",
+    "sha256": "f2c0e74631ccce32cab1a66d4a6a5a33259130ee066e99a77e043bd0d7dc0290",
+    "formulas": 131
+  },
+  {
+    "path": "development/Offers.kif",
+    "sha256": "f65697eb69e202b4fa0f014d6307c9ae2a7b6aa1986d821b77209452556ba9df",
+    "formulas": 100
+  },
+  {
+    "path": "development/PolishCulture.kif",
+    "sha256": "f036a752afda65d97a1a889d1fb5b3b359eb8465f6d12b4509f8fcb8d1af7bcf",
+    "formulas": 62
+  },
+  {
+    "path": "development/ROE_Master.kif",
+    "sha256": "4a74585c1da49689a7997f21bea3a803600a11845c53273aea8553d4806c8fe0",
+    "formulas": 554
+  },
+  {
+    "path": "development/ROE_Series.kif",
+    "sha256": "892632d2652d751b404ec04782172c2d70269d426fcbb82495b727eb07e36e88",
+    "formulas": 598
+  },
+  {
+    "path": "development/ROE_Supplementary.kif",
+    "sha256": "cb44b04cc37db6f8069f4a07b7a559ec9ed57eab4c434f659aafed15d78177c2",
+    "formulas": 139
+  },
+  {
+    "path": "development/Robot.kif",
+    "sha256": "cf8076e47edf290d1c3ae30d646b1e0fd22ba37b29dde277528e8ce4685c971e",
+    "formulas": 18
+  },
+  {
+    "path": "development/Society.kif",
+    "sha256": "9f50f70b759da6cd06a56332f838ff5804bd1d930d1deff19cd45781a97a5004",
+    "formulas": 475
+  },
+  {
+    "path": "development/SupplyChain.kif",
+    "sha256": "0dc82bd658b151f236bc9b255827e67f1f47410f608dc656aaf404766665d02a",
+    "formulas": 209
+  },
+  {
+    "path": "development/Transport_2024.kif",
+    "sha256": "d1274cb5ed528543d954c4f1e9bf0c0600fbf6b5002fefa8e1fcf92de9aba049",
+    "formulas": 51
+  },
+  {
+    "path": "development/TravelPolicies.kif",
+    "sha256": "de20e59f4aec5f44bd91402b479df8e0550fd546a320260d6edc2993c8543549",
+    "formulas": 143
+  },
+  {
+    "path": "development/Useful-terms_2023.kif",
+    "sha256": "8be68a085ed2ae6a7001bf7c08033dd463707ec01110ea2df52e51a676edec9c",
+    "formulas": 0
+  },
+  {
+    "path": "development/modals.kif",
+    "sha256": "c6f127c83d3ac93aa9c6867fe2c8e22a1175a0c08563f647c2d70b23eb8bccfe",
+    "formulas": 62
+  },
+  {
+    "path": "development/tinyMed.kif",
+    "sha256": "b124e401b8a44afeb2cc5556ebe5002b540409dfa89fd8d1d4bc1def03c3ffba",
+    "formulas": 79
+  },
+  {
+    "path": "development/tinySUMOGDPR.kif",
+    "sha256": "1c676c9b43b572bf3bc4c2c955b6833068e38be18575198e3289acb6e9a88bee",
+    "formulas": 331
+  },
+  {
+    "path": "domainEnglishFormat.kif",
+    "sha256": "c43850d4f6b5f7cfa144865cec1d38d0de7c58d9e6cbe73611d1455c221fd21d",
+    "formulas": 34494
+  },
+  {
+    "path": "emotion.kif",
+    "sha256": "d0a236a2ad59b3ec81c8b018bb11ab6f939ac30fe644cf1fb3e016c842103af7",
+    "formulas": 1038
+  },
+  {
+    "path": "engineering.kif",
+    "sha256": "391cd7c332e7219cee204cd3b6eb820eda9d9aa608b74a917ff2d9209ff92bcd",
+    "formulas": 736
+  },
+  {
+    "path": "english_format.kif",
+    "sha256": "0056071bfc0295f2c5923bfd9a6f672879c0e675166534626a61b56e2df75f1d",
+    "formulas": 834
+  },
+  {
+    "path": "mappings/DHS_Taxonomy.kif",
+    "sha256": "5a71e7233dc6c41b1c8ef349403ab7942881fdb3922f108337634b3be52b87f4",
+    "formulas": 294
+  },
+  {
+    "path": "mappings/FOAFmap.kif",
+    "sha256": "d1a4cca33f07ad3c2a7cba370db618098047489b4544b4a74641c03b3ceecfb9",
+    "formulas": 53
+  },
+  {
+    "path": "mappings/HotelDetail.kif",
+    "sha256": "9098b528e43dcc5d1e93f0eb796b2d2de907736374850aa565a190b9013a733d",
+    "formulas": 246
+  },
+  {
+    "path": "mappings/ISCOgroups.kif",
+    "sha256": "da54c91ef5b87bf137045199e898e152f7196aa521c920aea69cde3b1422aa2b",
+    "formulas": 220
+  },
+  {
+    "path": "mondial.kif",
+    "sha256": "539959258582dffc60fba9e9c319bae3c592d2651b11608e0c34a3451d3d4d57",
+    "formulas": 40472
+  },
+  {
+    "path": "naics.kif",
+    "sha256": "4960f95edcbb6fb82817a4cb15d5908a06dd65da0c7c670869a407552e505c5b",
+    "formulas": 3360
+  },
+  {
+    "path": "nlg_supplement_formats.kif",
+    "sha256": "68a7c789e174c959ca59ba4b55fdf610e13b48103637b6453db471532d6fd424",
+    "formulas": 20
+  },
+  {
+    "path": "pictureList-ImageNet.kif",
+    "sha256": "a4465c213a0081bd35b271109e7bfd14d6b117717ae4af68a12396cf94984510",
+    "formulas": 887
+  },
+  {
+    "path": "pictureList.kif",
+    "sha256": "120791828985ef369162e027b406304259e5db3e2f321c72436bf63b371e544e",
+    "formulas": 9773
+  },
+  {
+    "path": "tests/Lists.kif",
+    "sha256": "e77016ef16415f252207bcce96e76cd3f0c751ab36b8ee45fa27a50a7ad3343d",
+    "formulas": 19
+  },
+  {
+    "path": "tests/PreMedMurder.kif",
+    "sha256": "eab51a4d7a7102a08709e0d7ae3761c297f5a1dd294f91897f7676b9440d5c67",
+    "formulas": 5
+  },
+  {
+    "path": "tests/RCC.kif",
+    "sha256": "1a0444035e7068a51f6c3e8e06583e1676ce5705e050738566022a90eb962b51",
+    "formulas": 91
+  },
+  {
+    "path": "tests/SP02.kif",
+    "sha256": "43d3189deb1abbf337189d8c31f3442e8e70020cfd53e9aaf403974b9c6ba9ba",
+    "formulas": 5
+  },
+  {
+    "path": "tests/SP04.kif",
+    "sha256": "3b1ee324cfacf93d135607d2f19d5f561f352efdd6a4d558501b753c920926f7",
+    "formulas": 13
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/1a_Obligation_univConj/1a_o_univconj_KIF.kif",
+    "sha256": "b54671ef2b655436917608cb727ba5089239f376ba58a393c8ec8f580a5d6510",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/1c_Obligation_parallel/1c_o_parallel_KIF.kif",
+    "sha256": "4a9c6941bf2f5a7b2f6a513eb02701bcd57a51f090e0906ea082e7b2e139b39d",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/1d_Obligation_nHopsConj/1d_o_nhops_KIF.kif",
+    "sha256": "a7c04d35e690a9dd5a07a2e99e75a9d3286e7c8d472b394eebf60ad6c1a1983f",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/1e_Obligation_existNHops/1e_o_existnhops_KIF.kif",
+    "sha256": "c44808bbb85210682375357a879cf51f95120658ac15110f847a00e452e8d0f5",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/1g_Obligation_UO1_existConj/1g_o_uo1_existConj_KIF.kif",
+    "sha256": "3fc98b45c499c5160e951fa542c47cf759d234ae2d47c442f476588905ce40bb",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/1h_Obligation_UO1_univConj/1h_o_uo1_univConj_KIF.kif",
+    "sha256": "4aa4a80cb9d560241ea5c696014f12a72f455f1cf7a87b28b5c6bc82810a29b2",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/1i_Obligation_singleO/1i_o_singleO_KIF.kif",
+    "sha256": "880e9916933fc0ec7ffb020521939c3af0e0627b70dc9b4e9e08f3ebeaaa24e2",
+    "formulas": 3
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/2a_Permission_chained_univConj/2a_p_chained_univconj.kif",
+    "sha256": "1bedc7d1ba9b800205aef56b0045deb32af20a262c133d76ce1aa3249b117136",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/2b_Permission_chained_existConj/2b_p_chained_existconj_KIF.kif",
+    "sha256": "93f1a575fce548667e7e1d2d8b02a10c0fd68f553f1f1128fc12df9ed04b6657",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/3a_Forbiddance_univConj/3a_f_univConj_KIF.kif",
+    "sha256": "0b97629608f0e7fc647d88fe9961902275d949066aeab0d3eb5ebfdebd5f9407",
+    "formulas": 5
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/4a_O_then_P_aBridgeTooFar/4a_o_then_p_abridgetoofar_KIF.kif",
+    "sha256": "c7896608238633e7de78e5748e73d10c914acb48ff5eeb443fb9e9cc327c095a",
+    "formulas": 5
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/4b_O_then_P_stopsAtLastO/4_o_then_p_KIF.kif",
+    "sha256": "87abf9a0eab5aae5fdabb279cb2ff0f63c8c6eb8a8464c1fd04f293d754bc41b",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/4c_O_then_P_BTF_2HopConj/4c_o_then_p_btf_2hopconj_KIF.kif",
+    "sha256": "6b063bf8fe5dbfa700afb87bce96e51b4f07b8869714a38dee36b5884668ebe3",
+    "formulas": 5
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/4d_O_then_P_SALO_2HopConj/4d_o_then_p_salo_2hopconj_KIF.kif",
+    "sha256": "4386bec29a317d0ebca36416b60f7d92ee1f8adefb811bb86b4c08bf5ba1cfba",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/1_obligation_KIF.kif",
+    "sha256": "52e18f911242c8c5ecfa69d477e2ed30b40a8d4c1b417f639e5a6c66cf6b8765",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/2_permission_KIF.kif",
+    "sha256": "9de7974d287d0419ba8a4a367000ea2002308097b98eb740201965f831c9cf17",
+    "formulas": 3
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/3_forbiddance_KIF.kif",
+    "sha256": "d6d9465b8ae18e59e87cdb92c3686852e4082da4c2a515373171a3e48b37035a",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/4_o_then_p_KIF.kif",
+    "sha256": "7dd028a31d5e74079753a822bd641fad65306ae66cd2de298a1e2a40fa56aaad",
+    "formulas": 4
+  },
+  {
+    "path": "tests/TQM10.kif",
+    "sha256": "71da52dc18b3e39bc5d21a22aa097fe8f6e05e27825b8bd6ec006582e5c45056",
+    "formulas": 14
+  },
+  {
+    "path": "tests/TQM3.kif",
+    "sha256": "71422b91f239e342de8a697f4189957adea3ab8d860899c5247f831e36239c3a",
+    "formulas": 5
+  },
+  {
+    "path": "tests/TQM8.kif",
+    "sha256": "5f474e3b110bf75b6810d61d549c45b07124afbf5273a9904ddd9c6c788d78dd",
+    "formulas": 11
+  },
+  {
+    "path": "tests/TQM9.kif",
+    "sha256": "f7ec7f87fc8a89458784d09a0530f1e947191a25dca37e587e8e8fa5f56579bb",
+    "formulas": 5
+  },
+  {
+    "path": "tinyHOL.kif",
+    "sha256": "1026f7557d67ea5afe4abe5269bdd857d6fa3d4ba4739ba7e8e1e5bee159b02c",
+    "formulas": 23
+  },
+  {
+    "path": "tinyIntSUMO.kif",
+    "sha256": "33edd9e16f47240122cee2d716745b20f4d4f15476f7e8abe5c7d319c9535593",
+    "formulas": 336
+  },
+  {
+    "path": "tinySUMO.kif",
+    "sha256": "229b33137a13c49b99af4f229b47d402348bc2ee4da2088100f3e48ccda59a8d",
+    "formulas": 351
+  }
+]

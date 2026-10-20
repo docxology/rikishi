@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: "Cite this software for its operator implementation; cite SUMO and any formalization sources separately."
+title: "Rikishi: a reproducible SUMO ontology operator"
+type: software
+version: 0.1.0
+authors:
+  - family-names: Friedman
+    given-names: Daniel Ari
+license: MIT
+repository-code: "https://github.com/docxology/rikishi"
+keywords:
+  - SUMO
+  - ontology
+  - variational inference
+  - provenance

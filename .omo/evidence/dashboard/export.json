@@ -1,0 +1,6 @@
+{
+  "html": ".omo/evidence/dashboard/full-corpus/dashboard.html",
+  "data": ".omo/evidence/dashboard/full-corpus/corpus.json",
+  "svg": ".omo/evidence/dashboard/full-corpus/corpus-files.svg",
+  "png": ".omo/evidence/dashboard/full-corpus/corpus-files.png"
+}

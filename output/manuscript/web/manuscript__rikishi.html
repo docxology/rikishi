@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12.1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Daniel Ari Friedman" />
+  <title>Rikishi: a reproducible SUMO ontology operator</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      font-size: 11pt;
+      color: #1a1a1a;
+      color: light-dark(#1a1a1a, #fdfdfd);
+      background-color: #fdfdfd;
+      background-color: light-dark(#fdfdfd, #1a1a1a);
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a, a:visited {
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid;
+      border-color: #e6e6e6;
+      border-color: light-dark(#e6e6e6, #4c4c4c);
+      color: #606060;
+      color: light-dark(#606060, #b6b6b6);
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid currentColor;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+    }
+    th {
+      border-top: 1px solid currentColor;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script data-template-mathjax-config>
+window.MathJax = window.MathJax || {};
+window.MathJax.chtml = Object.assign({}, window.MathJax.chtml, {
+  fontURL: "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/woff2",
+  dynamicPrefix: "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.0.0/chtml/dynamic"
+});
+var templateMathOutput = window.MathJax.output || {};
+window.MathJax.output = Object.assign({}, templateMathOutput, {
+  displayOverflow: "linebreak",
+  linebreaks: Object.assign({}, templateMathOutput.linebreaks, {
+    inline: true,
+    width: "100%",
+    lineleading: 0.5
+  })
+});
+window.normalizeTemplateMathJaxAria = function () {
+  document.querySelectorAll("mjx-speech[aria-roledescription]").forEach(function (node) {
+    var roleDescription = node.getAttribute("aria-roledescription") || "";
+    if (/[-]/.test(roleDescription)) {
+      node.setAttribute("aria-roledescription", "mathematical expression");
+    }
+  });
+};
+window.MathJax.startup = Object.assign({}, window.MathJax.startup, {
+  ready: function () {
+    var measuredWidth = document.documentElement.clientWidth;
+    var reflowQueued = false;
+    window.MathJax.startup.defaultReady();
+    window.templateMathJaxReflowPromise = window.MathJax.startup.promise.then(
+      window.normalizeTemplateMathJaxAria
+    );
+    function reflowDisplayMath() {
+      if (reflowQueued || document.documentElement.clientWidth === measuredWidth) return;
+      reflowQueued = true;
+      window.templateMathJaxReflowPromise = window.templateMathJaxReflowPromise
+        .catch(function () { /* A later resize may retry a failed render. */ })
+        .then(async function () {
+          var width = document.documentElement.clientWidth;
+          try {
+            // MathJax 4 MathItem.STATE.METRICS = 110. The default RERENDER
+            // state retains old container metrics and cannot reflow on zoom.
+            await window.MathJax.startup.document.rerenderPromise(110);
+            window.normalizeTemplateMathJaxAria();
+            window.templateMathJaxReflowError = null;
+          } catch (error) {
+            window.templateMathJaxReflowError = String(error);
+            console.error("MathJax viewport reflow failed", error);
+            throw error;
+          } finally {
+            measuredWidth = width;
+            reflowQueued = false;
+          }
+        })
+        .then(reflowDisplayMath);
+      // Keep failure observable to callers without an unhandled rejection.
+      window.templateMathJaxReflowPromise.catch(function () {});
+    }
+    window.addEventListener("resize", reflowDisplayMath);
+    // Also cover a resize that happened during the initial asynchronous render.
+    window.templateMathJaxReflowPromise.then(reflowDisplayMath);
+  }
+});
+</script>
+<script defer=""
+  type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-chtml.js" integrity="sha384-2BWc4dVaHADUocwKrUrK9u3iDwHxVMKXWEcoRmUkXYSFKhAsgVAYClu9ydNuo5Oz" crossorigin="anonymous"></script>
+
+<link data-template-favicon rel="icon" href="favicon.ico">
+
+<style>
+:root {
+  --brand-1: #5b6ee0;
+  --web-bg: #f8f8f8;
+  --web-surface: #ffffff;
+  --web-text: #2c3e50;
+  --web-border: #bdc3c7;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-1: #7e8ce8;
+    --web-bg: #0f1420;
+    --web-surface: #161c2b;
+    --web-text: #e6eaf2;
+    --web-border: #2a3447;
+  }
+}
+.theorem-box {
+  border-left: 4px solid var(--brand-1);
+  background: var(--web-surface);
+  padding: 0.6em 1em;
+  margin: 1.1em 0;
+  border-radius: 0 4px 4px 0;
+}
+.theorem-box.definition { border-left-style: dashed; }
+.theorem-box > p:first-child { margin-top: 0; }
+.theorem-box > p:last-child { margin-bottom: 0; }
+.figure-long-description {
+  border: 1px solid var(--web-border);
+  border-radius: 4px;
+  margin-block: 0.75rem;
+  padding: 0.5rem 0.75rem;
+}
+.figure-long-description > summary { cursor: pointer; font-weight: 700; }
+.figure-long-description > p { max-width: 80ch; overflow-wrap: anywhere; }
+.figure-exact-values { max-width: 80ch; overflow-wrap: anywhere; }
+code { overflow-wrap: anywhere; word-break: break-word; }
+pre {
+  max-width: 100%;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+pre code { overflow-wrap: inherit; white-space: inherit; word-break: inherit; }
+div.sourceCode { max-width: 100%; overflow: visible; }
+pre.sourceCode { background: #2c3e50; color: #ecf0f1; }
+pre.sourceCode code,
+pre.sourceCode code span { color: inherit; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+mjx-container[display="true"] { max-width: 100%; overflow: visible; }
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+.table-scroll:focus-visible {
+  outline: 3px solid var(--brand-1);
+  outline-offset: 3px;
+}
+.table-scroll > table { margin-block: 0; min-width: 100%; width: max-content; }
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+body {
+  font-family: 'Liberation Serif', 'Times New Roman', serif;
+  line-height: 1.6;
+  width: min(100%, 800px);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  color: #1a1a1a;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+main,
+nav,
+section,
+article,
+figure,
+figcaption {
+  min-width: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 0.65rem 0.9rem;
+  transform: translateY(-120%);
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.skip-link:visited {
+  color: #ffffff;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  figure img {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 800px) {
+  body {
+    width: 100%;
+    max-width: 100vw;
+    margin: 0 auto;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #2c3e50;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+code {
+  background-color: #ecf0f1;
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: 'Liberation Mono', 'Courier New', monospace;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+pre {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  max-width: 100%;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  overflow-wrap: inherit;
+  white-space: inherit;
+  word-break: inherit;
+}
+
+div.sourceCode {
+  max-width: 100%;
+  overflow: visible;
+}
+
+pre.sourceCode {
+  background: #2c3e50;
+  color: #ecf0f1;
+}
+
+pre.sourceCode code,
+pre.sourceCode code span {
+  color: inherit;
+}
+
+pre > code.sourceCode {
+  white-space: pre-wrap;
+}
+
+pre > code.sourceCode > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+
+.table-scroll:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.table-scroll > table {
+  margin-block: 0;
+  min-width: 100%;
+  width: max-content;
+}
+
+figure {
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+th, td {
+  border: 1px solid #bdc3c7;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #1f6f8b;
+  color: white;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #bdc3c7;
+  border-radius: 5px;
+  margin: 20px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: #b91c1c;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+  overflow-wrap: anywhere;
+}
+
+a:visited {
+  color: #8f1d1d;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+a:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 3px;
+}
+
+.toc {
+  background-color: #ecf0f1;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.toc a,
+#TOC a {
+  color: #b91c1c;
+  display: inline-block;
+  min-height: 28px;
+  line-height: 1.5;
+  padding-block: 2px;
+}
+
+.toc li,
+#TOC li {
+  margin-block: 1px;
+}
+
+.math {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 1.1em;
+}
+
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+  padding-bottom: 0.25rem;
+}
+
+.figure {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.figure img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* A reading column keeps prose comfortable, but dense scientific figures need
+   a larger inspection surface.  The rendered image remains responsive and the
+   explicit link opens its source-resolution asset without changing the PDF. */
+.figure-full-size-link {
+  color: inherit;
+  display: block;
+  max-width: 100%;
+  text-align: center;
+}
+
+.figure-full-size-link img {
+  cursor: zoom-in;
+  margin-bottom: 0.45rem;
+}
+
+.figure-full-size-label {
+  color: #1f6f8b;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.figure-full-size-link:focus-visible {
+  outline: 3px solid #1f6f8b;
+  outline-offset: 4px;
+}
+
+@media (min-width: 1000px) {
+  /* Wide figure links stay within the viewport but extend beyond the prose
+     column. Do not clip their labels at the narrower body boundary. */
+  body {
+    overflow-x: visible;
+  }
+
+  .figure-full-size-link {
+    left: 50%;
+    max-width: none;
+    position: relative;
+    transform: translateX(-50%);
+    width: min(1080px, calc(100vw - 3rem));
+  }
+}
+
+.figure-caption {
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.figure-long-description,
+.figure-exact-values {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+</style>
+<script data-template-source-font-loader src="assets/source-web-fonts.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<main id="main-content" tabindex="-1">
+<header id="title-block-header">
+<h1 class="title">Rikishi: a reproducible SUMO ontology operator</h1>
+<p class="author">Daniel Ari Friedman</p>
+<p class="date">Software methods manuscript, version 0.1.0</p>
+</header>
+<h1 id="abstract">Abstract</h1>
+<p>Rikishi organizes local work with the Suggested Upper Merged Ontology
+(SUMO) around reproducible source acquisition, inspectable ontology
+data, explicit reasoning operations, and machine-readable interfaces.
+Its research extension provides a finite variational free-energy example
+and proposed connections to source-pinned Lean declarations in the
+Active Inference Institute’s <code>fep_formal</code> repository. The
+package separates source provenance, numerical calculation,
+theorem-prover output, and formal proof claims. This manuscript
+describes that separation, the finite example, an operator workflow, and
+the evidence required for future semantic alignment. The correspondence
+is exploratory: no general SUMO-to-Lean equivalence or biological
+free-energy theorem is claimed.</p>
+<h1 id="motivation-and-scope">Motivation and scope</h1>
+<p>An ontology environment needs more than a downloaded vocabulary.
+Researchers need to know which revision they queried, which formulas
+support a graph view, what a reasoner actually established, and how to
+repeat an experiment. Rikishi addresses these operational needs while
+keeping the upstream ontology authoritative.</p>
+<p>The upstream <a href="https://github.com/ontologyportal/sumo">SUMO
+repository</a> distributes SUO-KIF sources and accompanying resources.
+Rikishi uses those real sources rather than a replacement demonstration
+ontology. Software interfaces expose selected operations and
+observations; they do not redefine the ontology’s semantics. The package
+name refers to a sumo wrestler and distinguishes the operator software
+from the ontology it operates.</p>
+<h1 id="system-design">System design</h1>
+<h2 id="source-and-runtime-provenance">Source and runtime
+provenance</h2>
+<p>Acquisition records an upstream Git revision. A source index offers
+term lookup, formula context, and descriptive summaries. Reasoning is a
+separate activity with its own input set, translation or language
+assumptions, tool version, and output. The environment’s runtime
+documentation defines which backend is available and how to reproduce
+its checks. A successful installation is not a consistency proof.</p>
+<p>Source-derived relationships support navigation but require
+interpretation. For example, a relation occurring inside an implication
+cannot automatically be read as an unconditional fact. Similarly, a
+class name appearing in documentation is not an asserted instance.
+Quantification, polarity, and formula structure must remain available to
+the researcher.</p>
+<h2 id="interfaces-and-quantification">Interfaces and
+quantification</h2>
+<p>The command line, local dashboard, and MCP server provide entrypoints
+for human and agent workflows. Useful descriptive quantities include
+parsed formula counts, symbol frequencies, relation frequencies, and
+source coverage. Such measurements describe the selected files and
+indexing policy. They cannot establish completeness, consistency,
+empirical validity, or the quality of an ontological commitment.</p>
+<p>An operator should retain the query and its result together with
+source revision, configuration, and diagnostics. A failed parser or
+reasoner invocation is evidence about that invocation. It must remain
+visible rather than being replaced by an empty result that appears
+successful.</p>
+<h1 id="corpus-and-reasoning-observations">Corpus and reasoning
+observations</h1>
+<h2 id="corpus-measurements">Corpus measurements</h2>
+<p>The exported corpus at SUMO revision
+<code>efcd059f8feebfe3488a09f575f88d4d009b1e5c</code> contains
+<strong>144 KIF files</strong>, <strong>212845 top-level
+formulas</strong>, <strong>34885 distinct indexed symbols</strong>, and
+<strong>71701 asserted binary edges</strong>, with <strong>0 parse
+errors</strong>. These values are substituted directly from
+<code>output/data/corpus.json</code> during rendering; the receipt
+records the export hash and substituted values. Nested sources are
+included by the index, whereas Sigma’s default knowledge-base profile
+selects top-level domain files. Thus corpus size must not be mistaken
+for the set loaded into one reasoner.</p>
+<figure>
+<a class="figure-full-size-link" href="figures/corpus-files.png" target="_blank" rel="noopener" aria-label="Open full-size figure, Measured formula counts in the largest indexed SUMO source files."><img src="figures/corpus-files.png" style="width:90.0%"
+alt="Measured formula counts in the largest indexed SUMO source files. Counts describe source structure, not logical importance or proof coverage." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Measured formula counts in the largest
+indexed SUMO source files. Counts describe source structure, not logical
+importance or proof coverage.</figcaption>
+</figure>
+<p>The distribution is heterogeneous: large geographical and
+language-related files contribute many formulas. A count is sensitive to
+the chosen source revision and file-selection policy. Duplicate
+meanings, redundant formulas, or development proposals may be
+represented; the measure does not estimate independent facts.</p>
+<h2 id="source-bound-taxonomic-proof">Source-bound taxonomic proof</h2>
+<p>The command
+<code>uv run rikishi taxonomy-proof Human AutonomousAgent</code>
+projects direct <code>subclass</code> assertions from
+<code>Merge.kif</code> into a first-order problem and adds an explicit
+transitivity rule. The installed E prover returned <code>Theorem</code>
+for that problem in the recorded run.
+<code>output/reasoning/taxonomy.json</code> records the original
+assertions and source locations, <code>taxonomy.p</code> contains the
+TPTP problem, and <code>taxonomy.result.json</code> retains the command,
+exit status, and proof-search output.</p>
+<p>This is a restricted taxonomic projection, not full SUMO inference.
+It does not translate arbitrary SUO-KIF formulas, import all domain
+axioms, reason about FEP mathematics, or establish ontology-wide
+consistency. The proof obligation is the projected subclass relation
+under the supplied direct facts and transitivity. Other conjectures may
+yield countermodels or inconclusive search statuses; those outcomes must
+retain their original scope.</p>
+<p>The native Sigma pipeline was also exercised with the
+four-constituent core knowledge base, after a versioned compound-type
+guard patch. It returned <code>SZSTheorem</code> for
+<code>(subclass Human Animal)</code>, but the negative control
+<code>(subclass Human Artifact)</code> returned
+<code>SZSContradictoryAxioms</code>. This exposes an unresolved
+inconsistency in the translated core problem; whether it originates in
+ontology axioms or translation has not been established. Consequently,
+the native core run does not certify meaningful semantic validation,
+even when a positive query returns a theorem status. This limitation is
+separate from the independently checked restricted taxonomic projection
+above.</p>
+<h1 id="a-finite-free-energy-example">A finite free-energy example</h1>
+<p>Let the latent state be binary and let one observation have
+likelihoods 0.8 and 0.2 under the two states. The prior is uniform.
+Consequently, the joint mass for this observation is
+<code>(0.4, 0.1)</code>, its evidence is 0.5, and the exact posterior is
+<code>(0.8, 0.2)</code>. These values define a small, completely
+inspectable model.</p>
+<p>For a normalized candidate distribution <span
+class="math inline">\(q\)</span>, define the variational objective</p>
+<p><span class="math display">\[F(q)=\sum_s
+q(s)\log\frac{q(s)}{p(s,o)}.\]</span></p>
+<p>On the supported domain it satisfies</p>
+<p><span class="math display">\[F(q)=D_{KL}(q\Vert p(\cdot\mid o))-\log
+p(o).\]</span></p>
+<p>Natural logarithms make the units nats. At the uniform candidate,
+direct calculation gives <span
+class="math inline">\(F=\log(2.5)\)</span>, approximately 0.916291.
+Surprise is <span class="math inline">\(\log(2)\)</span>, approximately
+0.693147, and posterior divergence is <span
+class="math inline">\(\log(1.25)\)</span>, approximately 0.223144. At
+the exact posterior the divergence is zero and the objective equals
+surprise. The implementation evaluates the objective and the
+decomposition separately and reports their floating-point residual.</p>
+<figure>
+<a class="figure-full-size-link" href="figures/fep-free-energy.png" target="_blank" rel="noopener" aria-label="Open full-size figure, Finite variational free energy over the binary candidate probability."><img src="figures/fep-free-energy.png" style="width:90.0%"
+alt="Finite variational free energy over the binary candidate probability. The dashed line is surprise; the marked minimum occurs at the exact posterior probability 0.8." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Finite variational free energy over the
+binary candidate probability. The dashed line is surprise; the marked
+minimum occurs at the exact posterior probability 0.8.</figcaption>
+</figure>
+<p>The numerical contract rejects nonfinite, negative, nonnormalized,
+mismatched, and unsupported inputs. Zero candidate probability
+contributes zero. Positive candidate mass at zero joint probability is
+rejected because the extended-real objective would be infinite. This
+finite JSON interface deliberately reports a domain error instead of
+encoding infinity or inventing a finite penalty.</p>
+<p>Tests compare against the independent logarithmic values above and
+check the exact posterior minimum. Invalid vectors provide negative
+controls: acceptance of an unnormalized prior or zero-evidence
+observation must fail the test. This example shows inference in a chosen
+model. It makes no empirical claim about organisms or their physical
+dynamics.</p>
+<h1 id="connections-to-formalization">Connections to formalization</h1>
+<p>The inspected <code>fep_formal</code> revision is
+<code>9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de</code>. Its
+finite-information module contains declarations for KL nonnegativity,
+self-divergence, and the relation between KL, cross-entropy, and
+entropy. Rikishi retrieves these declarations from committed Git objects
+and produces exact source links. This is source inspection; this
+workflow does not compile Lean or reconstruct a proof certificate.</p>
+<p>An important semantic boundary occurs at zero reference mass. The
+inspected Lean definition uses totalized real division and a
+<code>klFun</code> integrand. Its logarithmic identity requires strict
+support assumptions. The numerical operator’s rejection of unsupported
+positive mass therefore cannot be identified with the Lean definition
+over every input. A formal bridge must state its restricted domain and
+prove the relationship rather than infer it from the shared name
+“KL”.</p>
+<p>The candidate vocabulary mappings in
+<code>config/fep_mappings.json</code> identify probability, functions,
+real-valued quantities, reasoning, processes, and agents as areas to
+investigate in SUMO. Each mapping is explicitly proposed and carries an
+outstanding obligation. Shared vocabulary alone does not establish
+mathematical equivalence. A future bridge must supply a carrier
+interpretation, type and argument translation, normalization and support
+conditions, and a soundness argument for the exact target fragment.</p>
+<p>The separate <code>examples/fep-ontology.kif</code> extension gives
+an inspectable vocabulary experiment:
+<code>RikishiVariationalInference</code> is proposed as a subclass of
+<code>Reasoning</code>, <code>RikishiFiniteGenerativeModel</code> as a
+subclass of <code>Proposition</code>, and the binary example as an
+instance of the inference class. The six formulas include documentation
+of their intended use and limitations. These author-created assertions
+are kept outside the upstream checkout. They neither enforce numerical
+normalization nor transport a Lean proof; their adequacy as an ontology
+model remains a research question requiring explicit interpretation and
+review.</p>
+<h1 id="reproducible-workflow">Reproducible workflow</h1>
+<ol type="1">
+<li>Prepare the declared Python environment and external storage
+paths.</li>
+<li>Install the pinned SUMO sources and runtime using the package’s
+operator commands.</li>
+<li>Record source and tool identities before indexing or reasoning.</li>
+<li>Retain query, source context, diagnostics, and proof-search output
+together.</li>
+<li>Execute the finite example and inspect its residual and negative
+controls.</li>
+<li>Render this manuscript through the docxology/template adapters and
+inspect the resulting PDF, DOCX, and HTML.</li>
+</ol>
+<p>The renderer writes numerical JSON and a figure before publication.
+It records source and output hashes, artifact sizes, and the template
+revision in a receipt. Those records support byte-level reproducibility
+and identify dependencies; they do not replace scientific review. A
+changed upstream revision, local configuration, or rendering dependency
+requires a fresh receipt.</p>
+<h1 id="contribution-and-limitations">Contribution and limitations</h1>
+<p>Upstream issues and pull requests should contain a minimal reproducer
+and a precise claim. Timeout or unknown proof-search status does not
+establish that a statement is false. A vocabulary mismatch does not
+establish an ontology defect. Private research content should be
+excluded from public reports unless deliberately released.</p>
+<p>The present numerical module uses floating-point arithmetic and a
+finite carrier. It does not provide arbitrary-precision or log-domain
+inference, continuous-state models, learned likelihoods, or biological
+parameter estimation. The source bridge does not perform automatic
+ontology-to-Lean translation. The dashboard is a local research
+interface whose deployment security requires separate evaluation before
+public hosting. These boundaries make the package’s evidence
+interpretable and define concrete next experiments.</p>
+<h1 id="sources">Sources</h1>
+<ul>
+<li><a href="https://github.com/ontologyportal/sumo">OntologyPortal SUMO
+source repository</a>.</li>
+<li><a
+href="https://github.com/ontologyportal/sumo/blob/master/CONTRIBUTING.md">SUMO
+contribution guidance</a>.</li>
+<li><a
+href="https://github.com/ActiveInferenceInstitute/fep_formal/blob/9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de/lean/FepSketches/finite_information.lean">Pinned
+finite-information declarations</a>.</li>
+<li><a href="https://github.com/docxology/template">docxology/template
+rendering infrastructure</a>.</li>
+</ul>
+</main>
+</body>
+</html>

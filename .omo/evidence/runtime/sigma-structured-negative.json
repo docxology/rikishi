@@ -1,0 +1,12 @@
+{
+  "status": "ContradictoryAxioms",
+  "outcome": "inconsistent_translated_axioms",
+  "proved": false,
+  "atp_returncode": 0,
+  "consistency": "contradictory_translated_axioms_detected",
+  "returncode": 0,
+  "log": "/Volumes/GitVault/Username/docxology/Private/rikishi/.omo/evidence/runtime/sigma-structured-negative.log",
+  "profile": "/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/core",
+  "query": "(subclass Human Artifact)",
+  "prover": "e"
+}

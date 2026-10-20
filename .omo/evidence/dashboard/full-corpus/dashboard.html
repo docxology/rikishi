@@ -1,0 +1,836 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Measured SUMO ontology corpus report"><title>Rikishi · Corpus report</title><style>:root{color-scheme:light;--paper:#f6f5f0;--surface:#fff;--ink:#252a28;--muted:#626960;--line:#dedfd7;--accent:#176b62;--wash:#e7f0e9;--error:#a12d26;--radius:8px;--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px;--s6:48px;font-family:"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.5;color:var(--ink);background:var(--paper)}[data-theme=dark]{color-scheme:dark;--paper:#171c1a;--surface:#202723;--ink:#eef0e9;--muted:#b3bdb4;--line:#3e4941;--accent:#8ed3bf;--wash:#293d32;--error:#ffb3aa}*{box-sizing:border-box}body{margin:0}a{color:var(--accent);text-underline-offset:4px}button,input{font:inherit}button{min-height:44px;padding:var(--s1) var(--s2);border:1px solid var(--line);border-radius:4px;background:var(--surface);color:var(--ink);cursor:pointer}button:hover{background:var(--wash)}button:active{opacity:.75}button:disabled{opacity:.5;cursor:wait}:focus-visible{outline:2px solid var(--accent);outline-offset:3px}header,main{max-width:1440px;margin:auto;padding:var(--s4) var(--s5)}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}.brand{font-family:Georgia,serif;font-size:32px;font-weight:bold;text-decoration:none;color:var(--ink)}.brand span{display:inline-block;font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;font-weight:500;letter-spacing:.12em;margin-left:var(--s4);color:var(--muted)}.intro{display:flex;justify-content:space-between;gap:var(--s5);padding:var(--s5) 0 var(--s6)}.eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;color:var(--accent);margin:0 0 var(--s3)}h1{font:normal clamp(36px,5vw,64px)/1.08 Georgia,serif;letter-spacing:-.035em;margin:0 0 var(--s4)}h2{font-size:24px;font-weight:500;letter-spacing:-.025em;margin:0 0 var(--s3)}h3{font-size:18px;font-weight:500;margin:0 0 var(--s2)}.lede{color:var(--muted);margin:0}.intro-note{align-self:flex-end;max-width:320px;font-size:12px;letter-spacing:.04em}.intro-note p{overflow-wrap:anywhere;letter-spacing:0;font-size:14px;color:var(--muted)}.status-dot{display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:50%;margin-right:8px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);margin:0 0 var(--s5);padding:var(--s4) 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);gap:var(--s4)}.metrics div{padding-left:var(--s4);border-left:1px solid var(--line)}.metrics div:first-child{padding-left:0;border-left:0}.metrics dt{font-size:14px;color:var(--muted)}.metrics dd{font-size:32px;letter-spacing:-.03em;margin:var(--s1) 0 0;font-variant-numeric:tabular-nums}.workspace{display:grid;grid-template-columns:320px minmax(0,1fr);gap:var(--s4);align-items:start}.panel{padding:var(--s4);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);min-width:0}.detail-stack{display:grid;gap:var(--s4);min-width:0}.search-row{display:flex;gap:var(--s1)}label{display:block;font-size:14px;margin-bottom:var(--s1)}input{min-width:0;width:100%;border:1px solid var(--line);border-radius:4px;padding:var(--s1);background:var(--paper);color:var(--ink)}.primary{background:var(--ink);color:var(--surface)}.primary:hover{background:var(--accent)}.muted{font-size:14px;color:var(--muted)}.results{max-height:420px;overflow:auto;display:grid;gap:var(--s1)}.result{display:flex;flex-direction:column;text-align:left;overflow-wrap:anywhere;border-color:transparent}.result[aria-pressed=true]{background:var(--wash)}.result small{color:var(--muted)}.help{margin-top:var(--s5);padding-top:var(--s4);border-top:1px solid var(--line)}.help p{font-size:14px;color:var(--muted)}.shortcuts{display:flex;gap:var(--s1);flex-wrap:wrap}.section-heading{display:flex;justify-content:space-between;gap:var(--s3);align-items:start}.badge{font-size:12px;letter-spacing:.04em;background:var(--wash);padding:var(--s1);white-space:nowrap}.definition{max-width:80ch;color:var(--muted);overflow-wrap:anywhere}.graph{background:var(--paper);border-radius:4px;margin:var(--s4) 0;overflow:hidden}.graph svg{display:block;width:100%;height:auto;min-height:280px}.graph line{stroke:var(--line);stroke-width:1.5}.graph marker path{fill:var(--muted)}.graph circle{fill:var(--surface);stroke:var(--accent);stroke-width:1.5}.graph .central circle{fill:var(--accent)}.graph text{fill:var(--ink);font-size:12px;font-family:"Helvetica Neue",Arial,sans-serif}.graph .central text{font-weight:600}.graph g[role=button]{cursor:pointer}.graph g[role=button]:hover circle{fill:var(--wash)}summary{cursor:pointer;min-height:44px;padding:var(--s2) 0;font-size:14px}details{border-bottom:1px solid var(--line)}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;background:var(--paper);padding:var(--s3);border-radius:4px}ul{padding-left:var(--s4)}li button{border:0;min-height:44px;padding:4px 8px;color:var(--accent)}.corpus{margin-top:var(--s4)}.bars{display:grid;gap:var(--s2);padding:var(--s3) 0}.bar-row{display:grid;grid-template-columns:minmax(120px,220px) 1fr 80px;gap:var(--s3);align-items:center;font-size:14px}.bar-label{overflow-wrap:anywhere}.bar-track{height:16px;background:var(--paper);border-radius:2px}.bar-fill{height:100%;background:var(--accent);border-radius:2px}.bar-count{text-align:right;font-variant-numeric:tabular-nums}.error{color:var(--error)}footer{display:flex;gap:var(--s4);flex-wrap:wrap;padding:var(--s5) 0;font-size:12px;color:var(--muted)}footer a:first-of-type{margin-left:auto}.skip{position:absolute;top:-100px;background:var(--surface);padding:var(--s3)}.skip:focus{top:0;z-index:2}@media(max-width:800px){header,main{padding:var(--s3)}.brand span{display:block;margin:0;font-size:12px}.brand{font-size:24px}.intro{display:block;padding:var(--s4) 0}.intro-note{margin-top:var(--s4)}.workspace{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr);gap:var(--s3)}.metrics div:nth-child(3){padding-left:0;border-left:0}.metrics dd{font-size:24px}.section-heading{flex-wrap:wrap}.bar-row{grid-template-columns:minmax(100px,1fr) 1fr 64px;gap:var(--s1)}.panel{padding:var(--s3)}footer a:first-of-type{margin-left:0}.graph svg{min-height:200px}}
+</style></head><body><header><span class="brand">rikishi<span>PORTABLE CORPUS REPORT</span></span><button id="theme">Light / dark</button></header><main><section class="intro"><div><p class="eyebrow">MEASURED ONTOLOGY</p><h1>The corpus,<br>in perspective.</h1><p class="lede">A self-contained snapshot of indexed SUMO source files.</p></div></section><dl class="metrics" id="metrics"></dl><section class="panel"><h2>Source-file distribution</h2><p class="muted">Top-level KIF formula counts measure syntax, not independent facts or proven theorems.</p><label for="filter">Filter source files</label><input id="filter" placeholder="Type a source filename"><div id="bars" class="bars"></div><p id="status" role="status"></p></section><section class="panel corpus"><h2>Provenance and interpretation</h2><p id="revision"></p><p>This snapshot can be opened without a server or network. Live term search, relationship navigation and source inspection are available through <code>rikishi serve</code>.</p><details><summary>Full measured JSON</summary><pre id="json"></pre></details></section><footer>Generated from the local ontology index. No network resources loaded.</footer></main><script id="data" type="application/json">{
+  "source_root": "/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/upstream/sumo",
+  "source_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+  "parse_errors": [],
+  "discovered_files": 144,
+  "schema_version": 1,
+  "files": 144,
+  "formulas": 212845,
+  "terms": 34885,
+  "edges": 71701,
+  "top_files": [
+    {
+      "path": "mondial.kif",
+      "formulas": 40472
+    },
+    {
+      "path": "WorldAirports.kif",
+      "formulas": 36960
+    },
+    {
+      "path": "domainEnglishFormat.kif",
+      "formulas": 34494
+    },
+    {
+      "path": "Mid-level-ontology.kif",
+      "formulas": 10119
+    },
+    {
+      "path": "pictureList.kif",
+      "formulas": 9773
+    },
+    {
+      "path": "Merge.kif",
+      "formulas": 5520
+    },
+    {
+      "path": "SimpleFacts/CarBrands.kif",
+      "formulas": 5242
+    },
+    {
+      "path": "CountriesAndRegions.kif",
+      "formulas": 4038
+    },
+    {
+      "path": "Muscles.kif",
+      "formulas": 3408
+    },
+    {
+      "path": "naics.kif",
+      "formulas": 3360
+    },
+    {
+      "path": "Geography.kif",
+      "formulas": 2988
+    },
+    {
+      "path": "Languages.kif",
+      "formulas": 2988
+    },
+    {
+      "path": "Economy.kif",
+      "formulas": 2466
+    },
+    {
+      "path": "Translations/chinese_format.kif",
+      "formulas": 2313
+    },
+    {
+      "path": "Government.kif",
+      "formulas": 2258
+    },
+    {
+      "path": "ComputingBrands.kif",
+      "formulas": 2123
+    },
+    {
+      "path": "Medicine.kif",
+      "formulas": 1954
+    },
+    {
+      "path": "GeochronologicTimes.kif",
+      "formulas": 1654
+    },
+    {
+      "path": "Translations/japanese_format.kif",
+      "formulas": 1486
+    },
+    {
+      "path": "Transportation.kif",
+      "formulas": 1478
+    },
+    {
+      "path": "arteries.kif",
+      "formulas": 1426
+    },
+    {
+      "path": "Food.kif",
+      "formulas": 1320
+    },
+    {
+      "path": "Cars.kif",
+      "formulas": 1303
+    },
+    {
+      "path": "FinancialOntology.kif",
+      "formulas": 1239
+    },
+    {
+      "path": "Weather.kif",
+      "formulas": 1154
+    },
+    {
+      "path": "Anatomy.kif",
+      "formulas": 1136
+    },
+    {
+      "path": "Media.kif",
+      "formulas": 1097
+    },
+    {
+      "path": "emotion.kif",
+      "formulas": 1038
+    },
+    {
+      "path": "ComputerInput.kif",
+      "formulas": 998
+    },
+    {
+      "path": "Dining.kif",
+      "formulas": 937
+    },
+    {
+      "path": "WMD.kif",
+      "formulas": 937
+    },
+    {
+      "path": "pictureList-ImageNet.kif",
+      "formulas": 887
+    },
+    {
+      "path": "UXExperimentalTerms.kif",
+      "formulas": 883
+    },
+    {
+      "path": "QoSontology.kif",
+      "formulas": 846
+    },
+    {
+      "path": "english_format.kif",
+      "formulas": 834
+    },
+    {
+      "path": "Translations/french_format.kif",
+      "formulas": 804
+    },
+    {
+      "path": "Translations/relations-ro-sgml.kif",
+      "formulas": 803
+    },
+    {
+      "path": "Translations/relations-ro.kif",
+      "formulas": 803
+    },
+    {
+      "path": "Translations/portuguese_format.kif",
+      "formulas": 802
+    },
+    {
+      "path": "NameTermFormat.kif",
+      "formulas": 782
+    },
+    {
+      "path": "Hotel.kif",
+      "formulas": 752
+    },
+    {
+      "path": "engineering.kif",
+      "formulas": 736
+    },
+    {
+      "path": "development/DimensioningAmenities.kif",
+      "formulas": 730
+    },
+    {
+      "path": "MilitaryProcesses.kif",
+      "formulas": 631
+    },
+    {
+      "path": "HouseholdAppliances.kif",
+      "formulas": 624
+    },
+    {
+      "path": "Translations/arabic_format.kif",
+      "formulas": 603
+    },
+    {
+      "path": "development/ROE_Series.kif",
+      "formulas": 598
+    },
+    {
+      "path": "People.kif",
+      "formulas": 561
+    },
+    {
+      "path": "development/ROE_Master.kif",
+      "formulas": 554
+    },
+    {
+      "path": "Military.kif",
+      "formulas": 523
+    },
+    {
+      "path": "Trees.kif",
+      "formulas": 520
+    },
+    {
+      "path": "Sports.kif",
+      "formulas": 515
+    },
+    {
+      "path": "Music.kif",
+      "formulas": 509
+    },
+    {
+      "path": "development/Society.kif",
+      "formulas": 475
+    },
+    {
+      "path": "Astronomy.kif",
+      "formulas": 440
+    },
+    {
+      "path": "Animals.kif",
+      "formulas": 439
+    },
+    {
+      "path": "Cellular&TelephoneArchitecture.kif",
+      "formulas": 439
+    },
+    {
+      "path": "GymEquipment.kif",
+      "formulas": 432
+    },
+    {
+      "path": "VirusProteinAndCellPart.kif",
+      "formulas": 400
+    },
+    {
+      "path": "MilitaryDevices.kif",
+      "formulas": 397
+    },
+    {
+      "path": "tinySUMO.kif",
+      "formulas": 351
+    },
+    {
+      "path": "tinyIntSUMO.kif",
+      "formulas": 336
+    },
+    {
+      "path": "development/tinySUMOGDPR.kif",
+      "formulas": 331
+    },
+    {
+      "path": "mappings/DHS_Taxonomy.kif",
+      "formulas": 294
+    },
+    {
+      "path": "development/Cyber.kif",
+      "formulas": 285
+    },
+    {
+      "path": "development/GDPRTerms.kif",
+      "formulas": 266
+    },
+    {
+      "path": "NavalModeling.kif",
+      "formulas": 261
+    },
+    {
+      "path": "mappings/HotelDetail.kif",
+      "formulas": 246
+    },
+    {
+      "path": "Objects.kif",
+      "formulas": 243
+    },
+    {
+      "path": "Biography.kif",
+      "formulas": 221
+    },
+    {
+      "path": "mappings/ISCOgroups.kif",
+      "formulas": 220
+    },
+    {
+      "path": "ArabicCulture.kif",
+      "formulas": 211
+    },
+    {
+      "path": "development/Biography.kif",
+      "formulas": 209
+    },
+    {
+      "path": "development/SupplyChain.kif",
+      "formulas": 209
+    },
+    {
+      "path": "MilitaryPersons.kif",
+      "formulas": 192
+    },
+    {
+      "path": "development/Facebook.kif",
+      "formulas": 182
+    },
+    {
+      "path": "Facebook.kif",
+      "formulas": 180
+    },
+    {
+      "path": "Law.kif",
+      "formulas": 156
+    },
+    {
+      "path": "development/TravelPolicies.kif",
+      "formulas": 143
+    },
+    {
+      "path": "development/ROE_Supplementary.kif",
+      "formulas": 139
+    },
+    {
+      "path": "development/NIEM-Scenario-Concepts.kif",
+      "formulas": 131
+    },
+    {
+      "path": "Communications.kif",
+      "formulas": 126
+    },
+    {
+      "path": "Catalog.kif",
+      "formulas": 112
+    },
+    {
+      "path": "development/Auto.kif",
+      "formulas": 112
+    },
+    {
+      "path": "development/LinkedInDegrees.kif",
+      "formulas": 112
+    },
+    {
+      "path": "development/Enumerations.kif",
+      "formulas": 105
+    },
+    {
+      "path": "capabilities.kif",
+      "formulas": 101
+    },
+    {
+      "path": "development/Offers.kif",
+      "formulas": 100
+    },
+    {
+      "path": "tests/RCC.kif",
+      "formulas": 91
+    },
+    {
+      "path": "Translations/spanish_format.kif",
+      "formulas": 88
+    },
+    {
+      "path": "development/tinyMed.kif",
+      "formulas": 79
+    },
+    {
+      "path": "TransnationalIssues.kif",
+      "formulas": 76
+    },
+    {
+      "path": "WeatherStatecraft.kif",
+      "formulas": 73
+    },
+    {
+      "path": "ClimateStatecraft.kif",
+      "formulas": 67
+    },
+    {
+      "path": "development/PolishCulture.kif",
+      "formulas": 62
+    },
+    {
+      "path": "development/modals.kif",
+      "formulas": 62
+    },
+    {
+      "path": "mappings/FOAFmap.kif",
+      "formulas": 53
+    },
+    {
+      "path": "FOAFmap.kif",
+      "formulas": 52
+    },
+    {
+      "path": "development/Transport_2024.kif",
+      "formulas": 51
+    },
+    {
+      "path": "development/Antenna.kif",
+      "formulas": 49
+    },
+    {
+      "path": "development/MedReason.kif",
+      "formulas": 38
+    },
+    {
+      "path": "ModSim.kif",
+      "formulas": 37
+    },
+    {
+      "path": "CCTrep.kif",
+      "formulas": 36
+    },
+    {
+      "path": "TransportDetail.kif",
+      "formulas": 30
+    },
+    {
+      "path": "development/CommonSense.kif",
+      "formulas": 29
+    },
+    {
+      "path": "tinyHOL.kif",
+      "formulas": 23
+    },
+    {
+      "path": "Justice.kif",
+      "formulas": 20
+    },
+    {
+      "path": "nlg_supplement_formats.kif",
+      "formulas": 20
+    },
+    {
+      "path": "tests/Lists.kif",
+      "formulas": 19
+    },
+    {
+      "path": "development/Robot.kif",
+      "formulas": 18
+    },
+    {
+      "path": "development/HOL.kif",
+      "formulas": 16
+    },
+    {
+      "path": "tests/TQM10.kif",
+      "formulas": 14
+    },
+    {
+      "path": "Elements&Molecules.kif",
+      "formulas": 13
+    },
+    {
+      "path": "tests/SP04.kif",
+      "formulas": 13
+    },
+    {
+      "path": "development/GDPR.kif",
+      "formulas": 12
+    },
+    {
+      "path": "tests/TQM8.kif",
+      "formulas": 11
+    },
+    {
+      "path": "WordnetFormulas.kif",
+      "formulas": 9
+    },
+    {
+      "path": "development/BrazilianCulture.kif",
+      "formulas": 6
+    },
+    {
+      "path": "GentleM.kif",
+      "formulas": 5
+    },
+    {
+      "path": "tests/PreMedMurder.kif",
+      "formulas": 5
+    },
+    {
+      "path": "tests/SP02.kif",
+      "formulas": 5
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/3a_Forbiddance_univConj/3a_f_univConj_KIF.kif",
+      "formulas": 5
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/4a_O_then_P_aBridgeTooFar/4a_o_then_p_abridgetoofar_KIF.kif",
+      "formulas": 5
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/4c_O_then_P_BTF_2HopConj/4c_o_then_p_btf_2hopconj_KIF.kif",
+      "formulas": 5
+    },
+    {
+      "path": "tests/TQM3.kif",
+      "formulas": 5
+    },
+    {
+      "path": "tests/TQM9.kif",
+      "formulas": 5
+    },
+    {
+      "path": "development/HOLtests/modal1.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/1a_Obligation_univConj/1a_o_univconj_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/1c_Obligation_parallel/1c_o_parallel_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/1d_Obligation_nHopsConj/1d_o_nhops_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/1e_Obligation_existNHops/1e_o_existnhops_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/1g_Obligation_UO1_existConj/1g_o_uo1_existConj_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/1h_Obligation_UO1_univConj/1h_o_uo1_univConj_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/2a_Permission_chained_univConj/2a_p_chained_univconj.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/2b_Permission_chained_existConj/2b_p_chained_existconj_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/4b_O_then_P_stopsAtLastO/4_o_then_p_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/4d_O_then_P_SALO_2HopConj/4d_o_then_p_salo_2hopconj_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/1_obligation_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/3_forbiddance_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/4_o_then_p_KIF.kif",
+      "formulas": 4
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/1i_Obligation_singleO/1i_o_singleO_KIF.kif",
+      "formulas": 3
+    },
+    {
+      "path": "tests/TPTP/feener_CHAD_examples/EASY/Main KIF examples/2_permission_KIF.kif",
+      "formulas": 3
+    },
+    {
+      "path": "DARPA_ARC.kif",
+      "formulas": 1
+    },
+    {
+      "path": "development/Useful-terms_2023.kif",
+      "formulas": 0
+    }
+  ],
+  "top_predicates": [
+    {
+      "predicate": "termFormat",
+      "count": 54745
+    },
+    {
+      "predicate": "instance",
+      "count": 23784
+    },
+    {
+      "predicate": "documentation",
+      "count": 20563
+    },
+    {
+      "predicate": "subclass",
+      "count": 12274
+    },
+    {
+      "predicate": "located",
+      "count": 11355
+    },
+    {
+      "predicate": "externalImage",
+      "count": 10743
+    },
+    {
+      "predicate": "=>",
+      "count": 9527
+    },
+    {
+      "predicate": "abbreviation",
+      "count": 9297
+    },
+    {
+      "predicate": "member",
+      "count": 7926
+    },
+    {
+      "predicate": "names",
+      "count": 6769
+    },
+    {
+      "predicate": "format",
+      "count": 6285
+    },
+    {
+      "predicate": "geographicSubregion",
+      "count": 5808
+    },
+    {
+      "predicate": "populationAtTime",
+      "count": 4327
+    },
+    {
+      "predicate": "domain",
+      "count": 4224
+    },
+    {
+      "predicate": "subAttribute",
+      "count": 2293
+    },
+    {
+      "predicate": "landAreaOnly",
+      "count": 1855
+    },
+    {
+      "predicate": "capitalCity",
+      "count": 1527
+    },
+    {
+      "predicate": "firstInstanceCreated",
+      "count": 1016
+    },
+    {
+      "predicate": "latitude",
+      "count": 888
+    },
+    {
+      "predicate": "longitude",
+      "count": 888
+    },
+    {
+      "predicate": "meetsSpatially",
+      "count": 800
+    },
+    {
+      "predicate": "codeMapping",
+      "count": 696
+    },
+    {
+      "predicate": "equal",
+      "count": 585
+    },
+    {
+      "predicate": "ethnicityPercentInRegion",
+      "count": 521
+    },
+    {
+      "predicate": "sectorCompositionOfGDPInPeriod",
+      "count": 458
+    },
+    {
+      "predicate": "domainSubclass",
+      "count": 457
+    },
+    {
+      "predicate": "beliefGroupPercentInRegion",
+      "count": 455
+    },
+    {
+      "predicate": "subrelation",
+      "count": 429
+    },
+    {
+      "predicate": "connectedBodyPartTypes",
+      "count": 421
+    },
+    {
+      "predicate": "range",
+      "count": 356
+    }
+  ],
+  "relations": [
+    {
+      "predicate": "instance",
+      "count": 23784
+    },
+    {
+      "predicate": "subclass",
+      "count": 12203
+    },
+    {
+      "predicate": "located",
+      "count": 11353
+    },
+    {
+      "predicate": "member",
+      "count": 7926
+    },
+    {
+      "predicate": "geographicSubregion",
+      "count": 5808
+    },
+    {
+      "predicate": "subAttribute",
+      "count": 2293
+    },
+    {
+      "predicate": "capitalCity",
+      "count": 1527
+    },
+    {
+      "predicate": "meetsSpatially",
+      "count": 800
+    },
+    {
+      "predicate": "subrelation",
+      "count": 429
+    },
+    {
+      "predicate": "range",
+      "count": 356
+    },
+    {
+      "predicate": "economyType",
+      "count": 331
+    },
+    {
+      "predicate": "disjoint",
+      "count": 329
+    },
+    {
+      "predicate": "muscleOrigin",
+      "count": 319
+    },
+    {
+      "predicate": "relatedInternalConcept",
+      "count": 311
+    },
+    {
+      "predicate": "roomTempState",
+      "count": 293
+    },
+    {
+      "predicate": "organizationalObjective",
+      "count": 291
+    },
+    {
+      "predicate": "muscleInsertion",
+      "count": 261
+    },
+    {
+      "predicate": "ennervates",
+      "count": 233
+    },
+    {
+      "predicate": "suppliesBlood",
+      "count": 231
+    },
+    {
+      "predicate": "currencyType",
+      "count": 173
+    },
+    {
+      "predicate": "meetsTemporally",
+      "count": 169
+    },
+    {
+      "predicate": "antagonistMuscles",
+      "count": 136
+    },
+    {
+      "predicate": "flowsInto",
+      "count": 136
+    },
+    {
+      "predicate": "hasHeadq",
+      "count": 133
+    },
+    {
+      "predicate": "typicalPart",
+      "count": 108
+    },
+    {
+      "predicate": "subOrganization",
+      "count": 100
+    },
+    {
+      "predicate": "contraryAttribute",
+      "count": 99
+    },
+    {
+      "predicate": "rangeSubclass",
+      "count": 78
+    },
+    {
+      "predicate": "successorAttribute",
+      "count": 76
+    },
+    {
+      "predicate": "initialPart",
+      "count": 75
+    }
+  ]
+}</script><script>
+const data=JSON.parse(document.getElementById('data').textContent),byId=id=>document.getElementById(id);function el(tag,text,cls){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;}for(const key of ['files','formulas','terms','edges']){const d=el('div');d.append(el('dt',key),el('dd',Number(data[key]).toLocaleString()));byId('metrics').append(d);}byId('revision').textContent='Source revision: '+data.source_commit;byId('json').textContent=JSON.stringify(data,null,2);function render(){const rows=data.top_files.filter(r=>r.path.toLowerCase().includes(byId('filter').value.toLowerCase())),max=Math.max(1,...data.top_files.map(r=>r.formulas));byId('bars').replaceChildren();rows.forEach(r=>{const row=el('div',undefined,'bar-row'),track=el('div',undefined,'bar-track'),fill=el('div',undefined,'bar-fill');fill.style.width=r.formulas/max*100+'%';track.append(fill);row.append(el('span',r.path,'bar-label'),track,el('span',r.formulas.toLocaleString(),'bar-count'));byId('bars').append(row);});byId('status').textContent=rows.length+' files shown in the indexed top-file summary.';}byId('filter').addEventListener('input',render);byId('theme').addEventListener('click',()=>document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark');render();
+</script></body></html>

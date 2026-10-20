@@ -1,0 +1,39 @@
+% Preprocessing class: FSSSSMSSSSSNFFN.
+% Configuration: G-E--_302_C18_F1_URBAN_RG_S04BN
+% (lift_lambdas = 1, lambda_to_forall = 1,unroll_only_formulas = 1, sine = Auto)
+% No SInE strategy applied
+% Search class: FHUNF-FFSF00-SFFFFFNN
+% Configuration: SubtermCWHack
+% Initializing proof state
+% Scanning for AC axioms
+%
+%cnf(i_0_2, plain, (human(socrates))).
+%
+%cnf(i_0_3, negated_conjecture, (~immortal(socrates))).
+%
+%cnf(i_0_1, plain, (mortal(X1)|~human(X1))).
+
+% No proof found!
+% SZS status CounterSatisfiable
+% SZS output start Saturation
+fof(goal, conjecture, immortal(socrates), file('.omo/evidence/runtime/nonentails.p', goal)).
+fof(rule, axiom, ![X1]:((human(X1)=>mortal(X1))), file('.omo/evidence/runtime/nonentails.p', rule)).
+fof(fact, axiom, human(socrates), file('.omo/evidence/runtime/nonentails.p', fact)).
+fof(c_0_3, negated_conjecture, ~(immortal(socrates)), inference(assume_negation,[status(cth)],[goal])).
+fof(c_0_4, negated_conjecture, ~immortal(socrates), inference(fof_simplification,[status(thm)],[c_0_3])).
+fof(c_0_5, plain, ![X2]:((~human(X2)|mortal(X2))), inference(fof_nnf,[status(thm)],[inference(variable_rename,[status(thm)],[inference(fof_nnf,[status(thm)],[rule])])])).
+fof(c_0_6, negated_conjecture, ~immortal(socrates), inference(fof_nnf,[status(thm)],[c_0_4])).
+cnf(c_0_7, plain, (mortal(X1)|~human(X1)), inference(split_conjunct,[status(thm)],[c_0_5]), ['final']).
+cnf(c_0_8, negated_conjecture, (~immortal(socrates)), inference(split_conjunct,[status(thm)],[c_0_6]), ['final']).
+cnf(c_0_9, plain, (human(socrates)), inference(split_conjunct,[status(thm)],[fact]), ['final']).
+% SZS output end Saturation
+
+% -------------------------------------------------
+% Total SizeMalloc()ed memory: 69767416 Bytes (133548 requests)
+% Total SizeFree()ed   memory: 69767416 Bytes (133548 requests)
+% New requests:   1209 (  1157 by SecureMalloc(),     52 by SecureRealloc())
+% Total SecureMalloc()ed memory: 659729 Bytes
+% Returned:      1209 (  1209 by FREE(),              0 by SecureRealloc())
+% SecureRealloc(ptr):     60 (    52 Allocs,      0 Frees,      8 Reallocs)
+% -------------------------------------------------
+

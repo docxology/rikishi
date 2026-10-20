@@ -1,0 +1,31 @@
+.coverage
+.coverage.*
+.pytest_cache/
+__pycache__/
+*.pyc
+.benchmarks/
+
+# Egg-info from local installs (any location — guards against renamed-fork drift).
+**/*.egg-info/
+
+# Project-local virtualenvs (root .venv is shared)
+.venv/
+# Local artifacts (aligned with template_textbook convention)
+htmlcov/
+coverage_project.json
+.DS_Store
+.mypy_cache/
+.ruff_cache/
+
+# Local upstream source, toolchains, indexes, and credentials are never published.
+.rikishi/
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+output/logs/
+output/coverage/
+dist/
+.omo/evidence/runtime/*.tptp
+.omo/evidence/runtime/sigma-server*.log

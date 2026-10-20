@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<configuration>
+  <preference name="adminBrowserLimit" value="200" />
+  <preference name="baseDir" value="/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma" />
+  <preference name="cache" value="yes" />
+  <preference name="cacheDisjoint" value="true" />
+  <preference name="cwa" value="false" />
+  <preference name="eproverExec" value="/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/upstream/eprover/PROVER/eprover" />
+  <preference name="graphDir" value="/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/graph" />
+  <preference name="graphVizExec" value="/usr/bin/dot" />
+  <preference name="hostname" value="localhost" />
+  <preference name="https" value="false" />
+  <preference name="isAws" value="false" />
+  <preference name="inferenceTestDir" value="/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/KBs/tests" />
+  <preference name="jeditExec" value="/usr/bin/jedit" />
+  <preference name="kbDir" value="/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/KBs" />
+  <preference name="loadFresh" value="false" />
+  <preference name="loadLexicons" value="true" />
+  <preference name="leoExec" value="/home/theuser/Programs/Leo-III/bin/leo3" />
+  <preference name="maxPredicateArity" value="7" />
+  <preference name="port" value="8085" />
+  <preference name="sigmaRsExec" value="/home/theuser/workspace/sigma-rs/target/release/sumo" />
+  <preference name="showCachedFormulas" value="no" />
+  <preference name="sumokbname" value="SUMO" />
+  <preference name="smtpEmailAddress" value="" />
+  <preference name="smtpEmailUser" value="" />
+  <preference name="smtpEmailPassword" value="" />
+  <preference name="smtpEmailServer" value="" />
+  <preference name="sumoDir" value="/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/upstream/sumo" />
+  <preference name="systemsDir" value="/home/theuser" />
+  <preference name="termFormats" value="no" />
+  <preference name="tptpExec" value="/home/theuser/workspace/TPTP4X/tptp4X" />
+  <preference name="typePrefix" value="yes" />
+  <preference name="userBrowserLimit" value="25" />
+  <preference name="vampireExec" value="/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/runtime/vampire" />
+  <preference name="verbnetDir" value="" />
+  <preference name="ollamaHost" value="http://127.0.0.1:11434" />
+  <kb name="SUMO"><constituent filename="Anatomy.kif" /><constituent filename="Animals.kif" /><constituent filename="ArabicCulture.kif" /><constituent filename="Astronomy.kif" /><constituent filename="Biography.kif" /><constituent filename="CCTrep.kif" /><constituent filename="Cars.kif" /><constituent filename="Catalog.kif" /><constituent filename="Cellular&amp;TelephoneArchitecture.kif" /><constituent filename="ClimateStatecraft.kif" /><constituent filename="Communications.kif" /><constituent filename="ComputerInput.kif" /><constituent filename="ComputingBrands.kif" /><constituent filename="CountriesAndRegions.kif" /><constituent filename="DARPA_ARC.kif" /><constituent filename="Dining.kif" /><constituent filename="Economy.kif" /><constituent filename="Elements&amp;Molecules.kif" /><constituent filename="FOAFmap.kif" /><constituent filename="Facebook.kif" /><constituent filename="FinancialOntology.kif" /><constituent filename="Food.kif" /><constituent filename="GentleM.kif" /><constituent filename="GeochronologicTimes.kif" /><constituent filename="Geography.kif" /><constituent filename="Government.kif" /><constituent filename="GymEquipment.kif" /><constituent filename="Hotel.kif" /><constituent filename="HouseholdAppliances.kif" /><constituent filename="Justice.kif" /><constituent filename="Languages.kif" /><constituent filename="Law.kif" /><constituent filename="Media.kif" /><constituent filename="Medicine.kif" /><constituent filename="Merge.kif" /><constituent filename="Mid-level-ontology.kif" /><constituent filename="Military.kif" /><constituent filename="MilitaryDevices.kif" /><constituent filename="MilitaryPersons.kif" /><constituent filename="MilitaryProcesses.kif" /><constituent filename="ModSim.kif" /><constituent filename="Muscles.kif" /><constituent filename="Music.kif" /><constituent filename="NameTermFormat.kif" /><constituent filename="NavalModeling.kif" /><constituent filename="Objects.kif" /><constituent filename="People.kif" /><constituent filename="QoSontology.kif" /><constituent filename="Sports.kif" /><constituent filename="TransnationalIssues.kif" /><constituent filename="TransportDetail.kif" /><constituent filename="Transportation.kif" /><constituent filename="Trees.kif" /><constituent filename="UXExperimentalTerms.kif" /><constituent filename="VirusProteinAndCellPart.kif" /><constituent filename="WMD.kif" /><constituent filename="Weather.kif" /><constituent filename="WeatherStatecraft.kif" /><constituent filename="WordnetFormulas.kif" /><constituent filename="WorldAirports.kif" /><constituent filename="arteries.kif" /><constituent filename="capabilities.kif" /><constituent filename="domainEnglishFormat.kif" /><constituent filename="emotion.kif" /><constituent filename="engineering.kif" /><constituent filename="english_format.kif" /><constituent filename="mondial.kif" /><constituent filename="naics.kif" /><constituent filename="nlg_supplement_formats.kif" /><constituent filename="pictureList-ImageNet.kif" /><constituent filename="pictureList.kif" /><constituent filename="tinyHOL.kif" /><constituent filename="tinyIntSUMO.kif" /><constituent filename="tinySUMO.kif" /></kb></configuration>
