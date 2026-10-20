@@ -39,6 +39,7 @@ public class RikishiQuery {
             result.getStdout().forEach(System.out::println);
             result.getStderr().forEach(System.err::println);
             Map<String, Object> report = new LinkedHashMap<>();
+            report.put("invocation_id", System.getenv("RIKISHI_INVOCATION_ID"));
             report.put("status", result.getSzsStatus().getTptpName());
             report.put("atp_returncode", result.getExitCode());
             report.put("stdout_lines", result.getStdout().size());

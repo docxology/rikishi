@@ -39,3 +39,36 @@ Inspect every PDF page using `pdftoppm`, open the HTML, and examine DOCX content
 after generation. The receipt establishes which bytes were rendered, not scientific
 validity or visual perfection. The document is a software methods manuscript and
 clearly marks proposed FEP correspondences and verification limits.
+
+## Importable methods and checks
+
+`rikishi.manuscript.render_manuscript(root)` owns native adapter orchestration;
+`rikishi.manuscript_provenance` owns typed corpus hydration, safe relative paths,
+pinned Git snapshots, and artifact verification. The command scripts have no
+import-time work. `rikishi.manuscript_verification.verify_manuscript(root)` performs
+native PDF/DOCX/HTML inspection with explicit exceptions, including when Python
+assertions are disabled. Source, corpus, bibliography, analytics, and output hashes
+are checked so stale documents fail verification.
+
+The additional `corpus-composition.png` shows formula-head composition and the
+direct-edge degree distribution, including zero-degree symbols. Definitions and denominators are in
+[metrics.md](metrics.md). Author-date linked citations render directly in every
+edition; `references.bib` is copied alongside the outputs and included in the
+receipt. [scholarship.md](scholarship.md) maps scientific claims to primary sources
+and records source-inspection limits.
+
+Run portable controls independently of the TeX installation:
+
+```bash
+source scripts/env.sh
+uv run pytest tests/manuscript/test_manuscript_provenance.py
+uv run rikishi report
+uv run pytest tests/manuscript/test_native_manuscript.py
+uv run python -O scripts/verification-manuscript.py
+```
+
+The native test regenerates all formats in the project output directory. It needs
+the pinned renderer checkout, corpus exports, analytics, Pandoc, XeLaTeX, Poppler,
+and the pinned sibling `fep_formal` checkout. Portable tests instead use real
+temporary Git repositories and deliberately corrupted files. They do not substitute
+for the native rendering test or visual review of every PDF page.

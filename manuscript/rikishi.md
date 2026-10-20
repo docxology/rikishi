@@ -35,6 +35,16 @@ operations and observations; they do not redefine the ontology's semantics.
 The package name refers to a sumo wrestler and distinguishes the operator software
 from the ontology it operates.
 
+SUMO's original design addresses reusable upper-level categories and axioms
+[Niles and Pease, 2001](https://nlp.ontologyportal.org/FOIS.pdf). Its current
+[SUO-KIF modeling guidance](https://github.com/ontologyportal/sumo/wiki/SUO%E2%80%90KIF-Formalizing-Terms)
+connects natural-language definitions to formal statements. Rikishi therefore
+retains complete source formulas and locations alongside a deliberately narrower
+navigation graph. Translation is an additional scientific dependency:
+[Pease, 2023](https://arxiv.org/abs/2303.04148) describes conversion to typed
+first-order form, illustrating why a source-language formula and a prover input
+must have separately recorded identities.
+
 # System design
 
 ## Source and runtime provenance
@@ -84,6 +94,16 @@ contribute many formulas. A count is sensitive to the chosen source revision and
 file-selection policy. Duplicate meanings, redundant formulas, or development
 proposals may be represented; the measure does not estimate independent facts.
 
+![Source composition and direct graph coverage. Edge deduplication concerns identical predicate-subject-target triples; graph absence means absence from this restricted projection, not absence from SUMO semantics.](figures/corpus-composition.png){width=95%}
+
+File concentration is measured from each file's share of parsed formulas.
+The Herfindahl sum of squared shares summarizes this distribution; it is not an
+ontology-quality score. The graph coverage denominator is all indexed symbols,
+including symbols occurring only in formulas outside the asserted binary fragment.
+The accompanying `output/analytics.json` and `output/measurements.md` define every
+denominator, retain the source identity, and distinguish assertion multiplicity
+from unique graph triples.
+
 ## Source-bound taxonomic proof
 
 The command `uv run rikishi taxonomy-proof Human AutonomousAgent` projects direct
@@ -100,6 +120,14 @@ projected subclass relation under the supplied direct facts and transitivity.
 Other conjectures may yield countermodels or inconclusive search statuses; those
 outcomes must retain their original scope.
 
+The [SZS ontology](https://szs.tptp.org/) distinguishes semantic outcomes from
+failure to obtain an outcome. Rikishi retains prover status, process return code,
+query, and input hash separately. A timeout is inconclusive; a contradictory
+axiom set cannot validate the intended modeling interpretation. A theorem result
+is conditional on the exact supplied axioms and the translation used to obtain
+them. A satisfiable counterexample requires a model-finding result for that same
+problem, rather than mere absence of a proof.
+
 The native Sigma pipeline was also exercised with the four-constituent core
 knowledge base, after a versioned compound-type guard patch. It returned
 `SZSTheorem` for `(subclass Human Animal)`, but the negative control
@@ -111,6 +139,14 @@ query returns a theorem status. This limitation is separate from the independent
 checked restricted taxonomic projection above.
 
 # A finite free-energy example
+
+The example implements the negative evidence lower bound (ELBO). The identity
+relating ELBO, posterior KL divergence, and log evidence is presented in
+[Blei, Kucukelbir, and McAuliffe, 2017, Section 2.2](https://www.cs.columbia.edu/~blei/papers/BleiKucukelbirMcAuliffe2017.pdf).
+[Friston, 2010, Box 1](https://doi.org/10.1038/nrn2787) places a corresponding
+variational objective in a broader account of perception and action. Here only
+the finite probabilistic identity is implemented. No dynamics, policy selection,
+neural implementation, or empirical test of that broader account is supplied.
 
 Let the latent state be binary and let one observation have likelihoods 0.8 and
 0.2 under the two states. The prior is uniform. Consequently, the joint mass for
@@ -155,6 +191,16 @@ cross-entropy, and entropy. Rikishi retrieves these declarations from committed
 Git objects and produces exact source links. This is source inspection; this
 workflow does not compile Lean or reconstruct a proof certificate.
 
+The pinned source also contains explicit disjoint-point-mass witnesses:
+
+- `crossEntropy_disjoint_pointMass_totalized`;
+- `finiteKL_disjoint_pointMass_totalized`.
+
+Their stated values are respectively zero
+and one under the source's totalized real operations. These are source-level
+counterexamples to treating every named KL quantity as the extended-real
+divergence, not numerical results computed by Rikishi.
+
 An important semantic boundary occurs at zero reference mass. The inspected Lean
 definition uses totalized real division and a `klFun` integrand. Its logarithmic
 identity requires strict support assumptions. The numerical operator's rejection
@@ -195,6 +241,15 @@ Those records support byte-level reproducibility and identify dependencies; they
 do not replace scientific review. A changed upstream revision, local configuration,
 or rendering dependency requires a fresh receipt.
 
+Rendering methods are importable library functions; scripts only select the
+project root and invoke them. The provenance layer parses corpus measurements
+through a strict schema, rejects unresolved placeholders and dirty or erroneous
+corpora, verifies pinned renderer files before import, and verifies artifact bytes
+after generation. Real temporary Git repositories exercise dirty-checkout isolation,
+snapshot corruption, symlink rejection, and malformed manifests. Receipt checks
+raise explicit exceptions and remain active under Python optimization. These
+controls establish input/output integrity, not semantic correctness of the sources.
+
 # Contribution and limitations
 
 Upstream issues and pull requests should contain a minimal reproducer and a precise
@@ -212,6 +267,11 @@ define concrete next experiments.
 
 # Sources
 
+- Niles, I., and Pease, A. (2001). [Towards a Standard Upper Ontology](https://nlp.ontologyportal.org/FOIS.pdf). Proceedings of FOIS, 2-9. DOI: 10.1145/505168.505170.
+- Pease, A. (2023). [Converting the Suggested Upper Merged Ontology to Typed First-order Form](https://arxiv.org/abs/2303.04148). arXiv:2303.04148.
+- Blei, D. M., Kucukelbir, A., and McAuliffe, J. D. (2017). [Variational Inference: A Review for Statisticians](https://doi.org/10.1080/01621459.2017.1285773). Journal of the American Statistical Association, 112(518), 859-877.
+- Friston, K. (2010). [The free-energy principle: a unified brain theory?](https://doi.org/10.1038/nrn2787). Nature Reviews Neuroscience, 11, 127-138.
+- TPTP. [The SZS Ontologies](https://szs.tptp.org/). Status semantics and reporting conventions.
 - [OntologyPortal SUMO source repository](https://github.com/ontologyportal/sumo).
 - [SUMO contribution guidance](https://github.com/ontologyportal/sumo/blob/master/CONTRIBUTING.md).
 - [Pinned finite-information declarations](https://github.com/ActiveInferenceInstitute/fep_formal/blob/9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de/lean/FepSketches/finite_information.lean).

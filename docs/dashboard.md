@@ -1,6 +1,6 @@
 # Ontology workbench
 
-Run `rikishi serve` after building the ontology index. The default server binds
+Run `uv run rikishi dashboard` after building the ontology index. The default server binds
 to loopback. The dashboard reads the same SQLite index used by the CLI and MCP.
 It does not download, edit, or infer ontology assertions through HTTP.
 
@@ -31,6 +31,14 @@ uv run python scripts/build_dashboard.py --index .rikishi/ontology.sqlite --outp
 
 Outputs are `dashboard.html` (embedded CSS and measured JSON, offline filtering
 and theme switching), `corpus.json`, `corpus-files.svg`, and `corpus-files.png`.
+Additional outputs are `analytics.json`, `measurements.md`, and
+`corpus-composition.svg` / `.png`. The report implementation lives in
+`rikishi.reports`; the FastAPI module only adapts requests. The original
+`rikishi.dashboard.build_report` import remains supported.
+Both live and offline reports show formula-head composition, file concentration,
+and the complete population of symbols grouped by direct-edge degree. Read
+[measurement definitions](metrics.md) for denominators, duplicates, self-loops,
+empty populations, and interpretation limits.
 The portable report summarizes the indexed top-file list; live term search
 requires the server. It loads no CDN resources. Its JSON escapes less-than
 characters so corpus metadata cannot terminate the embedded data element.
@@ -40,6 +48,7 @@ characters so corpus metadata cannot terminate the embedded data element.
 | Route | Behavior |
 | --- | --- |
 | `GET /api/stats` | Corpus counts, per-file counts, provenance, parse errors |
+| `GET /api/analytics` | Exact formula-head composition, concentration and degree distribution |
 | `GET /api/search?q=Agent&limit=30` | Search results; limit 1–100 |
 | `GET /api/terms/Agent` | Documentation, source formulas, parents, children |
 | `GET /api/graph?term=Agent&limit=40` | Direct graph; limit 1–100 |

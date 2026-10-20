@@ -71,3 +71,11 @@ types and arguments explicitly, preserve normalization and support assumptions,
 state which logic and arithmetic semantics the target supports, and prove
 soundness on the chosen fragment. A SUMO theorem-prover result and a Lean theorem
 need separate receipts. Neither can replace the other.
+# Scholarly interpretation
+
+The finite objective is the negative ELBO in the convention of
+[Blei, Kucukelbir, and McAuliffe (2017), Section 2.2](https://www.cs.columbia.edu/~blei/papers/BleiKucukelbirMcAuliffe2017.pdf).
+[Friston (2010), Box 1](https://doi.org/10.1038/nrn2787) motivates the FEP connection,
+but the binary example implements no agent dynamics or action selection.
+The [claim ledger](scholarship.md) records this distinction and the exact
+source-inspection boundary for Lean's totalized finite KL definition.

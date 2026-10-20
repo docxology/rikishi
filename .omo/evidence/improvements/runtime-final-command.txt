@@ -1,0 +1,15 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Volumes/GitVault/Username/docxology/Private/rikishi
+configfile: pyproject.toml
+plugins: anyio-4.15.1, cov-7.0.0
+collected 43 items / 7 deselected / 36 selected
+
+tests/runtime/test_atp_results.py .................                      [ 47%]
+tests/runtime/test_eprover.py ....                                       [ 58%]
+tests/runtime/test_runtime_entrypoints.py ....                           [ 69%]
+tests/runtime/test_runtime_sources.py ...                                [ 77%]
+tests/runtime/test_sigma_outcomes.py ........                            [100%]
+
+- generated xml file: /Volumes/GitVault/Username/docxology/Private/rikishi/.omo/evidence/improvements/runtime-portable-tests.xml -
+======================= 36 passed, 7 deselected in 2.11s =======================

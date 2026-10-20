@@ -115,8 +115,47 @@ proposed connections from proved results and records the runtime limitation.
 The independent review is `.omo/evidence/rikishi-code-review.md`. Final test,
 lint, packaging, and publication observations accompany this repository. The
 GitHub workflow runs portable tests with integration tests explicitly excluded;
-the full branch-aware 90% gate requires the installed local tools and runs on
-the GitVault workstation.
+the full core/infrastructure coverage gates require the installed local tools and
+run on the GitVault workstation. See [test methods](testing.md).
+
+## Comprehensive methods improvement gate
+
+The integrated improvement pass ran **163 tests**, all passing. Measured coverage
+including branch destinations was **96.35% for core methods** against the 90% floor
+and **82.48% for native infrastructure** against the 60% floor. Overall combined
+coverage was 92.27%. `output/coverage-gates.json` lists all 21 package Python files
+and their disjoint scopes; the gate rejects missing files and excluded lines.
+Ruff and both source-distribution and wheel builds passed. Exact command output
+is under `.omo/evidence/improvements/final-*.txt`.
+
+Runtime/bootstrap, query/server, corpus analytics/reporting, renderer provenance,
+and artifact verification now live in importable modules. Scripts select the
+checkout and invoke these methods. Tests are factored by domain and interface,
+with real Git, SQLite, HTTP, subprocess, MCP, and native renderer cases. The
+import-safety regression starts a fresh Python process with malformed arguments;
+an unsafe fixture import provides the failing control.
+
+The new `verify-source` command confirmed all **144 current KIF files** match
+their indexed hashes and recorded clean revision. Exact analytics distinguish
+71701 edge assertions from **70843 unique labeled triples**, retain **858 repeated
+assertions**, and include **256 zero-degree symbols** in the 34885-symbol graph
+denominator. Live and offline analytics were checked at 1440- and 390-pixel widths,
+without horizontal overflow. The browser receipt binds checked inputs by SHA256.
+
+The regenerated manuscript has **seven pages, three figures, and nine hashed
+artifacts**. All seven final PDF pages were visually inspected. Receipt verification
+checks current Markdown, bibliography, corpus, and analytics inputs as well as
+artifacts and imported renderer modules. Stale source, bibliography, and analytics
+mutation controls require rejection. The scholarship ledger links scientific
+claims to checked primary sources and identifies source-fetch limits.
+
+Independent review is **CLEAR / APPROVE** with no blockers in
+`.omo/evidence/improvements-code-review.md`. The reviewer reproduced the stale-input
+and cached-import test gaps; both were corrected and independently retested.
+The original full-core contradiction remains unresolved. A separate E run on the
+preserved translated core without a conjecture exhausted 15 CPU seconds with
+`ResourceOut`; this establishes no consistency conclusion. Native acquisition
+branches not exercised on the installed system remain visible in coverage.
 
 An initial whole-tree Git whitespace scan reported spaces emitted inside
 Matplotlib SVG paths and blank EOF lines in preserved/generated documents. Those

@@ -15,6 +15,9 @@ commands. Use these guides for the corresponding research or operator task.
 | Interpret the finite free-energy example | [FEP connections](fep.md) |
 | Reproduce the PDF, DOCX, and HTML manuscript | [Manuscript](manuscript.md) |
 | Evaluate acceptance evidence | [Verification](verification.md) |
+| Run portable and full quality gates | [Testing](testing.md) |
+| Interpret corpus measurement denominators | [Metrics](metrics.md) |
+| Trace claims to primary sources | [Scholarship](scholarship.md) |
 | Prepare a justified SUMO issue or PR | [Upstream contributions](contributing-upstream.md) |
 
 Machine-readable proposed correspondences live in

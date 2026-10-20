@@ -675,6 +675,17 @@ ontology. Software interfaces expose selected operations and
 observations; they do not redefine the ontology’s semantics. The package
 name refers to a sumo wrestler and distinguishes the operator software
 from the ontology it operates.</p>
+<p>SUMO’s original design addresses reusable upper-level categories and
+axioms <a href="https://nlp.ontologyportal.org/FOIS.pdf">Niles and
+Pease, 2001</a>. Its current <a
+href="https://github.com/ontologyportal/sumo/wiki/SUO%E2%80%90KIF-Formalizing-Terms">SUO-KIF
+modeling guidance</a> connects natural-language definitions to formal
+statements. Rikishi therefore retains complete source formulas and
+locations alongside a deliberately narrower navigation graph.
+Translation is an additional scientific dependency: <a
+href="https://arxiv.org/abs/2303.04148">Pease, 2023</a> describes
+conversion to typed first-order form, illustrating why a source-language
+formula and a prover input must have separately recorded identities.</p>
 <h1 id="system-design">System design</h1>
 <h2 id="source-and-runtime-provenance">Source and runtime
 provenance</h2>
@@ -729,6 +740,23 @@ language-related files contribute many formulas. A count is sensitive to
 the chosen source revision and file-selection policy. Duplicate
 meanings, redundant formulas, or development proposals may be
 represented; the measure does not estimate independent facts.</p>
+<figure>
+<a class="figure-full-size-link" href="figures/corpus-composition.png" target="_blank" rel="noopener" aria-label="Open full-size figure, Source composition and direct graph coverage."><img src="figures/corpus-composition.png" style="width:95.0%"
+alt="Source composition and direct graph coverage. Edge deduplication concerns identical predicate-subject-target triples; graph absence means absence from this restricted projection, not absence from SUMO semantics." /><span class="figure-full-size-label" aria-hidden="true">Open full-size figure</span></a>
+<figcaption>Source composition and direct graph
+coverage. Edge deduplication concerns identical predicate-subject-target
+triples; graph absence means absence from this restricted projection,
+not absence from SUMO semantics.</figcaption>
+</figure>
+<p>File concentration is measured from each file’s share of parsed
+formulas. The Herfindahl sum of squared shares summarizes this
+distribution; it is not an ontology-quality score. The graph coverage
+denominator is all indexed symbols, including symbols occurring only in
+formulas outside the asserted binary fragment. The accompanying
+<code>output/analytics.json</code> and
+<code>output/measurements.md</code> define every denominator, retain the
+source identity, and distinguish assertion multiplicity from unique
+graph triples.</p>
 <h2 id="source-bound-taxonomic-proof">Source-bound taxonomic proof</h2>
 <p>The command
 <code>uv run rikishi taxonomy-proof Human AutonomousAgent</code>
@@ -747,6 +775,14 @@ consistency. The proof obligation is the projected subclass relation
 under the supplied direct facts and transitivity. Other conjectures may
 yield countermodels or inconclusive search statuses; those outcomes must
 retain their original scope.</p>
+<p>The <a href="https://szs.tptp.org/">SZS ontology</a> distinguishes
+semantic outcomes from failure to obtain an outcome. Rikishi retains
+prover status, process return code, query, and input hash separately. A
+timeout is inconclusive; a contradictory axiom set cannot validate the
+intended modeling interpretation. A theorem result is conditional on the
+exact supplied axioms and the translation used to obtain them. A
+satisfiable counterexample requires a model-finding result for that same
+problem, rather than mere absence of a proof.</p>
 <p>The native Sigma pipeline was also exercised with the
 four-constituent core knowledge base, after a versioned compound-type
 guard patch. It returned <code>SZSTheorem</code> for
@@ -760,6 +796,16 @@ even when a positive query returns a theorem status. This limitation is
 separate from the independently checked restricted taxonomic projection
 above.</p>
 <h1 id="a-finite-free-energy-example">A finite free-energy example</h1>
+<p>The example implements the negative evidence lower bound (ELBO). The
+identity relating ELBO, posterior KL divergence, and log evidence is
+presented in <a
+href="https://www.cs.columbia.edu/~blei/papers/BleiKucukelbirMcAuliffe2017.pdf">Blei,
+Kucukelbir, and McAuliffe, 2017, Section 2.2</a>. <a
+href="https://doi.org/10.1038/nrn2787">Friston, 2010, Box 1</a> places a
+corresponding variational objective in a broader account of perception
+and action. Here only the finite probabilistic identity is implemented.
+No dynamics, policy selection, neural implementation, or empirical test
+of that broader account is supplied.</p>
 <p>Let the latent state be binary and let one observation have
 likelihoods 0.8 and 0.2 under the two states. The prior is uniform.
 Consequently, the joint mass for this observation is
@@ -809,6 +855,16 @@ self-divergence, and the relation between KL, cross-entropy, and
 entropy. Rikishi retrieves these declarations from committed Git objects
 and produces exact source links. This is source inspection; this
 workflow does not compile Lean or reconstruct a proof certificate.</p>
+<p>The pinned source also contains explicit disjoint-point-mass
+witnesses:</p>
+<ul>
+<li><code>crossEntropy_disjoint_pointMass_totalized</code>;</li>
+<li><code>finiteKL_disjoint_pointMass_totalized</code>.</li>
+</ul>
+<p>Their stated values are respectively zero and one under the source’s
+totalized real operations. These are source-level counterexamples to
+treating every named KL quantity as the extended-real divergence, not
+numerical results computed by Rikishi.</p>
 <p>An important semantic boundary occurs at zero reference mass. The
 inspected Lean definition uses totalized real division and a
 <code>klFun</code> integrand. Its logarithmic identity requires strict
@@ -856,6 +912,16 @@ revision in a receipt. Those records support byte-level reproducibility
 and identify dependencies; they do not replace scientific review. A
 changed upstream revision, local configuration, or rendering dependency
 requires a fresh receipt.</p>
+<p>Rendering methods are importable library functions; scripts only
+select the project root and invoke them. The provenance layer parses
+corpus measurements through a strict schema, rejects unresolved
+placeholders and dirty or erroneous corpora, verifies pinned renderer
+files before import, and verifies artifact bytes after generation. Real
+temporary Git repositories exercise dirty-checkout isolation, snapshot
+corruption, symlink rejection, and malformed manifests. Receipt checks
+raise explicit exceptions and remain active under Python optimization.
+These controls establish input/output integrity, not semantic
+correctness of the sources.</p>
 <h1 id="contribution-and-limitations">Contribution and limitations</h1>
 <p>Upstream issues and pull requests should contain a minimal reproducer
 and a precise claim. Timeout or unknown proof-search status does not
@@ -872,6 +938,21 @@ public hosting. These boundaries make the package’s evidence
 interpretable and define concrete next experiments.</p>
 <h1 id="sources">Sources</h1>
 <ul>
+<li>Niles, I., and Pease, A. (2001). <a
+href="https://nlp.ontologyportal.org/FOIS.pdf">Towards a Standard Upper
+Ontology</a>. Proceedings of FOIS, 2-9. DOI: 10.1145/505168.505170.</li>
+<li>Pease, A. (2023). <a
+href="https://arxiv.org/abs/2303.04148">Converting the Suggested Upper
+Merged Ontology to Typed First-order Form</a>. arXiv:2303.04148.</li>
+<li>Blei, D. M., Kucukelbir, A., and McAuliffe, J. D. (2017). <a
+href="https://doi.org/10.1080/01621459.2017.1285773">Variational
+Inference: A Review for Statisticians</a>. Journal of the American
+Statistical Association, 112(518), 859-877.</li>
+<li>Friston, K. (2010). <a href="https://doi.org/10.1038/nrn2787">The
+free-energy principle: a unified brain theory?</a>. Nature Reviews
+Neuroscience, 11, 127-138.</li>
+<li>TPTP. <a href="https://szs.tptp.org/">The SZS Ontologies</a>. Status
+semantics and reporting conventions.</li>
 <li><a href="https://github.com/ontologyportal/sumo">OntologyPortal SUMO
 source repository</a>.</li>
 <li><a

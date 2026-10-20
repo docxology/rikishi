@@ -1,138 +1,212 @@
 {
-  "observed_at": "2026-10-20T01:25:36.693665+00:00",
+  "phase": "comprehensive_methods_improvement",
+  "base_commit": "0a67379aa214641d0084940894c8b58f82feb826",
   "tests": {
     "name": "pytest",
     "errors": "0",
     "failures": "0",
     "skipped": "0",
-    "tests": "81",
-    "time": "11.134",
-    "timestamp": "2026-10-19T18:24:15.156430-07:00",
+    "tests": "163",
+    "time": "82.742",
+    "timestamp": "2026-10-19T18:45:06.605172-07:00",
     "hostname": "timelock.local"
   },
   "coverage": {
-    "covered_lines": 540,
-    "num_statements": 572,
-    "percent_covered": 94.1340782122905,
-    "percent_covered_display": "94",
-    "missing_lines": 32,
-    "excluded_lines": 0,
-    "percent_statements_covered": 94.4055944055944,
-    "percent_statements_covered_display": "94",
-    "num_branches": 144,
-    "num_partial_branches": 8,
-    "covered_branches": 134,
-    "missing_branches": 10,
-    "percent_branches_covered": 93.05555555555556,
-    "percent_branches_covered_display": "93"
-  },
-  "corpus": {
-    "source_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
-    "source_clean": true,
-    "parse_errors": [],
-    "discovered_files": 144,
-    "schema_version": 1,
-    "files": 144,
-    "formulas": 212845,
-    "terms": 34885,
-    "edges": 71701
-  },
-  "runtime_positive": {
-    "status": "Theorem",
-    "outcome": "entailed",
-    "proved": true,
-    "atp_returncode": 0,
-    "consistency": "not_established",
-    "returncode": 0,
-    "log": "/Volumes/GitVault/Username/docxology/Private/rikishi/.omo/evidence/runtime/sigma-structured-positive.log",
-    "profile": "/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/core",
-    "query": "(subclass Human Animal)",
-    "prover": "e"
-  },
-  "runtime_negative": {
-    "status": "ContradictoryAxioms",
-    "outcome": "inconsistent_translated_axioms",
-    "proved": false,
-    "atp_returncode": 0,
-    "consistency": "contradictory_translated_axioms_detected",
-    "returncode": 0,
-    "log": "/Volumes/GitVault/Username/docxology/Private/rikishi/.omo/evidence/runtime/sigma-structured-negative.log",
-    "profile": "/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/sigma/core",
-    "query": "(subclass Human Artifact)",
-    "prover": "e"
-  },
-  "render_receipt": "output/manuscript/render-receipt.json",
-  "artifacts": [
-    {
-      "path": "output/manuscript/pdf/rikishi.pdf",
-      "bytes": 193042,
-      "sha256": "00845ebc2defba182f74487ae0e8f4b41ad0f635fd6d902bc8d8770ab7e63cab"
+    "passed": true,
+    "core": {
+      "files": [
+        "src/rikishi/__init__.py",
+        "src/rikishi/__main__.py",
+        "src/rikishi/analytics.py",
+        "src/rikishi/cli.py",
+        "src/rikishi/dashboard.py",
+        "src/rikishi/fep.py",
+        "src/rikishi/kif.py",
+        "src/rikishi/manuscript_provenance.py",
+        "src/rikishi/mcp_server.py",
+        "src/rikishi/ontology.py",
+        "src/rikishi/projection.py",
+        "src/rikishi/quality.py",
+        "src/rikishi/reports.py",
+        "src/rikishi/runtime.py",
+        "src/rikishi/runtime_results.py",
+        "src/rikishi/source_audit.py"
+      ],
+      "covered_lines": 924,
+      "statements": 957,
+      "covered_branches": 210,
+      "branches": 220,
+      "floor": 90,
+      "percent": 96.34664401019542,
+      "passed": true
     },
-    {
-      "path": "output/manuscript/web/manuscript__rikishi.html",
-      "bytes": 29496,
-      "sha256": "74a14f5ddeb000e7db7174b9daa4e08455c096163e0ccb58c22920a79a638d65"
-    },
-    {
-      "path": "output/manuscript/docx/rikishi.docx",
-      "bytes": 139289,
-      "sha256": "1c9d4c1d51faeace788fe3da33c41993d4fdea51ddc571da9cd530a632731eed"
-    },
-    {
-      "path": "output/manuscript/figures/fep-free-energy.png",
-      "bytes": 68686,
-      "sha256": "b09ab8a2d03c4cccc1357218978f02bae50e8c1ceea8ed52427c80f91ca56cbd"
-    },
-    {
-      "path": "output/manuscript/figures/corpus-files.png",
-      "bytes": 69011,
-      "sha256": "1c648cb151717fc82c9084c6775e2cc9a0c965b838e8d688425c76f2390126a9"
-    },
-    {
-      "path": "output/manuscript/rikishi.md",
-      "bytes": 12375,
-      "sha256": "1bcf2bf2362f27d16575fc6efce3c1a67e2d7dd8ba46cda31a0de9c5e79645fd"
-    },
-    {
-      "path": "output/manuscript/fep-example.json",
-      "bytes": 8923,
-      "sha256": "d7bf4d3056d2ac4c7b25f55118890f0e82ac496e9d5e72e877e417b6904a81dc"
+    "infrastructure": {
+      "files": [
+        "src/rikishi/manuscript.py",
+        "src/rikishi/manuscript_verification.py",
+        "src/rikishi/runtime_query.py",
+        "src/rikishi/runtime_server.py",
+        "src/rikishi/runtime_setup.py"
+      ],
+      "covered_lines": 333,
+      "statements": 385,
+      "covered_branches": 72,
+      "branches": 106,
+      "floor": 60,
+      "percent": 82.4847250509165,
+      "passed": true
     }
-  ],
-  "repository": "https://github.com/docxology/rikishi",
-  "visibility": "private",
+  },
+  "source_audit": {
+    "indexed_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+    "current_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+    "indexed_clean": true,
+    "current_clean": true,
+    "unchanged_files": 144,
+    "added": [],
+    "missing": [],
+    "modified": [],
+    "escaped_paths": [],
+    "parse_failures_at_index": 0,
+    "matches_index": true,
+    "revision_matches": true,
+    "passed": true
+  },
+  "python_prefix": "/Volumes/GitVault/Username/docxology/Private/rikishi/.venv",
+  "python_base_prefix": "/Volumes/GitVault/Local/runtimes/uv-python/cpython-3.12-macos-aarch64-none",
+  "manuscript": {
+    "pages": 7,
+    "figures": 3,
+    "artifacts": [
+      {
+        "path": "output/manuscript/pdf/rikishi.pdf",
+        "bytes": 293330,
+        "sha256": "2187cedc0929c450c3a8b672a9c460a8494d784c48f094c57d9dc4a37ef74127"
+      },
+      {
+        "path": "output/manuscript/web/manuscript__rikishi.html",
+        "bytes": 34747,
+        "sha256": "13b4ab72972c3e24cfaade35cef58ea5c2f26031ad2fb6a49a2453935c55cf41"
+      },
+      {
+        "path": "output/manuscript/docx/rikishi.docx",
+        "bytes": 223071,
+        "sha256": "39e31f35eb8d1fec18c6cb96c92ca29a849896547529b1dabf3852fe1ea61e86"
+      },
+      {
+        "path": "output/manuscript/figures/fep-free-energy.png",
+        "bytes": 68686,
+        "sha256": "b09ab8a2d03c4cccc1357218978f02bae50e8c1ceea8ed52427c80f91ca56cbd"
+      },
+      {
+        "path": "output/manuscript/figures/corpus-files.png",
+        "bytes": 69011,
+        "sha256": "1c648cb151717fc82c9084c6775e2cc9a0c965b838e8d688425c76f2390126a9"
+      },
+      {
+        "path": "output/manuscript/figures/corpus-composition.png",
+        "bytes": 92464,
+        "sha256": "7d7e5cf2f36e309f613a096c54b8efa9079b316754a6393977e8746c84b18e77"
+      },
+      {
+        "path": "output/manuscript/rikishi.md",
+        "bytes": 16802,
+        "sha256": "0a69b159110cbe292bb2d4be9d55dde30007234d47be70ff63f17a281ef25bb1"
+      },
+      {
+        "path": "output/manuscript/fep-example.json",
+        "bytes": 8923,
+        "sha256": "d7bf4d3056d2ac4c7b25f55118890f0e82ac496e9d5e72e877e417b6904a81dc"
+      },
+      {
+        "path": "output/manuscript/references.bib",
+        "bytes": 1894,
+        "sha256": "7adb376e837b9fe9a48c9fb2ddf824ba5923b36dfa347062992148a3de78fe33"
+      }
+    ],
+    "render_receipt_sha256": "bf2486cc4898cc5aacb7058d3177524b405a8588f7af28d67f12e6928b6569b7"
+  },
   "review": {
     "status": "CLEAR",
     "recommendation": "APPROVE",
-    "report": ".omo/evidence/rikishi-code-review.md"
+    "report": ".omo/evidence/improvements-code-review.md",
+    "blockers": []
   },
-  "browser": {
-    "dashboard": {
-      "url": "http://127.0.0.1:8765",
-      "verified": [
-        "desktop and 390px mobile",
-        "term search and empty results",
-        "graph navigation",
-        "theme switching",
-        "pinned source links",
-        "finite free-energy slider"
-      ]
-    },
-    "sigma": {
-      "url": "http://127.0.0.1:8085/sigma/KBs.jsp",
-      "verified": [
-        "four selected core constituents",
-        "74 available top-level files",
-        "Human source assertions and WordNet lexical entries"
-      ]
-    }
-  },
-  "packaging": "Source distribution and wheel built; isolated wheel installation verified",
   "limitations": [
-    "Current translated core produced ContradictoryAxioms; cause unresolved. Full-core inference is diagnostic.",
-    "FEP mappings proposed. Lean source inspected at pinned revision; no Lean compilation or proof transport."
+    "Translated-core ContradictoryAxioms origin unresolved; separate15CPU-second consistency search ResourceOut",
+    "Lean source inspected at pinned commit; no proof compilation or equivalence established",
+    "Hosted Actions previously blocked by account budget; local gates do not establish Linux execution"
   ],
-  "warnings": [
-    "One upstream Starlette/httpx deprecation warning during tests; no failing tests."
-  ]
+  "validation_sources": {
+    ".python-version": "7b55f8e67b5623c4bef3fa691288da9437d79d3aba156de48d481db32ac7d16d",
+    "config/coverage.toml": "5beed894be6ce4ca580887c47bcee6c318aa948f3ce9fbbe2742a61b8f352c11",
+    "config/fep_mappings.json": "35a10295e4b2f4abca6a29b7edcb0125da839424b3ab1ef4fed0b626304b7074",
+    "config/mcp.example.json": "5ef87246b6edc4f51d9d1932521c775cab424a89a0601b7630540e13b4e7d1ae",
+    "config/patches/sigma-compound-type-guards.patch": "184c6e055cd9cbb75950d3da1b5177f8efa95878ec917f54efd759a8f4f90889",
+    "config/sumo.lock.json": "0f8e785684de54ce36e1bc21c12f60a71e957fdc7d43cbb9bb3a410e0c85ac55",
+    "config/template-origin.json": "e732a7c73b54bce76efd9233f1332a34a8691e51d5456df84e95fe4607d4bfcd",
+    "manuscript/references.bib": "7adb376e837b9fe9a48c9fb2ddf824ba5923b36dfa347062992148a3de78fe33",
+    "manuscript/rikishi.md": "834b3e3a0f78a88b558b5c11c7a66f954be4ddd8bf0fff6d228fb9e38f7e1c20",
+    "pyproject.toml": "114f59c45d65b70104a69572acd25a5f3427feabc52f20644827708b9f6e817b",
+    "scripts/bootstrap-sumo.sh": "3ac55a1c332979f388e1d13f9bd939ba27827a0c167b614ef470c7579d6bd023",
+    "scripts/build_dashboard.py": "21651813ee74b05c480c68c598e034ea1b699be52d320093e7ff589cd40f2eb5",
+    "scripts/check_coverage.py": "ba832e059f7d36f49dd16ddb4c2c6a8564cdad82fca492d4bcaf62d3f4e77f18",
+    "scripts/env.sh": "98fadf25ca92d76a28e69d2ce612eb5dd9d6b16157e983663f0c61f96589d479",
+    "scripts/render_manuscript.py": "173e873a660d08bd1e9bfc6d22248893a1dbd3adc13d011c2e7a1693afda135c",
+    "scripts/runtime/RikishiQuery.java": "24486dd690fd2dbfd658b2fc5b7da0b509cded7e0c40d6e9094deed5060337cf",
+    "scripts/runtime/RuntimeTypeGuardRegression.java": "382329e43796b6abe7338b5a50c7e10dd5fcbb7b5e89797cfad4dda9416eca6a",
+    "scripts/runtime-bootstrap.py": "b9e1766665440a3270c4d21c8847f525930ceb4feb694cfa321bbd49ca784f72",
+    "scripts/runtime-query.py": "0951a58426fb8d42835fd65c5be3a7778557ea1b2327a88fce6ddcdfa3a52c81",
+    "scripts/runtime-sigma.py": "cdfb2ec61f998454978e176be74d54f9e6fef3beeb11c1d86f36909381cd077a",
+    "scripts/verification-manuscript.py": "3cbb1e9dbc60587d1ade4995264369af5b763b401223243fc2d4f73480bb2f8b",
+    "scripts/verification-renderer-provenance.py": "1ef95d18adf3b485fb9727f005e79cc1deb4fde8c531cc245347bb8129ba73d8",
+    "src/rikishi/__init__.py": "91447944015cec709e8aa7655f7e9d64e1e4508e7023a57fe3746911c0fc6fed",
+    "src/rikishi/__main__.py": "8212b4226cbe1328d5de194639f30190691ac96608190824e827d8e69fccaf84",
+    "src/rikishi/analytics.py": "bb1cbdb96d2e1f9d0bc529776995dd4721a8e13909c5975b750a4adde5c88869",
+    "src/rikishi/cli.py": "b84be850bfcfafd2e5efc624a37cea14b8f95398225b43e355e367214d8b6164",
+    "src/rikishi/dashboard.py": "720fa05054fedcc20f21aa309d8e1aedbb802ff9d675cee4941bdfc84ba203d6",
+    "src/rikishi/fep.py": "d035a03cfc9c1435d0d761a3c513db12c23225503f917faeb3c8755abe1c147b",
+    "src/rikishi/kif.py": "40713421201bfb8ef1a508cce42dcf049d6fe50909c77f85826915e1e8d93764",
+    "src/rikishi/manuscript.py": "947cf98a32546ed107252c95166629753b955c57fb24d747f0ae230a85906db8",
+    "src/rikishi/manuscript_provenance.py": "9c9d79582843791942c317e5a4683441674968887c9e56d71a10bca71380ba22",
+    "src/rikishi/manuscript_verification.py": "51a9214539e38709a6eab1d3f727885cacd6d48c4a523f27b2f5df09f7ec4a7e",
+    "src/rikishi/mcp_server.py": "90edb1e84fc6fc39fc39582dae26fc62290bb4487a64802773662373b9d3296b",
+    "src/rikishi/ontology.py": "db89ff715d27914e9a19bd9c13ac4163fce25e7cf49923a29c6508aeb17f1cdf",
+    "src/rikishi/projection.py": "b6b87e7d93e75e5253c4de8a7152bedec8d4ee12b4e9f5ea3ba5397766637126",
+    "src/rikishi/quality.py": "8d9b2ec69dba7646ca12359d8518db6d8236d370cce542bb4b049e9066f6a5f0",
+    "src/rikishi/reports.py": "bcbc55a5b5da6f3a4ca6742fefa5ddcdd92df9fd07ca7f115d35b31b50419fb6",
+    "src/rikishi/runtime.py": "d47839ac7dfd9f8ff5facea1f37aee3fe7170ab32bf3629240071949cdb3a4a8",
+    "src/rikishi/runtime_query.py": "1dce7bc148b1fd03cf635d0c406ebaf6f0bfe00f5f577357df5679d3e666fb9e",
+    "src/rikishi/runtime_results.py": "1d6ce131781460e64304958d2a3c939f1601832f9b32612f4f51aaa7505b0158",
+    "src/rikishi/runtime_server.py": "369f34401fc402bc56340326195b47134ec644f3147fa542c6897ae6f4b0e9e2",
+    "src/rikishi/runtime_setup.py": "4d321e42da628f45420cc8d8c1623d1df066e400d14b24a0e5c396c2a947f740",
+    "src/rikishi/source_audit.py": "b1a661039b2628396ab02e9d58d2dd4af56096dd7725c090f438d918f9bc0544",
+    "src/rikishi/static/analytics.js": "879b66f1a82c74b89ddb7a1d658ee722e79a5e276f44605a37e4a4a771e9df76",
+    "src/rikishi/static/app.js": "d6f281fe60822ae42e54521370620282e15c88003a6c65924ef82bfd19b8ebae",
+    "src/rikishi/static/index.html": "192e058b17241747e3f4eace1c59488d18128527c5f1e21710fd995f74fd8625",
+    "src/rikishi/static/report.html": "1fd9a3b7416714f021647b9bf4754f98de8f66d466ecf8c870d8532d985c914e",
+    "src/rikishi/static/style.css": "8f31cffb5d34c19df46e73bb96f05092ff986ef507b1b774fd9171873da52c24",
+    "tests/conftest.py": "907afad36ec7c653b2bc3bf8a44b11e434a2a37010ee116e87a71275f8da1d9c",
+    "tests/dashboard/test_analytics.py": "c44d35f6a8b947c41e621a5e6352893f238765e1575d600a417710fe55101153",
+    "tests/dashboard/test_dashboard_surfaces.py": "00ffad2e5e7301b2ce759cae4920f7720cb9398ce5b91cd58173627cd2936e51",
+    "tests/inference/test_projection.py": "437a0e9279022d8f78ef4c6b46b5e2a51d4263b5ef37ea20160b11127bf0c0f0",
+    "tests/inference/test_projection_manifest.py": "5f2b08659fa4d349664b85540b046ca4717c66557f9f478f1895b0cd24b9679e",
+    "tests/interfaces/test_cli.py": "1562730e350aea0b673b59589631982d7dc5ac90b7367a44b6597a2a0847a264",
+    "tests/interfaces/test_mcp.py": "532c62fe1e9d45426f5df19dc3ae1a5dde1f393d8c107ad00070d6d76e27123f",
+    "tests/interfaces/test_mcp_transport.py": "8e9c6284c4c33da02c994eb2032d6ee6b44650bd2d8e063239d9b449693a90c0",
+    "tests/manuscript/test_manuscript_provenance.py": "6a8ffd2379d6d0d341f39655288465443733540a57160be5db335758fe2759b0",
+    "tests/manuscript/test_native_manuscript.py": "caf80f828ed750ebfc80c220f35b061171dbe95495744ad44824f45402c339bf",
+    "tests/runtime/test_atp_results.py": "24994b3190286ca9fc5b80d236cb455426c37b270a816f9e6b53ef3f53db87ab",
+    "tests/runtime/test_eprover.py": "1df2ffde0064df2d14c916f8ac983c5a61d1e1e96cb3d26da200eff690c9b0ab",
+    "tests/runtime/test_runtime_entrypoints.py": "f38942afc46f94d097d257204c47ac8b75a4a5b6fcc15e26c2fe94feab8acd90",
+    "tests/runtime/test_runtime_sources.py": "8b3b49388a63c3dc4ab669b058fa8af5e9a27714a5835631098ef01b57be0944",
+    "tests/runtime/test_sigma_outcomes.py": "70ddd17ca8da4dab54448dfae6aaefd562116809e4bd72f7e73028cfd7017ebc",
+    "tests/unit/test_fep.py": "6d604ff25c3aecf9bb9e656b29f8f719f7cd272af04e2b8a14defc98d11217cd",
+    "tests/unit/test_kif.py": "b22d4cf27e68fa760bf7d17b16fc2cb593bf5a85d2525b613284bbf8d86401a5",
+    "tests/unit/test_ontology.py": "720973abc44f346e54b94a3ed1e5fc7665a36826ac1c3f0c689ca61f40232bd4",
+    "tests/unit/test_quality.py": "4a57ec12f8ab4c0a202e2d15a110a435afc1498ae886a89c83c9a20371591c7e",
+    "tests/unit/test_source_audit.py": "310b0c1a66e8f27c13250679029c7dcad1ffc36fd761f3cba65d2bfbe42e3aea",
+    "uv.lock": "75a007038064842da6d4007a2dc9bcc20fd9106cb1711ff58d5dfbbf8981cc24"
+  },
+  "observed_at": "2026-10-20 01:49:12 UTC"
 }

@@ -111,29 +111,12 @@ def test_export_has_hashes_and_no_local_root(index, tmp_path):
         assert connection.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
 
 
-def test_git_provenance_dirty_and_atomic_failure(tmp_path):
+def test_git_provenance_dirty_and_atomic_failure(tmp_path, git_commit):
     source = tmp_path / "source"
     source.mkdir()
     kif = source / "Merge.kif"
     kif.write_text("(instance Ada Human)")
-    subprocess.run(["git", "init", str(source)], check=True, capture_output=True)
-    subprocess.run(["git", "-C", str(source), "add", "Merge.kif"], check=True)
-    subprocess.run(
-        [
-            "git",
-            "-C",
-            str(source),
-            "-c",
-            "user.name=Test",
-            "-c",
-            "user.email=test@example.invalid",
-            "commit",
-            "-m",
-            "Fixture",
-        ],
-        check=True,
-        capture_output=True,
-    )
+    git_commit(source)
     index = OntologyIndex(tmp_path / "index.sqlite")
     stats = index.build(source)
     assert stats["source_clean"] is True

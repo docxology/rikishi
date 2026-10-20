@@ -6,7 +6,11 @@ apply inside that reference tree. `_template_resources/` preserves the template'
 rendering infrastructure. Do not attribute its optimization results or DOI to Rikishi.
 
 Use Python 3.12 and `uv sync --locked`, `uv run pytest`, and `uv run ruff check`.
-The project coverage gate is 90% including branches. Tests use real files, local
+The core coverage gate is 90% including branches; native installation/rendering
+infrastructure has a separate 60% floor. Exact infrastructure paths are in
+`config/coverage.toml`. Both scopes are mandatory: run `scripts/check_coverage.py`
+after producing `output/coverage.json`. The general coverage report's 60% floor
+is only a coarse guard; it does not replace the core gate. Tests use real files, local
 HTTP, and subprocesses, with no mocking frameworks. Negative controls must reject
 malformed KIF, missing terms, invalid probability inputs, and unsuccessful proofs.
 

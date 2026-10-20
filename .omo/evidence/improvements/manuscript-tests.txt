@@ -1,0 +1,23 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Volumes/GitVault/Username/docxology/Private/rikishi
+configfile: pyproject.toml
+plugins: anyio-4.15.1, cov-7.0.0
+collected 28 items
+
+tests/manuscript/test_manuscript_provenance.py ........................  [ 85%]
+tests/manuscript/test_native_manuscript.py ....                          [100%]
+
+- generated xml file: /Volumes/GitVault/Username/docxology/Private/rikishi/.omo/evidence/improvements/manuscript-tests.xml -
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.13-final-0 _______________
+
+Name                                     Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------------------------
+src/rikishi/manuscript.py                   73      2      8      2    95%   110, 114
+src/rikishi/manuscript_provenance.py        94      0     36      0   100%
+src/rikishi/manuscript_verification.py      66      1      4      0    99%   146
+------------------------------------------------------------------------------------
+TOTAL                                      233      3     48      2    98%
+Required test coverage of 90% reached. Total coverage: 98.22%
+============================= 28 passed in 13.84s ==============================

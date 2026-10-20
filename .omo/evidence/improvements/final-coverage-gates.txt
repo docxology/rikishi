@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "core": {
+    "files": [
+      "src/rikishi/__init__.py",
+      "src/rikishi/__main__.py",
+      "src/rikishi/analytics.py",
+      "src/rikishi/cli.py",
+      "src/rikishi/dashboard.py",
+      "src/rikishi/fep.py",
+      "src/rikishi/kif.py",
+      "src/rikishi/manuscript_provenance.py",
+      "src/rikishi/mcp_server.py",
+      "src/rikishi/ontology.py",
+      "src/rikishi/projection.py",
+      "src/rikishi/quality.py",
+      "src/rikishi/reports.py",
+      "src/rikishi/runtime.py",
+      "src/rikishi/runtime_results.py",
+      "src/rikishi/source_audit.py"
+    ],
+    "covered_lines": 924,
+    "statements": 957,
+    "covered_branches": 210,
+    "branches": 220,
+    "floor": 90.0,
+    "percent": 96.34664401019542,
+    "passed": true
+  },
+  "infrastructure": {
+    "files": [
+      "src/rikishi/manuscript.py",
+      "src/rikishi/manuscript_verification.py",
+      "src/rikishi/runtime_query.py",
+      "src/rikishi/runtime_server.py",
+      "src/rikishi/runtime_setup.py"
+    ],
+    "covered_lines": 333,
+    "statements": 385,
+    "covered_branches": 72,
+    "branches": 106,
+    "floor": 60.0,
+    "percent": 82.4847250509165,
+    "passed": true
+  }
+}

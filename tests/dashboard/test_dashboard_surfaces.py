@@ -13,8 +13,10 @@ def database(tmp_path):
     source = tmp_path / "source"
     source.mkdir()
     (source / "sample.kif").write_text(
-        '(subclass Human Agent)\n(subclass Agent Entity)\n'
-        '(documentation Human EnglishLanguage "A human agent.")\n', encoding="utf-8")
+        "(subclass Human Agent)\n(subclass Agent Entity)\n"
+        '(documentation Human EnglishLanguage "A human agent.")\n',
+        encoding="utf-8",
+    )
     path = tmp_path / "index.sqlite"
     OntologyIndex(path).build(source)
     return path
@@ -30,6 +32,10 @@ def test_live_dashboard_and_api(database):
             assert response.status_code == 200
             assert len(response.content) > 500
         assert client.get("/api/stats").json()["formulas"] == 3
+        measured = client.get("/api/analytics")
+        assert measured.status_code == 200
+        assert measured.json()["formula_denominator"] == 3
+        assert measured.json()["unique_edges"] == 2
         result = client.get("/api/search", params={"q": "Human"}).json()
         assert result[0]["name"] == "Human"
         assert client.get("/api/search", params={"q": "NoSuchTerm"}).json() == []
@@ -42,7 +48,10 @@ def test_live_dashboard_and_api(database):
         assert client.get("/docs").status_code == 200
         optimum = client.get("/api/fep?q=0.8").json()
         assert optimum["result"]["kl_to_posterior"] == pytest.approx(0)
-        assert client.get("/api/fep?q=0").json()["result"]["free_energy"] > optimum["result"]["free_energy"]
+        assert (
+            client.get("/api/fep?q=0").json()["result"]["free_energy"]
+            > optimum["result"]["free_energy"]
+        )
 
 
 @pytest.mark.parametrize("url", ["/api/terms/Missing", "/api/graph?term=Missing"])
@@ -53,7 +62,17 @@ def test_missing_terms_are_explicit_404(database, url):
         assert "not found" in response.json()["detail"]
 
 
-@pytest.mark.parametrize("url", ["/api/search?q=", "/api/search?q=x&limit=0", "/api/graph?term=Human&limit=101", "/api/graph?term=", "/api/fep?q=1.1", "/api/fep?q=nan"])
+@pytest.mark.parametrize(
+    "url",
+    [
+        "/api/search?q=",
+        "/api/search?q=x&limit=0",
+        "/api/graph?term=Human&limit=101",
+        "/api/graph?term=",
+        "/api/fep?q=1.1",
+        "/api/fep?q=nan",
+    ],
+)
 def test_invalid_queries_fail_validation(database, url):
     with TestClient(create_app(database)) as client:
         assert client.get(url).status_code == 422
@@ -68,7 +87,16 @@ def test_missing_database_does_not_create_one(tmp_path):
 
 def test_report_contains_real_counts_and_figures(database, tmp_path):
     artifacts = build_report(database, tmp_path / "report")
-    assert set(artifacts) == {"html", "data", "svg", "png"}
+    assert set(artifacts) == {
+        "html",
+        "data",
+        "svg",
+        "png",
+        "analytics",
+        "summary",
+        "composition_svg",
+        "composition_png",
+    }
     for artifact in artifacts.values():
         assert Path(artifact).stat().st_size > 50
     data = json.loads(Path(artifacts["data"]).read_text())
@@ -77,6 +105,9 @@ def test_report_contains_real_counts_and_figures(database, tmp_path):
     html = Path(artifacts["html"]).read_text()
     assert "__DATA__" not in html
     assert "__STYLE__" not in html
+    assert "__ANALYTICS" not in html
+    assert "Composition and connectivity" in html
+    assert json.loads(Path(artifacts["analytics"]).read_text())["unique_edges"] == 2
     assert '"formulas": 3' in html
     assert 'src="http' not in html
     assert Path(artifacts["png"]).read_bytes().startswith(b"\x89PNG\r\n\x1a\n")

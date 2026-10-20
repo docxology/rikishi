@@ -3,6 +3,7 @@ from pathlib import Path
 
 from mcp.server.fastmcp import FastMCP
 
+from rikishi.analytics import CorpusAnalytics, measure_corpus
 from rikishi.fep import demo, free_energy
 from rikishi.ontology import OntologyIndex
 
@@ -21,6 +22,11 @@ def create_server(root: Path) -> FastMCP:
     def corpus_stats() -> dict:
         """Return source revision, measured corpus counts, and explicit parse failures."""
         return index.stats()
+
+    @server.tool()
+    def corpus_analytics() -> CorpusAnalytics:
+        """Measure source composition and asserted graph with explicit denominators, not truth."""
+        return measure_corpus(index)
 
     @server.tool()
     def search_terms(query: str, limit: int = 30) -> list[dict]:

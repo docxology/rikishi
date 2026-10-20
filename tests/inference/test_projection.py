@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 
 import pytest
 
@@ -10,7 +9,7 @@ from rikishi.runtime import prove
 
 
 @pytest.mark.integration
-def test_real_taxonomy_projection_and_countermodel(tmp_path):
+def test_real_taxonomy_projection_and_countermodel(tmp_path, project_root):
     source = tmp_path / "sumo"
     source.mkdir()
     (source / "Merge.kif").write_text(
@@ -26,19 +25,17 @@ def test_real_taxonomy_projection_and_countermodel(tmp_path):
     assert metadata["source_clean"] is None
     assert metadata["assertions"][0]["line"] == 1
     assert json.loads(output.with_suffix(".json").read_text())["subject"] == "Human"
-    root = Path(__file__).resolve().parents[1]
-    assert prove(output, root)["status"] == "Theorem"
+    assert prove(output, project_root)["status"] == "Theorem"
     taxonomy_problem(index, "Human", "Rock", output)
-    assert prove(output, root)["status"] == "CounterSatisfiable"
+    assert prove(output, project_root)["status"] == "CounterSatisfiable"
     with pytest.raises(ValueError):
         taxonomy_problem(index, "Human", "Rock", output, source="absent.kif")
     with pytest.raises(KeyError):
         taxonomy_problem(index, "MissingTerm", "Rock", output)
 
 
-def test_research_extension_is_structurally_valid():
-    root = Path(__file__).resolve().parents[1]
-    formulas = list(parse((root / "examples/fep-ontology.kif").read_text()))
+def test_research_extension_is_structurally_valid(project_root):
+    formulas = list(parse((project_root / "examples/fep-ontology.kif").read_text()))
     expressions = [formula.expression for formula in formulas]
     assert ("subclass", "RikishiVariationalInference", "Reasoning") in expressions
     assert (

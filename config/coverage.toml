@@ -1,0 +1,9 @@
+core_floor = 90.0
+infrastructure_floor = 60.0
+infrastructure = [
+  "src/rikishi/runtime_setup.py",
+  "src/rikishi/runtime_query.py",
+  "src/rikishi/runtime_server.py",
+  "src/rikishi/manuscript.py",
+  "src/rikishi/manuscript_verification.py",
+]

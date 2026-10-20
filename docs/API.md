@@ -11,6 +11,8 @@ supplies its default. Local state is under `.rikishi/`, generated exports under
 | `doctor` | Inspect actual source revisions and installed artifacts |
 | `index [--source DIR]` | Recursively parse `.kif`, build SQLite atomically, export manifest |
 | `stats` | Counts, per-file formula totals, predicates, parse errors, revision |
+| `verify-source` | Read-only comparison of current KIF bytes/revision against indexed snapshot |
+| `metrics` | Exact formula-head composition, file concentration, unique-edge degree distribution |
 | `search Organism [--limit 30]` | Case-insensitive substring search of term names |
 | `term Organism` | Documentation, first 100 referencing formulas, asserted taxonomy |
 | `graph Organism [--limit 80]` | Bounded adjacent asserted binary relationships |
@@ -28,6 +30,11 @@ stderr. `index` returns nonzero if any source file fails structural parsing;
 its result retains the complete diagnostic list. A malformed file contributes
 no partially parsed formulas. `prove` and `taxonomy-proof` return zero only for
 the SZS `Theorem` outcome. `doctor` is an inspection, not a running-service gate.
+
+`verify-source` fails for added, missing, changed, escaping, or previously rejected
+KIF sources and for a changed recorded Git revision. File agreement and revision
+agreement are separate fields; unversioned input has `revision_matches: null`.
+A dirty unrelated non-KIF file is reported by `current_clean` independently.
 
 `taxonomy-proof` emits `output/reasoning/taxonomy.p`, its source/line manifest
 `taxonomy.json`, and full prover output `taxonomy.result.json`. It selects direct
@@ -58,7 +65,7 @@ implications and quantified bodies remain available as formula text.
 
 ## HTTP
 
-The read-only workbench exposes `/api/stats`, `/api/search?q=Organism`,
+The read-only workbench exposes `/api/stats`, `/api/analytics`, `/api/search?q=Organism`,
 `/api/terms/Organism`, `/api/graph?term=Organism&limit=40`, and `/api/fep?q=0.8`.
 OpenAPI is available at `/docs`. Invalid bounds produce HTTP 422 and unknown
 terms produce HTTP 404. HTTP has no bootstrap, filesystem-write, proof-execution,
@@ -76,6 +83,7 @@ before launching a client to retain external cache bindings.
 | Tool | Arguments | Result |
 | --- | --- | --- |
 | `corpus_stats` | None | Measured counts, source revision, parse errors |
+| `corpus_analytics` | None | Complete composition, concentration, and unique-edge degree metrics |
 | `search_terms` | `query`, `limit` 1–200 | Term names and documentation preview |
 | `inspect_term` | Exact `name` | Source-bound definition and formulas |
 | `relation_graph` | Exact `name`, `limit` 1–500 | Asserted neighboring edges |
@@ -83,5 +91,5 @@ before launching a client to retain external cache bindings.
 
 Resources: `sumo://corpus` and `rikishi://fep-example`. MCP startup performs no
 download or index mutation. Tool failures remain protocol error results; stdout
-is reserved for MCP frames. `tests/test_mcp_transport.py` launches an actual
-stdio client/server and checks initialization, results, and invalid requests.
+is reserved for MCP frames. `tests/interfaces/test_mcp_transport.py` launches an
+actual stdio client/server and checks initialization, results, and invalid requests.

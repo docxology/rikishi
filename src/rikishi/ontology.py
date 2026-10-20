@@ -271,13 +271,17 @@ class OntologyIndex:
         stats = self.stats()
         stats.pop("source_root", None)
         (target / "corpus.json").write_text(json.dumps(stats, indent=2) + "\n", encoding="utf-8")
-        with closing(self._connect()) as connection:
-            rows = connection.execute("SELECT path,sha256,formulas FROM files ORDER BY path")
-            manifest = [dict(row) for row in rows]
         (target / "source-manifest.json").write_text(
-            json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
+            json.dumps(self.source_manifest(), indent=2) + "\n", encoding="utf-8"
         )
         return stats
+
+    def source_manifest(self) -> list[dict[str, str | int]]:
+        with closing(self._connect()) as connection:
+            return [{"path": row["path"], "sha256": row["sha256"], "formulas": row["formulas"]}
+                    for row in connection.execute(
+                        "SELECT path,sha256,formulas FROM files ORDER BY path"
+                    )]
 
     def assertions(self, predicate: str, source: str = "Merge.kif") -> list[dict]:
         with closing(self._connect()) as connection:

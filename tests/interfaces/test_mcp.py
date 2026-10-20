@@ -18,6 +18,7 @@ def test_mcp_tools_real_index_and_probability_errors(tmp_path):
         names = {tool.name for tool in await server.list_tools()}
         assert names == {
             "corpus_stats",
+            "corpus_analytics",
             "search_terms",
             "inspect_term",
             "relation_graph",
@@ -25,6 +26,7 @@ def test_mcp_tools_real_index_and_probability_errors(tmp_path):
         }
         tools = [
             ("corpus_stats", {}),
+            ("corpus_analytics", {}),
             ("search_terms", {"query": "Human"}),
             ("inspect_term", {"name": "Human"}),
             ("relation_graph", {"name": "Human"}),
@@ -35,12 +37,16 @@ def test_mcp_tools_real_index_and_probability_errors(tmp_path):
         ]
         for name, arguments in tools:
             result = await server.call_tool(name, arguments)
-            payload = (
-                result[1]["result"] if isinstance(result, tuple) else json.loads(result[0].text)
-            )
+            if isinstance(result, tuple):
+                payload = result[1] if name == "corpus_analytics" else result[1]["result"]
+            else:
+                payload = json.loads(result[0].text)
             match name:
                 case "corpus_stats":
                     assert payload["formulas"] == 1
+                case "corpus_analytics":
+                    assert payload["formula_denominator"] == 1
+                    assert payload["unique_edges"] == 1
                 case "search_terms":
                     assert payload[0]["name"] == "Human"
                 case "inspect_term":

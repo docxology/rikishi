@@ -1,0 +1,67 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Volumes/GitVault/Username/docxology/Private/rikishi
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1, cov-7.0.0
+collected 163 items
+
+tests/dashboard/test_analytics.py ......                                 [  3%]
+tests/dashboard/test_dashboard_surfaces.py ............                  [ 11%]
+tests/inference/test_projection.py ..                                    [ 12%]
+tests/inference/test_projection_manifest.py ..                           [ 13%]
+tests/interfaces/test_cli.py ..........                                  [ 19%]
+tests/interfaces/test_mcp.py .                                           [ 20%]
+tests/interfaces/test_mcp_transport.py .                                 [ 20%]
+tests/manuscript/test_manuscript_provenance.py ......................... [ 36%]
+                                                                         [ 36%]
+tests/manuscript/test_native_manuscript.py ....                          [ 38%]
+tests/runtime/test_atp_results.py .................                      [ 49%]
+tests/runtime/test_eprover.py .........                                  [ 54%]
+tests/runtime/test_runtime_entrypoints.py ......                         [ 58%]
+tests/runtime/test_runtime_sources.py ...                                [ 60%]
+tests/runtime/test_sigma_outcomes.py ........                            [ 65%]
+tests/unit/test_fep.py ...............                                   [ 74%]
+tests/unit/test_kif.py ..........                                        [ 80%]
+tests/unit/test_ontology.py ............                                 [ 87%]
+tests/unit/test_quality.py ................                              [ 97%]
+tests/unit/test_source_audit.py ....                                     [100%]
+
+=============================== warnings summary ===============================
+.venv/lib/python3.12/site-packages/fastapi/testclient.py:1
+  /Volumes/GitVault/Username/docxology/Private/rikishi/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /Volumes/GitVault/Username/docxology/Private/rikishi/output/tests.xml -
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.13-final-0 _______________
+
+Name                                     Stmts   Miss Branch BrPart  Cover   Missing
+------------------------------------------------------------------------------------
+src/rikishi/__init__.py                      1      0      0      0   100%
+src/rikishi/__main__.py                      2      2      0      0     0%   1-3
+src/rikishi/analytics.py                    41      0      0      0   100%
+src/rikishi/cli.py                         118     27     34      7    76%   76-78, 82-85, 87-98, 104-112, 120-121, 127-133, 150->152
+src/rikishi/dashboard.py                    49      0      2      0   100%
+src/rikishi/fep.py                          82      0     14      0   100%
+src/rikishi/kif.py                          87      0     44      0   100%
+src/rikishi/manuscript.py                   73      2      8      2    95%   110, 114
+src/rikishi/manuscript_provenance.py       108      1     36      0    99%   149
+src/rikishi/manuscript_verification.py      66      1      4      0    99%   146
+src/rikishi/mcp_server.py                   36      1      0      0    97%   65
+src/rikishi/ontology.py                    121      1     34      1    99%   135
+src/rikishi/projection.py                   23      0      4      0   100%
+src/rikishi/quality.py                     103      0     18      0   100%
+src/rikishi/reports.py                      60      0      6      0   100%
+src/rikishi/runtime.py                      41      1     10      0    98%   71
+src/rikishi/runtime_query.py                42      3      6      1    92%   32, 47-48
+src/rikishi/runtime_results.py              35      0     10      0   100%
+src/rikishi/runtime_server.py               25      5      4      1    72%   24-28
+src/rikishi/runtime_setup.py               179     41     84     16    74%   27-35, 94, 105, 107, 118, 124-128, 131, 134, 137, 140-149, 157, 172-177, 181, 191, 204, 212
+src/rikishi/source_audit.py                 50      0      8      0   100%
+------------------------------------------------------------------------------------
+TOTAL                                     1342     85    326     28    92%
+Coverage JSON written to file output/coverage.json
+Required test coverage of 60.0% reached. Total coverage: 92.27%
+================== 163 passed, 1 warning in 82.76s (0:01:22) ===================

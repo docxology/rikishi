@@ -263,8 +263,10 @@
     "infrastructure/validation/content/validator_pitfalls.py": "43c2b86b5e4116d59da7a9ce9bdb632126b0c00047960b17350bc58193d3545f",
     "infrastructure/validation/content/validator_refs.py": "a70d0407cea6d9fc4f04da74ad3d2b8a1b0a3f506a4502463046ffa96e5c2453"
   },
-  "source_sha256": "47f712aa3410d48a2909a7c095e8754266d78b4f7cb23538b46e518d60bdb4d6",
+  "source_sha256": "834b3e3a0f78a88b558b5c11c7a66f954be4ddd8bf0fff6d228fb9e38f7e1c20",
   "corpus_export_sha256": "97da585c455633d52d0fe9f8f4a0d07f162c6dcf649d0e6e0a103f6922500d5f",
+  "bibliography_sha256": "7adb376e837b9fe9a48c9fb2ddf824ba5923b36dfa347062992148a3de78fe33",
+  "analytics_sha256": "e3e03bc181d3ff526e791745a20f9a8f8797df206c643b8f23618affa6cd461c",
   "substitutions": {
     "SUMO_COMMIT": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
     "CORPUS_FILES": "144",
@@ -287,18 +289,18 @@
   "artifacts": [
     {
       "path": "output/manuscript/pdf/rikishi.pdf",
-      "bytes": 193042,
-      "sha256": "00845ebc2defba182f74487ae0e8f4b41ad0f635fd6d902bc8d8770ab7e63cab"
+      "bytes": 293330,
+      "sha256": "2187cedc0929c450c3a8b672a9c460a8494d784c48f094c57d9dc4a37ef74127"
     },
     {
       "path": "output/manuscript/web/manuscript__rikishi.html",
-      "bytes": 29496,
-      "sha256": "74a14f5ddeb000e7db7174b9daa4e08455c096163e0ccb58c22920a79a638d65"
+      "bytes": 34747,
+      "sha256": "13b4ab72972c3e24cfaade35cef58ea5c2f26031ad2fb6a49a2453935c55cf41"
     },
     {
       "path": "output/manuscript/docx/rikishi.docx",
-      "bytes": 139289,
-      "sha256": "1c9d4c1d51faeace788fe3da33c41993d4fdea51ddc571da9cd530a632731eed"
+      "bytes": 223071,
+      "sha256": "39e31f35eb8d1fec18c6cb96c92ca29a849896547529b1dabf3852fe1ea61e86"
     },
     {
       "path": "output/manuscript/figures/fep-free-energy.png",
@@ -311,14 +313,24 @@
       "sha256": "1c648cb151717fc82c9084c6775e2cc9a0c965b838e8d688425c76f2390126a9"
     },
     {
+      "path": "output/manuscript/figures/corpus-composition.png",
+      "bytes": 92464,
+      "sha256": "7d7e5cf2f36e309f613a096c54b8efa9079b316754a6393977e8746c84b18e77"
+    },
+    {
       "path": "output/manuscript/rikishi.md",
-      "bytes": 12375,
-      "sha256": "1bcf2bf2362f27d16575fc6efce3c1a67e2d7dd8ba46cda31a0de9c5e79645fd"
+      "bytes": 16802,
+      "sha256": "0a69b159110cbe292bb2d4be9d55dde30007234d47be70ff63f17a281ef25bb1"
     },
     {
       "path": "output/manuscript/fep-example.json",
       "bytes": 8923,
       "sha256": "d7bf4d3056d2ac4c7b25f55118890f0e82ac496e9d5e72e877e417b6904a81dc"
+    },
+    {
+      "path": "output/manuscript/references.bib",
+      "bytes": 1894,
+      "sha256": "7adb376e837b9fe9a48c9fb2ddf824ba5923b36dfa347062992148a3de78fe33"
     }
   ]
 }

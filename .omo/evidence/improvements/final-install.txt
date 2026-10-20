@@ -1,0 +1,21 @@
+Final installed-wheel check (after documentation and skills updates)
+
+uv build
+Building source distribution...
+Building wheel from source distribution...
+Successfully built dist/rikishi-0.1.0.tar.gz
+Successfully built dist/rikishi-0.1.0-py3-none-any.whl
+
+uv pip install --python .rikishi/wheel-test/bin/python --force-reinstall --no-deps dist/rikishi-0.1.0-py3-none-any.whl
+Installed rikishi==0.1.0 from the local wheel.
+
+The independent environment imported the installed package from its site-packages,
+verified the new analytics static asset, imported analytics/quality/ATP result
+modules, and checked the exact-posterior free energy against log(2).
+Observed output:
+/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/wheel-test/lib/python3.12/site-packages/rikishi/__init__.py
+/Volumes/GitVault/Username/docxology/Private/rikishi/.rikishi/wheel-test
+/Volumes/GitVault/Local/runtimes/uv-python/cpython-3.12-macos-aarch64-none
+Installed wheel modules/assets/numerics verified
+
+The actual gate subprocess and package-install subprocess both exited zero.

@@ -8,6 +8,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+from rikishi.runtime_results import interpret_sigma_result
+
+__all__ = ["bootstrap", "interpret_sigma_result", "prove", "status"]
+
 
 def status(root: Path) -> dict[str, object]:
     """Inspect installed artifacts and upstream revisions without modifying them."""
@@ -65,17 +69,3 @@ def bootstrap(root: Path) -> dict[str, object]:
     subprocess.run(["bash", str(root.resolve() / "scripts/bootstrap-sumo.sh")],
                    check=True, timeout=1800, stdout=sys.stderr)
     return status(root)
-
-
-def interpret_sigma_result(path: Path, returncode: int | None, timed_out: bool = False) -> dict[str, object]:
-    result = json.loads(path.read_text()) if path.is_file() else {}
-    status = "Timeout" if timed_out else result.get("status", "NoSZSStatus")
-    outcome = {"Theorem": "entailed", "CounterSatisfiable": "not_entailed",
-               "ContradictoryAxioms": "inconsistent_translated_axioms"}.get(status, "inconclusive")
-    if returncode not in (0, None) or status == "NoSZSStatus":
-        outcome = "error"
-    if outcome == "entailed" and (result.get("atp_returncode") != 0 or not result.get("stdout_lines")):
-        outcome = "error"
-    return {"status": status, "outcome": outcome, "proved": outcome == "entailed",
-            "atp_returncode": result.get("atp_returncode"),
-            "consistency": "contradictory_translated_axioms_detected" if status == "ContradictoryAxioms" else "not_established"}

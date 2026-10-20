@@ -1,7 +1,6 @@
 """Independent finite arithmetic and rejected probability-domain controls."""
 
 import math
-import subprocess
 from pathlib import Path
 
 import pytest
@@ -61,29 +60,14 @@ def test_missing_formalization_is_rejected(tmp_path: Path):
 
 
 @pytest.mark.parametrize("missing", [False, True])
-def test_committed_source_is_inspected_and_missing_declarations_fail(tmp_path: Path, missing: bool):
+def test_committed_source_is_inspected_and_missing_declarations_fail(
+    tmp_path: Path, missing: bool, git_commit
+):
     source = tmp_path / SOURCE
     source.parent.mkdir(parents=True)
     names = DECLARATIONS[:-1] if missing else DECLARATIONS
     source.write_text("\n".join(f"theorem {name} : True := by trivial" for name in names))
-    subprocess.run(["git", "init", str(tmp_path)], check=True, capture_output=True)
-    subprocess.run(["git", "-C", str(tmp_path), "add", "."], check=True, capture_output=True)
-    subprocess.run(
-        [
-            "git",
-            "-C",
-            str(tmp_path),
-            "-c",
-            "user.name=Test",
-            "-c",
-            "user.email=test@example.invalid",
-            "commit",
-            "-m",
-            "fixture",
-        ],
-        check=True,
-        capture_output=True,
-    )
+    git_commit(tmp_path)
     if missing:
         with pytest.raises(ProbabilityError, match="expected exactly one"):
             inspect_formalization(tmp_path, "HEAD")

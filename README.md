@@ -26,6 +26,8 @@ uv run rikishi bootstrap
 uv run rikishi index
 uv run rikishi search Organism
 uv run rikishi term Organism
+uv run rikishi verify-source
+uv run rikishi metrics
 uv run rikishi taxonomy-proof Human AutonomousAgent
 uv run rikishi dashboard --port 8765
 ```
@@ -42,7 +44,8 @@ uv run rikishi fep-inspect --repo ../../../ActiveInferenceInstitute/Public/fep_f
 uv run rikishi report
 uv run python scripts/render_manuscript.py
 uv run rikishi mcp
-uv run pytest --cov=rikishi --cov-report=term-missing
+uv run pytest --cov=rikishi --cov-report=term-missing --cov-report=json:output/coverage.json
+uv run python scripts/check_coverage.py --output output/coverage-gates.json
 uv run ruff check src tests scripts
 ```
 
@@ -50,6 +53,11 @@ The `fep-inspect` path may instead be supplied with `RIKISHI_FEP_REPO`.
 Read [the operator documentation](docs/README.md), [API and MCP](docs/API.md),
 [dashboard](docs/dashboard.md), and [verification evidence](docs/verification.md).
 Project skills are under [`skills/`](skills/).
+
+The factored [test suites and required gates](docs/testing.md) use real files,
+local Git repositories, HTTP, MCP, and native subprocesses. The measured
+[corpus metrics](docs/metrics.md) distinguish repeated assertions from unique
+graph edges. Primary sources and claim scope are in [scholarship](docs/scholarship.md).
 
 ## Evidence boundaries
 

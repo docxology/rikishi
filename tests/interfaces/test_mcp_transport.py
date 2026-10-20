@@ -29,12 +29,15 @@ def test_real_mcp_stdio_initialize_tools_and_failure(tmp_path):
                 initialized = await session.initialize()
                 assert initialized.serverInfo.name == "rikishi"
                 tools = await session.list_tools()
-                assert len(tools.tools) == 5
+                assert len(tools.tools) == 6
                 success = await session.call_tool("inspect_term", {"name": "Human"})
                 assert success.isError is False
                 assert json.loads(success.content[0].text)["name"] == "Human"
                 stats = await session.call_tool("corpus_stats", {})
                 assert json.loads(stats.content[0].text)["formulas"] == 1
+                analytics = await session.call_tool("corpus_analytics", {})
+                assert analytics.isError is False
+                assert json.loads(analytics.content[0].text)["unique_edges"] == 1
                 graph = await session.call_tool("relation_graph", {"name": "Human"})
                 assert json.loads(graph.content[0].text)["edges"] == [
                     {"source": "Human", "target": "Animal", "relation": "subclass"}

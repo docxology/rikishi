@@ -7,7 +7,8 @@ description: Use for rikishi finite free-energy examples, source-pinned Lean ins
 
 All paths and commands below are relative to the repository root.
 
-Read `docs/fep.md` and `config/fep_mappings.json` first.
+Read `docs/fep.md` and `config/fep_mappings.json` first. Consult
+`docs/scholarship.md` when interpreting or changing scientific claims.
 
 1. Run `uv run python examples/fep_demo.py` and retain the JSON.
 2. Check the identity residual, units, normalization, evidence, and support.
@@ -18,7 +19,8 @@ Read `docs/fep.md` and `config/fep_mappings.json` first.
 5. State remaining translation obligations. Explicitly address totalized Lean
    division/logarithm versus positive-support numerical KL.
 6. Reproduce the manuscript through `scripts/render_manuscript.py` when changing
-   the example or its explanation; inspect the resulting artifacts.
+   the example or its explanation; inspect the resulting artifacts. Run
+   `scripts/verification-manuscript.py` to check current inputs and output hashes.
 
 Do not infer SUMO/Lean equivalence, organism-level empirical support, or a theorem
 proof from a plot or an imported declaration name.

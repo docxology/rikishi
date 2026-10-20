@@ -26,6 +26,8 @@ def parser() -> argparse.ArgumentParser:
     graph.add_argument("name")
     graph.add_argument("--limit", type=int, default=80)
     commands.add_parser("stats", help="Measure indexed corpus")
+    commands.add_parser("verify-source", help="Compare current source hashes and revision to index")
+    commands.add_parser("metrics", help="Measure file concentration, predicates, and asserted graph")
     commands.add_parser("report", help="Export corpus manifest, dashboard, and figures")
     commands.add_parser("fep-demo", help="Run a finite variational free-energy example")
     inspect = commands.add_parser("fep-inspect", help="Inspect proposed Lean/SUMO source mappings")
@@ -55,6 +57,15 @@ def execute(args: argparse.Namespace) -> tuple[object, int]:
             return stats, 1 if stats["parse_errors"] else 0
         case "stats":
             return index.stats(), 0
+        case "verify-source":
+            from rikishi.source_audit import audit_sources
+
+            audit = audit_sources(index)
+            return audit.to_dict(), 0 if audit.passed else 1
+        case "metrics":
+            from rikishi.analytics import measure_corpus
+
+            return measure_corpus(index), 0
         case "search":
             return index.search(args.query, args.limit), 0
         case "term":
@@ -109,7 +120,7 @@ def execute(args: argparse.Namespace) -> tuple[object, int]:
             uvicorn.run(create_app(index.path), host="127.0.0.1", port=args.port)
             return None, 0
         case "report":
-            from rikishi.dashboard import build_report
+            from rikishi.reports import build_report
 
             corpus = index.export(root / "output/data")
             return {"corpus": corpus, "report": build_report(index.path, root / "output")}, 0

@@ -1,0 +1,51 @@
+{
+  "observed_at": "2026-10-20 01:49:13 UTC",
+  "checks": [
+    {
+      "surface": "live-mobile",
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "analyticsText": "Composition and connectivity\n\nLargest file: 19.01% of 212,845 formulas. Top ten files: 72.06%. File concentration HHI: 0.1008.\n\n71,701 edge assertions; 70,843 unique labeled directed triples; 858 repeated assertions. 256 of 34,885 indexed symbols have zero degree.\n\nFormula heads (all formulas accounted for)\nHead\tFormulas\tShare\ntermFormat\t54,745\t25.72%\ninstance\t23,784\t11.17%\ndocumentation\t20,563\t9.66%\nsubclass\t12,274\t5.77%\nlocated\t11,355\t5.33%\nexternalImage\t10,743\t5.05%\n=>\t9,527\t4.48%\nabbreviation\t9,297\t4.37%\nAll remaining heads\t60,557\t28.45%\nDegree distribution\n\nSymbols by in + out degree; unique labeled triples. Self-loops count twice. All indexed symbols included.\n\n0\n256\n1\n10,320\n2–4\n20,575\n5–16\n3,107\n17–64\n414\n65+\n213\n\nSource efcd059f8feebfe3488a09f575f88d4d009b1e5c; clean: true. 0 rejected source files. These are syntax measurements of the indexed subset; nested assertions and inferred closure are excluded from the graph. Runtime cached formulas are a different population.",
+      "rows": 9
+    },
+    {
+      "surface": "offline-mobile",
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "analyticsText": "Composition and connectivity\n\nLargest file: 19.01% of 212,845 formulas. Top ten files: 72.06%. File concentration HHI: 0.1008.\n\n71,701 edge assertions; 70,843 unique labeled directed triples; 858 repeated assertions. 256 of 34,885 indexed symbols have zero degree.\n\nFormula heads (all formulas accounted for)\nHead\tFormulas\tShare\ntermFormat\t54,745\t25.72%\ninstance\t23,784\t11.17%\ndocumentation\t20,563\t9.66%\nsubclass\t12,274\t5.77%\nlocated\t11,355\t5.33%\nexternalImage\t10,743\t5.05%\n=>\t9,527\t4.48%\nabbreviation\t9,297\t4.37%\nAll remaining heads\t60,557\t28.45%\nDegree distribution\n\nSymbols by in + out degree; unique labeled triples. Self-loops count twice. All indexed symbols included.\n\n0\n256\n1\n10,320\n2–4\n20,575\n5–16\n3,107\n17–64\n414\n65+\n213\n\nSource efcd059f8feebfe3488a09f575f88d4d009b1e5c; clean: true. 0 rejected source files. These are syntax measurements of the indexed subset; nested assertions and inferred closure are excluded from the graph. Runtime cached formulas are a different population.",
+      "rows": 9
+    },
+    {
+      "surface": "offline-desktop",
+      "width": 1440,
+      "height": 1000,
+      "overflow": false,
+      "analyticsText": "Composition and connectivity\n\nLargest file: 19.01% of 212,845 formulas. Top ten files: 72.06%. File concentration HHI: 0.1008.\n\n71,701 edge assertions; 70,843 unique labeled directed triples; 858 repeated assertions. 256 of 34,885 indexed symbols have zero degree.\n\nFormula heads (all formulas accounted for)\nHead\tFormulas\tShare\ntermFormat\t54,745\t25.72%\ninstance\t23,784\t11.17%\ndocumentation\t20,563\t9.66%\nsubclass\t12,274\t5.77%\nlocated\t11,355\t5.33%\nexternalImage\t10,743\t5.05%\n=>\t9,527\t4.48%\nabbreviation\t9,297\t4.37%\nAll remaining heads\t60,557\t28.45%\nDegree distribution\n\nSymbols by in + out degree; unique labeled triples. Self-loops count twice. All indexed symbols included.\n\n0\n256\n1\n10,320\n2–4\n20,575\n5–16\n3,107\n17–64\n414\n65+\n213\n\nSource efcd059f8feebfe3488a09f575f88d4d009b1e5c; clean: true. 0 rejected source files. These are syntax measurements of the indexed subset; nested assertions and inferred closure are excluded from the graph. Runtime cached formulas are a different population.",
+      "rows": 9
+    },
+    {
+      "surface": "native-sigma",
+      "title": "Human - Sigma Knowledge base Browser",
+      "hasHuman": true,
+      "hasCognitiveAgent": true,
+      "hasSource": true
+    },
+    {
+      "surface": "live-desktop",
+      "width": 1440,
+      "height": 1000,
+      "overflow": false,
+      "analyticsText": "Composition and connectivity\n\nLargest file: 19.01% of 212,845 formulas. Top ten files: 72.06%. File concentration HHI: 0.1008.\n\n71,701 edge assertions; 70,843 unique labeled directed triples; 858 repeated assertions. 256 of 34,885 indexed symbols have zero degree.\n\nFormula heads (all formulas accounted for)\nHead\tFormulas\tShare\ntermFormat\t54,745\t25.72%\ninstance\t23,784\t11.17%\ndocumentation\t20,563\t9.66%\nsubclass\t12,274\t5.77%\nlocated\t11,355\t5.33%\nexternalImage\t10,743\t5.05%\n=>\t9,527\t4.48%\nabbreviation\t9,297\t4.37%\nAll remaining heads\t60,557\t28.45%\nDegree distribution\n\nSymbols by in + out degree; unique labeled triples. Self-loops count twice. All indexed symbols included.\n\n0\n256\n1\n10,320\n2–4\n20,575\n5–16\n3,107\n17–64\n414\n65+\n213\n\nSource efcd059f8feebfe3488a09f575f88d4d009b1e5c; clean: true. 0 rejected source files. These are syntax measurements of the indexed subset; nested assertions and inferred closure are excluded from the graph. Runtime cached formulas are a different population.",
+      "rows": 9
+    }
+  ],
+  "input_sha256": {
+    "output/dashboard.html": "79f0a36fb0081c11d9bc8e52d260554330ccee4034b03279b1cae9eae50039d4",
+    "src/rikishi/static/app.js": "d6f281fe60822ae42e54521370620282e15c88003a6c65924ef82bfd19b8ebae",
+    "src/rikishi/static/analytics.js": "879b66f1a82c74b89ddb7a1d658ee722e79a5e276f44605a37e4a4a771e9df76",
+    "src/rikishi/static/style.css": "8f31cffb5d34c19df46e73bb96f05092ff986ef507b1b774fd9171873da52c24",
+    "output/analytics.json": "e3e03bc181d3ff526e791745a20f9a8f8797df206c643b8f23618affa6cd461c"
+  }
+}

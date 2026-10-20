@@ -183,3 +183,31 @@ login page alone is not evidence that the knowledge base has finished loading.
 - [Official macOS installation](https://github.com/ontologyportal/sigmakee/wiki/MacOS-installation)
 - [E theorem prover](https://github.com/eprover/eprover)
 - [TPTP SZS ontology](https://tptp.org/UserDocs/SZSOntology/)
+# Runtime implementation boundaries
+
+The three repository entry points delegate to importable package modules:
+`runtime_setup` installs the pinned native environment, `runtime_query` runs the
+Java adapter, and `runtime_server` manages Tomcat. Importing them does not parse
+command-line arguments or start a process. `runtime_results` owns the strict ATP
+wire contract and result interpretation; it remains in the 90% core coverage scope.
+The installation and process-orchestration modules have the separately measured
+60% infrastructure floor. Full native tests exercise the installed bootstrap and
+an actual Sigma query; portable tests do not claim to exercise those installations.
+
+Every query generates a fresh invocation identifier. The Java adapter writes it
+into its exclusively created result sidecar, and Python requires an exact match.
+Malformed JSON, coercible string/boolean numbers, missing fields, unexpected
+fields, stale identifiers, unfinished Java execution, empty ATP output, and
+incompatible ATP exit codes cannot certify a proof. Legacy sidecars remain
+readable through the inspection API when no expected identifier is supplied;
+the live query command always requires the identifier.
+
+`Theorem` records entailment reported by the translated problem. Its consistency
+field remains `not_established`: a successful positive query does not establish
+the consistency of its premises. A valid `ContradictoryAxioms` result records
+`inconsistent_translated_axioms`, sets `proved` to false, and makes the CLI exit 2.
+Failure, timeout, and malformed output remain distinct from a countermodel.
+
+The status command accepts `--url` for a real local HTTP test fixture or an
+operator-selected native deployment. Tests own their fixture server lifecycle;
+they do not depend on a previously running browser session or Tomcat process.

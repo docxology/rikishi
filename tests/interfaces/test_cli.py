@@ -20,6 +20,8 @@ def root(tmp_path):
     "command",
     [
         ["stats"],
+        ["verify-source"],
+        ["metrics"],
         ["search", "Human"],
         ["term", "Human"],
         ["graph", "Human"],
@@ -38,6 +40,9 @@ def test_cli_negative_controls(root, capsys):
     assert "KeyError" in capsys.readouterr().err
     assert main(["--root", str(root), "search", "Human", "--limit", "0"]) == 1
     assert main(["--root", str(root), "dashboard", "--port", "0"]) == 1
+    (root / ".rikishi/upstream/sumo/Merge.kif").write_text("(subclass Human Entity)")
+    assert main(["--root", str(root), "verify-source"]) == 1
+    assert json.loads(capsys.readouterr().out)["modified"] == ["Merge.kif"]
     (root / ".rikishi/upstream/sumo/broken.kif").write_text("(")
     assert main(["--root", str(root), "index"]) == 1
 

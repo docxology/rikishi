@@ -45,3 +45,15 @@ That latter result is retained as a separate unresolved diagnosis; the type-guar
 patch does not establish that the complete translated core theory is consistent.
 
 Evidence index: `.omo/evidence/runtime/README.md`.
+## Bounded consistency diagnostic
+
+The improvement pass additionally ran E directly against the generated core
+`SUMO.tptp`, with `--auto --tstp-format --proof-object --cpu-limit=15` and no added
+conjecture. It returned exit 8 and `SZS status ResourceOut`; the raw output is
+`.omo/evidence/improvements/translated-core-consistency.log`. This bounded run
+established neither satisfiability nor inconsistency and produced no contradiction
+core to minimize. It does not override the earlier native query's
+`ContradictoryAxioms` observation. The root cause remains unresolved; diagnosing
+it requires preserving the exact query-specific ATP problem and tracing the
+translation and proof dependencies, rather than labeling the source ontology
+inconsistent from this timeout.
