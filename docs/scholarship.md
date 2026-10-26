@@ -8,10 +8,10 @@ They do not authenticate a local run or prove the proposed SUMO-to-Lean bridge.
 
 ## Primary-source reading record
 
-Sources were checked on 2026-10-20. Niles and Pease's author-hosted FOIS abstract
-and bibliographic record identify the original SUMO proposal; the PDF fetch through
-the research browser failed, so no detailed argument from that paper is attributed
-here. The current ontology's actual definitions are pinned Git source, not this
+Sources were checked on 2026-10-20. The Niles and Pease FOIS record identifies the
+original SUMO proposal; the former author-hosted PDF host is no longer served and the
+full-text fetch failed through the research browser, so no detailed argument from that
+paper is attributed here. The current ontology's actual definitions are pinned Git source, not this
 historical paper. Blei et al.'s author-hosted full text was inspected at Section 2.2,
 equations 12-14. Friston's publisher metadata and university-hosted full paper were
 checked, specifically Box 1 and the distinction between information-theoretic and
@@ -21,7 +21,7 @@ at the exact revision, without importing or modifying the active checkout.
 
 | Claim | Primary source and locator | Local evidence and boundary |
 |---|---|---|
-| SUMO is an upper ontology expressed through formal categories and axioms | [Niles and Pease 2001](https://nlp.ontologyportal.org/FOIS.pdf); [upstream modeling guidance](https://github.com/ontologyportal/sumo/wiki/SUO%E2%80%90KIF-Formalizing-Terms) | Actual operator vocabulary comes from pinned `.rikishi/upstream/sumo`, not a historical vocabulary snapshot. |
+| SUMO is an upper ontology expressed through formal categories and axioms | [Niles and Pease 2001](https://doi.org/10.1145/505168.505170); [upstream modeling guidance](https://github.com/ontologyportal/sumo/wiki/SUO%E2%80%90KIF-Formalizing-Terms) | Actual operator vocabulary comes from pinned `.rikishi/upstream/sumo`, not a historical vocabulary snapshot. |
 | Translation must be tracked independently from source | [Pease 2023](https://arxiv.org/abs/2303.04148), abstract describing typed first-order translation | `config/sumo.lock.json`, native problem hashes, and the versioned type-guard patch; this paper does not validate Rikishi's patch. |
 | F is negative ELBO and equals posterior KL plus surprise | [Blei et al. 2017](https://www.cs.columbia.edu/~blei/papers/BleiKucukelbirMcAuliffe2017.pdf), equations 12-14 | `src/rikishi/fep.py`, independent logarithmic test values, `output/manuscript/fep-example.json`; finite normalized supported inputs only. |
 | A related variational objective appears in the FEP account of perception and action | [Friston 2010](https://doi.org/10.1038/nrn2787), Box 1; [accessible full text](https://www.uab.edu/medicine/cinl/images/KFriston_FreeEnergy_BrainTheory.pdf) | Motivates terminology. Rikishi does not simulate action, neurons, or biological dynamics. |
