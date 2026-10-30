@@ -1,30 +1,34 @@
-# Rikishi operator instructions
+# Rikishi development contract
 
-The active package is `src/rikishi/`. `template_reference/` preserves the original
-optimization exemplar; it is provenance, not the SUMO test suite. Its instructions
-apply inside that reference tree. `_template_resources/` preserves the template's
-rendering infrastructure. Do not attribute its optimization results or DOI to Rikishi.
+Implement in `src/rikishi/`; scripts and CLI commands orchestrate those methods.
+Use Python 3.12 and `uv sync --locked`. Keep source, environments, caches, temporary
+files and outputs on mounted GitVault; source `scripts/env.sh` and verify both
+Python prefixes before work.
 
-Use Python 3.12 and `uv sync --locked`, `uv run pytest`, and `uv run ruff check`.
-The core coverage gate is 90% including branches; native installation/rendering
-infrastructure has a separate 60% floor. Exact infrastructure paths are in
-`config/coverage.toml`. Both scopes are mandatory: run `scripts/check_coverage.py`
-after producing `output/coverage.json`. The general coverage report's 60% floor
-is only a coarse guard; it does not replace the core gate. Tests use real files, local
-HTTP, and subprocesses, with no mocking frameworks. Negative controls must reject
-malformed KIF, missing terms, invalid probability inputs, and unsuccessful proofs.
+Run `make check` for lint, static types, the full native test suite, coverage gates,
+and package builds. `make portable` excludes installed-tool cases. Tests use real
+files, Git repositories, HTTP and subprocesses, with no mocking frameworks.
+Core coverage must reach 90% including branches; the exact native infrastructure
+scope in `config/coverage.toml` must reach 60%. Both gates are mandatory.
+A check must reject its negative control; retain failed executions as evidence.
 
-SUMO sources live under `.rikishi/upstream/`; keep upstream revisions pinned and
-source file/line references attached to results. A parsed formula, asserted edge,
-theorem-prover result, and Lean theorem are different kinds of evidence. The FEP
-alignment is a proposed interpretation, not a proof of semantic equivalence.
+Keep SUMO, Sigma and dependency revisions pinned. Preserve source file/line and
+input hashes with results. Parsed formulas, asserted edges, ATP outcomes, finite
+calculations and Lean proofs have distinct acceptance scopes. Read
+[method contracts](docs/architecture.md) before changing those scopes and
+[runtime findings](docs/runtime.md) before interpreting native inference.
+For alignment experiments, read [the finite study contract](docs/research.md)
+before changing its encoding, expected polarities or numerical tolerances.
+For corpus filters, pagination, graph diagnostics or source paths, read
+[ontology analysis](docs/ontology-analysis.md); share its methods across transports.
 
-Keep source, runtime, caches, environments, temporary files, and outputs on the
-mounted GitVault. Check both Python prefixes. Use `scripts/env.sh` to bind caches.
-Do not edit `fep_formal` or upstream clones as part of normal operation. Upstream
-issue and PR workflows require a reproducible, independently reviewed finding.
-Never publish private research into an upstream report.
+Use the verified canonical template snapshot for rendering; regenerate reports
+before the manuscript. See [testing](docs/testing.md) for gates and
+[manuscript methods](docs/manuscript.md) for artifact verification.
+Keep canonical upstream and `fep_formal` checkouts unchanged. Upstream reports need
+an independently reproduced finding and reviewed public evidence; private research
+stays private. Record current acceptance evidence under `.omo/evidence/`.
 
-Scripts orchestrate; importable modules implement. Regenerate `output/` with the
-documented commands. Read `docs/runtime.md` for actual Sigma/ATP capabilities and
-`docs/verification.md` for observed acceptance evidence.
+Author skills in `.agents/skills/`; `skills/` is its distribution projection.
+Run `uv run python scripts/sync_skills.py --write` after edits; `make check`
+rejects drift, missing copies and unexpected distribution entries.

@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Offline inspection of retained finite witness evidence, ontology premises, Lean declarations and local numerical visualizations.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Rikishi · Finite free energy and ontology bridge</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --navy: #193449; --teal: #176b62; --copper: #8b4c2b; --ivory: #faf8f2;
+  --ink: var(--navy); --accent: var(--teal); --warm: var(--copper);
+  --page: var(--ivory); --surface: #ffffff; --soft: #eff3f1;
+  --line: #cbd4d3; --muted: #50616c; --focus: #176b62;
+  --shadow: 0 8px 28px rgb(25 52 73 / 5%);
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px;
+  --text-body: 17px; --text-secondary: 15px; --control-min-height: 46px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink); background: var(--page); line-height: 1.6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #e7edea; --accent: #8dd3c2; --warm: #e8b18e; --page: #102430;
+    --surface: #193449; --soft: #203e50; --line: #47616e; --muted: #b9c9d0;
+    --focus: #8dd3c2; --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #e7edea; --accent: #8dd3c2; --warm: #e8b18e; --page: #102430;
+  --surface: #193449; --soft: #203e50; --line: #47616e; --muted: #b9c9d0;
+  --focus: #8dd3c2; --shadow: none; color-scheme: dark;
+}
+:root[data-theme="light"] { color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin: 0; font-size: var(--text-body); }
+main { max-width: 1360px; margin: auto; padding: var(--space-6) var(--space-5) 72px; }
+header, section, article, figure, details, .grid > *, .filters > * { min-width: 0; }
+h1, h2, h3, h4 { line-height: 1.25; text-wrap: balance; }
+h1 { font-size: clamp(2rem, 4.5vw, 3.25rem); letter-spacing: -.035em; margin: 12px 0 20px; max-width: 24ch; }
+h2 { font-size: 1.45rem; margin: 0 0 16px; letter-spacing: -.015em; }
+h3 { font-size: 1.08rem; margin: 24px 0 12px; }
+h4 { font-size: 1rem; margin: 0 0 8px; }
+p { margin: 0 0 16px; overflow-wrap: anywhere; }
+a { color: var(--accent); text-underline-offset: .2em; overflow-wrap: anywhere; }
+button, select, input { font: inherit; }
+select, button { color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 4px; min-height: var(--control-min-height); padding: 8px 12px; }
+select { width: 100%; max-width: 100%; text-overflow: ellipsis; }
+button { cursor: pointer; }
+button:hover { background: var(--soft); }
+button:disabled, select:disabled { opacity: .7; cursor: default; }
+label { display: block; font-weight: 650; }
+label select { margin-top: 6px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+.skip { position: absolute; top: 12px; left: 12px; z-index: 2; padding: 12px; background: var(--surface); transform: translateY(-180%); }
+.skip:focus { transform: translateY(0); }
+.masthead { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.eyebrow, .step { color: var(--accent); font-weight: 750; font-size: var(--text-secondary); letter-spacing: .09em; text-transform: uppercase; }
+.theme { display: flex; align-items: center; gap: 12px; font-size: var(--text-secondary); }
+.theme select { width: auto; min-width: 126px; margin: 0; }
+.lead { font-size: 1.15rem; }
+.muted { color: var(--muted); }
+.small { font-size: var(--text-secondary); }
+.boundary { background: var(--soft); padding: 20px 24px; border-radius: 4px; }
+.boundary strong { color: var(--warm); }
+.boundary p:last-child { margin-bottom: 0; }
+nav { display: flex; flex-wrap: wrap; gap: 16px 24px; margin: 24px 0 32px; }
+nav a { display: inline-flex; align-items: center; min-height: var(--control-min-height); padding: 8px 4px; }
+.section { margin: 28px 0; padding: 28px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--shadow); scroll-margin-top: 20px; }
+.section-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; }
+.section-heading h2 { margin-top: 4px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 24px 0; }
+.totals { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 24px 0; border: 1px solid var(--line); border-radius: 4px; }
+.total { min-width: 0; padding: 16px 20px; }
+.total strong { display: block; font-size: 1.8rem; font-weight: 650; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.total span { color: var(--muted); font-size: var(--text-secondary); }
+.tag { display: inline-block; padding: 3px 9px; border-radius: 3px; background: var(--soft); font-size: var(--text-secondary); font-weight: 650; overflow-wrap: anywhere; }
+.status { font-weight: 650; overflow-wrap: anywhere; }
+.attention { color: var(--warm); }
+.metadata { margin: 12px 0 20px; display: grid; grid-template-columns: minmax(110px, .35fr) minmax(0, 1fr); gap: 8px 20px; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: var(--text-secondary); }
+code { overflow-wrap: anywhere; }
+pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 2; }
+.scroll { max-width: 100%; max-height: 440px; overflow: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: 16px; background: var(--soft); border: 1px solid var(--line); border-radius: 3px; }
+.table-scroll { padding: 0; }
+table { width: 100%; border-collapse: collapse; font-size: var(--text-secondary); }
+th, td { padding: 12px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+th { font-weight: 650; }
+thead th { position: sticky; top: 0; background: var(--soft); z-index: 1; }
+caption { text-align: left; padding: 12px 16px; font-weight: 650; background: var(--surface); }
+.wide-table { min-width: 660px; }
+.source-item, .assumption-item, .log-item { padding: 20px 0; border-top: 1px solid var(--line); }
+.source-item:first-child, .assumption-item:first-child, .log-item:first-child { border-top: 0; padding-top: 4px; }
+.source-item p, .assumption-item p, .log-item p { overflow-wrap: anywhere; }
+details { margin-top: 16px; }
+summary { cursor: pointer; min-height: var(--control-min-height); padding: 10px 2px; font-weight: 650; overflow-wrap: anywhere; }
+details[open] > summary { margin-bottom: 12px; }
+.empty { padding: 16px; color: var(--muted); background: var(--soft); border: 1px dashed var(--line); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: var(--text-secondary); margin: 12px 0; }
+.legend span { display: flex; align-items: center; gap: 8px; }
+.swatch { display: inline-block; width: 24px; height: 0; border-top: 3px solid currentColor; }
+.energy { color: var(--accent); }
+.kl { color: var(--warm); }
+.kl .swatch { border-top-style: dashed; }
+.surprise .swatch { border-top-style: dotted; }
+figure { margin: 16px 0 0; }
+figcaption { color: var(--muted); font-size: var(--text-secondary); margin-top: 12px; }
+svg { display: block; width: 100%; height: auto; overflow: visible; color: var(--ink); }
+svg text { fill: currentColor; font: var(--text-secondary) system-ui, sans-serif; }
+svg .axis { stroke: var(--muted); stroke-width: 1; }
+svg .gridline { stroke: var(--line); stroke-width: 1; }
+svg .f-line { fill: none; stroke: var(--accent); stroke-width: 2.5; }
+svg .kl-line { fill: none; stroke: var(--warm); stroke-width: 2.5; stroke-dasharray: 7 4; }
+svg .s-line { stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 2 4; }
+svg .marker-line { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 4; }
+svg .energy-point { fill: var(--surface); stroke: var(--accent); stroke-width: 3; }
+svg .posterior-bar { fill: var(--accent); }
+svg .candidate-bar { fill: var(--warm); }
+svg .prior-bar { fill: var(--soft); stroke: var(--muted); stroke-width: 1.5; }
+.slider { margin: 24px 0; padding: 20px; background: var(--soft); border-radius: 4px; }
+.slider label { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+input[type="range"] { display: block; width: 100%; height: 44px; margin: 8px 0; accent-color: var(--accent); }
+.slider-ends { display: flex; justify-content: space-between; font-size: var(--text-secondary); color: var(--muted); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+.math-results { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.math-value { padding: 12px 16px; background: var(--soft); min-width: 0; }
+.math-value dt { font-size: var(--text-secondary); }
+.math-value dd { font-weight: 650; font-variant-numeric: tabular-nums; }
+.proofs { padding-left: 24px; margin-top: 12px; }
+.proofs li { margin-bottom: 8px; overflow-wrap: anywhere; }
+.provenance { overflow-wrap: anywhere; }
+footer { color: var(--muted); margin-top: 32px; }
+[hidden] { display: none !important; }
+@media (max-width: 1000px) {
+  .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .totals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  main { padding: 20px 16px 48px; }
+  .section { padding: 20px 16px; }
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .boundary { padding: 16px; }
+  .metadata { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+  .metadata dd { margin-bottom: 12px; }
+  .slider { padding: 16px; }
+  .scroll { padding: 12px; }
+  .table-scroll { padding: 0; }
+  .total { padding: 12px 16px; }
+}
+@media (max-width: 440px) {
+  .filters { grid-template-columns: minmax(0, 1fr); }
+  h1 { font-size: 2rem; }
+  .math-results { grid-template-columns: minmax(0, 1fr); }
+  .theme { width: 100%; justify-content: space-between; }
+  th, td { padding: 10px 12px; }
+}
+@media print {
+  :root { color-scheme: light; --ink: #193449; --accent: #176b62; --warm: #8b4c2b; --page: #fff; --surface: #fff; --soft: #f0f3f1; --line: #cbd4d3; --muted: #50616c; }
+  main { max-width: none; padding: 0; }
+  .theme, nav, .skip, .actions { display: none; }
+  .section { box-shadow: none; break-inside: auto; }
+  .scroll { max-height: none; overflow: visible; }
+  .grid, .filters { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#case-explorer">Skip to the case explorer</a>
+<main>
+  <header>
+    <div class="masthead">
+      <span class="eyebrow">Rikishi / retained witness evidence</span>
+      <label class="theme" for="theme">Appearance<select id="theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+    </div>
+    <h1>Finite free energy and ontology bridge</h1>
+    <p class="lead">One set of rational inputs, three separate obligations: finite Free Energy Principle (FEP) calculations, selected Suggested Upper Merged Ontology (SUMO) reasoning, and concrete Lean statements.</p>
+    <p class="muted small">Terms: Kullback–Leibler (KL) divergence; Knowledge Interchange Format (KIF). E theorem prover and Vampire theorem prover (V) provide the recorded native outcomes. This Hypertext Markup Language (HTML) page embeds JavaScript Object Notation (JSON); hashes use the 256-bit Secure Hash Algorithm (SHA-256).</p>
+    <div class="boundary">
+      <p><strong>Authored interpretation is not semantic proof transfer.</strong> A SUMO existential result does not identify a named numerical result. Binary <code>LogFn</code> is distinct from Lean’s unary natural logarithm <code>Real.log</code>. These first-order logic (FOL) cases encode no probability arithmetic or logarithm laws and establish no general preservation theorem or whole-ontology consistency.</p>
+      <p class="small">This offline page displays retained evidence and computes local floating-point visualizations. It executes no prover, compiler or native replay, authenticates no proof-calculus steps, and makes no empirical FEP claim.</p>
+    </div>
+  </header>
+  <nav aria-label="Explorer sections"><a href="#overview">Packet overview</a><a href="#case-explorer">Native case</a><a href="#numerical">Finite arithmetic</a><a href="#lean">Lean evidence</a><a href="#provenance">Provenance</a></nav>
+  <noscript><p class="boundary">JavaScript is required to inspect the embedded packet. Exact inputs accompany the generated explorer as bridge-figure-inputs.json. No recorded outcome is inferred without loading that data.</p></noscript>
+  <p id="load-error" class="boundary attention" role="alert" hidden></p>
+  <div id="explorer" hidden>
+    <section id="overview" class="section" aria-labelledby="overview-title">
+      <div class="section-heading"><div><span class="step">Recorded packet</span><h2 id="overview-title">Scope and measured population</h2></div><span id="report-status" class="tag"></span></div>
+      <p id="study-id" class="muted"></p>
+      <div id="totals" class="totals"></div>
+      <p id="summary-status" class="status"></p>
+      <p id="lean-counts" class="small"></p>
+      <p id="timeout-scopes" class="small muted"></p>
+      <details><summary>All observed native statuses, including errors</summary><div class="scroll table-scroll" role="region" aria-label="Complete native status counts" tabindex="0"><table><caption>Full report population; filters below do not change these totals</caption><thead><tr><th scope="col">Prover</th><th scope="col">Observed status</th><th scope="col">Count</th></tr></thead><tbody id="status-rows"></tbody></table></div></details>
+      <details><summary>Exact recorded summary and replay boundary</summary><pre id="summary-json" class="scroll" role="region" aria-label="Recorded report summary" tabindex="0"></pre><p id="replay-boundary" class="muted small"></p></details>
+    </section>
+    <section id="case-explorer" class="section" aria-labelledby="case-title">
+      <div class="section-heading"><div><span class="step">01 / selected first-order obligation</span><h2 id="case-title">Inspect a native case</h2></div><span class="tag">Recorded evidence</span></div>
+      <p>Choose a witness, scenario, prover and control. Exact source formulas and authored assumptions remain separate; omitted premises are marked explicitly.</p>
+      <div class="filters">
+        <label for="witness">Shared rational witness<select id="witness"></select></label>
+        <label for="scenario">SUMO scenario<select id="scenario"></select></label>
+        <label for="prover">Recorded theorem prover<select id="prover"></select></label>
+        <label for="control">Case / control<select id="control"></select></label>
+      </div>
+      <p id="case-status" class="status" role="status" aria-live="polite"></p>
+      <p id="case-empty" class="empty" hidden>No recorded case exists for this selection.</p>
+      <div id="selected-case">
+        <dl id="case-metadata" class="metadata"></dl>
+        <div class="grid">
+          <article aria-labelledby="sources-title"><h3 id="sources-title">Exact selected KIF source formulas</h3><div id="source-formulas"></div></article>
+          <article aria-labelledby="assumptions-title"><h3 id="assumptions-title">Local authored assumptions</h3><p class="muted small">Scenario assumptions are followed by the exact exported rational mass facts for this witness. Mass labels are uninterpreted in FOL; they do not encode arithmetic. The generated native problem below is authoritative.</p><p id="assumption-count" class="small muted"></p><div id="assumptions"></div></article>
+        </div>
+        <h3>Query for this case</h3><p id="query-kind" class="muted small"></p><pre id="query" class="scroll" role="region" aria-label="Selected KIF query or asserted negation" tabindex="0"></pre>
+        <details><summary>Scenario’s authored query, alternative query and removal indices</summary><pre id="scenario-json" class="scroll" role="region" aria-label="Selected scenario definition" tabindex="0"></pre></details>
+        <h3>Generated native problem</h3><pre id="native-problem" class="scroll" role="region" aria-label="Exact generated native problem" tabindex="0"></pre>
+        <h3>Recorded command arguments</h3><p class="muted small">The JSON array preserves argument boundaries. It is displayed as text and cannot execute here.</p><pre id="native-command" class="scroll" role="region" aria-label="Recorded native command argument array" tabindex="0"></pre>
+        <div class="grid"><article><h3>Recorded standard output</h3><pre id="native-stdout" class="scroll" role="region" aria-label="Recorded native standard output" tabindex="0"></pre></article><article><h3>Recorded standard error</h3><pre id="native-stderr" class="scroll" role="region" aria-label="Recorded native standard error" tabindex="0"></pre></article></div>
+        <details><summary>Selected native capture and executable bindings</summary><pre id="case-bindings" class="scroll" role="region" aria-label="Selected native outcome custody" tabindex="0"></pre></details>
+      </div>
+    </section>
+    <section id="numerical" class="section" aria-labelledby="numerical-title">
+      <div class="section-heading"><div><span class="step">02 / same rational inputs</span><h2 id="numerical-title">Finite arithmetic and local exploration</h2></div><span id="numeric-witness" class="tag"></span></div>
+      <p><strong>State order is [false, true]: false = index 0; true = index 1.</strong> The observed output is true. Each likelihood is P(observed true | state); the likelihood pair need not sum to one.</p>
+      <div class="grid">
+        <article><h3>Recorded rational witness</h3><dl id="rational-inputs" class="metadata"></dl><h3>Recorded numerical result</h3><dl id="recorded-math" class="metadata"></dl><details><summary>Complete retained numerical and Decimal reference values</summary><pre id="numerical-json" class="scroll" role="region" aria-label="Retained numerical witness and independent Decimal reference" tabindex="0"></pre></details></article>
+        <article><h3>New browser arithmetic</h3><p class="muted small">The slider evaluates natural logarithms in JavaScript from this witness’s rational prior and likelihood. These floating-point values are new local calculations, not recorded measurements, Lean proofs or new native evidence. Units: nats.</p>
+          <div class="slider"><label for="q0">q₀ = q(false)<output id="q0-value" for="q0"></output></label><input id="q0" type="range" min="0" max="1" step="any" value="0.5" aria-describedby="slider-help"><div class="slider-ends"><span>0 · all mass on true</span><span>1 · all mass on false</span></div><p id="slider-help" class="small muted">q(true) = 1 − q(false). Use arrow keys to adjust. Endpoint terms use 0 ln(0/a) = 0.</p><div class="actions"><button type="button" id="reset-candidate">Use recorded candidate</button><button type="button" id="use-posterior">Use posterior (approx.)</button></div></div>
+          <p id="math-error" class="empty attention" role="status" hidden></p>
+          <dl id="interactive-math" class="math-results" aria-label="New local floating-point values"></dl>
+          <p id="math-status" class="small muted" role="status" aria-live="polite"></p>
+        </article>
+      </div>
+      <div class="grid">
+        <figure aria-labelledby="energy-title"><h3 id="energy-title">Free energy over q(false)</h3><div class="legend" aria-label="Energy chart legend"><span class="energy"><i class="swatch" aria-hidden="true"></i>F(q), solid</span><span class="kl"><i class="swatch" aria-hidden="true"></i>KL, dashed</span><span class="surprise"><i class="swatch" aria-hidden="true"></i>Surprise, dotted</span></div><div id="energy-chart"></div><figcaption id="energy-caption">Curve samples are floating-point values supplied by the packet exporter. The open marker is the new browser calculation at the slider position.</figcaption></figure>
+        <figure aria-labelledby="posterior-title"><h3 id="posterior-title">Prior, posterior and current candidate</h3><div class="legend" aria-label="Distribution chart legend"><span><i class="swatch" aria-hidden="true"></i>Prior, outlined</span><span class="energy"><i class="swatch" aria-hidden="true"></i>Posterior</span><span class="kl"><i class="swatch" aria-hidden="true"></i>Current q</span></div><div id="posterior-chart"></div><figcaption id="posterior-caption"></figcaption></figure>
+      </div>
+      <details><summary>Exact scope of the displayed energy identity</summary><p>For pᵢ = prior mass and ℓᵢ = P(observed true | state i), jᵢ = pᵢℓᵢ, Z = ∑ᵢjᵢ, and rᵢ = jᵢ/Z. The finite calculation is F(q) = ∑ᵢ qᵢ ln(qᵢ/jᵢ), surprise = −ln Z, and KL(q ∥ r) = ∑ᵢ qᵢ ln(qᵢ/rᵢ). Thus F = surprise + KL. This numerical identity is separate from the generated Lean theorem inventory and the SUMO predicates.</p></details>
+    </section>
+    <section id="lean" class="section" aria-labelledby="lean-title">
+      <div class="section-heading"><div><span class="step">03 / concrete finite formal statements</span><h2 id="lean-title">Lean source, named proofs and compiler logs</h2></div><span class="tag">Recorded compiler evidence</span></div>
+      <p id="lean-scope" class="muted"></p>
+      <div class="grid"><article><h3 id="proof-title">Named proofs for the selected witness</h3><p id="proof-count" class="small"></p><ul id="proof-list" class="proofs"></ul></article><article><h3>Main-source audited declarations for the selected witness</h3><p id="declaration-count" class="small"></p><ul id="declaration-list" class="proofs"></ul></article></div>
+      <p class="small muted">The main-source declaration audit includes definitions. It must not be read as a count of theorem proofs. Paired positive-environment declaration and axiom audits are shown separately below and are excluded from this main inventory. The generated named proofs establish their stated finite obligations; they do not prove Python correctness or general SUMO-to-Lean preservation.</p>
+      <details><summary>Full generated Lean source · all witnesses, stored once</summary><p id="lean-source-binding" class="small muted"></p><pre id="lean-source" class="scroll" role="region" aria-label="Full generated Lean source" tabindex="0"></pre></details>
+      <details><summary>Full main-source declaration-axiom audit output</summary><pre id="lean-axioms" class="scroll" role="region" aria-label="Recorded main-source Lean declaration-axiom inspection" tabindex="0"></pre></details>
+      <h3>Base verification timing</h3><dl id="lean-base-timing" class="metadata"></dl><p class="small muted">The configured timeout applies to individual base compilation subprocesses. Recorded elapsed time measures the base verification stage; it is not an aggregate deadline or evidence of success.</p>
+      <h3>Recorded negative Lean controls</h3><p class="muted small">Nonzero return codes on rejection controls are shown alongside the recorded rejection flag. Each control’s paired positive environment, source and diagnostic log appear below. A compiler error remains visible.</p>
+      <div class="scroll table-scroll" role="region" aria-label="Recorded Lean control results" tabindex="0"><table><caption id="lean-control-caption"></caption><thead><tr><th scope="col">Control / retained source</th><th scope="col">Return code</th><th scope="col">Recorded rejected</th></tr></thead><tbody id="lean-control-rows"></tbody></table></div>
+      <h3>Actual retained compiler logs and paired sources</h3><p id="lean-command-counts" class="small"></p><p class="muted small">Every main, positive-environment and negative-control command retains its own return code, timed_out flag, deadline and elapsed time. A timeout allowance does not establish successful execution. Full logs, sources and argument arrays are displayed as text from the packet. Opening an entry runs nothing.</p><div id="lean-logs"></div>
+    </section>
+    <section id="provenance" class="section provenance" aria-labelledby="provenance-title">
+      <div class="section-heading"><div><span class="step">Custody / pinned inputs</span><h2 id="provenance-title">Source and report provenance</h2></div><span class="tag">SHA-256 bindings</span></div>
+      <dl id="provenance-values" class="metadata"></dl>
+      <h3>Pinned formal source digests</h3><div id="formal-sources"></div>
+      <details><summary>Full authored extension · retained once</summary><p class="small muted">This is the complete authored extension. Each native case uses its selected scenario assumptions and corresponding witness mass facts; the complete extension union is not inserted into every case.</p><p id="extension-binding" class="small muted"></p><pre id="authored-extension" class="scroll" role="region" aria-label="Full retained authored KIF extension" tabindex="0"></pre></details>
+      <details><summary>Selected source formula provenance · complete inventory</summary><pre id="source-inventory" class="scroll" role="region" aria-label="Selected source formula locations and digests" tabindex="0"></pre></details>
+      <details><summary>Implementation, executable and Lean artifact digests</summary><pre id="artifact-inventory" class="scroll" role="region" aria-label="Complete implementation and executable custody" tabindex="0"></pre></details>
+      <details><summary>All recorded native outcomes · no filtering or fabricated rows</summary><div class="scroll table-scroll" role="region" aria-label="All recorded native outcomes" tabindex="0"><table class="wide-table"><caption>One row per report case and prover</caption><thead><tr><th scope="col">Case</th><th scope="col">Prover</th><th scope="col">Expected</th><th scope="col">Observed</th><th scope="col">Matched</th></tr></thead><tbody id="all-native-rows"></tbody></table></div></details>
+      <p class="muted small">The caller supplied the outer report digest. Rendering this file is not an independent verification of historical execution, a new portable replay, scientific acceptance or publication approval.</p>
+    </section>
+    <footer><p class="small">Offline inspection only. Source citations, authored assumptions, recorded outcomes, formal statements and new browser calculations retain separate evidential scopes.</p></footer>
+  </div>
+</main>
+<script type="application/json" id="bridge-data">__BRIDGE_DATA__</script>
+<script>
+"use strict";
+(() => {
+  const byId = id => document.getElementById(id);
+  const put = (id, value) => { byId(id).textContent = String(value); };
+  const json = value => JSON.stringify(value, null, 2);
+  const el = (tag, value, className) => {
+    const node = document.createElement(tag);
+    if (value !== undefined) node.textContent = String(value);
+    if (className) node.className = className;
+    return node;
+  };
+  const block = (value, label) => {
+    const node = el("pre", value, "scroll");
+    node.tabIndex = 0; node.setAttribute("role", "region"); node.setAttribute("aria-label", label);
+    return node;
+  };
+  const pairs = (id, entries, tiles = false) => {
+    const target = typeof id === "string" ? byId(id) : id; target.replaceChildren();
+    for (const [label, value] of entries) {
+      const term = el("dt", label), description = el("dd", value);
+      if (tiles) { const tile = el("div", undefined, "math-value"); tile.append(term, description); target.append(tile); }
+      else target.append(term, description);
+    }
+  };
+  const options = (id, values, preferred) => {
+    const target = byId(id); target.replaceChildren();
+    for (const [value, label] of values) { const option = el("option", label); option.value = value; target.append(option); }
+    if (values.some(([value]) => value === preferred)) target.value = preferred;
+    target.disabled = values.length === 0;
+  };
+  const fullProver = name => name === "e" ? "E theorem prover" : name === "v" ? "Vampire theorem prover" : name;
+  const kindNames = { background: "Background only", positive: "Positive query", negative: "Alternative query control", "removed-premise": "Removed-premise control", refutation: "Refutation control" };
+  const safe = action => {
+    try { action(); }
+    catch (error) {
+      put("load-error", `Explorer data could not be displayed completely: ${error instanceof Error ? error.message : String(error)}. Retained data has not been executed.`);
+      byId("load-error").hidden = false;
+    }
+  };
+  byId("theme").addEventListener("change", event => {
+    const theme = event.target.value;
+    if (theme === "system") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", theme);
+  });
+  safe(() => {
+    const data = JSON.parse(byId("bridge-data").textContent);
+    if (data.schema_version !== 1 || !data.report || !data.study || !Array.isArray(data.cases) || !Array.isArray(data.curves) || !Array.isArray(data.lean_proofs) || !Array.isArray(data.lean_logs) || !Array.isArray(data.lean_sources) || !Array.isArray(data.witness_facts) || typeof data.lean_source !== "string" || typeof data.extension !== "string") throw new Error("Unsupported or incomplete bridge payload");
+    const report = data.report, study = data.study;
+    const lean = report.lean;
+    if (!lean || !Array.isArray(lean.declarations) || !Array.isArray(lean.commands) || !Array.isArray(lean.environments) || !Array.isArray(lean.controls)) throw new Error("Missing Lean main or paired evidence arrays");
+    const environments = new Map(lean.environments.map(row => [row.id, row]));
+    if (environments.size !== lean.environments.length || new Set(lean.controls.map(row => row.id)).size !== lean.controls.length || environments.size !== lean.controls.length || lean.controls.some(row => !environments.has(row.id))) throw new Error("Lean positive environments and negative controls do not pair uniquely by identifier");
+    if (data.lean_sources.length !== lean.environments.length + lean.controls.length || data.lean_logs.length !== lean.commands.length + lean.environments.length + lean.controls.length) throw new Error("Incomplete retained Lean source or log inventory");
+    const digits = Number.isInteger(data.decimal_places) ? Math.max(0, Math.min(8, data.decimal_places)) : 6;
+    const fmt = value => {
+      if (!Number.isFinite(value)) return String(value);
+      if (value !== 0 && Math.abs(value) < Math.pow(10, -Math.max(3, digits))) return value.toExponential(Math.max(2, digits));
+      return value.toFixed(digits);
+    };
+    const rational = value => {
+      if (typeof value !== "string" || !/^-?\d+(?:\/[1-9]\d*)?$/.test(value)) throw new Error("Invalid rational input for local arithmetic");
+      const parts = value.split("/");
+      const result = Number(parts[0]) / (parts.length === 2 ? Number(parts[1]) : 1);
+      if (!Number.isFinite(result)) throw new Error("Rational input exceeds browser numeric range");
+      return result;
+    };
+    const caseKey = (id, prover) => `${id}\u0000${prover}`;
+    const nativeOutcomes = new Map(report.cases.map(row => [caseKey(row.id, row.prover), row]));
+    const scenarios = new Map(report.scenarios.map(row => [row.id, row]));
+    const witnesses = new Map(report.witnesses.map(row => [row.id, row]));
+    const witnessFacts = new Map(data.witness_facts.map(row => [row.witness_id, row]));
+    const numerical = new Map(report.numerical.map(row => [row.witness_id, row]));
+    const curves = new Map(data.curves.map(row => [row.witness_id, row]));
+    const sourceClaims = new Map(report.source_claims.map(row => [row.line, row]));
+    let selectedWitness = null, mathInputs = null, currentQ = 0.5;
+    byId("explorer").hidden = false;
+    put("study-id", `${report.study_id} · schema ${data.schema_version} · semantic_validation = ${report.semantic_validation}`);
+    put("report-status", `Recorded summary.passed = ${report.summary.passed}`);
+    if (report.summary.passed !== true) byId("report-status").classList.add("attention");
+    for (const [value, label] of [[report.witnesses.length, "rational witnesses"], [report.scenarios.length, "registered scenarios"], [report.cases.length, "native observations"], [report.numerical.length, "numerical witnesses"]]) {
+      const item = el("div", undefined, "total"); item.append(el("strong", value), el("span", label)); byId("totals").append(item);
+    }
+    const summary = report.summary;
+    const resolvedStatuses = new Set(["Theorem", "Unsatisfiable", "Satisfiable", "CounterSatisfiable", "ContradictoryAxioms"]);
+    const matched = report.cases.filter(row => row.matched === true).length;
+    const unresolved = report.cases.filter(row => !resolvedStatuses.has(row.observed)).length;
+    const backgrounds = report.cases.filter(row => row.kind === "background");
+    const positiveExits = lean.environments.filter(row => row.command.returncode === 0 && row.command.timed_out === false).length;
+    const rejectedControls = lean.controls.filter(row => row.rejected === true).length;
+    put("summary-status", `Recorded native outcomes: ${matched} matched, ${report.cases.length - matched - unresolved} mismatched, ${unresolved} unresolved / ${report.cases.length} total. Backgrounds satisfiable: ${backgrounds.length > 0 && backgrounds.every(row => row.observed === "Satisfiable")}.`);
+    put("lean-counts", `Recorded numerical passes: ${report.numerical.filter(row => row.passed === true).length} / ${report.witnesses.length}. Main-source audited Lean declarations (including definitions): ${lean.declarations.length}. Named theorem proofs in the main source: ${data.lean_proofs.length}. Paired positive environments with recorded zero exit and timed_out = false: ${positiveExits} / ${lean.environments.length}. Negative controls recorded rejected: ${rejectedControls} / ${lean.controls.length}.`);
+    put("timeout-scopes", `E/V per-problem timeout: ${report.timeout_seconds} s. Lean base compilation has a separately configured timeout; each retained Lean command has its own deadline and elapsed time below. These are separate budgets, and no outcome is inferred from a timeout allowance.`);
+    put("summary-json", json(summary)); put("replay-boundary", report.replay_boundary);
+    const statusCounts = new Map();
+    for (const row of report.cases) {
+      const key = caseKey(row.observed, row.prover);
+      const entry = statusCounts.get(key) || { prover: row.prover, observed: row.observed, count: 0 };
+      entry.count += 1; statusCounts.set(key, entry);
+      const tr = el("tr"), th = el("th", row.id); th.scope = "row";
+      tr.append(th, ...[fullProver(row.prover), row.expected, row.observed, String(row.matched)].map(value => el("td", value)));
+      if (row.matched !== true) tr.classList.add("attention");
+      byId("all-native-rows").append(tr);
+    }
+    for (const row of [...statusCounts.values()].sort((a, b) => a.prover.localeCompare(b.prover) || a.observed.localeCompare(b.observed))) {
+      const tr = el("tr"), th = el("th", fullProver(row.prover)); th.scope = "row";
+      tr.append(th, el("td", row.observed), el("td", row.count)); byId("status-rows").append(tr);
+    }
+    pairs("provenance-values", [
+      ["Report SHA-256", data.report_sha256], ["Study identity", study.study_id], ["Study model SHA-256", report.study_sha256],
+      ["SUMO source path", study.source_path], ["SUMO pinned revision", study.source_commit], ["SUMO file SHA-256", study.source_sha256],
+      ["SUMO lock SHA-256", report.lock_sha256], ["Dependency lock SHA-256", report.dependency_lock_sha256],
+      ["Authored extension SHA-256", report.extension_sha256], ["Formal pinned revision", study.formal_revision],
+      ["Recorded Lean revision", report.lean.revision], ["Generated Lean source", report.lean.source], ["Lean source SHA-256", report.lean.source_sha256],
+      ["Compiler SHA-256", report.lean.compiler_sha256], ["Base receipt SHA-256", report.lean.base_receipt_sha256],
+      ["Base compilation configured timeout (s)", lean.base_timeout_seconds], ["Base verification recorded elapsed (s)", lean.base_elapsed_seconds],
+      ["Prover families", report.provers.map(fullProver).join("; ")], ["E/V per-problem timeout (s)", report.timeout_seconds],
+      ["Figure export settings", `${data.width_mm} mm; ${data.dpi} dots per inch (dpi); ${data.decimal_places} display decimal places`]
+    ]);
+    for (const [path, digest] of Object.entries(study.formal_sources)) {
+      const item = el("div", undefined, "source-item"); item.append(el("h4", path), el("p", `SHA-256 ${digest}`, "small")); byId("formal-sources").append(item);
+    }
+    put("source-inventory", json(report.source_claims.map(({source_path, line, end_line, sha256}) => ({source_path, line, end_line, sha256}))));
+    put("extension-binding", `Authored extension SHA-256 ${report.extension_sha256}`);
+    put("authored-extension", data.extension);
+    put("artifact-inventory", json({implementation: report.implementation, binary_sha256: report.binary_sha256, lean_artifacts: report.lean.artifacts}));
+    put("lean-scope", report.lean.scope); put("lean-source", data.lean_source); put("lean-axioms", report.lean.declaration_axioms);
+    put("lean-source-binding", `${report.lean.source} · SHA-256 ${report.lean.source_sha256}`);
+    pairs("lean-base-timing", [["Base compilation configured timeout (s)", lean.base_timeout_seconds], ["Base verification recorded elapsed (s)", lean.base_elapsed_seconds]]);
+    put("lean-control-caption", `${lean.controls.length} recorded negative Lean controls; ${rejectedControls} marked rejected; ${lean.environments.length} paired positive environments`);
+    for (const control of report.lean.controls) {
+      const tr = el("tr"), th = el("th", `${control.id}\n${control.source}\nSHA-256 ${control.source_sha256}`); th.scope = "row";
+      tr.append(th, el("td", control.command.returncode), el("td", String(control.rejected)));
+      if (control.rejected !== true) tr.classList.add("attention");
+      byId("lean-control-rows").append(tr);
+    }
+    const mainExits = lean.commands.filter(row => row.returncode === 0 && row.timed_out === false).length;
+    const negativeExits = lean.controls.filter(row => row.command.returncode !== 0 && row.command.timed_out === false).length;
+    put("lean-command-counts", `${data.lean_logs.length} retained compiler logs: ${lean.commands.length} main, ${lean.environments.length} positive-environment, ${lean.controls.length} negative-control. Main commands with recorded zero exit and timed_out = false: ${mainExits} / ${lean.commands.length}. Negative controls with recorded nonzero exit and timed_out = false: ${negativeExits} / ${lean.controls.length}.`);
+    const retainedLog = (kind, identity, command) => {
+      const matches = data.lean_logs.filter(row => row.kind === kind && row.evidence_id === identity);
+      if (matches.length !== 1) throw new Error(`Missing or duplicate ${kind} log for ${identity}`);
+      const log = matches[0];
+      if (log.path !== command.log || log.sha256 !== command.log_sha256 || json(log.command) !== json(command.command) || log.returncode !== command.returncode || log.timed_out !== command.timed_out || log.timeout_seconds !== command.timeout_seconds || log.elapsed_seconds !== command.elapsed_seconds || typeof log.text !== "string") throw new Error(`Retained ${kind} log does not join to its command: ${identity}`);
+      return log;
+    };
+    const appendLog = (target, log, label) => {
+      const metadata = el("dl", undefined, "metadata");
+      pairs(metadata, [["Evidence kind / identifier", `${log.kind} / ${log.evidence_id}`], ["Recorded return code", log.returncode], ["Recorded timed_out", String(log.timed_out)], ["Command deadline (s)", log.timeout_seconds], ["Recorded command elapsed (s)", log.elapsed_seconds], ["Log path", log.path], ["Log SHA-256", log.sha256]]);
+      target.append(metadata, el("p", "Recorded command arguments (JSON array)", "small"), block(json(log.command), `${label}: compiler argument array`));
+      const details = el("details");
+      details.append(el("summary", "Actual captured diagnostic log"), block(log.text === "" ? "[empty log: zero characters]" : log.text, `${label}: actual compiler log ${log.path}`));
+      target.append(details);
+    };
+    for (const command of lean.commands) {
+      const log = retainedLog("main", command.log, command);
+      const details = el("details", undefined, "log-item");
+      details.append(el("summary", `Main command · ${log.path} · recorded exit ${log.returncode} · timed_out = ${log.timed_out}`));
+      if (log.returncode !== 0 || log.timed_out !== false) details.classList.add("attention");
+      appendLog(details, log, "Main command");
+      byId("lean-logs").append(details);
+    }
+    const pairedEvidence = (record, kind) => {
+      const label = kind === "positive-environment" ? "Paired positive environment" : "Paired negative control";
+      const sources = data.lean_sources.filter(row => row.kind === kind && row.id === record.id);
+      if (sources.length !== 1 || sources[0].path !== record.source || sources[0].sha256 !== record.source_sha256 || typeof sources[0].text !== "string") throw new Error(`Missing or mismatched ${kind} source for ${record.id}`);
+      const source = sources[0], log = retainedLog(kind, record.id, record.command);
+      const article = el("article"); article.setAttribute("aria-label", `${label}: ${record.id}`);
+      article.append(el("h4", label), el("p", `${source.path} · SHA-256 ${source.sha256}`, "small muted"));
+      const sourceDetails = el("details");
+      sourceDetails.append(el("summary", "Full retained Lean source"), block(source.text, `${label} ${record.id}: full Lean source ${source.path}`));
+      article.append(sourceDetails);
+      if (kind === "positive-environment") {
+        if (!Array.isArray(record.declarations) || typeof record.declaration_axioms !== "string") throw new Error(`Missing paired environment declaration audit for ${record.id}`);
+        article.append(el("p", `${record.declarations.length} audited declarations in this positive environment, including definitions; excluded from the main-source declaration count.`, "small"));
+        const audit = el("details"), declarations = el("ul", undefined, "proofs");
+        declarations.append(...record.declarations.map(name => { const item = el("li"); item.append(el("code", name)); return item; }));
+        audit.append(el("summary", "Paired environment declaration and axiom audit"), declarations, block(record.declaration_axioms, `${label} ${record.id}: separate declaration-axiom audit`));
+        article.append(audit);
+        if (log.returncode !== 0 || log.timed_out !== false) article.classList.add("attention");
+      } else {
+        article.append(el("p", `Recorded rejected = ${record.rejected}`, "status"));
+        if (record.rejected !== true || log.returncode === 0 || log.timed_out !== false) article.classList.add("attention");
+      }
+      appendLog(article, log, `${label} ${record.id}`);
+      return article;
+    };
+    for (const control of lean.controls) {
+      const item = el("div", undefined, "log-item"), grid = el("div", undefined, "grid");
+      item.append(el("h3", `Paired environment and control · ${control.id}`));
+      grid.append(pairedEvidence(environments.get(control.id), "positive-environment"), pairedEvidence(control, "negative-control"));
+      item.append(grid); byId("lean-logs").append(item);
+    }
+    if (data.lean_logs.length === 0) byId("lean-logs").append(el("p", "No retained compiler logs are present in the payload.", "empty"));
+    const svgNode = (tag, attrs = {}, value) => {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+      for (const [name, value] of Object.entries(attrs)) node.setAttribute(name, String(value));
+      if (value !== undefined) node.textContent = String(value);
+      return node;
+    };
+    const svgBase = (target, title, description, height) => {
+      const width = Math.max(260, Math.floor(byId(target).getBoundingClientRect().width));
+      const svg = svgNode("svg", {viewBox: `0 0 ${width} ${height}`, role: "img", "aria-labelledby": `${target}-title ${target}-description`});
+      svg.append(svgNode("title", {id: `${target}-title`}, title), svgNode("desc", {id: `${target}-description`}, description));
+      return {svg, width};
+    };
+    const renderCharts = values => {
+      const curve = curves.get(selectedWitness.id);
+      if (!curve || !Array.isArray(curve.q) || !curve.q.length || curve.q.length !== curve.free_energy.length || curve.q.length !== curve.kl.length || ![...curve.q, ...curve.free_energy, ...curve.kl, curve.surprise].every(Number.isFinite)) throw new Error("Missing or invalid packet energy curve");
+      if (curve.q.some(value => value < 0 || value > 1)) throw new Error("Packet curve q values lie outside [0, 1]");
+      const energy = svgBase("energy-chart", `Energy for ${selectedWitness.id}`, `Packet samples of free energy and KL, with surprise constant. Horizontal coordinate is q(false). Current browser q(false) ${fmt(currentQ)}, free energy ${fmt(values.freeEnergy)} nats.`, 320);
+      const left = 58, right = energy.width - 16, top = 28, bottom = 260;
+      const maximum = Math.max(...curve.free_energy, ...curve.kl, curve.surprise, values.freeEnergy, values.kl, 0.1) * 1.08;
+      const x = q => left + q * (right - left), y = value => bottom - value / maximum * (bottom - top);
+      for (let index = 0; index <= 4; index += 1) {
+        const value = maximum * index / 4, yy = y(value);
+        energy.svg.append(svgNode("line", {x1: left, y1: yy, x2: right, y2: yy, class: "gridline"}), svgNode("text", {x: left - 8, y: yy + 4, "text-anchor": "end"}, value.toFixed(2)));
+        const xx = x(index / 4);
+        energy.svg.append(svgNode("text", {x: xx, y: bottom + 24, "text-anchor": "middle"}, String(index / 4)));
+      }
+      energy.svg.append(svgNode("line", {x1: left, y1: bottom, x2: right, y2: bottom, class: "axis"}), svgNode("text", {x: left, y: 16}, "nats"), svgNode("text", {x: (left + right) / 2, y: 307, "text-anchor": "middle"}, "q(false) = q₀"));
+      const points = values => curve.q.map((q, index) => `${x(q)},${y(values[index])}`).join(" ");
+      energy.svg.append(svgNode("polyline", {points: points(curve.free_energy), class: "f-line"}), svgNode("polyline", {points: points(curve.kl), class: "kl-line"}), svgNode("line", {x1: left, y1: y(curve.surprise), x2: right, y2: y(curve.surprise), class: "s-line"}), svgNode("line", {x1: x(currentQ), y1: top, x2: x(currentQ), y2: bottom, class: "marker-line"}), svgNode("circle", {cx: x(currentQ), cy: y(values.freeEnergy), r: 4.5, class: "energy-point"}));
+      byId("energy-chart").replaceChildren(energy.svg);
+      const distribution = svgBase("posterior-chart", `Probability masses for ${selectedWitness.id}`, `State order false then true. Prior ${mathInputs.prior.map(fmt).join(", ")}; posterior ${mathInputs.posterior.map(fmt).join(", ")}; current candidate ${fmt(currentQ)}, ${fmt(1 - currentQ)}.`, 320);
+      const dLeft = 46, dRight = distribution.width - 16, dTop = 28, dBottom = 260;
+      const dy = value => dBottom - value * (dBottom - dTop);
+      for (let index = 0; index <= 4; index += 1) {
+        const value = index / 4, yy = dy(value);
+        distribution.svg.append(svgNode("line", {x1: dLeft, y1: yy, x2: dRight, y2: yy, class: "gridline"}), svgNode("text", {x: dLeft - 8, y: yy + 4, "text-anchor": "end"}, String(value)));
+      }
+      distribution.svg.append(svgNode("text", {x: dLeft, y: 16}, "probability"));
+      const groupWidth = (dRight - dLeft) / 2, barWidth = Math.min(32, groupWidth / 5);
+      for (let state = 0; state < 2; state += 1) {
+        const center = dLeft + groupWidth * (state + 0.5);
+        const rows = [[mathInputs.prior[state], "prior-bar"], [mathInputs.posterior[state], "posterior-bar"], [state === 0 ? currentQ : 1 - currentQ, "candidate-bar"]];
+        rows.forEach(([value, className], index) => {
+          const rect = svgNode("rect", {x: center + (index - 1.5) * (barWidth + 3), y: dy(value), width: barWidth, height: Math.max(0, dBottom - dy(value)), class: className});
+          rect.append(svgNode("title", {}, `${state === 0 ? "false (index 0)" : "true (index 1)"}: ${["prior", "posterior", "current candidate"][index]} = ${fmt(value)}`)); distribution.svg.append(rect);
+        });
+        distribution.svg.append(svgNode("text", {x: center, y: 286, "text-anchor": "middle"}, state === 0 ? "false · index 0" : "true · index 1"));
+      }
+      byId("posterior-chart").replaceChildren(distribution.svg);
+      put("posterior-caption", `Browser approximations from the same rational inputs. Posterior [false, true] = [${mathInputs.posterior.map(fmt).join(", ")}]; current q = [${fmt(currentQ)}, ${fmt(1 - currentQ)}].`);
+    };
+    const updateMath = () => {
+      if (!mathInputs) return;
+      currentQ = Number(byId("q0").value);
+      if (!Number.isFinite(currentQ) || currentQ < 0 || currentQ > 1) throw new Error("Interactive q(false) is outside [0, 1]");
+      const q = [currentQ, 1 - currentQ];
+      const term = (mass, reference) => mass === 0 ? 0 : mass * Math.log(mass / reference);
+      const freeEnergy = q.reduce((sum, mass, index) => sum + term(mass, mathInputs.joint[index]), 0);
+      const kl = q.reduce((sum, mass, index) => sum + term(mass, mathInputs.posterior[index]), 0);
+      const surprise = -Math.log(mathInputs.evidence), residual = freeEnergy - surprise - kl;
+      if (![freeEnergy, kl, surprise, residual].every(Number.isFinite)) throw new Error("Interactive arithmetic produced a non-finite value");
+      put("q0-value", fmt(currentQ)); byId("q0").setAttribute("aria-valuetext", `${fmt(currentQ)} probability on false; ${fmt(1 - currentQ)} on true`);
+      pairs("interactive-math", [["New F(q), nats", fmt(freeEnergy)], ["New KL(q ∥ posterior), nats", fmt(kl)], ["New surprise, nats", fmt(surprise)], ["New identity residual, nats", fmt(residual)]], true);
+      put("math-status", `New browser q [false, true] = [${fmt(currentQ)}, ${fmt(1 - currentQ)}]. Recorded rational candidate remains [${selectedWitness.candidate.join(", ")}].`);
+      renderCharts({freeEnergy, kl});
+    };
+    const renderWitness = witness => {
+      selectedWitness = witness;
+      const retained = numerical.get(witness.id);
+      put("numeric-witness", witness.id);
+      pairs("rational-inputs", [["Namespace", witness.namespace], ["State order", "[false, true] = [index 0, index 1]"], ["Prior [false, true]", `[${witness.prior.join(", ")}]`], ["Likelihood [false, true]", `[${witness.likelihood.join(", ")}]`], ["Recorded q [false, true]", `[${witness.candidate.join(", ")}]`], ["Observed output", String(witness.observed)], ["Exact posterior [false, true]", retained ? `[${retained.exact_posterior.join(", ")}]` : "No retained numerical witness"], ["Exact evidence", retained ? retained.evidence : "No retained numerical witness"]]);
+      if (retained) {
+        pairs("recorded-math", [["Recorded passed", String(retained.passed)], ["F(q), nats", fmt(retained.result.free_energy)], ["KL to posterior, nats", fmt(retained.result.kl_to_posterior)], ["Surprise, nats", fmt(retained.result.surprise)], ["Identity residual, nats", fmt(retained.result.identity_residual)], ["Maximum reference error", fmt(retained.max_reference_error)], ["Declared tolerance", String(retained.tolerance)], ["Exact reconstruction residuals", `[${retained.reconstruction_residuals.join(", ")}]`]]);
+        put("numerical-json", json(retained));
+      } else { pairs("recorded-math", [["Recorded result", "No retained numerical witness"]]); put("numerical-json", "No retained numerical witness"); }
+      const names = data.lean_proofs.filter(name => name.startsWith(`${witness.namespace}.`));
+      const declarations = report.lean.declarations.filter(name => name.startsWith(`${witness.namespace}.`));
+      put("proof-title", `Named proofs · ${witness.namespace}`); put("proof-count", `${names.length} named theorem proofs for this witness / ${data.lean_proofs.length} in the full source.`);
+      put("declaration-count", `${declarations.length} main-source audited declarations for this witness / ${report.lean.declarations.length} in the main source, including definitions; paired environment audits are separate.`);
+      byId("proof-list").replaceChildren(...names.map(name => { const item = el("li"); item.append(el("code", name)); return item; }));
+      byId("declaration-list").replaceChildren(...declarations.map(name => { const item = el("li"); item.append(el("code", name)); return item; }));
+      mathInputs = null; byId("math-error").hidden = true;
+      try {
+        const prior = witness.prior.map(rational), likelihood = witness.likelihood.map(rational), candidate = witness.candidate.map(rational);
+        if (![...prior, ...likelihood, ...candidate].every(value => value > 0 && value < 1) || Math.abs(prior[0] + prior[1] - 1) > 1e-12 || Math.abs(candidate[0] + candidate[1] - 1) > 1e-12) throw new Error("Witness does not have the supported positive binary inputs");
+        const joint = prior.map((value, index) => value * likelihood[index]), evidence = joint[0] + joint[1];
+        mathInputs = {prior, likelihood, candidate, joint, evidence, posterior: joint.map(value => value / evidence)};
+        byId("q0").disabled = false; byId("reset-candidate").disabled = false; byId("use-posterior").disabled = false;
+        byId("q0").value = String(candidate[0]); updateMath();
+      } catch (error) {
+        mathInputs = null; byId("q0").disabled = true; byId("reset-candidate").disabled = true; byId("use-posterior").disabled = true;
+        byId("interactive-math").replaceChildren(); byId("energy-chart").replaceChildren(); byId("posterior-chart").replaceChildren();
+        put("math-status", "Local arithmetic is unavailable; retained numerical values remain above.");
+        put("math-error", error instanceof Error ? error.message : String(error)); byId("math-error").hidden = false;
+      }
+    };
+    const renderCase = () => {
+      const scenario = scenarios.get(byId("scenario").value);
+      const view = data.cases.find(row => row.witness_id === byId("witness").value && row.scenario_id === byId("scenario").value && row.prover === byId("prover").value && row.kind === byId("control").value);
+      byId("selected-case").hidden = !view; byId("case-empty").hidden = Boolean(view);
+      if (!view || !scenario) { put("case-status", "No recorded observation selected."); return; }
+      const outcome = nativeOutcomes.get(caseKey(view.case_id, view.prover));
+      if (!outcome || outcome.group !== scenario.id || outcome.kind !== view.kind) throw new Error("Selected native evidence does not join to its report outcome");
+      put("case-status", `${view.case_id} · ${fullProver(view.prover)} · expected ${outcome.expected} · observed ${outcome.observed} · matched = ${outcome.matched}`);
+      byId("case-status").classList.toggle("attention", outcome.matched !== true);
+      pairs("case-metadata", [["Scenario", scenario.title], ["Scenario identifier / role", `${scenario.id} / ${scenario.role}`], ["Shared witness", scenario.witness_id], ["Case / control", kindNames[view.kind] || view.kind], ["E/V per-problem timeout (s)", report.timeout_seconds], ["Scope", "Selected source kernel and local authored assumptions only"]]);
+      byId("source-formulas").replaceChildren();
+      scenario.selections.forEach((selection, index) => {
+        const source = sourceClaims.get(selection.line);
+        if (!source) throw new Error(`Missing selected source formula at line ${selection.line}`);
+        const omitted = view.kind === "removed-premise" && index === scenario.removed_selection;
+        const item = el("div", undefined, "source-item");
+        item.append(el("h4", `${source.source_path}:${source.line}–${source.end_line}`), el("p", omitted ? "OMITTED from this removed-premise native problem; original selected source shown below." : "Included selected source premise.", omitted ? "small attention" : "small muted"), el("p", `SHA-256 ${source.sha256}`, "small muted"), block(source.raw_kif, `Exact selected KIF source at line ${source.line}`));
+        if (Object.keys(selection.predicate_bindings).length) item.append(el("p", "Explicit predicate bindings", "small"), block(json(selection.predicate_bindings), `Predicate bindings for source line ${source.line}`));
+        byId("source-formulas").append(item);
+      });
+      if (!scenario.selections.length) byId("source-formulas").append(el("p", "No source formulas are selected by this scenario.", "empty"));
+      const facts = witnessFacts.get(scenario.witness_id);
+      if (!facts || !Array.isArray(facts.assumptions)) throw new Error(`Missing exported rational mass facts for witness ${scenario.witness_id}`);
+      const assumptions = [
+        ...scenario.assumptions.map((text, index) => ({text, index, origin: "scenario"})),
+        ...facts.assumptions.map((text, index) => ({text, index, origin: "witness"}))
+      ];
+      const omittedAssumption = row => view.kind === "removed-premise" && row.origin === "scenario" && row.index === scenario.removed_assumption;
+      put("assumption-count", `${scenario.assumptions.length} scenario assumptions + ${facts.assumptions.length} exported witness mass facts; ${assumptions.filter(row => !omittedAssumption(row)).length} included in this native background.`);
+      byId("assumptions").replaceChildren();
+      assumptions.forEach((assumption, index) => {
+        const omitted = omittedAssumption(assumption);
+        const origin = assumption.origin === "scenario" ? `Scenario assumption index ${assumption.index}.` : `Exported mass fact index ${assumption.index} for witness ${scenario.witness_id}.`;
+        const item = el("div", undefined, "assumption-item");
+        item.append(el("h4", `Assumption ${index + 1} (local index ${index})`), el("p", `${origin} ${omitted ? "OMITTED from this removed-premise native problem." : "Included local authored assumption."}`, omitted ? "small attention" : "small muted"), block(assumption.text, `Local authored KIF assumption ${index + 1}`)); byId("assumptions").append(item);
+      });
+      if (!assumptions.length) byId("assumptions").append(el("p", "No local assumptions are declared for this witness and scenario.", "empty"));
+      const query = view.kind === "background" ? "[no conjecture: background only]" : view.kind === "refutation" ? `(not ${scenario.query})` : view.kind === "negative" ? scenario.negative_query : scenario.query;
+      put("query", query);
+      put("query-kind", view.kind === "background" ? "Background satisfiability check. No query is inserted." : view.kind === "refutation" ? "The negated positive query is asserted as an axiom; there is no conjecture in this refutation problem." : view.kind === "negative" ? "Authored alternative conjecture; it is not automatically the logical negation of the positive query. CounterSatisfiable means non-entailment in this selected problem, not entailment of its negation." : "Positive conjecture under the displayed included premises and assumptions.");
+      put("scenario-json", json(scenario)); put("native-problem", view.problem); put("native-command", json(view.command));
+      put("native-stdout", view.stdout === "" ? "[empty standard output: zero characters]" : view.stdout);
+      put("native-stderr", view.stderr === "" ? "[empty standard error: zero characters]" : view.stderr);
+      put("case-bindings", json(outcome));
+    };
+    const syncControls = () => {
+      const available = [...new Set(data.cases.filter(row => row.witness_id === byId("witness").value && row.scenario_id === byId("scenario").value && row.prover === byId("prover").value).map(row => row.kind))];
+      options("control", available.map(kind => [kind, kindNames[kind] || kind]), byId("control").value || "positive"); renderCase();
+    };
+    const syncProvers = () => {
+      const available = [...new Set(data.cases.filter(row => row.witness_id === byId("witness").value && row.scenario_id === byId("scenario").value).map(row => row.prover))];
+      options("prover", available.map(name => [name, fullProver(name)]), byId("prover").value); syncControls();
+    };
+    const syncWitness = () => {
+      const witness = witnesses.get(byId("witness").value);
+      if (!witness) throw new Error("No registered witness is available");
+      const available = report.scenarios.filter(row => row.witness_id === witness.id);
+      options("scenario", available.map(row => [row.id, `${row.title} · ${row.id}`]), byId("scenario").value);
+      renderWitness(witness); syncProvers();
+    };
+    options("witness", report.witnesses.map(row => [row.id, row.id]));
+    byId("witness").addEventListener("change", () => safe(syncWitness));
+    byId("scenario").addEventListener("change", () => safe(syncProvers));
+    byId("prover").addEventListener("change", () => safe(syncControls));
+    byId("control").addEventListener("change", () => safe(renderCase));
+    byId("q0").addEventListener("input", () => safe(updateMath));
+    byId("reset-candidate").addEventListener("click", () => safe(() => { if (mathInputs) { byId("q0").value = String(mathInputs.candidate[0]); updateMath(); } }));
+    byId("use-posterior").addEventListener("click", () => safe(() => { if (mathInputs) { byId("q0").value = String(mathInputs.posterior[0]); updateMath(); } }));
+    syncWitness();
+    if (typeof ResizeObserver !== "undefined") {
+      let width = byId("energy-chart").getBoundingClientRect().width;
+      const observer = new ResizeObserver(() => {
+        const next = byId("energy-chart").getBoundingClientRect().width;
+        if (Math.abs(next - width) > 1) { width = next; safe(updateMath); }
+      });
+      observer.observe(byId("energy-chart"));
+    } else window.addEventListener("resize", () => safe(updateMath));
+  });
+})();
+</script>
+</body>
+</html>

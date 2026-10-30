@@ -1,174 +1,106 @@
-# Observed verification
+# Verification and interpretation
 
-Rikishi is a working ontology environment with explicit evidence boundaries.
-The records below distinguish structural reading, local theorem-prover execution,
-Sigma translation, numerical calculation, and formalization source inspection.
-Live test counts and coverage are in `output/tests.xml` and `output/coverage.json`.
+Verification joins a particular source candidate to actual observed outputs.
+The [current-state guide](current-state.md) describes supported scope; the
+[release checklist](../RELEASE_CHECKLIST.md) defines publication requirements.
+A prior development acceptance does not qualify a changed package or Portable Document Format (PDF).
 
-## Source corpus
+## Source and inputs
 
-The pinned SUMO tree is `efcd059f8feebfe3488a09f575f88d4d009b1e5c`.
-`output/data/corpus.json` records 144 discovered and indexed KIF files,
-212845 top-level formulas, 34885 symbols, 71701 asserted binary edges, and no
-structural parse errors. `output/data/source-manifest.json` contains per-file
-SHA256 hashes. The source checkout was clean when indexed. These counts describe
-syntax and extraction policy, not independently proven facts or semantic validity.
+Record the complete maintained-source inventory and digest, dependency revisions,
+study/input bytes, configuration, renderer identity and actual command.
+Source formulas require their full context and inclusive file/line spans.
+A binary graph projection is a declared navigation representation, not a
+replacement for quantified or contextual source statements.
 
-The index rejects malformed KIF and invalid UTF-8, exposes complete diagnostics,
-and does not retain a partially parsed bad file. Real temporary Git repositories
-test clean/dirty attribution and atomic preservation after corrupt Git metadata.
-Proof manifests carry source cleanliness, file hashes, and problem hashes.
+The public source distribution includes acquisition recipes and pins. It does
+not implicitly supply downloaded ontology/toolchains, the original workbook,
+private evidence or every retained native packet. A received packet needs an
+independently trusted digest and safe-path/custody verification before replay;
+rehashing the packet alone does not authenticate its producer.
 
-## Runtime and inference
+## Logical results
 
-Java 21, Ant, Tomcat, WordNet 3.0, SigmaKEE, its Java dependencies, E, and the
-Apple Silicon Vampire executable were installed or built on GitVault. Revisions
-and the local Sigma patch are recorded in `config/sumo.lock.json`.
-`.omo/evidence/runtime/doctor.json` reports actual artifacts and checkout changes.
+Selected inference results concern explicit submitted kernels and local
+premises. Retain the exact problem/include bytes, actual prover argument array,
+binary/source identities, stdout/stderr/status and process exits. Separate
+satisfiable backgrounds, positive queries, unsupported conjectures,
+premise-removal and explicit-refutation controls.
 
-The real Sigma application at <http://127.0.0.1:8085/sigma/KBs.jsp> was exercised
-through the browser. The knowledge-base page displayed SUMO with four selected
-constituents. The Manifest showed `Merge.kif`, `Mid-level-ontology.kif`,
-`domainEnglishFormat.kif`, and `english_format.kif` selected, with 74 top-level
-files available. Browsing `Human` displayed source assertions at Merge lines
-18961 and 18962 and loaded WordNet lexical entries. This goes beyond testing a
-login page or an HTTP status code.
+A countermodel shows that the submitted kernel permits the conjecture to be
+false; it does not prove the conjecture's negation. Timeout/resource exhaustion
+remain inconclusive. E theorem prover and Vampire (E/V) agreement is agreement about the same submitted bytes,
+not a universal semantic or ontology-consistency theorem. Sigma's translation
+and cache path has its own declared diagnostics.
 
-Actual Sigma translation and E execution returned `Theorem` for
-`(subclass Human Animal)`. The negative query `(subclass Human Artifact)` returned
-`ContradictoryAxioms`. This is an **unresolved translated-core consistency issue**.
-Its origin has not been established; it may involve the ontology, translation,
-or their interaction. A positive result from this profile is not sufficient for
-scientific or semantic validation. The operator must retain this limitation.
-Raw and structured results are under `.omo/evidence/runtime/sigma-core-*`.
+See [inference methods](inference-methods.md),
+[source demonstrations](sumo-demonstrations.md), [runtime](runtime.md) and
+[cache inheritance](cache-inheritance.md).
 
-The separate taxonomic example derives a first-order problem from direct
-`Merge.kif` subclass assertions plus explicit transitivity. `Human` to
-`AutonomousAgent` produces an E theorem. Its controlled test also requires a
-countermodel for a nonentailed target. This restricted projection has a narrower
-semantics than the full Sigma-translated knowledge base.
+## Finite arithmetic and formal obligations
 
-The E tests run real theorem and countermodel problems, malformed TPTP, missing
-tools, invalid time limits, and a FIFO that blocks reads. The FIFO test requires
-wall-clock termination. Bootstrap tests use real local Git repositories to
-exercise failed-fetch recovery, wrong-revision refusal, and preservation of
-unmatched existing knowledge-base files.
+Independently recompute finite rational inputs, normalization, support,
+posterior/evidence identities and declared high-precision residuals. Keep
+modeling assumptions and simulation sampling laws explicit. Seeded simulation
+replay establishes the declared computational experiment, not empirical adequacy.
 
-## Reproduced failures and corrections
+Lean qualification requires the actual selected source/compiler/dependencies,
+named statements, trusted-basis/axiom observations and intended rejecting
+controls. The registered shared-witness bridge and the separately scoped
+finite-event statements retain separate populations and hypotheses.
 
-- Native query execution first failed with `Cannot run program "/usr/bin/dot"`.
-  The installed `dot` executable was invoked successfully and its actual path
-  configured. The original failure remains in `sigma-query.log`.
-- E rejected the upstream translation with `Closing bracket ')' expected` at
-  a raw compound symbol `s__(ExtensionFn Oval)`. The versioned patch parses
-  compound class terms as expressions in both type-guard branches. It preserves
-  the term structure and axioms. Before/after regression and source hashes are
-  retained; no change is made to the upstream SUMO checkout.
-- The first web request returned `JSP file [/KBs.jsp] not found` because proof
-  rendering had created a partial exploded WAR directory. Deployment now merges
-  the complete WAR assets while preserving generated graphs. The real KB and
-  term pages were subsequently verified.
-- An independent reviewer demonstrated that an echoed query containing
-  `SZS status Theorem` could fool mixed-log status extraction. Native status must
-  come from the actual ATP result, with query text treated as data. The runtime
-  review and result-parser negative controls record the correction.
-- Initial wheel construction failed with `A second file is being added to the
-  wheel archive at the same path: rikishi/static/app.js`. The redundant forced
-  inclusion was removed. Source distribution, wheel, and an independent wheel
-  installation were then exercised with actual assets and numerical results.
+A shared witness binds model, representation, calculation and result artifacts
+to common authored inputs. It does not prove general source-to-target
+preservation. Read [bridge methods](bridge-methods.md),
+[restricted event transport](semantic-transport.md) and
+[scholarship](scholarship.md).
 
-## Dashboard, MCP, and FEP
+## Software and package qualification
 
-The local dashboard at <http://127.0.0.1:8765> was exercised on desktop and a
-390-pixel mobile viewport. Checks covered term search, empty results, graph-node
-navigation, bounded scrolling, theme switching, source links pinned to the clean
-SUMO revision, corpus charts, and the live finite free-energy slider. The mobile
-layout had no horizontal overflow. At candidate probability 0.8, free energy
-equalled surprise to numerical precision and KL was zero to rounding tolerance.
+Run the declared complete native `make check`: lint, types, every collected
+test, both branch-inclusive coverage floors, and package builds. Core requires
+90%; the infrastructure scope in `config/coverage.toml` requires 60%.
+Preserve warnings and rejected controls. A passing check must detect its false
+implementation or invalid input at the intended boundary.
 
-The real MCP stdio test launches a subprocess, initializes a client session,
-discovers tools and resources, inspects terms, checks corpus and graph values,
-and verifies protocol errors for missing terms and invalid probability vectors.
-Direct tool/resource tests check semantic payloads rather than truthiness.
+Portable and focused checks have narrower scope. A fail-fast or interrupted
+native run remains partial/RED. Green requires the actual collected population
+with no failures/errors/skips and complete successful coverage/package stages.
+Use a fresh isolated external temporary root for each run, without sweeping
+another run's retained temporary data.
 
-FEP tests compare against independent logarithmic values and reject invalid
-normalization, lengths, nonfinite inputs, zero evidence, and unsupported mass.
-The proposed vocabulary candidates were checked against the actual SUMO index.
-`fep_formal` was inspected at commit
-`9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de`; its source checkout was clean. Lean
-was not compiled and no proof transport or SUMO/Lean equivalence is claimed.
+Inspect actual wheel/sdist members, installed runtime identity, command-line interface (CLI) behavior,
+required package data and distributed documentation. Hosted Linux/CI results
+must come from that actual platform; a local declaration is not an executed job.
 
-## Manuscript and review
+## Editions and review
 
-PDF, DOCX, and HTML are generated using the actual docxology/template adapters.
-The renderer extracts a pristine archive at
-`efce6d6f5b3c4e8e2bbf92d8250855a0a9389ae8`, verifies its files before import,
-and records imported module hashes. Unrelated dirty work in the shared template
-checkout is preserved and is not used to render the manuscript. A negative
-control modifies a temporary snapshot file and requires verification to reject it.
+### Word geometry and pagination status
 
-`output/manuscript/render-receipt.json` records source, data, renderer, and output
-hashes. All rendered PDF pages were visually inspected, and both figures were
-verified in the DOCX and local HTML output. The manuscript distinguishes
-proposed connections from proved results and records the runtime limitation.
+Bind the actual PDF/Word/Hypertext Markup Language (HTML) and each embedded figure to source and report
+inputs. Image identity and two-axis placement matter: a width-only calculation
+cannot qualify vertically compressed text. Verify tables, math, captions,
+citations, section numbering and complete continuations in the actual editions.
 
-The independent review is `.omo/evidence/rikishi-code-review.md`. Final test,
-lint, packaging, and publication observations accompany this repository. The
-GitHub workflow runs portable tests with integration tests explicitly excluded;
-the full core/infrastructure coverage gates require the installed local tools and
-run on the GitVault workstation. See [test methods](testing.md).
+Directly inspect every PDF page and every claimed native/browser surface.
+Cover/page order, the physical pages 2–4 graphical abstracts, nominal 7.5 pt
+figure floor, readable references and full data rows are concrete review
+obligations. Saved visual evidence does not qualify unoperated Microsoft Word,
+physical phones/print, native zoom, screen-reader, clipboard or loading states.
 
-## Comprehensive methods improvement gate
+Use [manuscript methods](manuscript.md), [visualizations](visualizations.md)
+and the [review guide](review.md). Keep raw findings OPEN when accepting them
+with explicit limits; an accepted departure is not literal compliance.
 
-The integrated improvement pass ran **163 tests**, all passing. Measured coverage
-including branch destinations was **96.35% for core methods** against the 90% floor
-and **82.48% for native infrastructure** against the 60% floor. Overall combined
-coverage was 92.27%. `output/coverage-gates.json` lists all 21 package Python files
-and their disjoint scopes; the gate rejects missing files and excluded lines.
-Ruff and both source-distribution and wheel builds passed. Exact command output
-is under `.omo/evidence/improvements/final-*.txt`.
+## Public verification record
 
-Runtime/bootstrap, query/server, corpus analytics/reporting, renderer provenance,
-and artifact verification now live in importable modules. Scripts select the
-checkout and invoke these methods. Tests are factored by domain and interface,
-with real Git, SQLite, HTTP, subprocess, MCP, and native renderer cases. The
-import-safety regression starts a fresh Python process with malformed arguments;
-an unsafe fixture import provides the failing control.
+The reviewed release bundle must supply the source revision/inventory,
+artifact hashes and byte lengths, actual test/coverage/package outcomes,
+renderer/dependency identity, independent review scope/disposition, retained
+warnings and unresolved limits. Private development history can remain private;
+the public summary must be understandable without broken internal links.
 
-The new `verify-source` command confirmed all **144 current KIF files** match
-their indexed hashes and recorded clean revision. Exact analytics distinguish
-71701 edge assertions from **70843 unique labeled triples**, retain **858 repeated
-assertions**, and include **256 zero-degree symbols** in the 34885-symbol graph
-denominator. Live and offline analytics were checked at 1440- and 390-pixel widths,
-without horizontal overflow. The browser receipt binds checked inputs by SHA256.
-
-The regenerated manuscript has **seven pages, three figures, and nine hashed
-artifacts**. All seven final PDF pages were visually inspected. Receipt verification
-checks current Markdown, bibliography, corpus, and analytics inputs as well as
-artifacts and imported renderer modules. Stale source, bibliography, and analytics
-mutation controls require rejection. The scholarship ledger links scientific
-claims to checked primary sources and identifies source-fetch limits.
-
-Independent review is **CLEAR / APPROVE** with no blockers in
-`.omo/evidence/improvements-code-review.md`. The reviewer reproduced the stale-input
-and cached-import test gaps; both were corrected and independently retested.
-The original full-core contradiction remains unresolved. A separate E run on the
-preserved translated core without a conjecture exhausted 15 CPU seconds with
-`ResourceOut`; this establishes no consistency conclusion. Native acquisition
-branches not exercised on the installed system remain visible in coverage.
-
-An initial whole-tree Git whitespace scan reported spaces emitted inside
-Matplotlib SVG paths and blank EOF lines in preserved/generated documents. Those
-generated and template bytes are retained. Authored source is checked separately;
-the manuscript source EOF was normalized and its outputs regenerated. This is
-separate from the passing test, coverage, lint, and artifact-verification gates.
-
-## Hosted CI observation
-
-The first private GitHub Actions run, `39353670513`, failed before a runner was
-assigned: zero steps ran and the runner ID was zero. Its failure annotation was:
-"The job was not started because an Actions budget is preventing further use."
-This is an external execution block; it is not a passing hosted gate and provides
-no evidence about Linux execution. The local full gate passed 81 tests with
-94.13% combined line/branch coverage. See `output/github-ci.json` and the
-[original run](https://github.com/docxology/rikishi/actions/runs/39353670513).
+Publishing the software or PDF adds persistent public identifiers. It does not
+create proof authentication, a general ontology theorem, empirical validation
+or editorial endorsement. The final publication steps remain separately
+reviewable effects described in [release methods](release.md).

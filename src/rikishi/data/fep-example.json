@@ -1,0 +1,7 @@
+{
+  "prior": [0.5, 0.5],
+  "likelihood": [0.8, 0.2],
+  "candidate": [0.5, 0.5],
+  "scan_points": 101,
+  "state_labels": ["state A", "state B"]
+}

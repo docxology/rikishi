@@ -1,5 +1,6 @@
 import hashlib
 import subprocess
+from contextlib import contextmanager
 from pathlib import Path
 
 import pytest
@@ -118,6 +119,27 @@ def test_receipt_paths_reject_external_symlink(tmp_path):
         contained_path(root, "escape/file")
 
 
+def test_provenance_error_preserves_traceback_through_real_context_manager():
+    @contextmanager
+    def scope():
+        yield
+
+    with pytest.raises(ProvenanceError, match="retained rejection") as captured, scope():
+        raise ProvenanceError("retained rejection")
+    assert captured.value.reason == "retained rejection"
+    assert captured.value.__traceback__ is not None
+
+
+def test_empty_process_log_retains_exact_size_and_hash(tmp_path):
+    log = tmp_path / "stderr.txt"
+    log.write_bytes(b"")
+    record = ArtifactRecord(path=log.name, bytes=0, sha256=hashlib.sha256(b"").hexdigest())
+    verify_artifacts(tmp_path, [record])
+    log.write_text("unexpected stderr")
+    with pytest.raises(ProvenanceError, match="size differs"):
+        verify_artifacts(tmp_path, [record])
+
+
 def test_sources_reject_empty_manifest(tmp_path):
     with pytest.raises(ProvenanceError, match="empty"):
         verify_sources(tmp_path, {})
@@ -140,6 +162,24 @@ def test_hydration_measures_exact_input(measurement):
     result = hydrate_manuscript("{{CORPUS_FILES}}/{{CORPUS_FORMULAS}} {{SUMO_COMMIT}}", measurement)
     assert result.text == "2/5 " + "a" * 40
     assert result.substitutions["CORPUS_EDGES"] == "1"
+
+
+def test_hydration_injects_checked_publication_values_in_one_pass(measurement):
+    result = hydrate_manuscript(
+        "{{TITLE}}: {{FEP_EVIDENCE}} / {{CORPUS_FILES}}",
+        measurement,
+        values={"TITLE": "A measured example", "FEP_EVIDENCE": "0.625"},
+    )
+    assert result.text == "A measured example: 0.625 / 2"
+
+
+@pytest.mark.parametrize(
+    "values",
+    [{"CORPUS_FILES": "999"}, {"lowercase": "invalid"}, {"TITLE": "{{CORPUS_FILES}}"}],
+)
+def test_hydration_rejects_overrides_invalid_names_and_recursive_values(measurement, values):
+    with pytest.raises(ProvenanceError):
+        hydrate_manuscript("{{TITLE}}", measurement, values=values)
 
 
 @pytest.mark.parametrize(

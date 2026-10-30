@@ -1,0 +1,9 @@
+from pathlib import Path
+
+from infrastructure.rendering.config import RenderingConfig
+
+class WebRenderer:
+    def __init__(self, configuration: RenderingConfig) -> None: ...
+    def render(self, source: Path) -> Path: ...
+    def render_combined(self, source_files: list[Path], manuscript_dir: Path,
+                        project_name: str = "project") -> Path: ...

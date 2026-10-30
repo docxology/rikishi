@@ -1,0 +1,3 @@
+class RenderingConfig:
+    def __init__(self, *, manuscript_dir: str, output_dir: str, pdf_dir: str,
+                 web_dir: str, docx_dir: str, figures_dir: str, latex_compiler: str) -> None: ...

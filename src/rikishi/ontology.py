@@ -7,7 +7,32 @@ import tempfile
 from contextlib import closing
 from pathlib import Path
 
+from rikishi.corpus_query import (
+    DEFAULT_FILES,
+    DEFAULT_FORMULAS,
+    FileQuery,
+    FormulaQuery,
+    corpus_files,
+    formula_search,
+)
+from rikishi.graph_types import (
+    FilePage,
+    FormulaPage,
+    GraphEdge,
+    Neighborhood,
+    RelationInventory,
+    RelationSummaryResult,
+    TaxonomyPath,
+    TaxonomyResult,
+)
 from rikishi.kif import KifError, String, parse, symbols
+from rikishi.ontology_analysis import (
+    DEFAULT_TAXONOMY,
+    TaxonomyQuery,
+    relation_inventory,
+    taxonomy_analysis,
+)
+from rikishi.taxonomy_paths import TaxonomyPathQuery, taxonomy_path
 
 SCHEMA = """
 CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);
@@ -179,7 +204,8 @@ class OntologyIndex:
                     """
                 SELECT t.name,
                   COALESCE((SELECT d.text FROM documentation d WHERE d.term=t.name
-                    ORDER BY d.language='EnglishLanguage' DESC,d.language LIMIT 1),'') AS documentation,
+                    ORDER BY d.language='EnglishWrittenLanguage' DESC,
+                      d.language='EnglishLanguage' DESC,d.language LIMIT 1),'') AS documentation,
                   (SELECT COUNT(*) FROM occurrences o WHERE o.term=t.name) AS formula_count
                 FROM terms t WHERE t.name LIKE ? ESCAPE '\\'
                 ORDER BY t.name = ? COLLATE NOCASE DESC,LENGTH(t.name),t.name LIMIT ?
@@ -235,6 +261,10 @@ class OntologyIndex:
                     (name,),
                 )
             ]
+            children_total = connection.execute(
+                "SELECT COUNT(*) FROM (SELECT DISTINCT subject,predicate FROM edges "
+                "WHERE object=? AND predicate IN ('subclass','instance','subrelation'))", (name,)
+            ).fetchone()[0]
             return {
                 "name": name,
                 "documentation": documentation,
@@ -242,28 +272,54 @@ class OntologyIndex:
                 "formula_count": count,
                 "parents": parents,
                 "children": children,
+                "formulas_total": count,
+                "formulas_truncated": count > len(formulas),
+                "children_total": children_total,
+                "children_truncated": children_total > len(children),
             }
 
-    def neighborhood(self, name: str, limit: int = 80) -> dict:
+    def corpus_files(self, query: FileQuery = DEFAULT_FILES) -> FilePage:
+        return corpus_files(self, query)
+
+    def formula_search(self, query: FormulaQuery = DEFAULT_FORMULAS) -> FormulaPage:
+        return formula_search(self, query)
+
+    def relation_inventory(self) -> RelationSummaryResult:
+        return relation_inventory(self)
+
+    def taxonomy_analysis(self, query: TaxonomyQuery = DEFAULT_TAXONOMY) -> TaxonomyResult:
+        return taxonomy_analysis(self, query)
+
+    def taxonomy_path(self, query: TaxonomyPathQuery) -> TaxonomyPath:
+        return taxonomy_path(self, query)
+
+    def neighborhood(self, name: str, limit: int = 80, relation: str | None = None) -> Neighborhood:
         if not 1 <= limit <= 500:
             raise ValueError("limit must be between 1 and 500")
+        if relation is not None and not relation.strip():
+            raise ValueError("relation must be nonempty when supplied")
         with closing(self._connect()) as connection:
             if not connection.execute("SELECT 1 FROM terms WHERE name=?", (name,)).fetchone():
                 raise KeyError(name)
-            edges = [
-                dict(r)
-                for r in connection.execute(
-                    """
-                SELECT DISTINCT subject AS source,object AS target,predicate AS relation
-                FROM edges WHERE subject=? OR object=? ORDER BY predicate,subject,object LIMIT ?
-                """,
-                    (name, name, limit),
-                )
-            ]
+            triples = "SELECT DISTINCT subject,predicate,object FROM edges WHERE subject=? OR object=?"
+            inventory = [RelationInventory(relation=row[0], count=row[1]) for row in
+                         connection.execute(f"SELECT predicate,COUNT(*) FROM ({triples}) "
+                                            "GROUP BY predicate ORDER BY predicate", (name, name))]
+            filtered = f"SELECT * FROM ({triples})"
+            parameters: tuple[str, ...] = (name, name)
+            if relation is not None:
+                filtered += " WHERE predicate=?"
+                parameters += (relation,)
+            total = connection.execute(f"SELECT COUNT(*) FROM ({filtered})", parameters).fetchone()[0]
+            edges = [GraphEdge(source=row[0], target=row[2], relation=row[1]) for row in
+                     connection.execute(filtered + " ORDER BY predicate,subject,object LIMIT ?",
+                                        (*parameters, limit))]
         names = {name}
         for edge in edges:
             names.update((edge["source"], edge["target"]))
-        return {"nodes": [{"id": n, "label": n} for n in sorted(names)], "edges": edges}
+        return {"nodes": [{"id": n, "label": n} for n in sorted(names)], "edges": edges,
+                "total_edges": total, "returned_edges": len(edges), "truncated": total > len(edges),
+                "relations": inventory}
 
     def export(self, directory: Path | str) -> dict:
         target = Path(directory)

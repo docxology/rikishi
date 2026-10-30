@@ -1,0 +1,5 @@
+{
+  "log_prior": [0.0, null],
+  "log_likelihood": [-1000.0, null],
+  "posterior": [1.0, 0.0]
+}

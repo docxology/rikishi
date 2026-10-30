@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<title>Rikishi · Finite alignment controls</title>
+<style>
+:root{color-scheme:light;--navy:#193449;--teal:#176b62;--orange:#a35e38;--muted:#536570;--line:#ccd6d8;font-family:system-ui,sans-serif;color:var(--navy);background:#f3f6f5;line-height:1.5}
+*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:32px 24px 64px}h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.15;margin:.5rem 0 1rem}h2{font-size:1.25rem;margin:0 0 16px}h3{font-size:1rem}p{max-width:85ch}.eyebrow{color:var(--teal);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:.8rem}.boundary{border-left:4px solid var(--orange);padding:12px 16px;background:white}.section{margin:28px 0;padding:24px;background:white;border:1px solid var(--line)}.filters{display:flex;flex-wrap:wrap;gap:16px;margin:16px 0}.filters label{display:grid;gap:6px;font-weight:600}select,button{font:inherit;min-height:44px;padding:8px 12px;border:1px solid var(--muted);background:white;color:var(--navy);border-radius:3px}button{cursor:pointer}select:focus-visible,button:focus-visible,summary:focus-visible,.scroll:focus-visible{outline:3px solid var(--teal);outline-offset:3px}.count{font-variant-numeric:tabular-nums;font-weight:600}.scroll{overflow:auto;max-height:560px}table{border-collapse:collapse;width:100%;font-size:.9rem}th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}thead th{background:#edf2f2;position:sticky;top:0;z-index:1}caption{text-align:left;font-weight:600;padding:10px 0}tbody th{font-weight:600}td,th{overflow-wrap:anywhere}td[data-disposition="mismatch"],td[data-disposition="unresolved"]{font-weight:700;border-left:3px solid var(--orange)}code,pre{font-family:ui-monospace,monospace;font-size:.8rem}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f6f5;padding:12px}summary{cursor:pointer;padding:10px 0;min-height:44px}.provenance{overflow-wrap:anywhere}.figure svg{display:block;width:100%;height:auto}.figure{max-width:760px;margin:auto}.muted{color:var(--muted)}.empty{padding:20px;border:1px dashed var(--muted)}[hidden]{display:none!important}.grayscale .figure{filter:grayscale(1)}@media(max-width:600px){main{padding:20px 12px 40px}.section{padding:16px 12px}.filters{display:grid}.filters label,select{width:100%}th,td{padding:8px}h1{overflow-wrap:anywhere}}@media print{body{background:white}main{padding:0}.section{break-inside:avoid}.filters,button{display:none}.scroll{max-height:none;overflow:visible}}
+</style>
+</head>
+<body>
+<main>
+<header><div class="eyebrow">Rikishi / retained research evidence</div><h1>Finite alignment controls</h1>
+<p id="scope" class="boundary"></p><p id="population" class="count"></p><div id="summaries"></div>
+<p class="muted">Portable replay checks saved evidence. It does not authenticate historical solver execution or independently verify ATP proof objects. Semantic validation remains false.</p></header>
+<noscript><p class="boundary">Filters and tables require JavaScript. The complete print figure remains below; exact inputs accompany this file as research-controls.json.</p></noscript>
+<section class="section" aria-labelledby="logical-title"><h2 id="logical-title">Logical cases</h2>
+<p>Expected background statuses and query polarities are separate. Each prover contributes one observation per declared case.</p>
+<div class="filters"><label for="logical-status">Observed logical status<select id="logical-status"><option value="">All statuses</option></select></label><label for="logical-disposition">Expected polarity match<select id="logical-disposition"><option value="">All dispositions</option><option value="matched">Matched</option><option value="mismatch">Mismatch</option><option value="unresolved">Unresolved</option></select></label></div>
+<p id="logical-count" role="status" aria-live="polite" class="count"></p><p id="logical-empty" class="empty" hidden>No logical observations match these filters. Full-population totals remain above.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Logical observations"><table><caption>Measured solver outcomes</caption><thead><tr><th scope="col">Case / prover</th><th scope="col">Background / query</th><th scope="col">Expected</th><th scope="col">Observed / disposition</th></tr></thead><tbody id="logical-rows"></tbody></table></div>
+</section>
+<section class="section" aria-labelledby="numerical-title"><h2 id="numerical-title">Separate numerical experiment</h2>
+<p>Error divided by each row’s predeclared tolerance is dimensionless. Threshold = 1. Exact zeros remain zero. These arithmetic checks are not encoded in SUMO or in the logical problems.</p>
+<div class="filters"><label for="numerical-dimension">Model dimension<select id="numerical-dimension"><option value="">All dimensions</option></select></label><label for="numerical-candidate">Candidate<select id="numerical-candidate"><option value="">All candidates</option></select></label><label for="numerical-population">Population<select id="numerical-population"><option value="">Ordinary and boundary</option><option value="ordinary">Ordinary matrix</option><option value="boundary">Support boundaries</option></select></label></div>
+<p id="numerical-count" role="status" aria-live="polite" class="count"></p><p id="numerical-empty" class="empty" hidden>No numerical rows match these filters. Full-population totals remain above.</p>
+<div class="scroll" tabindex="0" role="region" aria-label="Numerical error ratios"><table><caption>All rows, without pagination or sampling</caption><thead><tr><th scope="col">Input / population</th><th scope="col">Dimension / candidate</th><th scope="col">Tolerance</th><th scope="col">Reference ratio</th><th scope="col">Permutation ratio</th><th scope="col">Rescaling ratio</th><th scope="col">Passed</th></tr></thead><tbody id="numerical-rows"></tbody></table></div>
+<details><summary>Original numerical inputs, results and control aggregates</summary><pre id="numerical-inputs"></pre></details>
+</section>
+<section class="section" aria-labelledby="invalid-title"><h2 id="invalid-title">Invalid-input controls</h2><div class="scroll" tabindex="0" role="region" aria-label="Invalid input rejections"><table><caption id="invalid-count"></caption><thead><tr><th scope="col">Input</th><th scope="col">Rejected</th><th scope="col">Observed error</th></tr></thead><tbody id="invalid-rows"></tbody></table></div></section>
+<section class="section provenance" aria-labelledby="provenance-title"><h2 id="provenance-title">Original source and scope provenance</h2><pre id="complete-provenance" aria-label="Complete figure source custody"></pre><div id="provenance"></div><details><summary>Complete source citations, workbook cells and local sense choices</summary><pre id="source-inputs"></pre></details><details><summary>Complete report bindings, resource policy and logical inputs</summary><pre id="logical-inputs"></pre></details></section>
+<section class="section" aria-labelledby="print-title"><h2 id="print-title">Print figure · 174 mm width</h2><button type="button" id="grayscale" aria-pressed="false">Grayscale view</button><p class="muted">Text statuses and marker shapes preserve distinctions without color. The print figure always shows the full population.</p><div class="figure" role="img" aria-label="Complete finite alignment outcome matrix, dimensionless numerical error ratios and support controls"><!--RESEARCH-SVG--></div></section>
+</main>
+<script id="research-data" type="application/json"><!--RESEARCH-DATA--></script>
+<script>
+"use strict";
+const data = JSON.parse(document.getElementById("research-data").textContent);
+const first = data.reports[0].report;
+const byId = id => document.getElementById(id);
+const put = (id, value) => { byId(id).textContent = value; };
+const element = (tag, value) => { const node = document.createElement(tag); node.textContent = value; return node; };
+const json = value => JSON.stringify(value, null, 2);
+const ratio = value => value === 0 ? "0 (exact)" : value.toExponential(data.decimal_places);
+const logical = data.reports.flatMap(binding => binding.report.logical.map((run, index) => ({...run, prover: binding.report.prover.toUpperCase(), case: binding.report.study.cases[index]})));
+const addOptions = (id, values) => [...new Set(values)].sort((a,b) => String(a).localeCompare(String(b), undefined, {numeric:true})).forEach(value => { const option = element("option", String(value)); option.value = String(value); byId(id).append(option); });
+put("scope", data.boundary);
+put("complete-provenance", data.provenance.join("\n"));
+put("population", `Full population: ${first.study.cases.length} declared logical cases; ${logical.length} solver observations (${data.reports.length} families); ${first.numerical.rows.length} ordinary numerical rows; ${first.numerical.extremes.length} support boundaries; ${first.numerical.invalid.length} invalid inputs. Paired numerical rows are identical and counted once.`);
+data.reports.forEach(binding => {
+  const s = binding.report.summary;
+  byId("summaries").append(element("p", `${binding.report.prover.toUpperCase()}: ${s.logical_matched}/${s.logical_cases} logical matched, ${s.logical_mismatched} mismatched, ${s.logical_unresolved} unresolved. Baseline satisfiable: ${s.baseline_satisfiable}. Finite campaign complete: ${s.campaign_complete}. Semantic validation: ${s.semantic_validation}.`));
+});
+addOptions("logical-status", logical.map(row => row.observed));
+addOptions("numerical-dimension", data.numerical_rows.map(row => row.dimension));
+addOptions("numerical-candidate", data.numerical_rows.map(row => row.candidate));
+const logicalRender = () => {
+  const selected = logical.filter(row => (!byId("logical-status").value || row.observed === byId("logical-status").value) && (!byId("logical-disposition").value || row.disposition === byId("logical-disposition").value));
+  byId("logical-rows").replaceChildren(...selected.map(row => {
+    const tr = document.createElement("tr"); const th = element("th", `${row.id} / ${row.prover}`); th.scope = "row"; tr.append(th, element("td", row.case.conjecture === null ? "Background (no conjecture)" : `Query: ${row.case.conjecture}`), element("td", row.expected));
+    const outcome = element("td", `${row.observed} / ${row.disposition}`); outcome.dataset.disposition = row.disposition; tr.append(outcome); return tr;
+  }));
+  put("logical-count", `Showing ${selected.length} of ${logical.length} solver observations; ${first.study.cases.length} declared cases in the full population.`);
+  byId("logical-empty").hidden = selected.length !== 0;
+};
+const numericalRender = () => {
+  const selected = data.numerical_rows.filter(row => (!byId("numerical-dimension").value || String(row.dimension) === byId("numerical-dimension").value) && (!byId("numerical-candidate").value || row.candidate === byId("numerical-candidate").value) && (!byId("numerical-population").value || row.population === byId("numerical-population").value));
+  byId("numerical-rows").replaceChildren(...selected.map(row => { const tr = document.createElement("tr"); const th = element("th", `${row.id} / ${row.population}`); th.scope = "row"; tr.append(th, ...[`${row.dimension} / ${row.candidate}`, row.tolerance, ratio(row.ratios.reference), ratio(row.ratios.permutation), ratio(row.ratios.rescaling), String(row.passed)].map(value => element("td", value))); return tr; }));
+  put("numerical-count", `Showing ${selected.length} of ${data.numerical_rows.length} numerical rows (${first.numerical.rows.length} ordinary + ${first.numerical.extremes.length} boundary in the full population).`);
+  byId("numerical-empty").hidden = selected.length !== 0;
+};
+for (const id of ["logical-status", "logical-disposition"]) byId(id).addEventListener("change", logicalRender);
+for (const id of ["numerical-dimension", "numerical-candidate", "numerical-population"]) byId(id).addEventListener("change", numericalRender);
+first.numerical.invalid.forEach(row => { const tr = document.createElement("tr"); const th = element("th", row.id); th.scope = "row"; tr.append(th, element("td", String(row.rejected)), element("td", row.error === null ? "No rejection observed" : row.error)); byId("invalid-rows").append(tr); });
+put("invalid-count", `${first.summary.invalid_rejected} rejected / ${first.numerical.invalid.length} declared invalid inputs`);
+data.reports.forEach(binding => { const section = document.createElement("div"); section.append(element("h3", `${binding.report.prover.toUpperCase()} report`), element("pre", `Original report file: ${binding.path}\nSHA-256: ${binding.sha256}\nStudy authority SHA-256: ${binding.report.authority_sha256}\nReplay boundary: ${binding.report.replay_boundary}`)); byId("provenance").append(section); });
+byId("provenance").append(element("pre", `Study: ${first.study.study_id}\nScope: ${first.study.scope}\nSUMO file: ${first.study.sumo_path}\nRevision: ${first.study.sumo_commit}\nSHA-256: ${first.study.sumo_sha256}\nSource URL: ${first.study.sumo_url}\nWorkbook file: ${first.study.workbook_path}\nSheet (JSON preserves trailing spaces): ${json(first.study.workbook_sheet)}\nRows: ${json(first.study.workbook_rows)} / columns: ${json(first.study.workbook_columns)}\nWorkbook SHA-256: ${first.study.workbook_sha256}\nWorkbook URL: ${first.study.workbook_url}\nOriginal access date: ${first.study.access_date}`));
+put("source-inputs", json(first.source_claims));
+put("logical-inputs", json(data.reports.map(binding => ({path:binding.path, sha256:binding.sha256, study:binding.report.study, bindings:binding.report.bindings, implementation:binding.report.implementation, logical:binding.report.logical}))));
+put("numerical-inputs", json({numerical:first.numerical, ratios:data.numerical_rows, aggregates:data.aggregates, invalid_inputs:first.study.numerical.invalid}));
+byId("grayscale").addEventListener("click", () => { const active = document.body.classList.toggle("grayscale"); byId("grayscale").setAttribute("aria-pressed", String(active)); });
+logicalRender(); numericalRender();
+</script>
+</body>
+</html>

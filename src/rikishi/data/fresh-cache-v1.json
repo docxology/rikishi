@@ -1,0 +1,410 @@
+{
+  "schema_version": 2,
+  "jar_contents": {
+    ".rikishi/upstream/sigmakee/build/sigmakee.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "b75282c03fa007c2d10366dd832e3e07ff03cf09dc122093c74cebb280dc3a93",
+      "source_revision": "d3cc7b43b38b0b45692291a1b33fe2b1a3de0095"
+    },
+    ".rikishi/upstream/sigmakee/lib/ant-1.10.15.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "796b3ecc576be3e1679e6ea6201b60d80cb884ea08bce8591f3b2e82cfa4b58e",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/antlr4-runtime-4.9.3.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "bb733856e508bc6435dd5650a4117a4520857db51441e746589fff2e08f42de0",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/asm-5.0.3.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "e9bb09b75032b5e8fe9a2cd58e094069ae78fbfe5192f31e119da51bd66029e4",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/commons-lang3-3.12.0.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "7a872aa2f253877dc7788cb8bcb1a2a9471f2e1f31aec1f433b51a3d3b571aa8",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/cos-09May2002.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "264597d885cec7217fb358b3d8763f87a66b52880b9fa230278d6e4cdbc43aa2",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/guava-19.0.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "c4b8bea5327bd73c11bff694fac9af39f80574b9e094fe15919dc6528338e183",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/h2-2.3.232.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "e99652cb66f7d7e356a4d8dff36ce9873548095c1f2a6a390ce6bfd233500220",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/hamcrest-core-1.3.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "bf7abd23b5459daf26605c2f06501fe011ffc7d0259aeabf9599d23f432aa90e",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/jakarta.activation-1.2.1.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "ba1f33a7d8a5c73f79c8461896e2b780716cbf0c16ed7a29d15683f85d00335d",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/jakarta.mail-1.6.7.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "2e0032931c40770278ff10fe64107e436f7bbcc9554e676fcc2ed7a75fca03d9",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/java-prolog-parser-2.0.2.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "439bb875e88fea89a39147f4c0b21b499ea2efdea94bf5e0046d95a2cf65ac48",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/jol-core-0.17-javadoc.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "e85e5bab7eb4f1d8288d1699c64312fa592c17b67fb4dd7a06769af615f7cf4e",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/jol-core-0.17-sources.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "33cfbd1f8e671634504ca0f0f1b82c7a604771951789c47278e2af5ee3b9946b",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/jol-core-0.17.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "e033e80ab6c34d38532bbd55789e6d035892366e16b0dfdfa20530bec608a6ca",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/json-simple-1.1.1.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "07f64ba0fd93557e857f9203fdbfe66b4a2c5ddc487b1e953024261613c196db",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/junit-4.12.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "b2bcd7f55a7b54a8c9e93017184f2b3eb70a21c2c21658ec383ebcb1a27ad7f0",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/junit-4.13.2.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "40a327bca4f5e98cabbb22717d8715403a82e1d7cac9255acd8b88cd27d60ad2",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/kryo-5.6.2.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "142abac8302a91fc206048c129864530779c096e1653cbab51b273760ee0de45",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/minlog-1.3.1.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "99a9a0abc5bea8f1b4fa40a3874da7dbca90a047e269c5fb3a560ef1d19c6e52",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/objenesis-3.4.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "2481c6e23bf5d83d893400567df7e03531b42b7cfd5e1a617e8ce9594eefea33",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/py4j-0.10.6.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "9c34a453ddc2b39e3fe1f8fd698a825030743dba8491363f6eaa6b07682dafe1",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/reflectasm-1.11.9.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "6ff428ef9307bd9cd8b940367e5e555dfccd1bb42548536f983ea331c0e1331a",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/sigmaAntlr.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "05b71e7f8e5c8673c7454ebd02c7151cdded71b7fb61c65d4613112c2ba165da",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/sigmaUtils.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "34c6af9bbfc0345b93ef35e7238502039d695d9052a04689f6bd36eecb28af5d",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/stanford-corenlp-4.5.7.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "80551383e792f5a8ac87822095fc1f47ef97a6af658eb38ee1025072fa6a82ce",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/tomcat-jasper-9.0.107.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "8ba13a303e57fdd04b858c25d5be8bc33e0c23e9ddb5259336f740e98500ec31",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/tomcat-juli-9.0.107.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "fb396c08734554580fe5f80041906701a06e914ed342911911d3048e07a8f43c",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/tomcat-servlet-api-9.0.107.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "e868037f290279e2ddad00eecd75c089fa37264fc61411b23c73a31d5a66d152",
+      "source_revision": null
+    },
+    ".rikishi/upstream/sigmakee/lib/tptp.jar": {
+      "policy": "complete-jar-content-v1",
+      "content_sha256": "80d5ac391a4dacae8bf2d48c13a4d24db6a0c7cb9b69b7b48005af7dd15c7660",
+      "source_revision": null
+    }
+  },
+  "bindings": {
+    "config/sumo.lock.json": "0f8e785684de54ce36e1bc21c12f60a71e957fdc7d43cbb9bb3a410e0c85ac55",
+    "config/patches/sigma-compound-type-guards.patch": "184c6e055cd9cbb75950d3da1b5177f8efa95878ec917f54efd759a8f4f90889",
+    ".rikishi/upstream/sumo/Merge.kif": "2e4c3d6b8392a4cb6fbeccb6eb7441e11d6b45592082333285c951fd7c7d3e14",
+    ".rikishi/upstream/sigmakee/src/java/com/articulate/sigma/KB.java": "564cec2a88fb49aa518faf385e26595fd3d0a3663ab5ef672621f317935f09d4",
+    ".rikishi/upstream/sigmakee/src/java/com/articulate/sigma/KBcache.java": "8f3db5421bf6a4d4cb5a7a39b3d67d4e15bd7c4072aaa6682d401bd7e521a068",
+    ".rikishi/upstream/sigmakee/src/java/com/articulate/sigma/KIF.java": "be31fe6494a1947cb94e9031734c1e21a0df62ea35e401edcf517a1c6529737f",
+    ".rikishi/upstream/sigmakee/src/java/com/articulate/sigma/parsing/Configuration.java": "fb8c54090d5ed78d5cad31b3723ffcaf0e41850599ff2f8f43ce453eeff35f27",
+    ".rikishi/upstream/sigmakee/lib/ant-1.10.15.jar": "763acda4a69588c9ea8817a952851ff0c2fc4bffa1d081c2565dc407f29d5794",
+    ".rikishi/upstream/sigmakee/lib/antlr4-runtime-4.9.3.jar": "131a6594969bc4f321d652ea2a33bc0e378ca312685ef87791b2c60b29d01ea5",
+    ".rikishi/upstream/sigmakee/lib/asm-5.0.3.jar": "71c4f78e437b8fdcd9cc0dfd2abea8c089eb677005a6a5cff320206cc52b46cc",
+    ".rikishi/upstream/sigmakee/lib/commons-lang3-3.12.0.jar": "d919d904486c037f8d193412da0c92e22a9fa24230b9d67a57855c5c31c7e94e",
+    ".rikishi/upstream/sigmakee/lib/cos-09May2002.jar": "bcc71af160b4d2fa66c36ebcc3374fc08d4c4dd7f2075e278db7adf0c40acd1d",
+    ".rikishi/upstream/sigmakee/lib/guava-19.0.jar": "58d4cc2e05ebb012bbac568b032f75623be1cb6fb096f3c60c72a86f7f057de4",
+    ".rikishi/upstream/sigmakee/lib/h2-2.3.232.jar": "8dae62d22db8982c3dcb3826edb9c727c5d302063a67eef7d63d82de401f07d3",
+    ".rikishi/upstream/sigmakee/lib/hamcrest-core-1.3.jar": "66fdef91e9739348df7a096aa384a5685f4e875584cce89386a7a47251c4d8e9",
+    ".rikishi/upstream/sigmakee/lib/jakarta.activation-1.2.1.jar": "d84d4ba8b55cdb7fdcbb885e6939386367433f56f5ab8cfdc302a7c3587fa92b",
+    ".rikishi/upstream/sigmakee/lib/jakarta.mail-1.6.7.jar": "1b258ef45fae93059b65d0a0dd109e59ab93e8cd8a735ff66b2ba85f870d5150",
+    ".rikishi/upstream/sigmakee/lib/java-prolog-parser-2.0.2.jar": "b663b19113a2c4c640fc1c1f4ac7e338646e0544246a095721dfdff97c3ca204",
+    ".rikishi/upstream/sigmakee/lib/jol-core-0.17-javadoc.jar": "33037466babdf0dedcd7fcdcb8f3d13cc8244e54b0343a19aa493b56a105e014",
+    ".rikishi/upstream/sigmakee/lib/jol-core-0.17-sources.jar": "b613506c66ae3d0e56e18e23aff4e20f9242d4d387e2e609973710767dae0e4e",
+    ".rikishi/upstream/sigmakee/lib/jol-core-0.17.jar": "bd73d9ad265d8478ccde06130200877f3a4f0a6e2d44e7fb8cbb2e6f4104cbdc",
+    ".rikishi/upstream/sigmakee/lib/json-simple-1.1.1.jar": "4e69696892b88b41c55d49ab2fdcc21eead92bf54acc588c0050596c3b75199c",
+    ".rikishi/upstream/sigmakee/lib/junit-4.12.jar": "59721f0805e223d84b90677887d9ff567dc534d7c502ca903c0c2b17f05c116a",
+    ".rikishi/upstream/sigmakee/lib/junit-4.13.2.jar": "8e495b634469d64fb8acfa3495a065cbacc8a0fff55ce1e31007be4c16dc57d3",
+    ".rikishi/upstream/sigmakee/lib/kryo-5.6.2.jar": "4e8b1d2f4977187af8a51a957329722dc1cdc56a7c94fbb5a791e82897629cff",
+    ".rikishi/upstream/sigmakee/lib/minlog-1.3.1.jar": "5d4d632cfbebfe0a7644501cc303570b691406181bee65e9916b921c767d7c72",
+    ".rikishi/upstream/sigmakee/lib/objenesis-3.4.jar": "95488102feaf2e2858adf6b299353677dac6c15294006f8ed1c5556f8e3cd251",
+    ".rikishi/upstream/sigmakee/lib/py4j-0.10.6.jar": "5fc0f190bb37cfe9623d92a43ad8d8263cbce7aadafb5c7c35f320f65b3b72a9",
+    ".rikishi/upstream/sigmakee/lib/reflectasm-1.11.9.jar": "712b44da79a5b7f47a28cbfcb3d8ecfc872fae349c48aa4d3e38a5d69956afce",
+    ".rikishi/upstream/sigmakee/lib/sigmaAntlr.jar": "5f93a54bc1958c4635b36b6398392d948e1faf3ad97f0b5a61642cb45f708d81",
+    ".rikishi/upstream/sigmakee/lib/sigmaUtils.jar": "58429a5121d56481e040446bce2cdf20c6261459791e232b2b6c007fd0ea589e",
+    ".rikishi/upstream/sigmakee/lib/stanford-corenlp-4.5.7.jar": "0d8c74ddd1a199c5b1e50a8e91b056a225ece5763dde23eedc557106153da0d8",
+    ".rikishi/upstream/sigmakee/lib/tomcat-jasper-9.0.107.jar": "ae545e316b4f4e33bdbcc169f5a564e8b1cb0e8e087a9ba469cc2680ce2a2077",
+    ".rikishi/upstream/sigmakee/lib/tomcat-juli-9.0.107.jar": "703514e7c8aaef6551147ad34e92f52cdce7cc74048a8117eb0444f2204b91d8",
+    ".rikishi/upstream/sigmakee/lib/tomcat-servlet-api-9.0.107.jar": "2cc0937d565531ffc3b79b1e11ff6560a1969bc83eb550245e98c18bcc192b64",
+    ".rikishi/upstream/sigmakee/lib/tptp.jar": "d53ab30dc6b0379dc4a1b6d0ef8939668b0ddcea44f6bea753e3a511441ff6ba"
+  },
+  "selections": [
+    {
+      "line": 83,
+      "text": "(instance instance BinaryPredicate)"
+    },
+    {
+      "line": 84,
+      "text": "(domain instance 1 Entity)"
+    },
+    {
+      "line": 85,
+      "text": "(domain instance 2 Entity)"
+    },
+    {
+      "line": 135,
+      "text": "(instance subclass BinaryPredicate)"
+    },
+    {
+      "line": 136,
+      "text": "(instance subclass PartialOrderingRelation)"
+    },
+    {
+      "line": 137,
+      "text": "(domain subclass 1 Entity)"
+    },
+    {
+      "line": 138,
+      "text": "(domain subclass 2 Entity)"
+    },
+    {
+      "line": 175,
+      "text": "(instance subrelation BinaryPredicate)"
+    },
+    {
+      "line": 176,
+      "text": "(instance subrelation PartialOrderingRelation)"
+    },
+    {
+      "line": 177,
+      "text": "(domain subrelation 1 Relation)"
+    },
+    {
+      "line": 178,
+      "text": "(domain subrelation 2 Relation)"
+    },
+    {
+      "line": 2216,
+      "text": "(subclass Abstract Entity)"
+    },
+    {
+      "line": 2817,
+      "text": "(subclass SetOrClass Abstract)"
+    },
+    {
+      "line": 2857,
+      "text": "(subclass Relation Abstract)"
+    },
+    {
+      "line": 2866,
+      "text": "(disjoint TotalValuedRelation PartialValuedRelation)"
+    },
+    {
+      "line": 2898,
+      "text": "(subclass TotalValuedRelation Relation)"
+    },
+    {
+      "line": 2920,
+      "text": "(subclass PartialValuedRelation Relation)"
+    },
+    {
+      "line": 2932,
+      "text": "(subclass BinaryRelation Relation)"
+    },
+    {
+      "line": 2933,
+      "text": "(subclass BinaryRelation InheritableRelation)"
+    },
+    {
+      "line": 2942,
+      "text": "(subclass ReflexiveRelation BinaryRelation)"
+    },
+    {
+      "line": 3004,
+      "text": "(subclass AntisymmetricRelation BinaryRelation)"
+    },
+    {
+      "line": 3051,
+      "text": "(subclass TransitiveRelation BinaryRelation)"
+    },
+    {
+      "line": 3088,
+      "text": "(subclass PartialOrderingRelation TransitiveRelation)"
+    },
+    {
+      "line": 3089,
+      "text": "(subclass PartialOrderingRelation AntisymmetricRelation)"
+    },
+    {
+      "line": 3090,
+      "text": "(subclass PartialOrderingRelation ReflexiveRelation)"
+    },
+    {
+      "line": 3091,
+      "text": "(subclass PartialOrderingRelation TotalValuedRelation)"
+    },
+    {
+      "line": 3132,
+      "text": "(subclass CaseRole BinaryPredicate)"
+    },
+    {
+      "line": 3133,
+      "text": "(subclass CaseRole InheritableRelation)"
+    },
+    {
+      "line": 3316,
+      "text": "(subclass InheritableRelation Relation)"
+    },
+    {
+      "line": 4228,
+      "text": "(subclass Predicate Relation)"
+    },
+    {
+      "line": 4229,
+      "text": "(subclass Predicate InheritableRelation)"
+    },
+    {
+      "line": 4409,
+      "text": "(subclass BinaryPredicate Predicate)"
+    },
+    {
+      "line": 4410,
+      "text": "(subclass BinaryPredicate BinaryRelation)"
+    },
+    {
+      "line": 4411,
+      "text": "(subclass BinaryPredicate InheritableRelation)"
+    },
+    {
+      "line": 5095,
+      "text": "(instance eventPartlyLocated CaseRole)"
+    },
+    {
+      "line": 5096,
+      "text": "(instance eventPartlyLocated PartialValuedRelation)"
+    },
+    {
+      "line": 14140,
+      "text": "(instance path CaseRole)"
+    },
+    {
+      "line": 14141,
+      "text": "(instance path TotalValuedRelation)"
+    },
+    {
+      "line": 14144,
+      "text": "(subrelation path eventPartlyLocated)"
+    }
+  ],
+  "resource_policy": {
+    "heap_mb": 768,
+    "metaspace_mb": 192,
+    "code_cache_mb": 64,
+    "processors": 2,
+    "max_wall_seconds": 120
+  },
+  "cases": [
+    {
+      "name": "fragment-original",
+      "scope": "minimal_fragment",
+      "changes": [],
+      "expect_partial": true,
+      "expect_inheritable": false
+    },
+    {
+      "name": "fragment-parent-reclassified",
+      "scope": "minimal_fragment",
+      "changes": [
+        {
+          "remove": "(instance eventPartlyLocated PartialValuedRelation)",
+          "add": "(instance eventPartlyLocated Relation)"
+        }
+      ],
+      "expect_partial": false,
+      "expect_inheritable": false
+    },
+    {
+      "name": "fragment-partial-inheritable",
+      "scope": "minimal_fragment",
+      "changes": [
+        {
+          "remove": null,
+          "add": "(subclass PartialValuedRelation InheritableRelation)"
+        }
+      ],
+      "expect_partial": true,
+      "expect_inheritable": true
+    },
+    {
+      "name": "fragment-edge-removed",
+      "scope": "minimal_fragment",
+      "changes": [
+        {
+          "remove": "(subrelation path eventPartlyLocated)",
+          "add": null
+        }
+      ],
+      "expect_partial": false,
+      "expect_inheritable": false
+    },
+    {
+      "name": "merge-original",
+      "scope": "full_merge_only",
+      "changes": [],
+      "expect_partial": true,
+      "expect_inheritable": false
+    }
+  ]
+}

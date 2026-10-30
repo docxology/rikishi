@@ -21,28 +21,56 @@ involved. Revision and source cleanliness describe the index's build provenance.
 | `zero_degree_terms` | Symbols that never occur as an endpoint of these triples; not a count of disconnected ontology concepts |
 | `mean_total_degree` | Twice the distinct triple count divided by all indexed symbols |
 
-Ratios with an empty denominator are JSON `null`. Empty distributions are `[]`.
+Ratios with an empty denominator are JavaScript Object Notation (JSON) `null`. Empty distributions are `[]`.
 The degree histogram must sum to the term denominator. Its degree-weighted sum
 must equal twice the distinct edge count. These identities are tested with real
-KIF fixtures containing duplicate assertions and a self-loop. A 35-head fixture
+source-language fixtures containing duplicate assertions and a self-loop. A 35-head fixture
 ensures the existing 30-row display summary cannot truncate analytics.
 
 ## Visual encodings
 
 Live and offline surfaces share `static/analytics.js`. The composition table
-shows eight heads plus an explicitly measured remainder; every formula remains
-accounted for. Degree bars group symbols into 0, 1, 2–4, 5–16, 17–64 and 65+
-degrees. Width represents a fraction of **all indexed symbols**, with exact counts
-shown in text. Both views remain readable without color interpretation.
+shows eight heads per page, with head-name filtering and count/name ordering.
+An explicitly measured remainder includes all formulas outside the current page
+and filter. Shares always divide by **all indexed formulas**, including when no
+heads match. The displayed rows plus remainder therefore preserve the population.
+Degree bars can show grouped degrees (0, 1, 2–4, 5–16, 17–64 and 65+) or the
+complete exact distribution in a keyboard-scrollable region. Width represents a
+fraction of **all indexed symbols**, with exact counts and shares in text. Empty
+populations state that shares are undefined. Both views remain readable without
+color interpretation. File filtering and paging similarly retain the full formula
+denominator and a fixed scale based on the largest indexed file.
 
 `corpus-composition.svg` and `.png` provide publication figures: ten formula heads
 plus the remainder, and the complete exact degree distribution. Degree axes use
 Matplotlib symmetric-log scaling, retaining zero; the axes disclose this choice.
 These are descriptive charts, not evidence for a power-law fit. Original
 `corpus-files` figures and `corpus.json` remain available unchanged in meaning.
+The [visualization guide](visualizations.md) describes print encodings, exact
+annotations and the distinction between source structure and inference evidence.
+
+## Read-only structural diagnostics
+
+The [ontology analysis methods](ontology-analysis.md) extend these measurements
+without changing their denominators or the index schema. Paginated files and
+formula search preserve complete filtered and corpus totals. Formula results
+retain exact indexed text, source line and file hash. Relation inventories retain
+both repeated assertion counts and distinct direct edge counts for every relation.
+
+Taxonomy diagnostics select `subclass` or `subrelation`, optionally from one exact
+source path. Their population contains only endpoints of the selected direct
+edges. Parent and child counts use distinct neighbors; roots have no parents.
+Weak components ignore direction. Cycles are directed strongly connected
+components of at least two nodes, plus singleton self-loops. All counts cover the
+complete selection even when node diagnostics and cycle member samples truncate.
+These denominators differ from the all-symbol degree distribution above.
+Source-backed shortest paths explicitly distinguish exhaustive absence from depth
+or visit limits. Graph cycles and multiple parents supply structural observations,
+not logical inconsistency diagnoses.
 
 Syntax counts cannot establish independent facts, ontology consistency, logical
 completeness, or inferred connectivity. Runtime Sigma caches may add or transform
 formulas and are a different population. The source graph excludes nested
 assertions and inferred closure; its degrees must not be interpreted as semantic
-importance. See [runtime limitations](runtime.md) and [FEP boundaries](fep.md).
+importance. See [runtime limitations](runtime.md) and
+[Free Energy Principle (FEP) boundaries](fep.md).

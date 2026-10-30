@@ -1,4 +1,5 @@
 import json
+import math
 import subprocess
 import sys
 
@@ -61,3 +62,38 @@ def test_actual_module_entrypoint_and_missing_database(tmp_path):
     )
     assert help_result.returncode == 0
     assert "bootstrap" in help_result.stdout
+
+
+def test_relation_filter_and_lean_verifier_errors(root, capsys):
+    capsys.readouterr()
+    assert main(["--root", str(root), "graph", "Human", "--relation", "subclass"]) == 0
+    graph = json.loads(capsys.readouterr().out)
+    assert graph["total_edges"] == graph["returned_edges"] == 1
+    assert {edge["relation"] for edge in graph["edges"]} == {"subclass"}
+    assert main(["--root", str(root), "fep-verify", "--timeout", "0"]) == 1
+    assert "compiler timeout" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("logarithmic", [False, True])
+def test_explicit_model_evaluation_uses_real_cli_and_json(tmp_path, logarithmic):
+    path = tmp_path / "model.json"
+    document = (
+        {"log_prior": [math.log(0.5)] * 2, "log_likelihood": [-1000.0, -1001.0]}
+        if logarithmic else {"prior": [0.5, 0.5], "likelihood": [0.8, 0.2]}
+    )
+    document["posterior"] = [0.5, 0.5]
+    path.write_text(json.dumps(document))
+    command = [sys.executable, "-m", "rikishi", "fep-evaluate", str(path)]
+    if logarithmic:
+        command.append("--logarithmic")
+    result = subprocess.run(command, capture_output=True, text=True, check=False)
+    assert result.returncode == 0, result.stderr
+    payload = json.loads(result.stdout)
+    assert payload["free_energy"] == pytest.approx(1000.5 if logarithmic else math.log(2.5))
+    if logarithmic:
+        assert payload["evidence"] is None
+    document["posterior"] = [True, False]
+    path.write_text(json.dumps(document))
+    invalid = subprocess.run(command, capture_output=True, text=True, check=False)
+    assert invalid.returncode == 1
+    assert json.loads(invalid.stderr)["error"] == "ValidationError"

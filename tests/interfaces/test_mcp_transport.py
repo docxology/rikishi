@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import sys
 
@@ -29,7 +30,7 @@ def test_real_mcp_stdio_initialize_tools_and_failure(tmp_path):
                 initialized = await session.initialize()
                 assert initialized.serverInfo.name == "rikishi"
                 tools = await session.list_tools()
-                assert len(tools.tools) == 6
+                assert "finite_free_energy_log" in {tool.name for tool in tools.tools}
                 success = await session.call_tool("inspect_term", {"name": "Human"})
                 assert success.isError is False
                 assert json.loads(success.content[0].text)["name"] == "Human"
@@ -49,6 +50,20 @@ def test_real_mcp_stdio_initialize_tools_and_failure(tmp_path):
                     {"prior": [2.0], "likelihood": [0.5], "posterior": [1.0]},
                 )
                 assert invalid.isError is True
+                logarithmic = await session.call_tool(
+                    "finite_free_energy_log",
+                    {"log_prior": [math.log(0.5)] * 2,
+                     "log_likelihood": [-1000.0, -1001.0], "posterior": [0.5, 0.5]},
+                )
+                assert logarithmic.isError is False
+                energy = json.loads(logarithmic.content[0].text)
+                assert energy["evidence"] is None
+                assert energy["free_energy"] == 1000.5
+                rejected_logs = await session.call_tool(
+                    "finite_free_energy_log",
+                    {"log_prior": [0.0], "log_likelihood": [None], "posterior": [1.0]},
+                )
+                assert rejected_logs.isError is True
                 resources = await session.list_resources()
                 assert len(resources.resources) == 2
 

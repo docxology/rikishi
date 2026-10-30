@@ -17,12 +17,22 @@ def test_mcp_tools_real_index_and_probability_errors(tmp_path):
     async def scenario():
         names = {tool.name for tool in await server.list_tools()}
         assert names == {
+            "bridge_catalog", "bridge_verify_report", "bridge_inspect_case",
             "corpus_stats",
             "corpus_analytics",
             "search_terms",
             "inspect_term",
             "relation_graph",
             "finite_free_energy",
+            "finite_free_energy_log",
+            "corpus_files",
+            "formula_search",
+            "relation_inventory",
+            "taxonomy_analysis",
+            "taxonomy_path",
+            "inference_catalog",
+            "inference_verify_report",
+            "inference_inspect_case",
         }
         tools = [
             ("corpus_stats", {}),
@@ -38,7 +48,7 @@ def test_mcp_tools_real_index_and_probability_errors(tmp_path):
         for name, arguments in tools:
             result = await server.call_tool(name, arguments)
             if isinstance(result, tuple):
-                payload = result[1] if name == "corpus_analytics" else result[1]["result"]
+                payload = result[1]["result"] if name == "search_terms" else result[1]
             else:
                 payload = json.loads(result[0].text)
             match name:

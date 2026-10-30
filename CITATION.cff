@@ -1,15 +1,23 @@
 cff-version: 1.2.0
-message: "Cite this software for its operator implementation; cite SUMO and any formalization sources separately."
-title: "Rikishi: a reproducible SUMO ontology operator"
+message: "Cite this software version for Rikishi's implementation. Cite SUMO, the formalization sources, and the separately published manuscript for their respective contributions."
+title: "Rikishi: Reproducible operation and analysis of the Suggested Upper Merged Ontology"
 type: software
-version: 0.1.0
+version: 1.0.0
 authors:
   - family-names: Friedman
     given-names: Daniel Ari
+    orcid: "https://orcid.org/0000-0001-6232-9096"
+    affiliation: Active Inference Institute
 license: MIT
 repository-code: "https://github.com/docxology/rikishi"
+url: "https://github.com/docxology/rikishi"
 keywords:
   - SUMO
+  - SUO-KIF
   - ontology
-  - variational inference
+  - automated theorem proving
+  - Lean
+  - Free Energy Principle
+  - finite probability
+  - reproducibility
   - provenance

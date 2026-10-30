@@ -21,8 +21,8 @@ and existing issues before preparing a report.
 Use `gh-axi issue` and `gh-axi pr` where available. Inspect each command's help for
 its installed interface. A suitable issue title names the concrete failing operation.
 The body should contain: revision, minimal reproduction, expected result, actual
-result, and evidence. A suitable PR describes the changed semantics and test evidence.
+result, and evidence. A suitable pull request (PR) describes the changed semantics and test evidence.
 
-A proposed FEP alignment is normally a design discussion, not a bug report. Do not
-present a mismatch between SUMO, Lean's totalized arithmetic, and this numerical
+A proposed Free Energy Principle (FEP) alignment is normally a design discussion, not a bug report. Do not
+present a mismatch between the Suggested Upper Merged Ontology (SUMO), Lean's totalized arithmetic, and this numerical
 operator as an upstream defect until the intended contract is established.

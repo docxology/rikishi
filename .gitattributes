@@ -1,0 +1,10 @@
+# These rules affect exported source archives, not GitHub tree/history visibility.
+# Publication still requires an explicit tracked-tree and history review.
+.omo export-ignore
+.rikishi export-ignore
+output export-ignore
+dist export-ignore
+.venv export-ignore
+.pytest_cache export-ignore
+.ruff_cache export-ignore
+__pycache__ export-ignore

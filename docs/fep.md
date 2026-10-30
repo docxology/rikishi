@@ -1,30 +1,55 @@
 # Free energy: computation, vocabulary, and proof boundaries
 
-Rikishi includes a finite probabilistic example and a source inspection bridge to
-[`fep_formal`](https://github.com/ActiveInferenceInstitute/fep_formal). These have
-different evidence requirements. A numerical identity can be checked by arithmetic;
-an ontology correspondence needs an interpretation; a theorem claim needs a checked
-proof and a statement of assumptions.
+The Suggested Upper Merged Ontology (SUMO) supplies categories, relations and
+axioms; the Free Energy Principle (FEP) motivates a family of mathematical and
+scientific models. [`FEP_Formal`](https://github.com/ActiveInferenceInstitute/fep_formal)
+is a formalization project, from which Rikishi selects pinned finite Lean
+definitions and statements. Its numerical evaluator and forward simulator are
+separate implementations with separate evidence.
+
+Start with [how SUMO, FEP_Formal and simulations connect](sumo-fep-simulations.md)
+for one exact model carried through each role. A numerical identity requires
+arithmetic checks; an ontology correspondence needs an interpretation; a theorem
+claim needs a checked statement and hypotheses; a simulation additionally needs
+a generative process and declared temporal assumptions. A supplied finite model
+does not by itself implement an action-selection agent or an empirical study.
+
+The separate [Active Inference guide](active-inference.md) develops the
+prospective action question. `active-demo` evaluates a declared one-step
+outcome-preference objective using exact transition/observation laws and numerical
+information quantities. It does not change this fixed-observation evaluator,
+the registered bridge studies or their formal evidence.
 
 ## Run the example
 
 From the project environment, run `uv run python examples/fep_demo.py`. The public
-Python entrypoints are `rikishi.fep.demo`, `free_energy`, and
-`inspect_formalization`. Results are finite JSON numbers in natural-log units (nats).
+Python entrypoints include `rikishi.fep.demo`, `free_energy`, `free_energy_log`,
+`evaluate_model`, and `inspect_formalization`. Calculations use natural-log units
+(nats); unavailable linear projections are explicit JavaScript Object Notation
+(JSON) nulls in log-mode output.
 
-The state prior is `(0.5, 0.5)` and the likelihood of one observed outcome is
-`(0.8, 0.2)`. The likelihood vector is conditional on state and need not sum to one.
-Joint mass is `(0.4, 0.1)`, evidence is `0.5`, and exact posterior is `(0.8, 0.2)`.
-For candidate posterior `(0.5, 0.5)`, free energy is `log(2.5)` and KL to the exact
-posterior is `log(1.25)`. At the exact posterior, free energy equals `log(2)`.
+The packaged [model authority](../src/rikishi/data/fep-example.json) owns the prior,
+selected observation likelihood, candidate law, state labels, and scan resolution.
+The command calculates joint mass, evidence, exact posterior, free energy, and
+posterior Kullback-Leibler (KL) divergence from that input. The likelihood vector is conditional on state and
+need not sum to one. To inspect the current parameters without transcribing them:
+
+```python
+from rikishi.fep import demo, load_demo_parameters
+
+parameters = load_demo_parameters()
+print(parameters)
+print(demo(parameters))
+```
 
 For state `s`, observation `o`, and candidate law `q`:
 
 $$F(q)=\sum_s q(s)\log\frac{q(s)}{p(s,o)}
       =D_{KL}(q\Vert p(\cdot\mid o))-\log p(o).$$
 
-The code separately calculates both sides and reports their residual. A 101-point
-grid visualizes how the objective changes, including the exact minimum at `q(0)=0.8`.
+The code separately calculates both sides and reports their residual. A grid with
+the configured resolution visualizes the objective; the exact posterior is an
+analytically computed marker rather than a grid-search estimate.
 This is variational inference in a supplied finite model. It supplies no empirical
 evidence that an organism minimizes this objective and does not establish the
 Free Energy Principle as a universal statement.
@@ -35,9 +60,45 @@ Prior and candidate must be normalized nonnegative finite vectors; likelihood
 entries must lie in `[0,1]`. Equal dimensions and positive observation evidence are
 required. Zero candidate mass contributes zero. Positive candidate mass on a zero
 joint atom is rejected because its objective is infinite; this avoids invalid JSON
-or a misleading finite sentinel. Underflow of a positive product to zero is treated
-as unsupported floating-point support. Extremely small probabilities should be
-handled by a future log-domain implementation before drawing numerical conclusions.
+or a misleading finite sentinel. Objectives, support checks and posterior KL share
+one logarithmic kernel. Positive prior/likelihood factors retain their support even
+when their product rounds to zero. The linear facade retains direct arithmetic
+evidence and posterior projections; those projections can round tiny atoms to zero.
+If all linear joint mass underflows, it refuses the linear result and directs the
+caller to the log interface.
+
+## Logarithmic inputs and retained support
+
+```bash
+uv run rikishi fep-evaluate examples/fep-log-model.json --logarithmic
+```
+
+`evaluate_model(path, logarithmic=False)` reads a strict JSON object with `prior`,
+`likelihood` and `posterior` vectors. With `logarithmic=True`, the first two fields
+are `log_prior` and `log_likelihood`. Unknown fields, Boolean probabilities and
+nonfinite values reject. Direct Python callers can use
+`free_energy_log(log_prior, log_likelihood, posterior)`; the candidate remains a
+normalized linear vector.
+
+Log probabilities must be finite and nonpositive. An input null denotes an exact
+zero probability, rather than a very small positive atom. The calculation shifts
+likelihoods before forming relative joint logs, then normalizes shifted weights.
+This retains prior ratios under a common extreme likelihood scale. Shifted
+log-sum-exp and softmax evaluation has an established numerical-analysis literature;
+it does not remove finite-precision error
+([Blanchard, Higham and Higham, 2019](https://arxiv.org/abs/1909.03469v1)).
+
+The log result includes finite `log_evidence`, `log_exact_posterior`, the objective,
+posterior KL and decomposition residual. A null output `evidence` means positive
+evidence below the linear float range. A null `log_exact_posterior` atom means exact
+zero support. Rounded posterior atoms that underflow are listed in
+`posterior_underflow_indices`; their finite log values remain available. Impossible
+evidence, positive candidate mass on exact zero support, and calculations beyond
+finite logarithmic range reject. No epsilon replaces zero or impossible support.
+
+Independent high-precision Decimal examples, seeded multistate calculations,
+likelihood-scale and structural-zero controls exercise this contract. They test
+the supplied finite calculation, not an organism or a SUMO interpretation theorem.
 
 ## Pinned source and semantic mismatch
 
@@ -59,6 +120,12 @@ See the pinned declarations:
 
 ## Proposed SUMO correspondence
 
+[Douglass and collaborators' alignment preprint](https://doi.org/10.5281/zenodo.11463326)
+is direct prior work on connecting Active Inference vocabulary to SUMO. Read the
+[precedent guide](precedent-alignment.md) before interpreting the local proposal.
+The source document's tentative correspondences, Rikishi's exploratory source extension, the
+finite calculation, and Lean elaboration have separate evidence requirements.
+
 `config/fep_mappings.json` stores candidates and outstanding obligations. Search
 the installed SUMO index for each candidate, inspect its defining axioms, and record
 source locations before adopting it. `ProbabilityFn` can anchor probability-related
@@ -71,11 +138,44 @@ types and arguments explicitly, preserve normalization and support assumptions,
 state which logic and arithmetic semantics the target supports, and prove
 soundness on the chosen fragment. A SUMO theorem-prover result and a Lean theorem
 need separate receipts. Neither can replace the other.
-# Scholarly interpretation
+## Scholarly interpretation
 
-The finite objective is the negative ELBO in the convention of
+The finite objective is the negative evidence lower bound (ELBO) in the convention of
 [Blei, Kucukelbir, and McAuliffe (2017), Section 2.2](https://www.cs.columbia.edu/~blei/papers/BleiKucukelbirMcAuliffe2017.pdf).
 [Friston (2010), Box 1](https://doi.org/10.1038/nrn2787) motivates the FEP connection,
 but the binary example implements no agent dynamics or action selection.
 The [claim ledger](scholarship.md) records this distinction and the exact
 source-inspection boundary for Lean's totalized finite KL definition.
+
+## Isolated Lean compilation
+
+`uv run rikishi fep-verify` now provides a separate compilation workflow. It reads
+`finite_probability.lean` and `finite_information.lean` from the pinned Git object,
+checks dependency revisions from its Lake manifest, and compiles in a new output
+directory with the pinned external Lean toolchain. The compiler version, modules,
+declarations and dependency inventory are recorded in
+`output/formalization/verification.json`. It uses the existing compiled dependency
+libraries; it does not rebuild all of Mathlib. The verifier fingerprints all
+compiled dependency and toolchain library artifacts before and after execution,
+and requires stability. This complete cache snapshot is a superset of transitive
+imports; immediate-import hashes are also retained. Symlinked cache entries and ancestors are
+refused because directory traversal would otherwise omit inputs Lean can load.
+Outputs inside the canonical source checkout, dependency caches, or toolchain
+directory are refused before workspace creation. Cache inventory validation also
+precedes workspace creation. The canonical checkout and its
+build tree remain unchanged.
+
+The generated axiom driver follows the freshly compiled module format. Split
+module sidecars select Lean's modern module imports while preserving native
+per-declaration axiom inspection, the compiler timeout and complete public,
+private, server and intermediate representation (IR) artifact bindings. Real split-module controls require
+rejection of a private axiom used by a public theorem and warning-suppressed
+`sorryAx`; changing import loading does not waive admission checks.
+
+The retained run compiled the stated finite modules and inspected their named
+declaration axiom reports. Their basis was `propext`, `Classical.choice`, and `Quot.sound`.
+The verifier rejects `sorryAx`, unapproved axioms, wrong toolchain/dependency pins,
+and occupied output directories. Tests supply incorrect and admitted Lean proofs
+to the actual compiler and require rejection. This establishes elaboration of
+those pinned modules against the recorded local dependency artifacts. The proposed
+SUMO mapping still needs an interpretation and a preservation theorem.

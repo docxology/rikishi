@@ -9,11 +9,31 @@ jobs:
   portable:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@07a047e608db84b3d8c06cd9a7c7dcc9c355c18e # v10.3.2
         with:
           enable-cache: true
       - run: uv sync --locked
       - run: uv run ruff check src tests scripts
+      - name: Check out the pinned renderer source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: docxology/template
+          ref: efce6d6f5b3c4e8e2bbf92d8250855a0a9389ae8
+          path: .rikishi/template-source
+          persist-credentials: false
+      - name: Verify and prepare renderer source for static types
+        run: |
+          uv run --locked --no-sync python - <<'PY'
+          from pathlib import Path
+          from rikishi.manuscript_provenance import prepare_renderer
+          prepare_renderer(Path.cwd(), Path(".rikishi/template-source"))
+          PY
+      - run: uv run basedpyright
+      - run: |
+          mkdir -p .rikishi/portable-inputs
+          uv run --locked --no-sync python scripts/prepare_portable_inputs.py --output .rikishi/portable-inputs/ci
       - run: uv run pytest -m 'not integration'
+        env:
+          RIKISHI_PORTABLE_INPUTS: .rikishi/portable-inputs/ci
       - run: uv build

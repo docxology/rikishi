@@ -1,0 +1,541 @@
+{
+  "schema_version": 1,
+  "study_id": "fep-sumo-bridge-v1",
+  "source_path": ".rikishi/upstream/sumo/Merge.kif",
+  "source_sha256": "2e4c3d6b8392a4cb6fbeccb6eb7441e11d6b45592082333285c951fd7c7d3e14",
+  "source_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+  "lock_sha256": "0f8e785684de54ce36e1bc21c12f60a71e957fdc7d43cbb9bb3a410e0c85ac55",
+  "dependency_lock_sha256": "bb6ec5e7ab9aba2b5795dbb0ccc0eaccb458bc85d379914084ce73730fe46309",
+  "formal_revision": "9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de",
+  "formal_sources": {
+    "lean/FepSketches/finite_probability.lean": "d99ae05fec4d012ecbb83601d1e361b01b22458790a316bb2ba3e360dfa11380",
+    "lean/FepSketches/finite_information.lean": "6827f3ceeee21c9312c5166aefdd4a6cbc50579229813992c3e5a05cadb71d65"
+  },
+  "decimal_precision": 80,
+  "tolerance": 1e-12,
+  "witnesses": [
+    {
+      "id": "uniform-prior",
+      "namespace": "UniformPrior",
+      "prior": [
+        "1/2",
+        "1/2"
+      ],
+      "likelihood": [
+        "1/4",
+        "3/4"
+      ],
+      "candidate": [
+        "1/2",
+        "1/2"
+      ],
+      "observed": true,
+      "entities": {
+        "model": "BridgeUniformPriorModel",
+        "representation": "BridgeUniformPriorLean",
+        "calculation": "BridgeUniformPriorCalculation",
+        "result": "BridgeUniformPriorResult",
+        "agent": "BridgeUniformPriorAgent"
+      }
+    },
+    {
+      "id": "biased-prior",
+      "namespace": "BiasedPrior",
+      "prior": [
+        "1/3",
+        "2/3"
+      ],
+      "likelihood": [
+        "1/2",
+        "3/4"
+      ],
+      "candidate": [
+        "2/3",
+        "1/3"
+      ],
+      "observed": true,
+      "entities": {
+        "model": "BridgeBiasedPriorModel",
+        "representation": "BridgeBiasedPriorLean",
+        "calculation": "BridgeBiasedPriorCalculation",
+        "result": "BridgeBiasedPriorResult",
+        "agent": "BridgeBiasedPriorAgent"
+      }
+    },
+    {
+      "id": "exact-candidate",
+      "namespace": "ExactCandidate",
+      "prior": [
+        "3/4",
+        "1/4"
+      ],
+      "likelihood": [
+        "2/3",
+        "1/3"
+      ],
+      "candidate": [
+        "6/7",
+        "1/7"
+      ],
+      "observed": true,
+      "entities": {
+        "model": "BridgeExactCandidateModel",
+        "representation": "BridgeExactCandidateLean",
+        "calculation": "BridgeExactCandidateCalculation",
+        "result": "BridgeExactCandidateResult",
+        "agent": "BridgeExactCandidateAgent"
+      }
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "uniform-prior-model",
+      "title": "uniform-prior: model",
+      "category": "finite-bridge-model",
+      "witness_id": "uniform-prior",
+      "role": "model",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 4506,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeUniformPriorModel BridgeUniformPriorCalculation BridgeUniformPriorResult)"
+      ],
+      "query": "(instance BridgeUniformPriorModel Abstract)",
+      "negative_query": "(instance BridgeUniformPriorModel Process)",
+      "removed_selection": 1,
+      "removed_assumption": null
+    },
+    {
+      "id": "uniform-prior-representation",
+      "title": "uniform-prior: representation",
+      "category": "finite-bridge-representation",
+      "witness_id": "uniform-prior",
+      "role": "representation",
+      "selections": [
+        {
+          "line": 5572,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 5589,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeUniformPriorModel BridgeUniformPriorCalculation BridgeUniformPriorResult)",
+        "(representsInLanguage BridgeUniformPriorLean BridgeUniformPriorModel BridgeLeanLanguage)"
+      ],
+      "query": "(represents BridgeUniformPriorLean BridgeUniformPriorModel)",
+      "negative_query": "(represents BridgeUniformPriorModel BridgeUniformPriorLean)",
+      "removed_selection": 0,
+      "removed_assumption": null
+    },
+    {
+      "id": "uniform-prior-calculation",
+      "title": "uniform-prior: calculation",
+      "category": "finite-bridge-calculation",
+      "witness_id": "uniform-prior",
+      "role": "calculation",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 15484,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 13421,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 13390,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeUniformPriorModel BridgeUniformPriorCalculation BridgeUniformPriorResult)"
+      ],
+      "query": "(instance BridgeUniformPriorCalculation Process)",
+      "negative_query": "(instance BridgeUniformPriorCalculation Abstract)",
+      "removed_selection": 1,
+      "removed_assumption": null
+    },
+    {
+      "id": "uniform-prior-result",
+      "title": "uniform-prior: result",
+      "category": "finite-bridge-result",
+      "witness_id": "uniform-prior",
+      "role": "result",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3132,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 4409,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3304,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3209,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3264,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeUniformPriorModel BridgeUniformPriorCalculation BridgeUniformPriorResult)",
+        "(=> (and (instance result Predicate) (instance instrument Predicate) (disjointRelation result instrument) (result ?CALC ?RESULT)) (not (instrument ?CALC ?RESULT)))"
+      ],
+      "query": "(not (instrument BridgeUniformPriorCalculation BridgeUniformPriorResult))",
+      "negative_query": "(instrument BridgeUniformPriorCalculation BridgeUniformPriorResult)",
+      "removed_selection": 5,
+      "removed_assumption": null
+    },
+    {
+      "id": "biased-prior-model",
+      "title": "biased-prior: model",
+      "category": "finite-bridge-model",
+      "witness_id": "biased-prior",
+      "role": "model",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 4506,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeBiasedPriorModel BridgeBiasedPriorCalculation BridgeBiasedPriorResult)"
+      ],
+      "query": "(instance BridgeBiasedPriorModel Abstract)",
+      "negative_query": "(instance BridgeBiasedPriorModel Process)",
+      "removed_selection": 1,
+      "removed_assumption": null
+    },
+    {
+      "id": "biased-prior-representation",
+      "title": "biased-prior: representation",
+      "category": "finite-bridge-representation",
+      "witness_id": "biased-prior",
+      "role": "representation",
+      "selections": [
+        {
+          "line": 5572,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 5589,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeBiasedPriorModel BridgeBiasedPriorCalculation BridgeBiasedPriorResult)",
+        "(representsInLanguage BridgeBiasedPriorLean BridgeBiasedPriorModel BridgeLeanLanguage)"
+      ],
+      "query": "(represents BridgeBiasedPriorLean BridgeBiasedPriorModel)",
+      "negative_query": "(represents BridgeBiasedPriorModel BridgeBiasedPriorLean)",
+      "removed_selection": 0,
+      "removed_assumption": null
+    },
+    {
+      "id": "biased-prior-calculation",
+      "title": "biased-prior: calculation",
+      "category": "finite-bridge-calculation",
+      "witness_id": "biased-prior",
+      "role": "calculation",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 15484,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 13421,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 13390,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeBiasedPriorModel BridgeBiasedPriorCalculation BridgeBiasedPriorResult)"
+      ],
+      "query": "(instance BridgeBiasedPriorCalculation Process)",
+      "negative_query": "(instance BridgeBiasedPriorCalculation Abstract)",
+      "removed_selection": 1,
+      "removed_assumption": null
+    },
+    {
+      "id": "biased-prior-result",
+      "title": "biased-prior: result",
+      "category": "finite-bridge-result",
+      "witness_id": "biased-prior",
+      "role": "result",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3132,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 4409,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3304,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3209,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3264,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeBiasedPriorModel BridgeBiasedPriorCalculation BridgeBiasedPriorResult)",
+        "(=> (and (instance result Predicate) (instance instrument Predicate) (disjointRelation result instrument) (result ?CALC ?RESULT)) (not (instrument ?CALC ?RESULT)))"
+      ],
+      "query": "(not (instrument BridgeBiasedPriorCalculation BridgeBiasedPriorResult))",
+      "negative_query": "(instrument BridgeBiasedPriorCalculation BridgeBiasedPriorResult)",
+      "removed_selection": 5,
+      "removed_assumption": null
+    },
+    {
+      "id": "exact-candidate-model",
+      "title": "exact-candidate: model",
+      "category": "finite-bridge-model",
+      "witness_id": "exact-candidate",
+      "role": "model",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 4506,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeExactCandidateModel BridgeExactCandidateCalculation BridgeExactCandidateResult)"
+      ],
+      "query": "(instance BridgeExactCandidateModel Abstract)",
+      "negative_query": "(instance BridgeExactCandidateModel Process)",
+      "removed_selection": 1,
+      "removed_assumption": null
+    },
+    {
+      "id": "exact-candidate-representation",
+      "title": "exact-candidate: representation",
+      "category": "finite-bridge-representation",
+      "witness_id": "exact-candidate",
+      "role": "representation",
+      "selections": [
+        {
+          "line": 5572,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 5589,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeExactCandidateModel BridgeExactCandidateCalculation BridgeExactCandidateResult)",
+        "(representsInLanguage BridgeExactCandidateLean BridgeExactCandidateModel BridgeLeanLanguage)"
+      ],
+      "query": "(represents BridgeExactCandidateLean BridgeExactCandidateModel)",
+      "negative_query": "(represents BridgeExactCandidateModel BridgeExactCandidateLean)",
+      "removed_selection": 0,
+      "removed_assumption": null
+    },
+    {
+      "id": "exact-candidate-calculation",
+      "title": "exact-candidate: calculation",
+      "category": "finite-bridge-calculation",
+      "witness_id": "exact-candidate",
+      "role": "calculation",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 15484,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 13421,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 13390,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeExactCandidateModel BridgeExactCandidateCalculation BridgeExactCandidateResult)"
+      ],
+      "query": "(instance BridgeExactCandidateCalculation Process)",
+      "negative_query": "(instance BridgeExactCandidateCalculation Abstract)",
+      "removed_selection": 1,
+      "removed_assumption": null
+    },
+    {
+      "id": "exact-candidate-result",
+      "title": "exact-candidate: result",
+      "category": "finite-bridge-result",
+      "witness_id": "exact-candidate",
+      "role": "result",
+      "selections": [
+        {
+          "line": 146,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3132,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 4409,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3304,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3209,
+          "predicate_bindings": {}
+        },
+        {
+          "line": 3264,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+        "(bridgeFiniteWitness BridgeExactCandidateModel BridgeExactCandidateCalculation BridgeExactCandidateResult)",
+        "(=> (and (instance result Predicate) (instance instrument Predicate) (disjointRelation result instrument) (result ?CALC ?RESULT)) (not (instrument ?CALC ?RESULT)))"
+      ],
+      "query": "(not (instrument BridgeExactCandidateCalculation BridgeExactCandidateResult))",
+      "negative_query": "(instrument BridgeExactCandidateCalculation BridgeExactCandidateResult)",
+      "removed_selection": 5,
+      "removed_assumption": null
+    },
+    {
+      "id": "uniform-prior-result-existence",
+      "title": "uniform-prior: source-constrained output existence",
+      "category": "finite-bridge-result",
+      "witness_id": "uniform-prior",
+      "role": "result",
+      "selections": [
+        {
+          "line": 16326,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(instance BridgeUniformPriorCalculation ContentDevelopment)",
+        "(bridgeFiniteWitness BridgeUniformPriorModel BridgeUniformPriorCalculation BridgeUniformPriorResult)"
+      ],
+      "query": "(exists (?OUTPUT) (and (instance ?OUTPUT ContentBearingObject) (result BridgeUniformPriorCalculation ?OUTPUT)))",
+      "negative_query": "(result BridgeUniformPriorCalculation BridgeUniformPriorResult)",
+      "removed_selection": 0,
+      "removed_assumption": null
+    },
+    {
+      "id": "biased-prior-result-existence",
+      "title": "biased-prior: source-constrained output existence",
+      "category": "finite-bridge-result",
+      "witness_id": "biased-prior",
+      "role": "result",
+      "selections": [
+        {
+          "line": 16326,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(instance BridgeBiasedPriorCalculation ContentDevelopment)",
+        "(bridgeFiniteWitness BridgeBiasedPriorModel BridgeBiasedPriorCalculation BridgeBiasedPriorResult)"
+      ],
+      "query": "(exists (?OUTPUT) (and (instance ?OUTPUT ContentBearingObject) (result BridgeBiasedPriorCalculation ?OUTPUT)))",
+      "negative_query": "(result BridgeBiasedPriorCalculation BridgeBiasedPriorResult)",
+      "removed_selection": 0,
+      "removed_assumption": null
+    },
+    {
+      "id": "exact-candidate-result-existence",
+      "title": "exact-candidate: source-constrained output existence",
+      "category": "finite-bridge-result",
+      "witness_id": "exact-candidate",
+      "role": "result",
+      "selections": [
+        {
+          "line": 16326,
+          "predicate_bindings": {}
+        }
+      ],
+      "assumptions": [
+        "(instance BridgeExactCandidateCalculation ContentDevelopment)",
+        "(bridgeFiniteWitness BridgeExactCandidateModel BridgeExactCandidateCalculation BridgeExactCandidateResult)"
+      ],
+      "query": "(exists (?OUTPUT) (and (instance ?OUTPUT ContentBearingObject) (result BridgeExactCandidateCalculation ?OUTPUT)))",
+      "negative_query": "(result BridgeExactCandidateCalculation BridgeExactCandidateResult)",
+      "removed_selection": 0,
+      "removed_assumption": null
+    }
+  ],
+  "local_rules": [
+    "(=> (bridgeFiniteWitness ?MODEL ?CALC ?RESULT) (and (instance ?MODEL Proposition) (instance ?CALC Calculating) (result ?CALC ?RESULT)))",
+    "(=> (and (instance result Predicate) (instance instrument Predicate) (disjointRelation result instrument) (result ?CALC ?RESULT)) (not (instrument ?CALC ?RESULT)))"
+  ],
+  "context_lines": [
+    489
+  ],
+  "semantic_scope": "Three explicitly authored rational Bool witnesses share exact data and IDs across Python, generated Lean and a local SUMO interpretation. Index 0 is Bool.false; index 1 Bool.true; observed output is Bool.true. Local bridgeFiniteWitness mapping assigns model/calculation/result roles; representsInLanguage is an authored representation choice. The result/instrument rule is an explicitly local fixed binary instance of Merge.kif line 489's row-variable disjointness schema, which the strict compiler does not translate. Source inheritance and representation clauses are compiled intact. Rational mass labels in KIF are uninterpreted data, not FOL arithmetic. No conditionalProbability/DivisionFn/LogFn identification, arbitrary SUMO translation, semantic preservation theorem, floating-point verification or empirical FEP claim. ContentDevelopment is an authored classification for the same calculation in the output-existence scenario; source16326 requires some content-bearing result, not identification with the named numerical record."
+}

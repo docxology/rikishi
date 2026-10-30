@@ -4,11 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "rikishi"
-version = "0.1.0"
+version = "1.0.0"
 description = "A reproducible SUMO ontology workbench with source provenance, inference, and FEP research connections"
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
+license-files = ["LICENSE", "LICENSE-PAPER.md", "THIRD_PARTY_NOTICES.md"]
 authors = [{name = "Daniel Ari Friedman"}]
 dependencies = [
   "fastapi>=0.115,<1", "uvicorn>=0.34,<1", "mcp>=1.10,<2",
@@ -23,24 +24,42 @@ rikishi-mcp = "rikishi.mcp_server:main"
 rikishi-check-coverage = "rikishi.quality:main"
 
 [dependency-groups]
-dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "httpx>=0.28,<1", "ruff>=0.11,<1"]
+dev = [
+    "pytest>=8,<10",
+    "pytest-cov>=6,<8",
+    "httpx>=0.28,<1",
+    "ruff>=0.11,<1",
+    "basedpyright>=1.40.2",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "--strict-markers --tb=short"
-markers = ["integration: installed upstream tools or full corpus required"]
+markers = ["integration: installed executables, native campaigns, authentic retained evidence or full corpus required"]
 
 [tool.coverage.run]
 source = ["src/rikishi"]
 branch = true
+patch = ["subprocess"]
 
 [tool.coverage.report]
 fail_under = 60
 show_missing = true
+exclude_lines = []
 
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+
+[tool.basedpyright]
+include = ["src/rikishi"]
+typeCheckingMode = "standard"
+strict = ["src/rikishi/fep.py", "src/rikishi/kif.py", "src/rikishi/quality.py"]
+pythonVersion = "3.12"
+venvPath = "."
+venv = ".venv"
+stubPath = "typings"
+extraPaths = [".rikishi/template-renderer/efce6d6f5b3c4e8e2bbf92d8250855a0a9389ae8"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/rikishi"]
@@ -48,4 +67,6 @@ packages = ["src/rikishi"]
 [tool.hatch.build.targets.sdist]
 include = ["/src", "/scripts", "/config", "/examples", "/skills", "/.agents",
   "/manuscript", "/docs", "/tests", "/README.md", "/AGENTS.md", "/CITATION.cff",
-  "/LICENSE", "/uv.lock", "/.python-version"]
+  "/LICENSE", "/LICENSE-PAPER.md", "/Makefile", "/uv.lock", "/.python-version", "/typings",
+  "/CHANGELOG.md", "/CONTRIBUTING.md", "/SECURITY.md", "/RELEASE_CHECKLIST.md",
+  "/THIRD_PARTY_NOTICES.md", "/.zenodo.json", "/.gitattributes"]

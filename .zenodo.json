@@ -1,0 +1,27 @@
+{
+  "title": "Rikishi: Reproducible operation and analysis of the Suggested Upper Merged Ontology",
+  "version": "1.0.0",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "mit",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Friedman, Daniel Ari",
+      "orcid": "0000-0001-6232-9096",
+      "affiliation": "Active Inference Institute"
+    }
+  ],
+  "description": "Rikishi is a source-bound SUMO ontology workbench with controlled automated-theorem-prover campaigns, finite probability calculations, restricted Lean obligations, read-only human and agent interfaces, and a reproducible manuscript pipeline. Shared finite witnesses connect model, representation, calculation, and result roles while retaining the separate scope of each observation and proof. Results concern explicitly retained sources, submitted logical kernels, declared finite models, and named formal hypotheses; they do not establish ontology-wide consistency, general SUMO-to-Lean semantic preservation, proof-object authentication, or empirical biological validity. This MIT-licensed software archive is distinct from the separately reviewed manuscript PDF and its record. The original manuscript and figures are licensed under Creative Commons Attribution 4.0 International (CC BY 4.0); third-party material is excluded from that original-work grant. Third-party sources, tools, and bundled materials retain their own licenses and attribution.",
+  "keywords": [
+    "SUMO",
+    "SUO-KIF",
+    "ontology",
+    "automated theorem proving",
+    "Lean",
+    "Free Energy Principle",
+    "finite probability",
+    "reproducible research",
+    "provenance"
+  ]
+}

@@ -1,10 +1,15 @@
 {
-  "status": "proposed",
+  "status": "finite-experiment-defined",
+  "study_authority": "src/rikishi/data/alignment-study-v1.json",
+  "report_method": "rikishi.alignment.run_alignment",
   "formalization_commit": "9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de",
-  "scope": "Research vocabulary alignment only. No SUMO-to-Lean translation or equivalence theorem is asserted.",
+  "scope": "Locally authored content/execution/sense distinctions evaluated in the declared finite fragment. A complete campaign concerns selected source-bound cases and separate numerical calculations. No full-SUMO consistency, SUMO-to-Lean translation, alignment equivalence or biological validation is asserted.",
   "mappings": [
     {"concept": "finite probability law", "sumo_candidates": ["ProbabilityFn", "RealNumber"], "lean_source": "lean/FepSketches/finite_probability.lean", "obligation": "Specify a normalized mass function, finite carrier, and the interpretation of probability-bearing propositions."},
     {"concept": "information divergence", "sumo_candidates": ["Function", "NonnegativeRealNumber"], "lean_source": "lean/FepSketches/finite_information.lean", "declaration": "FEP.FiniteInformation.finiteKL_nonneg", "obligation": "Define the representation and reconcile totalized Lean division/logarithm with extended-real KL at zero reference mass."},
-    {"concept": "inference process", "sumo_candidates": ["Reasoning", "Process", "Agent"], "lean_source": "lean/FepSketches/finite_information.lean", "obligation": "Relate semantic inference to numerical posterior updates through an explicit model; sharing a name does not establish semantics."}
+    {"concept": "abstract model content", "sumo_candidates": ["Proposition", "Abstract"], "local_class": "RikishiFiniteGenerativeModel", "source_senses": ["ActInfOntology_SUMO !I190", "ActInfOntology_SUMO !I192"], "obligation": "Local proposition-based content deliberately differs from the precedent's Process placement; no identity or agreement is inferred."},
+    {"concept": "physical inference execution", "sumo_candidates": ["Process", "Physical"], "local_class": "RikishiVariationalInference", "lean_source": "lean/FepSketches/finite_information.lean", "obligation": "A separately named execution does not establish Reasoning, agency or physiology. Numerical results describe supplied finite laws, not empirical behavior."},
+    {"concept": "typed model/execution counterpart", "sumo_candidates": ["abstractCounterpart"], "arguments": ["RikishiModelContent", "RikishiBinaryInferenceExample"], "source_senses": ["ActInfOntology_SUMO !D13:L13"], "obligation": "Abstract content is the first argument and physical execution the second. The finite fragment encodes these two types and Physical/Abstract exclusion; it omits general SUMO domain/range and subrelation metatheory."},
+    {"concept": "variational free energy", "sumo_candidates": [], "source_senses": ["ActInfOntology_SUMO !D431:L431", "ActInfOntology_SUMO !D176:L176", "ActInfOntology_SUMO !E86"], "obligation": "Dimensionless natural-log objective in nats with KL(candidate || exact posterior). Distinct from expected and Helmholtz free energy. Normalization, support, posterior update and logarithms are numerical checks, not axioms proved in the FOL fragment."}
   ]
 }

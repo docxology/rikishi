@@ -6,6 +6,7 @@ import json
 import re
 import subprocess
 import tarfile
+from collections.abc import Mapping
 from dataclasses import dataclass
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -16,12 +17,12 @@ from pydantic import BaseModel, ConfigDict, Field
 RENDERER_REVISION: Final = "efce6d6f5b3c4e8e2bbf92d8250855a0a9389ae8"
 
 
-@dataclass(frozen=True, slots=True)
 class ProvenanceError(ValueError):
     reason: str
 
-    def __str__(self) -> str:
-        return self.reason
+    def __init__(self, reason: str) -> None:
+        self.reason = reason
+        super().__init__(reason)
 
 
 class CorpusMeasurement(BaseModel):
@@ -41,7 +42,9 @@ class HydratedManuscript:
     substitutions: dict[str, str]
 
 
-def hydrate_manuscript(source: str, corpus: CorpusMeasurement) -> HydratedManuscript:
+def hydrate_manuscript(
+    source: str, corpus: CorpusMeasurement, *, values: Mapping[str, str] | None = None
+) -> HydratedManuscript:
     if corpus.parse_errors or not corpus.source_clean:
         raise ProvenanceError("Manuscript requires a clean corpus export with no parse errors")
     substitutions = {
@@ -50,11 +53,21 @@ def hydrate_manuscript(source: str, corpus: CorpusMeasurement) -> HydratedManusc
         "CORPUS_FORMULAS": str(corpus.formulas),
         "CORPUS_TERMS": str(corpus.terms),
         "CORPUS_EDGES": str(corpus.edges),
-        "CORPUS_PARSE_ERRORS": "0",
+        "CORPUS_PARSE_ERRORS": str(len(corpus.parse_errors)),
     }
-    hydrated = source
-    for key, value in substitutions.items():
-        hydrated = hydrated.replace("{{" + key + "}}", value)
+    if values is not None:
+        if substitutions.keys() & values.keys():
+            raise ProvenanceError("Publication values cannot override corpus measurements")
+        if any(not re.fullmatch(r"[A-Z][A-Z0-9_]*", key) for key in values):
+            raise ProvenanceError("Invalid publication substitution name")
+        if any("{{" in value or "}}" in value for value in values.values()):
+            raise ProvenanceError("Recursive publication substitutions are not allowed")
+        substitutions.update(values)
+    token = re.compile(r"\{\{([A-Z][A-Z0-9_]*)\}\}")
+    unknown = set(token.findall(source)) - substitutions.keys()
+    if unknown:
+        raise ProvenanceError(f"Unresolved manuscript substitutions: {sorted(unknown)}")
+    hydrated = token.sub(lambda match: substitutions[match[1]], source)
     if re.search(r"\{\{.*?\}\}", hydrated, re.DOTALL):
         raise ProvenanceError("Unresolved manuscript substitution")
     return HydratedManuscript(hydrated, substitutions)
@@ -87,6 +100,8 @@ def prepare_renderer(
             contained_path(snapshot, member.name)
             if member.isfile():
                 stream = archive.extractfile(member)
+                if stream is None:
+                    raise ProvenanceError(f"Cannot read renderer archive file: {member.name}")
                 with stream:
                     sources[member.name] = hashlib.sha256(stream.read()).hexdigest()
             elif not member.isdir():
@@ -112,7 +127,7 @@ def verify_sources(snapshot: Path, sources: dict[str, str]) -> None:
 class ArtifactRecord(BaseModel):
     model_config = ConfigDict(strict=True, frozen=True)
     path: str
-    bytes: int = Field(gt=0)
+    bytes: int = Field(ge=0)
     sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
 
 

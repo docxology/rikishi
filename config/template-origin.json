@@ -2,8 +2,9 @@
   "repository": "https://github.com/docxology/template_code_project",
   "commit": "259125a197bce25e7d4fd8be7a466afa36678949",
   "method": "git archive of the local canonical template HEAD",
-  "exemplar": "template_reference",
-  "rendering_resources": "_template_resources/infrastructure",
+  "retention": "Original scaffold is retained in Git history; active files are Rikishi-specific.",
+  "renderer_repository": "https://github.com/docxology/template",
+  "renderer_provenance": "Pinned Git archive and source hashes in each manuscript render receipt",
   "new_project": "rikishi",
   "visibility": "private"
 }

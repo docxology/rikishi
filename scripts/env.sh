@@ -12,4 +12,10 @@ export UV_PYTHON_INSTALL_DIR="${UV_PYTHON_INSTALL_DIR:-${RIKISHI_VAULT_ROOT}/Loc
 export UV_LINK_MODE=copy
 export MPLCONFIGDIR="${RIKISHI_CACHE_ROOT}/matplotlib"
 export XDG_CACHE_HOME="${RIKISHI_CACHE_ROOT}/xdg"
-mkdir -p "$TMPDIR" "$UV_CACHE_DIR" "$MPLCONFIGDIR" "$XDG_CACHE_HOME"
+# TeX Live otherwise writes user formats/configuration below the internal home.
+# The installed TeX distribution and user package inputs remain read-only inputs.
+export TEXMFVAR="${RIKISHI_CACHE_ROOT}/texlive/var"
+export TEXMFCONFIG="${RIKISHI_CACHE_ROOT}/texlive/config"
+export TEXMFCACHE="${RIKISHI_CACHE_ROOT}/texlive/cache"
+mkdir -p "$TMPDIR" "$UV_CACHE_DIR" "$MPLCONFIGDIR" "$XDG_CACHE_HOME" \
+  "$TEXMFVAR" "$TEXMFCONFIG" "$TEXMFCACHE"

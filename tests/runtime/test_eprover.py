@@ -5,6 +5,7 @@ import subprocess
 import pytest
 
 from rikishi.runtime import bootstrap, prove, status
+from rikishi.runtime_artifacts import ArtifactError
 
 
 @pytest.mark.integration
@@ -47,15 +48,15 @@ def test_real_e_distinguishes_entailment(tmp_path, conjecture, expected, project
 def test_real_e_rejects_malformed_input(tmp_path, project_root):
     problem = tmp_path / "broken.p"
     problem.write_text("this is not TPTP")
-    with pytest.raises(RuntimeError, match="no SZS status"):
+    with pytest.raises(ArtifactError, match="unsupported TPTP"):
         prove(problem, project_root)
 
 
 @pytest.mark.integration
-def test_real_e_wall_clock_bound(tmp_path, project_root):
+def test_special_problem_is_rejected_before_prover_launch(tmp_path, project_root):
     problem = tmp_path / "blocked.p"
     os.mkfifo(problem)
-    with pytest.raises(TimeoutError, match="wall-clock"):
+    with pytest.raises(ArtifactError, match="regular file"):
         prove(problem, project_root, timeout=1)
 
 

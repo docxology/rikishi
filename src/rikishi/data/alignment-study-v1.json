@@ -1,0 +1,103 @@
+{
+  "schema_version": 1,
+  "study_id": "rikishi-finite-alignment-v1",
+  "scope": "Selected subclass/instance inheritance, typed abstractCounterpart, and Physical/Abstract exclusion in an explicitly local FOL interpretation. Separate finite numerical experiments. No general SUO-KIF translation, full-SUMO consistency, alignment equivalence, Lean bridge, physiological realization or biological validation.",
+  "source_report_path": "output/demonstrations/source-report.json",
+  "index_path": ".rikishi/ontology.sqlite",
+  "sumo_path": ".rikishi/upstream/sumo/Merge.kif",
+  "sumo_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
+  "sumo_sha256": "2e4c3d6b8392a4cb6fbeccb6eb7441e11d6b45592082333285c951fd7c7d3e14",
+  "sumo_url": "https://github.com/ontologyportal/sumo/blob/efcd059f8feebfe3488a09f575f88d4d009b1e5c/Merge.kif",
+  "citation_lines": [139, 146, 911, 2134, 2135, 3162, 3163, 3164, 3165, 3166, 3168, 3334, 3335, 3336, 3337, 3338, 3340, 4506, 4507, 7546, 7547, 7548, 7549, 7551],
+  "workbook_path": ".omo/evidence/precedent-upgrade/sources/Active Inference Topics Aligned to SUMO.xlsx",
+  "workbook_sha256": "fd527c3201b03b0f2b27af8fee35321c0556c4f8c846bbf552a91c312c7d615c",
+  "workbook_url": "https://zenodo.org/records/11463326/files/Active%20Inference%20Topics%20Aligned%20to%20SUMO.xlsx?download=1",
+  "access_date": "2026-10-20",
+  "workbook_sheet": "ActInfOntology_SUMO ",
+  "workbook_rows": [13, 23, 33, 54, 86, 155, 176, 177, 190, 192, 217, 431],
+  "workbook_columns": ["D", "E", "H", "I", "J", "K", "L"],
+  "bindings": {
+    "uv.lock": "bb6ec5e7ab9aba2b5795dbb0ccc0eaccb458bc85d379914084ce73730fe46309",
+    "config/sumo.lock.json": "0f8e785684de54ce36e1bc21c12f60a71e957fdc7d43cbb9bb3a410e0c85ac55"
+  },
+  "senses": [
+    {"row": 13, "decision": "abstractCounterpart(model,execution): abstract content first, physical execution second; separately named and typed, never aliased."},
+    {"row": 23, "decision": "Informal internal relation to Judging is not imported as identity or subclassing."},
+    {"row": 33, "decision": "Lowercase agent denotes a Process/AutonomousAgent case-role relation; it is not a state variable or agent entity."},
+    {"row": 54, "decision": "No physiological realization is inferred from a finite posterior calculation."},
+    {"row": 86, "decision": "The objective uses KL(candidate || exact posterior); prior/posterior complexity wording is retained as a distinct sense."},
+    {"row": 155, "decision": "Expected free energy and policy selection are outside this variational objective."},
+    {"row": 176, "decision": "Dimensionless natural-log variational objective, reported in nats; no Helmholtz or thermodynamic energy identity."},
+    {"row": 177, "decision": "A principle expressed as an instance of Proposition is distinct from the local class of model contents and biological evidence."},
+    {"row": 190, "decision": "Local model content is under Proposition; a separate execution is under Process. This deliberately differs from the proposed Process placement."},
+    {"row": 192, "decision": "Multiple superclass placements do not imply inconsistency without inhabitation; empty and inhabited controls are separate."},
+    {"row": 217, "decision": "Abstract inference relation and temporal execution are distinct; the open Learning issue is not resolved here."},
+    {"row": 431, "decision": "Blank focused mapping cells supply no VFE axioms. The finite interpretation and numerical constraints are locally authored."}
+  ],
+  "local_formulas": [
+    "(subclass RikishiFiniteGenerativeModel Proposition)",
+    "(subclass RikishiVariationalInference Process)",
+    "(instance RikishiModelContent RikishiFiniteGenerativeModel)",
+    "(instance RikishiBinaryInferenceExample RikishiVariationalInference)",
+    "(abstractCounterpart RikishiModelContent RikishiBinaryInferenceExample)"
+  ],
+  "interpretation": {
+    "selected_source_lines": [2134, 4506],
+    "symbols": {"Process": "process", "Physical": "physical", "Proposition": "proposition", "Abstract": "abstract", "RikishiFiniteGenerativeModel": "model_class", "RikishiVariationalInference": "execution_class", "RikishiModelContent": "model", "RikishiBinaryInferenceExample": "execution"},
+    "carrier": "Nonempty untyped FOL carrier; class names are constants; instance and subclass are binary predicates. No unique-name assumption; disjoint inhabited types force model and execution to differ.",
+    "kernel": [
+      "fof(inheritance,axiom, ![X,A,B]: ((instance(X,A) & subclass(A,B)) => instance(X,B))).",
+      "fof(transitivity,axiom, ![A,B,C]: ((subclass(A,B) & subclass(B,C)) => subclass(A,C))).",
+      "fof(exclusion,axiom, ![X]: ~(instance(X,physical) & instance(X,abstract))).",
+      "fof(counterpart_abstract,axiom, ![A,P]: (abstract_counterpart(A,P) => instance(A,abstract))).",
+      "fof(counterpart_physical,axiom, ![A,P]: (abstract_counterpart(A,P) => instance(P,physical)))."
+    ],
+    "omitted": ["Partition exhaustiveness and universal Entity membership", "All other SUMO axioms, caches and higher-order constructs", "General domain/range metatheory and subrelation inference", "ProbabilityFn mass-vector semantics", "Arithmetic, normalization, logarithms, posterior update and free-energy constraints", "Class nonemptiness except the explicit local instances"]
+  },
+  "timeout_seconds": 5,
+  "cases": [
+    {"id": "background", "additions": [], "conjecture": null, "expected": "Satisfiable"},
+    {"id": "model-abstract", "additions": [], "conjecture": "instance(model,abstract)", "expected": "Theorem"},
+    {"id": "execution-physical", "additions": [], "conjecture": "instance(execution,physical)", "expected": "Theorem"},
+    {"id": "model-physical", "additions": [], "conjecture": "instance(model,physical)", "expected": "CounterSatisfiable"},
+    {"id": "execution-abstract", "additions": [], "conjecture": "instance(execution,abstract)", "expected": "CounterSatisfiable"},
+    {"id": "model-process", "additions": [], "conjecture": "instance(model,process)", "expected": "CounterSatisfiable"},
+    {"id": "execution-proposition", "additions": [], "conjecture": "instance(execution,proposition)", "expected": "CounterSatisfiable"},
+    {"id": "model-not-physical", "additions": [], "conjecture": "~instance(model,physical)", "expected": "Theorem"},
+    {"id": "execution-not-abstract", "additions": [], "conjecture": "~instance(execution,abstract)", "expected": "Theorem"},
+    {"id": "alias", "additions": ["model = execution"], "conjecture": null, "expected": "Unsatisfiable"},
+    {"id": "empty-double-class", "additions": ["subclass(double_class,process)", "subclass(double_class,proposition)"], "conjecture": null, "expected": "Satisfiable"},
+    {"id": "inhabited-double-class", "additions": ["subclass(double_class,process)", "subclass(double_class,proposition)", "instance(witness,double_class)"], "conjecture": null, "expected": "Unsatisfiable"}
+  ],
+  "numerical": {
+    "seed": 20261021,
+    "rng": "PCG64",
+    "dimensions": [2, 3, 8],
+    "models_per_dimension": 12,
+    "weight_min": 1,
+    "weight_max": 100,
+    "likelihood_divisor": 100,
+    "candidates": ["prior", "uniform", "exact-posterior", "posterior-mode"],
+    "decimal_precision": 80,
+    "ordinary_tolerance": "1e-12",
+    "extreme_tolerance": "1e-10",
+    "permutation": "reverse",
+    "likelihood_rescaling": 0.5,
+    "extremes": [
+      {"id": "positive-evidence-underflow", "log_prior": [-0.6931471805599453, -0.6931471805599453], "log_likelihood": [-1000.0, -1001.0], "posterior": [0.5, 0.5]},
+      {"id": "positive-posterior-underflow", "log_prior": [-1000.0, 0.0], "log_likelihood": [-1000.0, -0.6931471805599453], "posterior": [0.5, 0.5]},
+      {"id": "structural-zero", "log_prior": [null, 0.0], "log_likelihood": [0.0, -0.6931471805599453], "posterior": [0.0, 1.0]},
+      {"id": "linear-product-underflow", "log_prior": [-690.7755278982137, 0.0], "log_likelihood": [-690.7755278982137, -0.6931471805599453], "posterior": [0.5, 0.5]}
+    ],
+    "invalid": [
+      {"id": "prior-normalization", "log_prior": [-1.6094379124341003, -1.6094379124341003], "log_likelihood": [0.0, 0.0], "posterior": [0.5, 0.5]},
+      {"id": "candidate-normalization", "log_prior": [0.0, null], "log_likelihood": [0.0, 0.0], "posterior": [0.2, 0.2]},
+      {"id": "dimension", "log_prior": [0.0], "log_likelihood": [0.0, 0.0], "posterior": [1.0]},
+      {"id": "impossible-evidence", "log_prior": [0.0, null], "log_likelihood": [null, 0.0], "posterior": [1.0, 0.0]},
+      {"id": "invalid-support", "log_prior": [null, 0.0], "log_likelihood": [0.0, 0.0], "posterior": [0.5, 0.5]},
+      {"id": "nonfinite-prior", "log_prior": ["nan"], "log_likelihood": [0.0], "posterior": [1.0]},
+      {"id": "nonfinite-likelihood", "log_prior": [0.0], "log_likelihood": ["-inf"], "posterior": [1.0]},
+      {"id": "empty", "log_prior": [], "log_likelihood": [], "posterior": []}
+    ]
+  }
+}

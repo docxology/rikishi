@@ -1,5 +1,3 @@
-import json
-
 import pytest
 
 from rikishi.runtime_results import interpret_sigma_result
@@ -23,20 +21,17 @@ def test_untrusted_sidecars_fail_closed(tmp_path, payload):
 
 
 @pytest.mark.parametrize("identity,java_exit,expected", [
-    ("current", 0, "entailed"), ("stale", 0, "error"),
+    ("current", 0, "unverified"), ("stale", 0, "error"),
     (None, 0, "error"), ("current", None, "error"),
 ])
-def test_sidecars_bound_to_completed_invocation(tmp_path, identity, java_exit, expected):
-    sidecar = tmp_path / "result.json"
-    sidecar.write_text(json.dumps({"status": "Theorem", "atp_returncode": 0,
-                                  "stdout_lines": 1, "invocation_id": identity}))
+def test_sidecars_bound_to_completed_invocation(atp_sidecar, identity, java_exit, expected):
+    sidecar = atp_sidecar(identity=identity)
     assert interpret_sigma_result(sidecar, java_exit, invocation_id="current")["outcome"] == expected
 
 
 @pytest.mark.parametrize("status,exit_code", [("ContradictoryAxioms", 3), ("CounterSatisfiable", 9), ("NoSZSStatus", 0)])
-def test_failed_atp_cannot_certify_result(tmp_path, status, exit_code):
-    sidecar = tmp_path / "result.json"
-    sidecar.write_text(json.dumps({"status": status, "atp_returncode": exit_code, "stdout_lines": 1}))
+def test_failed_atp_cannot_certify_result(atp_sidecar, status, exit_code):
+    sidecar = atp_sidecar(status=status, atp_exit=exit_code)
     result = interpret_sigma_result(sidecar, 0)
     assert result["outcome"] == "error"
     assert result["consistency"] == "not_established"

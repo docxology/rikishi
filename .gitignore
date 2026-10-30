@@ -10,7 +10,7 @@ __pycache__/
 
 # Project-local virtualenvs (root .venv is shared)
 .venv/
-# Local artifacts (aligned with template_textbook convention)
+# Local test and coverage artifacts
 htmlcov/
 coverage_project.json
 .DS_Store
@@ -29,3 +29,8 @@ output/coverage/
 dist/
 .omo/evidence/runtime/*.tptp
 .omo/evidence/runtime/sigma-server*.log
+
+# Private development evidence and generated builds are not public source payloads.
+# Ignore rules do not remove historical tracked content; review publication history.
+.omo/
+output/

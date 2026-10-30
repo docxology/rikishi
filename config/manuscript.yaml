@@ -1,0 +1,45 @@
+paper:
+  title: Rikishi
+  subtitle: Reproducible operation and analysis of the Suggested Upper Merged Ontology
+  date: "{{DOCUMENT_LABEL}}"
+  year: "{{DOCUMENT_YEAR}}"
+  cover:
+    image: figures/graphical-abstract.png
+    alt: SUMO source hierarchy, reproducible operator evidence, and finite variational inference
+  graphical_abstracts:
+    - image: figures/abstract-source.png
+      title: From ontology commitments to finite mathematics
+      alt: Complete SUMO representation rules, declared Boolean probability inputs, and separate Lean and numerical obligations
+      summary: A source formula, a mathematical law, and a calculation answer different questions. The shared witness makes their relationship inspectable.
+    - image: figures/abstract-witness.png
+      title: Shared finite witnesses and exact posterior inference
+      alt: Three rational finite models with exact posteriors and their candidate divergence curves
+      summary: The same prior, observation kernel, candidate distribution, and observed outcome enter every evidence lane. Exact arithmetic identifies what the calculation should return.
+    - image: figures/abstract-evidence.png
+      title: Evidence for models representations calculations and results
+      alt: Distinct model, representation, calculation, and result roles connected to ontology, Lean, and numerical evidence
+      summary: Evidence attaches to specific claims about specific artifacts. Shared identifiers connect the lanes without replacing their separate proof and measurement obligations.
+authors:
+  - name: Daniel Ari Friedman
+    orcid: 0000-0001-6232-9096
+    affiliations:
+      - Active Inference Institute
+language: en
+rendering:
+  section_breaks: false
+  include_date: true
+  figure_height_fraction: 0.80
+  cover_height_fraction: 0.62
+  front_matter_figure_height_fraction: 0.60
+publication:
+  document_kind: Software methods manuscript
+  decimal_places: 6
+  font_size_pt: 11
+  margin_mm: 12
+  web_body_font_px: 17
+  link_color_hex: A00000
+  figure_dpi: 300
+  citation_style: config/references.csl
+  citation_style_sha256: 0ca3d2c7c881cd98cdd81098b5349f5921edf430498aa9a5a41918621cf7cc45
+  citation_style_repository: https://github.com/citation-style-language/styles
+  citation_style_revision: ffd2a7b91280d84c9237ae97f9e5fd1f5abbe756

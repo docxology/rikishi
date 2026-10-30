@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from rikishi.kif import parse
+from rikishi.competency import extension_text, load_study
 from rikishi.ontology import OntologyIndex
 from rikishi.projection import taxonomy_problem
 from rikishi.runtime import prove
@@ -34,12 +34,5 @@ def test_real_taxonomy_projection_and_countermodel(tmp_path, project_root):
         taxonomy_problem(index, "MissingTerm", "Rock", output)
 
 
-def test_research_extension_is_structurally_valid(project_root):
-    formulas = list(parse((project_root / "examples/fep-ontology.kif").read_text()))
-    expressions = [formula.expression for formula in formulas]
-    assert ("subclass", "RikishiVariationalInference", "Reasoning") in expressions
-    assert (
-        "instance",
-        "RikishiBinaryInferenceExample",
-        "RikishiVariationalInference",
-    ) in expressions
+def test_research_extension_matches_finite_study_authority(project_root):
+    assert (project_root / "examples/fep-ontology.kif").read_text() == extension_text(load_study())
