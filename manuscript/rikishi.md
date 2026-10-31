@@ -1052,15 +1052,15 @@ their model, representation, calculation and result roles
 [@fepFormalProbabilityPinned; @fepFormalPinned; @sumoPinnedMerge].
 
 Consider the registered uniform-prior witness. In state order `(false, true)`,
-its prior is $(1/2,1/2)$ and the likelihood of observation `true` is
-$(1/4,3/4)$. The state labels name the two finite alternatives; they do not
+its prior is ${{NUM_UNIFORM_PRIOR}}$ and the likelihood of observation `true` is
+${{NUM_UNIFORM_LIKELIHOOD}}$. The state labels name the two finite alternatives; they do not
 assert the truth values of an arbitrary SUMO sentence. One observation leads
 to the following connected but distinct questions:
 
 | Lane | Question about the same witness | Specific answer or obligation |
 | --- | --- | --- |
 | Ontology | What does the named Lean expression represent? | The selected representation rules connect its declared language-relative role to a `represents` consequence; they do not calculate a posterior. |
-| Mathematics | What follows from the finite law and kernel? | Joint masses $(1/8,3/8)$ give evidence $1/2$ and posterior $(1/4,3/4)$; Lean checks the stated instances under their hypotheses. |
+| Mathematics | What follows from the finite law and kernel? | Joint masses ${{NUM_UNIFORM_JOINT}}$ give evidence ${{NUM_UNIFORM_EVIDENCE}}$ and posterior ${{NUM_UNIFORM_POSTERIOR}}$; Lean checks the stated instances under their hypotheses. |
 | Numerical execution | Did the evaluator compute that case correctly? | Bound inputs, exact/reference comparisons and residuals check the returned values, separately from the Lean proof. |
 | Simulation | What observations does the specified process generate? | Sampling the persistent state and its kernel produces synthetic histories to compare with exact probabilities. |
 | Scientific interpretation | Does the model describe a target system? | Measurement semantics and suitable observations must be supplied in an additional study. |
@@ -1313,8 +1313,8 @@ The compact row labels correspond to the retained identifiers:
 {{BRIDGE_EXACT_TABLE}}
 
 For the uniform-prior witness, multiplication gives joint masses
-$(1/8,3/8)$. Their sum is $Z=1/2$; dividing each mass by $Z$ gives posterior
-$(1/4,3/4)$. The complete observation kernel is
+${{NUM_UNIFORM_JOINT}}$. Their sum is $Z={{NUM_UNIFORM_EVIDENCE}}$; dividing each mass by $Z$ gives posterior
+${{NUM_UNIFORM_POSTERIOR}}$. The complete observation kernel is
 $K(s,\mathrm{false})=1-K(s,\mathrm{true})$ together with the displayed
 true column. Thus each *row* sums to one, while the selected likelihood column
 is not required to sum to one. This distinction separates an observation law
@@ -1329,17 +1329,17 @@ $$
 \frac{K(\mathrm{true},\mathrm{true})}{K(\mathrm{false},\mathrm{true})}.
 $$ {#eq:bridge-posterior-odds}
 
-In the uniform-prior case the two factors are $1$ and $3$. In the biased-prior
-case they are $2$ and $3/2$. Both give posterior odds $3$, yet the joint masses
+In the uniform-prior case the two factors are ${{NUM_UNIFORM_PRIOR_ODDS}}$ and ${{NUM_UNIFORM_LIKELIHOOD_RATIO}}$. In the biased-prior
+case they are ${{NUM_BIASED_PRIOR_ODDS}}$ and ${{NUM_BIASED_LIKELIHOOD_RATIO}}$. Both give posterior odds ${{NUM_UNIFORM_POSTERIOR_ODDS}}$, yet the joint masses
 and evidences differ. Equal posteriors therefore do not identify equal
-generative models or equal surprise. The biased example has $Z=2/3$ rather
-than $1/2$, and its candidate $(2/3,1/3)$ is farther from the common posterior
+generative models or equal surprise. The biased example has $Z={{NUM_BIASED_EVIDENCE}}$ rather
+than ${{NUM_UNIFORM_EVIDENCE}}$, and its candidate ${{NUM_BIASED_CANDIDATE}}$ is farther from the common posterior
 than the uniform candidate in the measured divergence. Each statement is a
 comparison of the declared finite cases, not an ontology entailment about
 probability arithmetic.
 
 The exact-candidate witness supplies a complementary test: joint masses
-$(1/2,1/12)$ give $Z=7/12$ and posterior $(6/7,1/7)$, already equal to the
+${{NUM_EXACT_JOINT}}$ give $Z={{NUM_EXACT_EVIDENCE}}$ and posterior ${{NUM_EXACT_POSTERIOR}}$, already equal to the
 candidate. Over the reals, its posterior divergence is zero and free energy
 equals surprise. The retained tiny floating residual is reported rather than
 relabelled a negative real divergence. This example tests the equality case
@@ -1550,9 +1550,9 @@ using an undifferentiated "verified" label.
 | --- | --- | --- | --- |
 | Source language to representation role | `representsInLanguage(BridgeUniformPriorLean, BridgeUniformPriorModel, BridgeLeanLanguage)` plus the two complete selected SUMO rules | Some representing agent exists, and the expression represents this model. | Reversing the representation query or removing the required rule must not preserve entailment; the existential does not name an agent. |
 | Finite specification to a Lean value | `UniformPrior.prior`, `UniformPrior.kernel`, and their `FiniteLaw`/`FiniteKernel` obligations | The prior and each conditional observation row normalize. | The retained wrong-normalization program must fail for its designated obligation, rather than for an unrelated import error. |
-| Conditioning to a concrete theorem instance | `UniformPrior.posterior_reconstruction`, using `posterior_mul_predictive` | For each state, posterior mass times positive evidence equals prior mass times selected likelihood: false, $\frac{1}{4}\times\frac{1}{2}=\frac{1}{8}$; true, $\frac{3}{4}\times\frac{1}{2}=\frac{3}{8}$. | The retained wrong-posterior program is rejected; dropping the positive-evidence hypothesis changes the problem. |
+| Conditioning to a concrete theorem instance | `UniformPrior.posterior_reconstruction`, using `posterior_mul_predictive` | For each state, posterior mass times positive evidence equals prior mass times selected likelihood: false, ${{NUM_UNIFORM_RECONSTRUCTION_FALSE}}$; true, ${{NUM_UNIFORM_RECONSTRUCTION_TRUE}}$. | The retained wrong-posterior program is rejected; dropping the positive-evidence hypothesis changes the problem. |
 | Real-valued objective to evaluated numbers | The full-support finite KL decomposition and the registered numerical evaluator | Joint masses, evidence, free energy, divergence and signed residual are compared with the independent Decimal route. | A result-role statement with a changed numerical tuple is still a role statement, but fails the arithmetic comparison. |
-| Result record to a later prediction | Posterior-weighted use of the same kernel, with persistent state and conditional independence made explicit | A second true observation has probability $5/8$ for the uniform model and $11/16$ for the biased model. | Redrawing the state instead gives their initial marginal probabilities $1/2$ and $2/3$; these are different experiments. |
+| Result record to a later prediction | Posterior-weighted use of the same kernel, with persistent state and conditional independence made explicit | A second true observation has probability ${{NUM_UNIFORM_NEXT_PREDICTION}}$ for the uniform model and ${{NUM_BIASED_NEXT_PREDICTION}}$ for the biased model. | Redrawing the state instead gives their initial marginal probabilities ${{NUM_UNIFORM_EVIDENCE}}$ and ${{NUM_BIASED_EVIDENCE}}$; these are different experiments. |
 
 The source-to-language arrow merits particular care. Verified compilation
 provides a useful methodological comparison: Leroy relates source and target
@@ -1580,7 +1580,7 @@ The shared cases support a further executable experiment: change the finite
 representation while keeping explicit track of the information it discards.
 This derived analysis uses the same rational inputs, but does not add cases to
 the historical SUMO campaign or declarations to its Lean receipt. Its exact
-masses, 100-digit Decimal logarithms and source report digest are exported in
+masses, {{NUM_RESEARCH_PRECISION}}-digit Decimal logarithms and source report digest are exported in
 `witness-research.json`. Exact arithmetic establishes the displayed rational
 equalities; numerical residuals and their declared tolerances remain separate.
 
@@ -1613,12 +1613,12 @@ conditioning construction. Markov-kernel scholarship provides a broader
 language for composition and conditioning while retaining their different
 types [@fritz2020synthetic].
 
-For the uniform case, the noisy state channel has rows $(3/4,1/4)$ and
-$(1/4,3/4)$. It gives $p'=(1/2,1/2)$, $j'=(3/16,5/16)$,
-$K'(\cdot,\mathrm{true})=(3/8,5/8)$ and $r'=(3/8,5/8)$, with unchanged
-$Z=1/2$. For the singleton erasure channel the coarse likelihood is simply
-$Z$. Its three values are therefore $1/2$, $2/3$ and $7/12$. Unweighted
-averaging would instead give $1/2$, $5/8$ and $1/2$: the uniform case alone
+For the uniform case, the noisy state channel has rows ${{NUM_UNIFORM_NOISY_CHANNEL_FALSE}}$ and
+${{NUM_UNIFORM_NOISY_CHANNEL_TRUE}}$. It gives $p'={{NUM_UNIFORM_COARSE_PRIOR}}$, $j'={{NUM_UNIFORM_COARSE_JOINT}}$,
+$K'(\cdot,\mathrm{true})={{NUM_UNIFORM_COARSE_LIKELIHOOD}}$ and $r'={{NUM_UNIFORM_COARSE_POSTERIOR}}$, with unchanged
+$Z={{NUM_UNIFORM_EVIDENCE}}$. For the singleton erasure channel the coarse likelihood is simply
+$Z$. Its three values are therefore ${{NUM_UNIFORM_EVIDENCE}}$, ${{NUM_BIASED_EVIDENCE}}$ and ${{NUM_EXACT_EVIDENCE}}$. Unweighted
+averaging would instead give ${{NUM_UNIFORM_UNWEIGHTED_LIKELIHOOD}}$, ${{NUM_BIASED_UNWEIGHTED_LIKELIHOOD}}$ and ${{NUM_EXACT_UNWEIGHTED_LIKELIHOOD}}$: the uniform case alone
 would conceal that error, while the other two cases expose it.
 
 ### A smaller divergence need not mean better inference {#sec:witness-information-loss}
@@ -1638,7 +1638,7 @@ Uniform, Biased and Exact refer to the registered witness identifiers already
 defined above. Identity and state-label permutation preserve divergence;
 the noisy channel reduces the first two gaps; singleton erasure makes all
 coarse candidate/posterior pairs equal. In particular, the uniform case falls
-from approximately $0.143841$ to $0.032269$ nats under noise, and to zero under
+from approximately ${{NUM_UNIFORM_KL_BEFORE}}$ to ${{NUM_UNIFORM_KL_AFTER}}$ nats under noise, and to zero under
 erasure. Its original candidate has not been repaired. The exact-candidate
 case remains equal without needing loss. This distinguishes optimization of
 the original inference problem from loss of the ability to tell two answers
@@ -1651,12 +1651,12 @@ $F'(qT)=-\log Z+D(qT\Vert rT)$; it belongs to a changed state description.
 
 The previous channel changes what hidden state is reported. A channel on the
 **observation** instead changes the event being conditioned on. Suppose the
-Boolean observation is flipped with probability $1/4$. The likelihood of
-the newly observed true output is $1/4+K(s,\mathrm{true})/2$. Exact conditioning
-now gives the uniform posterior $(3/8,5/8)$ at evidence $1/2$; the biased
-posterior $(2/7,5/7)$ at evidence $7/12$; and the exact-candidate model's
-posterior $(21/26,5/26)$ at evidence $13/24$. The last model's old candidate
-$(6/7,1/7)$ is no longer its posterior. This changes a hypothesis, not the
+Boolean observation is flipped with probability $e={{NUM_UNIFORM_OBSERVATION_ERROR}}$. The likelihood of
+the newly observed true output is $e+(1-2e)K(s,\mathrm{true})$. Exact conditioning
+now gives the uniform posterior ${{NUM_UNIFORM_NOISY_POSTERIOR}}$ at evidence ${{NUM_UNIFORM_NOISY_EVIDENCE}}$; the biased
+posterior ${{NUM_BIASED_NOISY_POSTERIOR}}$ at evidence ${{NUM_BIASED_NOISY_EVIDENCE}}$; and the exact-candidate model's
+posterior ${{NUM_EXACT_NOISY_POSTERIOR}}$ at evidence ${{NUM_EXACT_NOISY_EVIDENCE}}$. The last model's old candidate
+${{NUM_EXACT_CANDIDATE}}$ is no longer its posterior. This changes a hypothesis, not the
 truth of its earlier equality instance. Completely erasing observations
 would recover the hidden-state prior; completely erasing hidden-state
 identity gives a singleton posterior. The domains and codomains of the arrows
@@ -1673,22 +1673,22 @@ Z_c=cZ,\qquad r_c=r,\qquad
 F_c(q)=F(q)-\log c.
 $$ {#eq:likelihood-scaling}
 
-For $c=1/2$ all three current models remain valid and their exact posteriors
+For $c={{NUM_UNIFORM_EVIDENCE_SCALE}}$ all three current models remain valid and their exact posteriors
 remain unchanged. This is a changed observation kernel, not multiplication
 of every entry of a normalized row by the same constant. Posterior KL stays
 the same for the same candidate; surprise and absolute free energy rise by
-$\log 2$. Consequently a posterior record alone cannot identify its evidence,
+$\log {{NUM_UNIFORM_SCALE_RECIPROCAL}}$. Consequently a posterior record alone cannot identify its evidence,
 its complete generative model or its absolute variational objective.
 
 {{WITNESS_SCALING_TABLE}}
 
-![Identical posteriors can accompany different observation evidence. Halving the selected likelihood column and completing the other Boolean outcome preserves each posterior while increasing surprise and free energy by log 2 for a fixed candidate. Model, representation, calculation and result provenance remain distinct obligations. The transformed models are derived finite experiments, not new native ontology or Lean proof results.](figures/witness-evidence-scaling.png){#fig:witness-evidence-scaling}
+![Identical posteriors can accompany different observation evidence. Scaling the selected likelihood column by {{NUM_UNIFORM_EVIDENCE_SCALE}} and completing the other Boolean outcome preserves each posterior while increasing surprise and free energy by log {{NUM_UNIFORM_SCALE_RECIPROCAL}} for a fixed candidate. Model, representation, calculation and result provenance remain distinct obligations. The transformed models are derived finite experiments, not new native ontology or Lean proof results.](figures/witness-evidence-scaling.png){#fig:witness-evidence-scaling}
 
 Model comparison introduces a different random variable, $M$. Treating the
 uniform and biased toy models as alternatives for the same observation, with
 equal prior model probabilities, gives Bayes factor
-$Z_{\mathrm{biased}}/Z_{\mathrm{uniform}}=4/3$ and posterior model probability
-$P(M=\mathrm{biased}\mid\mathrm{true})=4/7$. These are ratios of declared
+$Z_{\mathrm{biased}}/Z_{\mathrm{uniform}}={{NUM_BAYES_FACTOR}}$ and posterior model probability
+$P(M=\mathrm{biased}\mid\mathrm{true})={{NUM_BIASED_MODEL_POSTERIOR}}$. These are ratios of declared
 marginal observation probabilities, not posterior-state divergences; unequal
 prior model odds would multiply the factor [@kass1995bayes]. No empirical
 evidence-strength label is attached to this synthetic comparison.
@@ -1696,8 +1696,8 @@ evidence-strength label is attached to this synthetic comparison.
 Equal state posteriors also need not imply equal predictions. **If** a second
 observation uses the same hidden state and the same kernel, with observations
 conditionally independent given that state and model, its true probability is
-$\sum_s r_sK(s,\mathrm{true})$. The three exact values are $5/8$, $11/16$ and
-$13/21$. The first two differ despite their common current state posterior.
+$\sum_s r_sK(s,\mathrm{true})$. The three exact values are ${{NUM_UNIFORM_NEXT_PREDICTION}}$, ${{NUM_BIASED_NEXT_PREDICTION}}$ and
+${{NUM_EXACT_NEXT_PREDICTION}}$. The first two differ despite their common current state posterior.
 Redrawing a new hidden state would define another model and another prediction.
 The added assumption is stated here and in the method contract; it is not
 silently attributed to the original native campaign.
@@ -1720,20 +1720,20 @@ agree exactly with the direct products.
 {{WITNESS_SEQUENTIAL_TABLE}}
 
 The first observation makes the uniform and biased posteriors identical,
-$(1/4,3/4)$, but their second updates separate them. At $n=2$ the uniform
-posterior is $(1/10,9/10)$ with $Z_2=5/16$, whereas the biased posterior is
-$(2/11,9/11)$ with $Z_2=11/24$. For the third model it is
-$(12/13,1/13)$ with $Z_2=13/36$. A candidate that was exact after one
+${{NUM_UNIFORM_POSTERIOR}}$, but their second updates separate them. At $n=2$ the uniform
+posterior is ${{NUM_UNIFORM_STEP2_POSTERIOR}}$ with $Z_2={{NUM_UNIFORM_STEP2_EVIDENCE}}$, whereas the biased posterior is
+${{NUM_BIASED_STEP2_POSTERIOR}}$ with $Z_2={{NUM_BIASED_STEP2_EVIDENCE}}$. For the third model it is
+${{NUM_EXACT_STEP2_POSTERIOR}}$ with $Z_2={{NUM_EXACT_STEP2_EVIDENCE}}$. A candidate that was exact after one
 observation is therefore not automatically exact after a new observation.
 The kernels, not just the current posterior vectors, determine these
 trajectories. The equations also identify the persistence assumption as
 testable: independently redrawing the state before every observation would
 instead give prefix probability $Z_1^n$. For the uniform model at $n=2$ that
-would be $1/4$, rather than the persistent-state value $5/16$.
+would be ${{NUM_UNIFORM_REDRAWN_STEP2_EVIDENCE}}$, rather than the persistent-state value ${{NUM_UNIFORM_STEP2_EVIDENCE}}$.
 
 The forward simulation provides a separate, deliberately less exact view.
-For each model it generates 65,536 trajectories with a recorded fixed seed,
-samples the state once per trajectory, then samples the twelve observations
+For each model it generates {{NUM_SIMULATION_TRIALS}} trajectories with a recorded fixed seed,
+samples the state once per trajectory, then samples the {{NUM_SIMULATION_STEPS}} observations
 from that state's kernel. At each prefix it retains the integer number of
 surviving all-true trajectories and how many have latent state false.
 Dividing those counts gives an empirical prefix probability and, when the
@@ -1771,7 +1771,7 @@ claiming a larger agent model.
 The model-comparison path is different again. With equal prior probabilities
 on the uniform and biased models, their probability after an all-true prefix
 is obtained by normalizing their two $Z_n$ values. The biased-model
-probability changes from $4/7$ after one observation to $22/37$ after two.
+probability changes from ${{NUM_BIASED_MODEL_POSTERIOR}}$ after one observation to ${{NUM_BIASED_MODEL_POSTERIOR_STEP2}}$ after two.
 For a fixed model, the chain identity
 $\log Z_n=\sum_{t=0}^{n-1}\log a_t$ expresses the sequence probability as
 a sum of conditional log scores. Thus the difference of those cumulative

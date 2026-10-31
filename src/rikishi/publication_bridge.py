@@ -13,6 +13,7 @@ from pathlib import Path
 from rikishi.bridge_models import BridgeReport
 from rikishi.bridge_replay import validate_bridge_report
 from rikishi.manuscript_provenance import require_evidence
+from rikishi.publication_witness_numbers import witness_number_substitutions
 from rikishi.runtime_artifacts import read_regular
 
 
@@ -66,16 +67,19 @@ def load_bridge_context(directory: Path, *, decimal_places: int) -> BridgeContex
                      f"{row.evidence} | ({vectors[3]}) | ({vectors[4]}) |")
     from rikishi.witness_research import build_witness_research, research_tables
 
-    channel_table, scaling_table = research_tables(build_witness_research(report, digest))
+    derived = build_witness_research(report, digest)
+    channel_table, scaling_table = research_tables(derived)
     from rikishi.witness_dynamics import build_witness_dynamics, dynamics_table
 
-    sequential_table = dynamics_table(build_witness_dynamics(report, digest))
+    dynamics = build_witness_dynamics(report, digest)
+    sequential_table = dynamics_table(dynamics)
     from rikishi.witness_sequence_atlas import build_sequence_atlas, sequence_atlas_table
 
     mixed_table = sequence_atlas_table(build_sequence_atlas(report.witnesses, digest))
     require_evidence(sha256(read_regular(path)).hexdigest() == digest,
                      "Bridge report changed during publication context loading")
     return BridgeContext(report, {
+        **witness_number_substitutions(report, derived, dynamics, decimal_places=decimal_places),
         "BRIDGE_WITNESSES": str(report.summary.witnesses),
         "BRIDGE_SCENARIOS": str(report.summary.scenarios),
         "BRIDGE_NATIVE_RUNS": str(report.summary.total),

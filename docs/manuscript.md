@@ -328,6 +328,20 @@ observed `true` denotes the selected observation. The explorer's `q(false)` is
 the first candidate mass. Source and staged `bridge-verify` commands above must use the
 same independently retained bridge digest, separate from the inference digest.
 
+Inline worked numbers use the same authorities as the generated tables.
+[`publication_witness_numbers.py`](../src/rikishi/publication_witness_numbers.py)
+formats rational inputs, joints, posteriors, odds, transformed-state and
+observation results, two-observation checkpoints and simulation settings from
+the replayed witness report and its freshly derived research/dynamics payloads.
+The manuscript's `NUM_*` tokens consume those values during the existing single
+hydration pass. Decimal prose uses the publication precision with a separate
+decimal context; changing the caller's rounding cannot silently change it.
+The native verifier rederives the complete substitution map and compares it
+with the render receipt. Missing tokens fail closed. Universal mathematical
+constants, declared counterexample inputs, source line locators and bibliographic
+metadata retain their own roles; they are not measured result values.
+This formatting adds no campaign, Lean declaration or empirical claim.
+
 Bridge figures are generated from that verified packet and staged under
 `output/manuscript/figures/`, with web copies under `output/web/figures/`:
 

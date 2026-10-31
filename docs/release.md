@@ -55,8 +55,8 @@ research evidence require an explicit exposure review. See the
 [third-party inventory](../THIRD_PARTY_NOTICES.md). Preserve unrelated working
 deletions and local evidence; an archive exclusion is not a Git-history cleanup.
 
-Keep the PDF's actual embedded-font license and attribution files with its
-deposit notices. Check the selected PDF with `pdffonts` after regeneration;
+Keep the edition's actual embedded-font license and attribution files with its
+deposit notices. Check the selected document with `pdffonts` after regeneration;
 a previous edition's font inventory is not evidence about new bytes.
 
 For the review/release bundle, bind the actual Portable Document Format (PDF), optional Word/Hypertext Markup Language (HTML) editions,

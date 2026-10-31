@@ -8,6 +8,10 @@ The release checklist records the actual artifact and publication identities.
 
 ### Added
 
+- Producer-injected worked numerical prose, sharing exact witness, channel and
+  simulation authorities with the tables and figures, including rejecting
+  controls for missing inputs and mismatched payload bindings.
+
 - A separate finite one-step action planner and `active-demo` command, with exact
   transition/observation laws, explicit outcome preferences, numerical information
   gain, checked score decomposition and all numerical ties. Modular guides
