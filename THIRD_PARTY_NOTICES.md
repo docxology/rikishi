@@ -10,7 +10,7 @@ identify what is actually redistributed.
 | Material | Location and retained identity | Terms and attribution |
 | --- | --- | --- |
 | Harvard citation style | `config/references.csl`, Secure Hash Algorithm 256-bit (SHA-256) `0ca3d2c7c881cd98cdd81098b5349f5921edf430498aa9a5a41918621cf7cc45` | The file names Patrick O'Brien and declares Creative Commons Attribution-ShareAlike 3.0. Preserve its original rights information. Its license applies to the style, rather than assigning that license to every generated manuscript. |
-| Sigma compatibility patch | `config/patches/sigma-compound-type-guards.patch`, SHA-256 `184c6e055cd9cbb75950d3da1b5177f8efa95878ec917f54efd759a8f4f90889` | Applies to the separately pinned Sigma source. Sigma declares GPLv3. Preserve the upstream source and license identification with the patch; do not label upstream portions MIT. |
+| Sigma compatibility patch | `config/patches/sigma-compound-type-guards.patch`, SHA-256 `184c6e055cd9cbb75950d3da1b5177f8efa95878ec917f54efd759a8f4f90889` | Applies to the separately pinned Sigma source. Sigma declares GPLv3; its [complete pinned license](docs/licenses/sigma-GPL-3.0.txt) accompanies the patch. Preserve the upstream source and license identification with the patch; do not label upstream portions MIT. |
 | Quoted Suggested Upper Merged Ontology (SUMO) expressions and source-derived examples | Referenced in the manuscript and source-bound study/report inputs | The pinned `Merge.kif` identifies the Institute of Electrical and Electronics Engineers (IEEE), copyright 2004, and requires acknowledgment of IEEE as source/copyright owner. The manuscript retains that acknowledgment. Other SUMO files may carry different notices; no blanket license is inferred for the whole corpus. |
 
 The author has selected [CC BY 4.0 for the original manuscript and figures](LICENSE-PAPER.md).
@@ -64,7 +64,7 @@ redistribution or authorize rewriting shared history.
 
 The inspected manuscript embeds subsets of Latin Modern text and math fonts.
 These font programs retain the GUST Font License, based on the LaTeX Project
-Public License 1.3c or later. Keep the supplied
+Public License 1.3c or later; the [complete license text](docs/licenses/latex-project-public-license-1.3c.txt) is retained. Keep the supplied
 [text-font license](docs/licenses/latin-modern-GUST.txt),
 [math-font license](docs/licenses/latin-modern-math-GUST.txt),
 [text-font attribution](docs/licenses/latin-modern-README.txt) and

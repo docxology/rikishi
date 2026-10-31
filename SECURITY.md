@@ -7,16 +7,18 @@ a sandbox for untrusted archives, native executables or external source trees.
 
 ## Report privately
 
-Use GitHub's **Report a vulnerability** route in the repository's Security tab
-when that route is enabled. If it is unavailable, use an existing trusted private
-channel to the repository owner to arrange disclosure before sending sensitive
-details. Do not put credentials, exploit payloads, personal data or private
-research packets into a public issue.
+Email the maintainer privately at **danielarifriedman@gmail.com**, with
+`Rikishi security report` in the subject. This is the contact listed on
+[Daniel Ari Friedman's public GitHub profile](https://github.com/docxology).
+Use the minimum information needed to arrange secure handling of sensitive
+material. GitHub's **Report a vulnerability** route in the repository's Security
+tab is an additional option when enabled. Do not put credentials, exploit
+payloads, personal data or private research packets into a public issue.
 
-The public 1.0.0 checklist requires the maintainer to confirm an operational
-private reporting route or publish an explicit private security contact before
-release. This preparation does not claim that GitHub private reporting has been
-enabled or that a reporting service-level agreement exists.
+The explicit email contact supplies the private reporting route required by the
+release checklist. Its publication does not claim a tested email delivery, an
+enabled GitHub reporting feature, a response deadline or a maintenance
+service-level agreement.
 
 Include the affected version or source commit, environment, bounded reproducer,
 expected versus actual behavior, and the relevant file identities. Supply only
