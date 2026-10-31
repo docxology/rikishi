@@ -36,3 +36,39 @@ Source pins and acquisition methods are documented in
 Review the actual release package, embedded fonts and any optional evidence
 attachments before redistribution. Retain each material's original notices and
 do not bundle an authenticated/private cache merely because a local build used it.
+
+## Historical scaffold in Git
+
+The maintained source archives exclude `_template_resources/` and
+`template_reference/`. Export rules do not hide the Git tree or its history.
+Those historical copies retain these separate terms:
+
+- The original `template_code_project` scaffold at
+  `259125a197bce25e7d4fd8be7a466afa36678949` is MIT licensed, copyright
+  Daniel Ari Friedman, 2026. See its
+  [pinned license](https://github.com/docxology/template_code_project/blob/259125a197bce25e7d4fd8be7a466afa36678949/LICENSE)
+  and the original attribution in [LICENSE](LICENSE).
+- The copied rendering infrastructure records the `docxology/template` source
+  revision `d160eb9c90eec18e365117c3ccaef731c47d8604`. Its
+  [Apache 2.0 license](docs/licenses/template-Apache-2.0.txt) is preserved
+  verbatim. Its bundled Kmyth subtree also retains its own `LICENSE` and
+  `NOTICE`, including United States government contribution terms.
+- The historical Liberation 2.1.5 font bodies retain their bundled
+  `OFL.txt`, author attribution and provenance. They remain under the SIL Open
+  Font License 1.1; Rikishi's MIT and manuscript CC BY grants do not relicense them.
+
+Removing a scaffold from an exported archive does not remove its earlier
+redistribution or authorize rewriting shared history.
+
+## Fonts embedded in manuscript PDFs
+
+The inspected manuscript embeds subsets of Latin Modern text and math fonts.
+These font programs retain the GUST Font License, based on the LaTeX Project
+Public License 1.3c or later. Keep the supplied
+[text-font license](docs/licenses/latin-modern-GUST.txt),
+[math-font license](docs/licenses/latin-modern-math-GUST.txt),
+[text-font attribution](docs/licenses/latin-modern-README.txt) and
+[math-font attribution](docs/licenses/latin-modern-math-README.txt)
+with the manuscript deposit's notices. The original paper and figure license
+does not relicense the embedded font programs. A changed renderer or font
+selection requires inspection of that actual PDF and its corresponding notices.

@@ -48,6 +48,17 @@ reviewed third-party notices; do not relabel upstream material as MIT. Keep the
 source acquisition recipe, pins, public source locators and reproducibility
 instructions available without requiring private evidence trees.
 
+The maintained archive also excludes the historical `_template_resources/` and
+`template_reference/` scaffold copies. Their Git tree and history remain visible
+when the repository is made public, so their original notices and the historical
+research evidence require an explicit exposure review. See the
+[third-party inventory](../THIRD_PARTY_NOTICES.md). Preserve unrelated working
+deletions and local evidence; an archive exclusion is not a Git-history cleanup.
+
+Keep the PDF's actual embedded-font license and attribution files with its
+deposit notices. Check the selected PDF with `pdffonts` after regeneration;
+a previous edition's font inventory is not evidence about new bytes.
+
 For the review/release bundle, bind the actual Portable Document Format (PDF), optional Word/Hypertext Markup Language (HTML) editions,
 source/package archives, selected public data and figure supplements, and an
 honest verification summary. Record names, lengths, Secure Hash Algorithm 256-bit (SHA-256) digests and license
