@@ -4,6 +4,17 @@ A reproducible run identifies source bytes, environment, commands, and outputs.
 Rikishi separates the pinned ontology checkout, generated index, Sigma's writable
 knowledge base (KB), bounded proof problems, numerical examples, and publication artifacts.
 
+## Package build identity
+
+Runtime and development dependencies resolve through `uv.lock`; the release
+build backend is pinned separately to Hatchling 1.33.0 in `pyproject.toml`.
+Build from the frozen source with `uv build`, retain the wheel and source archive,
+and inspect the wheel's `WHEEL` generator field alongside their actual hashes.
+A successful installed-consumer check must use the supplied package bytes in a
+fresh environment, with both Python prefixes recorded. Source-archive builds,
+full Git-clone builds, native campaigns and cross-platform execution are distinct
+observations; one does not establish the others.
+
 ## What to retain
 
 | Evidence | Why it matters |
