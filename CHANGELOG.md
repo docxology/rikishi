@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Correct the portable bridge-output boundary test for workers without mounted
+  GitVault storage. It now checks the earlier storage rejection as well as the
+  occupied-target rejection, without accepting packet access or changing the
+  renderer's storage policy. The original hosted failure remains recorded.
+
 ## 1.0.0 — release candidate, not yet published
 
 This entry describes the planned first public release. A version number in source

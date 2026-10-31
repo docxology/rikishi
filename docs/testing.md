@@ -74,6 +74,14 @@ Keep source/version attribution when using those inputs; they are not relicensed
 as Rikishi MIT data. Downloaded inputs, native archives and research results must
 not be added to the source distribution merely to make tests pass.
 
+Bridge-figure output-boundary controls reject before opening the packet. On
+mounted project storage, an occupied destination raises `FileExistsError`; on a
+worker without mounted GitVault storage, the earlier storage guard raises the
+specific `BridgeFigureError` instead. Both are tested as rejection outcomes;
+packet-access `FileNotFoundError` is not accepted. Existing directories remain
+empty and aliases remain intact. Symlinked and missing parents retain their
+separate rejection controls. This does not permit rendering off GitVault.
+
 Portable selector:
 
 ```bash

@@ -183,14 +183,19 @@ def test_presentation_limits_reject_before_reading(dpi: int, places: int) -> Non
 def test_output_boundaries_reject_before_packet_access(tmp_path: Path) -> None:
     occupied = tmp_path / "occupied"
     occupied.mkdir()
-    with pytest.raises(FileExistsError):
-        render_bridge_figures(tmp_path / "missing.json", occupied,
-                              trusted_report_sha256="0" * 64)
     alias = tmp_path / "alias"
     alias.symlink_to(occupied, target_is_directory=True)
-    with pytest.raises(FileExistsError):
-        render_bridge_figures(tmp_path / "missing.json", alias,
-                              trusted_report_sha256="0" * 64)
+    for destination in (occupied, alias):
+        # Without mounted project storage, its guard rejects before occupancy
+        # is considered. Both paths must reject before reading missing.json;
+        # a packet-access FileNotFoundError is deliberately not accepted.
+        with pytest.raises((FileExistsError, BridgeFigureError)) as failure:
+            render_bridge_figures(tmp_path / "missing.json", destination,
+                                  trusted_report_sha256="0" * 64)
+        if isinstance(failure.value, BridgeFigureError):
+            assert str(failure.value) == "Output parent must exist on mounted project storage"
+    assert occupied.is_dir() and list(occupied.iterdir()) == []
+    assert alias.is_symlink() and alias.resolve() == occupied
     with pytest.raises(ArtifactError, match="symlink"):
         render_bridge_figures(tmp_path / "missing.json", alias / "new",
                               trusted_report_sha256="0" * 64)
