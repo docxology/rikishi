@@ -10,6 +10,8 @@ from typing import TYPE_CHECKING, Final
 
 from rikishi.bridge_figures import BridgeFigureInputs, _check_geometry
 from rikishi.publication_abstracts import ABSTRACT_NAMES
+from rikishi.publication_witness_numbers import witness_base_numbers
+from rikishi.witness_dynamics import sequential_conditioning
 
 if TYPE_CHECKING:
     from matplotlib.figure import Figure
@@ -60,6 +62,8 @@ def _table(fig: Figure, bottom: float, height: float, labels: list[str],
 
 
 def _source(inputs: BridgeFigureInputs) -> Figure:
+    uniform = next(w for w in inputs.report.witnesses if w.id == "uniform-prior")
+    numbers = witness_base_numbers(uniform)
     fig = _base(inputs, "From SUMO expressions to a finite witness",
                 "SUMO = Suggested Upper Merged Ontology; FEP = Free Energy Principle.\n"
                 "One authored interpretation; three independently checked kinds of consequence.")
@@ -84,19 +88,20 @@ def _source(inputs: BridgeFigureInputs) -> Figure:
             ["Negated consequence", cases[4].observed]], [.34, .66])
     _block(fig, .497, "3  Interpretation arrow := declared data, not a transported proof",
            "s,o : Bool; index order [false,true]; observe o=true. Set L(s)=K(s,true).\n"
-           "UniformPrior: p=(1/2,1/2), L=(1/4,3/4), q=(1/2,1/2).\n"
-           "K(false,·)=(3/4,1/4); K(true,·)=(1/4,3/4): each row sums to one.\n"
-           "Joint pL=(1/8,3/8); evidence Z=1/2; posterior r=(1/4,3/4).")
+           f"UniformPrior: p={numbers['PRIOR']}, L={numbers['LIKELIHOOD']}, q={numbers['CANDIDATE']}.\n"
+           f"K(false,·)={numbers['KERNEL_FALSE']}; K(true,·)={numbers['KERNEL_TRUE']}: each row sums to one.\n"
+           f"Joint pL={numbers['JOINT']}; evidence Z={numbers['EVIDENCE']}; posterior r={numbers['POSTERIOR']}.")
     _block(fig, .366, "4  Lean arrow := theorem application under typed hypotheses",
            "FEP.FiniteLaw Bool: nonnegative mass + sum_one.\n"
            "FEP.FiniteKernel Bool Bool: nonnegative mass + sum_one for each input.\n"
            "evidence_positive : 0 < predictive prior kernel true permits conditioning.\n"
            "posterior_mul_predictive gives r(s) × Z = p(s) × K(s,true).\n"
-           "Here: (1/4)(1/2)=1/8 and (3/4)(1/2)=3/8, for the two states.")
+           f"Here: {numbers['RECONSTRUCTION_FALSE_PLAIN']} and "
+           f"{numbers['RECONSTRUCTION_TRUE_PLAIN']}, for the two states.")
     _block(fig, .215, "5  Identity, measurement and falsification remain separate",
            "UniformPrior.posterior_reconstruction instantiates the reconstruction theorem.\n"
            "kl_nonnegative / kl_self / kl_decomposition concern real finite divergence.\n"
-           "Python + 80-digit Decimal evaluate shared inputs; floating residuals are retained.\n"
+           f"Python + {inputs.study.decimal_precision}-digit Decimal evaluate shared inputs; floating residuals are retained.\n"
            "Wrong normalization, wrong posterior and admitted-proof controls must reject.")
     _text(fig, .035, .09, "No general SUMO → Lean preservation theorem; rational KIF labels are not arithmetic.",
           size=9, color=_COPPER)
@@ -120,6 +125,9 @@ def _witness(inputs: BridgeFigureInputs) -> Figure:
            rows, [.06, .19, .18, .20, .09, .28])
     uniform = inputs.report.numerical[0].result
     exact = inputs.report.numerical[2].result
+    numbers = witness_base_numbers(inputs.report.witnesses[0])
+    factor = Fraction(inputs.report.numerical[1].evidence) / Fraction(
+        inputs.report.numerical[0].evidence)
     _block(fig, .731, "Registered one-observation calculation: exact rationals + checked numerics",
            "Z = Σₛ p(s)L(s) > 0; r(s) = p(s)L(s)/Z; surprise = −ln Z.\n"
            "F(q) = Σₛ q(s) ln[q(s)/(p(s)L(s))] = KL(q || r) − ln Z.\n"
@@ -138,8 +146,8 @@ def _witness(inputs: BridgeFigureInputs) -> Figure:
     ax.legend(fontsize=9, frameon=False, ncol=3, loc="upper center")
     ax.grid(alpha=.2)
     _text(fig, .035, .329,
-          "U and B share r=(1/4,3/4), hence identical KL curves at a common q.\n"
-          "Their F curves differ by ln(4/3); registered candidates q are different.")
+          f"U and B share r={numbers['POSTERIOR']}, hence identical KL curves at a common q.\n"
+          f"Their F curves differ by ln({factor}); registered candidates q are different.")
     _block(fig, .268, "DERIVED experiments: mathematical consequences, not new Lean / ATP runs",
            "Repeat true twice, conditionally independent given s: r₂(s) ∝ p(s)L(s)².\n"
            + "; ".join(repeated[:2]) + ".\n" + repeated[2]
@@ -183,7 +191,7 @@ def _evidence(inputs: BridgeFigureInputs) -> Figure:
            f"{len(report.lean.environments)} paired Lean environments; "
            f"{sum(c.rejected for c in report.lean.controls)}/{len(report.lean.controls)} controls rejected.\n"
            f"{sum(n.passed for n in report.numerical)}/{len(report.numerical)} numerical rows passed; "
-           "exact rational posterior + 80-digit Decimal reference.")
+           f"exact rational posterior + {inputs.study.decimal_precision}-digit Decimal reference.")
     _block(fig, .303, "Counterexamples identify what the bridge does not preserve",
            "Model identity: U ≠ B despite equal one-step posteriors; prior and kernel differ.\n"
            "Evidence scaling: L′=cL gives Z′=cZ and unchanged r when 0<cL(s)≤1.\n"
@@ -198,6 +206,23 @@ def _evidence(inputs: BridgeFigureInputs) -> Figure:
     return fig
 
 
+def _check_contrasts(inputs: BridgeFigureInputs) -> None:
+    """Reject inputs that would make the diagrams' qualitative statements false."""
+    witnesses = inputs.report.witnesses
+    if tuple(w.id for w in witnesses) != ("uniform-prior", "biased-prior", "exact-candidate"):
+        raise ValueError("Graphical abstracts require their declared witness order")
+    values = [witness_base_numbers(witness) for witness in witnesses]
+    repeated = [sequential_conditioning(tuple(map(Fraction, w.prior)),
+                                       tuple(map(Fraction, w.likelihood)), 2)[2].posterior
+                for w in witnesses]
+    if (values[0]["POSTERIOR"] != values[1]["POSTERIOR"]
+            or repeated[0] == repeated[1]
+            or values[0]["EVIDENCE"] == values[1]["EVIDENCE"]
+            or values[0]["CANDIDATE"] == values[1]["CANDIDATE"]
+            or values[2]["CANDIDATE"] != values[2]["POSTERIOR"]):
+        raise ValueError("Graphical abstracts require their stated witness contrasts")
+
+
 def render_witness_abstracts(inputs: BridgeFigureInputs, directory: Path) -> list[Path]:
     """Render three checked diagrams from an already replay-verified immutable bridge input."""
     import matplotlib
@@ -206,6 +231,7 @@ def render_witness_abstracts(inputs: BridgeFigureInputs, directory: Path) -> lis
              "witness-abstracts.json"]
     if any((directory / name).exists() or (directory / name).is_symlink() for name in names):
         raise FileExistsError("Preserve existing graphical abstracts before rendering")
+    _check_contrasts(inputs)
     directory.mkdir(parents=True, exist_ok=True)
     result: list[Path] = []
     with matplotlib.rc_context({"font.family": "DejaVu Sans", "svg.fonttype": "none",

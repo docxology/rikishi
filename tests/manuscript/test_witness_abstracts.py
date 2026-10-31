@@ -18,7 +18,7 @@ from rikishi.publication_abstracts import (
     abstract_pages_latex,
     abstract_pages_markdown,
 )
-from rikishi.witness_abstracts import render_witness_abstracts
+from rikishi.witness_abstracts import _source, render_witness_abstracts
 
 if TYPE_CHECKING:
     from conftest import BridgePacket
@@ -96,6 +96,44 @@ def test_actual_abstract_exports_bind_the_report_and_preserve_legible_svg_text(
             image.load()
             assert image.size == (2266, 2421)
             assert bridge_packet.sha256 in image.info["Description"]
+
+
+def test_source_abstract_formats_actual_witness_values(bridge_packet: BridgePacket) -> None:
+    # The low-level formatter is exercised with a mathematical mutation only;
+    # no authentication or native result is claimed for this changed object.
+    inputs = build_bridge_figure_inputs(bridge_packet.path,
+                                       trusted_report_sha256=bridge_packet.sha256)
+    first = inputs.report.witnesses[0].model_copy(update={"likelihood": ("1/8", "7/8")})
+    report = inputs.report.model_copy(update={"witnesses": (first, *inputs.report.witnesses[1:])})
+    figure = _source(inputs.model_copy(update={"report": report}))
+    try:
+        text = "\n".join(artist.get_text() for artist in figure.texts)
+        assert "L=(1/8,7/8)" in text
+        assert "Joint pL=(1/16,7/16); evidence Z=1/2; posterior r=(1/8,7/8)." in text
+        assert "Here: (1/8)(1/2)=1/16 and (7/8)(1/2)=7/16" in text
+    finally:
+        figure.clear()
+
+
+@pytest.mark.parametrize("mutation", ["posterior", "candidate", "order"])
+def test_abstracts_reject_false_qualitative_contrasts_before_writing(
+    bridge_packet: BridgePacket, tmp_path: Path, mutation: str,
+) -> None:
+    inputs = build_bridge_figure_inputs(bridge_packet.path,
+                                       trusted_report_sha256=bridge_packet.sha256)
+    witnesses = list(inputs.report.witnesses)
+    match mutation:
+        case "posterior":
+            witnesses[0] = witnesses[0].model_copy(update={"likelihood": ("1/8", "7/8")})
+        case "candidate":
+            witnesses[2] = witnesses[2].model_copy(update={"candidate": ("1/2", "1/2")})
+        case "order":
+            witnesses.reverse()
+    report = inputs.report.model_copy(update={"witnesses": tuple(witnesses)})
+    output = tmp_path / "uncreated"
+    with pytest.raises(ValueError, match="Graphical abstracts require"):
+        render_witness_abstracts(inputs.model_copy(update={"report": report}), output)
+    assert not output.exists()
 
 
 def test_export_rejects_existing_output_without_overwriting(

@@ -340,7 +340,11 @@ The native verifier rederives the complete substitution map and compares it
 with the render receipt. Missing tokens fail closed. Universal mathematical
 constants, declared counterexample inputs, source line locators and bibliographic
 metadata retain their own roles; they are not measured result values.
-This formatting adds no campaign, Lean declaration or empirical claim.
+The graphical abstracts use the same formatter for their
+worked inputs, conditioning products, posteriors and evidence. Their exporter
+also rejects data that would contradict the stated equal-posterior, distinct
+trajectory and exact-candidate contrasts before writing figures. This formatting
+adds no campaign, Lean declaration or empirical claim.
 
 Bridge figures are generated from that verified packet and staged under
 `output/manuscript/figures/`, with web copies under `output/web/figures/`:

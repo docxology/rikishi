@@ -12,7 +12,11 @@ import pytest
 from rikishi.bridge_models import BridgeReport
 from rikishi.manuscript_provenance import CorpusMeasurement, ProvenanceError, hydrate_manuscript
 from rikishi.ontology import OntologyIndex
-from rikishi.publication_witness_numbers import _tex, witness_number_substitutions
+from rikishi.publication_witness_numbers import (
+    _tex,
+    witness_base_numbers,
+    witness_number_substitutions,
+)
 from rikishi.witness_dynamics import WitnessDynamics, build_witness_dynamics
 from rikishi.witness_research import WitnessResearch, build_witness_research
 
@@ -64,6 +68,18 @@ def test_changed_mathematical_inputs_change_prose_without_new_native_claims(
     assert values["NUM_UNIFORM_POSTERIOR"] == "(1/8,7/8)"
     assert values["NUM_UNIFORM_NEXT_PREDICTION"] == "25/32"
     assert values["NUM_UNIFORM_COARSE_JOINT"] == "(5/32,11/32)"
+
+
+def test_basic_display_uses_exact_rationals_and_requires_supported_odds(prose_inputs: Inputs) -> None:
+    witness = prose_inputs[0].witnesses[0]
+    equivalent = witness.model_copy(update={"candidate": ("2/4", "2/4")})
+    values = witness_base_numbers(equivalent)
+    assert values["CANDIDATE"] == "(1/2,1/2)"
+    assert values["KERNEL_FALSE"] == "(3/4,1/4)"
+    assert values["RECONSTRUCTION_TRUE_PLAIN"] == "(3/4)(1/2)=3/8"
+    unsupported = witness.model_copy(update={"likelihood": ("0", "1")})
+    with pytest.raises(ValueError, match="require full prior and likelihood support"):
+        witness_base_numbers(unsupported)
 
 
 def test_manuscript_uses_only_resolvable_inline_number_tokens(
