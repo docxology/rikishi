@@ -275,7 +275,7 @@ def build_report(index_path: Path, output_dir: Path) -> ReportArtifacts:
         f"{measurements['zero_degree_terms']:,} of {measurements['term_denominator']:,} indexed symbols have zero degree in this restricted graph.\n\n"
         "Degree includes both endpoints (self-loops count twice). The graph excludes nested assertions and inferred closure. "
         "No metric establishes ontology consistency, semantic completeness, or independent factual content. "
-        "See docs/metrics.md for denominators and analytics.json for complete distributions.\n"
+        "See docs/sumo/metrics.md for denominators and analytics.json for complete distributions.\n"
     )
     (output_dir / "measurements.md").write_text(summary, encoding="utf-8")
     template = (STATIC / "report.html").read_text(encoding="utf-8")

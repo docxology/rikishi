@@ -13,7 +13,7 @@ from rikishi.publication_inference import load_inference_context
 from rikishi.runtime_artifacts import ArtifactError
 
 ROOT = Path(__file__).resolve().parents[2]
-GUIDE = ROOT / "docs/manuscript.md"
+GUIDE = ROOT / "docs/publication/manuscript.md"
 REPORT = Path("output/inference/inference-report.json")
 STAGED_REPORT = Path("output/manuscript/inference/inference-report.json")
 

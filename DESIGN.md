@@ -5,7 +5,7 @@
 This contract describes the live corpus dashboard and portable corpus report.
 The manuscript reader has its own full-width 12 mm publication policy, fixed
 light paper, 17 px body text and 15 px code/secondary floor. See
-[manuscript methods](docs/manuscript.md) and [current state](docs/current-state.md)
+[manuscript methods](docs/publication/manuscript.md) and [current state](docs/development/current-state.md)
 for that distinction and the exact saved verification scope.
 
 ## 1. Atmosphere and identity
@@ -154,8 +154,8 @@ screen-reader user inspecting row populations and exact formulas; phone user
 filtering a corpus without page overflow. These are design requirements, not a
 claim of complete accessibility certification. Actual screen-reader operation,
 full keyboard traversal, physical-device behavior and other unverified scopes
-remain explicit in the [current-state register](docs/current-state.md) and
-[TODO](docs/TODO.md). Browser failures and unavailable audit tools must be
+remain explicit in the [current-state register](docs/development/current-state.md) and
+[TODO](docs/development/roadmap.md). Browser failures and unavailable audit tools must be
 recorded without invented scores.
 
 ## 9. Publication reader

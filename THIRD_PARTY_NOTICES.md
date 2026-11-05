@@ -24,8 +24,8 @@ The complete SUMO corpus, Sigma installations, theorem-prover executables,
 Java/toolchains, `fep_formal` checkout, Lean/mathlib caches, original alignment
 workbook and browser/font caches are not supplied by installing Rikishi's wheel.
 Source pins and acquisition methods are documented in
-[installation](docs/installation.md), [runtime](docs/runtime.md),
-[research](docs/research.md), and [manuscript methods](docs/manuscript.md).
+[installation](docs/getting-started/installation.md), [runtime](docs/runtime/runtime.md),
+[research](docs/research/research.md), and [manuscript methods](docs/publication/manuscript.md).
 
 - [Pinned SUMO source and its IEEE notice](https://github.com/ontologyportal/sumo/blob/efcd059f8feebfe3488a09f575f88d4d009b1e5c/Merge.kif).
 - [Pinned Sigma license](https://github.com/ontologyportal/sigmakee/blob/d3cc7b43b38b0b45692291a1b33fe2b1a3de0095/LICENSE).

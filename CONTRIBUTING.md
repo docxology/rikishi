@@ -3,8 +3,8 @@
 Rikishi keeps source expressions, inference outcomes, finite calculations and
 formal statements as separate evidence objects. Contributions should make those
 boundaries easier to inspect and reproduce. Start with the
-[documentation map](docs/README.md), [installation guide](docs/installation.md),
-[method architecture](docs/architecture.md), and [prioritized backlog](docs/TODO.md).
+[documentation map](docs/README.md), [installation guide](docs/getting-started/installation.md),
+[method architecture](docs/methods/architecture.md), and [prioritized backlog](docs/development/roadmap.md).
 
 ## Make one coherent change
 
@@ -52,7 +52,7 @@ commands that mutate or test canonical state. From the vault root, for example:
 This example assumes prerequisites and the locked environment are already
 prepared. Select and verify the actual `RIKISHI_CHROMIUM` executable, stop only
 the Rikishi Sigma instance you own through its supported lifecycle, and follow
-the full [testing prerequisites](docs/testing.md). Keep the selected temporary
+the full [testing prerequisites](docs/development/testing.md). Keep the selected temporary
 tree after failure for inspection; do not prune shared pytest roots or another
 owner's artifacts.
 
@@ -75,7 +75,7 @@ fabricated successes or silently removed tests.
 
 For manuscript changes, regenerate from the declared packets and pinned
 renderer, then inspect every actual page and figure. Read the
-[review protocol](docs/review.md). Match documentation links, public CLI/application programming interface (API)
+[review protocol](docs/publication/review.md). Match documentation links, public CLI/application programming interface (API)
 examples, package data and citation metadata to the resulting source. Author
 agent skills under `.agents/skills/` and update their `skills/` projection with
 the repository's checked synchronization method.
@@ -84,4 +84,4 @@ Submit a bounded description of the resulting behavior, relevant before/after
 evidence, actual tests and remaining limitations. Keep independent review
 separate from the builder's verification. A contribution or local test pass does
 not authorize a release, visibility change, digital object identifier (DOI) deposit or scientific claim;
-those follow the [release process](docs/release.md).
+those follow the [release process](docs/publication/release.md).

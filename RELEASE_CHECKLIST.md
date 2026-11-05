@@ -4,8 +4,8 @@ Use this checklist for **1.1.0** source and artifact qualification. The existing
 [1.0.0 GitHub release](https://github.com/docxology/rikishi/releases/tag/v1.0.0)
 is published and remains intact. These boxes apply only to the new candidate;
 mark an item for its exact source and artifacts and retain the evidence locator.
-See [release methods](docs/release.md) and
-[candidate notes](docs/release-notes-1.1.0.md).
+See [release methods](docs/publication/release.md) and
+[candidate notes](docs/publication/release-notes-1.1.0.md).
 
 ## Candidate and package
 

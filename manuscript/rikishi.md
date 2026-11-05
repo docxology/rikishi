@@ -97,6 +97,44 @@ must be identified separately. Loading additional files changes the theory under
 investigation. Rikishi's source lock, file manifest, and runtime profile make that
 selection inspectable [@sumoSource].
 
+## Vocabulary, sentences and interpretations {#sec:sumo-reading-levels}
+
+An upper ontology offers a reusable account of what kinds of things a domain
+model talks about. SUMO makes that account explicit through named categories,
+relations, function symbols and axioms. A physical execution, a proposition that
+specifies a model, a number used in a calculation and an agent involved in an
+execution can therefore receive different descriptions even when an application
+handles them in one software object. Choosing the description is a modeling
+commitment: it determines which inherited constraints and consequences apply
+[@niles2001sumo; @sumoSource].
+
+Three levels help a reader follow the notation. A **symbol** names something in
+the vocabulary. A **sentence** uses symbols and logical operators to make an
+assertion. An **interpretation** supplies a domain and meanings for those symbols;
+it is a model of a selected theory when it satisfies that theory's sentences.
+Counting symbols describes a source inventory. Following an asserted taxonomy
+edge describes a syntactic projection. Establishing a consequence requires the
+selected axioms and their interpretation. These activities answer different
+questions even when their displays contain the same names.
+
+The distinctive combination is a broad shared vocabulary with expressive,
+axiomatized relationships. For example, the existing source classifications of
+`ProbabilityFn` describe a function entity, while an occurrence of that function
+inside a term denotes a value under an interpretation. Likewise, `agent` names a
+relation that can itself be classified and given a signature; using it as the
+head of an assertion relates a process to a participant. Capitalization and
+English resemblance are useful reading cues, but the surrounding formulas supply
+the classifications. A lexical match to “agent” cannot decide whether the intended
+referent is that relation or an entity belonging to an agent class [@sumoSource].
+
+For a scientific extension this changes the first question from “which label
+looks similar?” to “what entity or relationship does the proposed expression
+commit us to?” The next questions concern its argument roles, conditions of
+application and expected consequences. A source file can contain both logical
+axioms and documentation or presentation assertions. Documentation explains an
+intended reading, while logical constraints must be located in active formulas;
+commented-out historical text does not add an axiom to the selected theory.
+
 ## Modeling commitments and source interpretation {#sec:modeling-commitments-and-source-interpretation}
 
 SUMO distinguishes membership from specialization. An `instance` assertion places
@@ -167,6 +205,44 @@ and fixed predicate symbols in separate target namespaces and records any finite
 predicate specialization explicitly. Its representational choice is a bounded
 encoding decision, not a theorem that all source metamodeling is preserved.
 
+## Read a source expression from the outside in {#sec:sumo-source-reading}
+
+SUO-KIF uses parenthesized prefix notation: the first item identifies an operator,
+predicate or function and the following items are its arguments. The outer
+operator determines the role of everything inside it. A predicate application
+forms a formula, which serves as a closed sentence once variable scope is fixed;
+a function application forms a term used inside a formula.
+Parentheses therefore mark logical structure, rather than simply grouping words
+in a taxonomy [@pease2009suokif].
+
+| Source feature | Reading task | Consequence for an operator |
+| --- | --- | --- |
+| An `instance` or `subclass` assertion | Determine whether the assertion concerns membership or inclusion between classes. | Preserve the relation label and argument order. |
+| A `domain` or `domainSubclass` assertion | Determine whether an argument is constrained by membership in a class or by subclass inclusion. | Keep the argument position and the kind of restriction. |
+| A function term | Identify the denoted value and the applicable result restrictions. | Naming a function does not execute a numerical algorithm. |
+| An implication or biconditional | Read the entire antecedent and consequent, including their scope. | A nested occurrence does not become an unconditional fact. |
+| `forall` and `exists` | Locate each variable's binding and the order of quantifiers. | A witness that may depend on each object differs from one common witness. |
+| A formula used as an argument | Identify its temporal, epistemic or other context. | An embedded sentence cannot be detached and asserted without justification. |
+
+Ordinary variables are written with a question mark; row variables denote
+argument sequences. A variable in predicate position calls for an interpretation
+of relations, rather than merely replacing an object name. These features account
+for much of the distance between readable source and fixed-arity first-order
+prover input. The source manual also distinguishes the outer interpretation of
+free assertion variables from that of free query variables; explicit quantifiers
+make a worked example's intended scope portable between those uses
+[@pease2009suokif].
+
+An argument signature has two connected roles. It expresses an intended logical
+restriction, and tools may use that restriction for checking, preprocessing or
+adding type guards. The operational policy must be identified separately. For
+example, the `agent` signature discussed below puts the process in one argument
+position and the participant in another. A term search can display that
+restriction. A type checker can inspect an application against it. A translated
+query can include generated guards. None of these operations is specified merely
+by drawing an arrow between the two argument names [@sumoSource;
+@pease2023translation].
+
 ## SUO-KIF and reasoning translations {#sec:suo-kif-and-reasoning-translations}
 
 SUO-KIF provides authoring constructs that require care when mapped to an automated
@@ -225,6 +301,34 @@ The alternatives address different research problems:
 This comparison explains the design choice to retain both source and target
 problems. Reusing a prover does not make these constructions interchangeable;
 changing the axiom set or interpretation changes the question being answered.
+
+## Incomplete descriptions and logical consequence {#sec:sumo-open-world}
+
+A theory describes the interpretations it permits. A statement follows from that
+theory when every permitted interpretation satisfies it. If a source inventory
+contains no matching assertion, an asserted-edge query can report that absence;
+it has not thereby established the statement's negation. The same distinction
+applies when a bounded prover finds no proof. The statement may require other
+axioms, a different search, or an interpretation in which it is independent of
+the selected commitments. Explicit negation and operational failure have different
+meanings [@pease2009suokif].
+
+For classical reasoning, adding axioms retains existing consequences but can
+reduce the permitted interpretations, potentially to none. Consistency controls
+therefore matter when an extension or a translated background is loaded. If a
+background is inconsistent, classical entailment alone cannot supply the intended
+contrast between a positive and a negative competency question. Rikishi tests
+backgrounds and selected premise removals separately and retains an inconclusive
+query outcome when its native search times out.
+
+The symbol inventory also supplies no automatic argument that all possible
+entities have been named, or that different names denote different entities.
+Any domain-closure or distinctness assumptions belong in the identified axioms
+or target-language policy. The laboratory's explicit function-free fragment,
+object and predicate namespaces, and absence of an implicit unique-names rule
+make that choice inspectable. This is why an ontology search result, a finite
+countermodel and an empirical observation cannot share an undifferentiated
+“true/false” label.
 
 ## Sigma engineering and lexical mappings {#sec:sigma-engineering-and-lexical-mappings}
 

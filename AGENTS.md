@@ -15,16 +15,16 @@ A check must reject its negative control; retain failed executions as evidence.
 Keep SUMO, Sigma and dependency revisions pinned. Preserve source file/line and
 input hashes with results. Parsed formulas, asserted edges, ATP outcomes, finite
 calculations and Lean proofs have distinct acceptance scopes. Read
-[method contracts](docs/architecture.md) before changing those scopes and
-[runtime findings](docs/runtime.md) before interpreting native inference.
-For alignment experiments, read [the finite study contract](docs/research.md)
+[method contracts](docs/methods/architecture.md) before changing those scopes and
+[runtime findings](docs/runtime/runtime.md) before interpreting native inference.
+For alignment experiments, read [the finite study contract](docs/research/research.md)
 before changing its encoding, expected polarities or numerical tolerances.
 For corpus filters, pagination, graph diagnostics or source paths, read
-[ontology analysis](docs/ontology-analysis.md); share its methods across transports.
+[ontology analysis](docs/sumo/ontology-analysis.md); share its methods across transports.
 
 Use the verified canonical template snapshot for rendering; regenerate reports
-before the manuscript. See [testing](docs/testing.md) for gates and
-[manuscript methods](docs/manuscript.md) for artifact verification.
+before the manuscript. See [testing](docs/development/testing.md) for gates and
+[manuscript methods](docs/publication/manuscript.md) for artifact verification.
 Keep canonical upstream and `fep_formal` checkouts unchanged. Upstream reports need
 an independently reproduced finding and reviewed public evidence; private research
 stays private. Record current acceptance evidence under `.omo/evidence/`.

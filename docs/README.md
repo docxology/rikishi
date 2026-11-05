@@ -1,72 +1,59 @@
 # Rikishi documentation
 
-Start with the [project README](../README.md) for installation and executable
-commands. Use these guides for the corresponding research or operator task.
-The source theory is the Suggested Upper Merged Ontology (SUMO). Its Standard
-Upper Ontology Knowledge Interchange Format (SUO-KIF) source, automated theorem
-proving (ATP) results, numerical calculations, and formal proofs have distinct
-evidence scopes. The [glossary](glossary.md) explains these terms and result statuses.
+Rikishi is a workbench for the Suggested Upper Merged Ontology (SUMO). Begin
+with the ontology's commitments and its Standard Upper Ontology Knowledge
+Interchange Format (SUO-KIF) source language, then choose the system or workflow
+that answers your question. The source theory, a graph projection, a translated
+reasoning problem and a finite calculation each carry different information.
 
-| Task | Guide |
-| --- | --- |
-| Understand SUMO, FEP_Formal and simulation through one worked case | [Conceptual and worked guide](sumo-fep-simulations.md) |
-| Distinguish belief updating from prospective action and run the one-step planner | [Active Inference methods](active-inference.md) |
-| Understand the current candidate and required qualification | [Current state](current-state.md) |
-| Install a supported source/package workflow | [Installation and support](installation.md) |
-| Review the actual current manuscript and artifacts | [Review guide](review.md) |
-| Prepare a versioned GitHub/Zenodo publication | [Release methods](release.md), [checklist](../RELEASE_CHECKLIST.md) |
-| Contribute or report a security concern | [Contributing](../CONTRIBUTING.md), [security](../SECURITY.md) |
-| Choose the next minor, medium or major task | [Prioritized TODO](TODO.md) |
-| Complete a first research workflow | [Tutorial](tutorial.md) |
-| Understand and run controlled source-bound inference | [Inference laboratory](inference-tutorial.md) |
-| Decode terminology and distinguish proof claims | [Glossary](glossary.md) |
-| Develop a proposed ontology extension | [Modeling](modeling.md) |
-| Preserve and reproduce evidence | [Reproducibility](reproducibility.md) |
-| Install and diagnose actual SUMO tools | [Runtime](runtime.md) |
-| Understand source, index, and reasoning boundaries | [Architecture](architecture.md) |
-| Explore the visual interface | [Dashboard](dashboard.md) |
-| Connect Hypertext Transfer Protocol (HTTP) and Model Context Protocol (MCP) clients | [Interfaces](API.md) |
-| Interpret the finite free-energy example | [Free Energy Principle (FEP) connections](fep.md) |
-| Execute and replay the selected alignment campaign | [Finite research study](research.md) |
-| Connect shared rational witnesses across numerical, Lean and SUMO obligations | [Bridge walkthrough](tutorial.md#connect-one-finite-witness-across-representations), [interfaces](API.md), [method contract](bridge-methods.md) |
-| Inspect executable event transport and its separate Lean obligations | [Restricted semantic transport](semantic-transport.md) |
-| Rebuild source-only isolated Sigma caches and controls | [Fresh cache inheritance](cache-inheritance.md) |
-| Reproduce Portable Document Format (PDF), Word, and Hypertext Markup Language (HTML) editions | [Manuscript](manuscript.md) |
-| Inspect Word geometry, hyperlink/caption policy and exact native-reference custody | [Python interfaces](API.md#office-page-policy), [custody contract](architecture.md#office-reference-custody-and-page-policy) |
-| Preserve final Word rows and inspect the bounded math serialization checks | [Content interfaces](API.md#office-content-projection-and-math), [content custody](architecture.md#final-word-content-custody), [manuscript recipe](manuscript.md#final-word-content-projection-and-math-checks) |
-| Evaluate acceptance evidence | [Verification](verification.md) |
-| Run portable and full quality gates | [Testing](testing.md) |
-| Interpret corpus measurement denominators | [Metrics](metrics.md) |
-| Search complete formulas and inspect taxonomy structure | [Ontology analysis](ontology-analysis.md) |
-| Reproduce SUMO-specific worked examples | [Source demonstrations](sumo-demonstrations.md) |
-| Interpret the graphical abstract and publication figures | [Visualization methods](visualizations.md) |
-| Inspect campaign controls in print and the offline explorer | [Research visualizations](research-visualizations.md) |
-| Trace claims to primary sources | [Scholarship](scholarship.md) |
-| Relate Active Inference alignment precedent to a testable proposal | [Precedent and alignment](precedent-alignment.md) |
-| Prepare a justified SUMO issue or pull request (PR) | [Upstream contributions](contributing-upstream.md) |
+## Learn the ontology and its language
 
-## Follow the evidence
+Read these three guides in order:
 
-Machine-readable proposed correspondences are in
-[the mapping configuration](../config/fep_mappings.json).
-The [finite example](../examples/fep_demo.py) and
-[method contract](bridge-methods.md) distinguish arithmetic, source observations,
-controlled prover runs and formal statements. The read-only interfaces inspect
-retained evidence; they do not execute solvers.
+1. [Ontology commitments](sumo/ontology.md): entities, classes, membership,
+   specialization, signatures, metamodeling and incomplete knowledge.
+2. [Reading the source language](sumo/language.md): prefix notation, logical
+   scope, ordinary and row variables, functions, relation arguments and contexts.
+3. [Systems and translations](sumo/systems.md): Sigma Knowledge Engineering
+   Environment (KEE), native provers, target logics, lexical mappings and related
+   ontology representations.
+
+Continue with the [pinned source demonstrations](sumo/sumo-demonstrations.md)
+to connect those ideas to complete formulas and source locations. The
+[ontology-analysis guide](sumo/ontology-analysis.md) explains formula search and
+Rikishi's restricted asserted-edge projection. The [modeling guide](sumo/modeling.md)
+helps turn a domain idea into explicit assumptions and competency questions.
+
+## Choose a working path
+
+| Your aim | Start here | Continue with |
+| --- | --- | --- |
+| Install and complete a first workflow | [Getting started](getting-started/README.md) | [Installation](getting-started/installation.md), [tutorial](getting-started/tutorial.md), [glossary](getting-started/glossary.md) |
+| Understand and extend SUMO | [Ontology and source](sumo/README.md) | [Modeling](sumo/modeling.md), [metrics](sumo/metrics.md), [upstream contributions](sumo/contributing-upstream.md) |
+| Run or diagnose native reasoning | [Runtime](runtime/README.md) | [Installed systems](runtime/runtime.md), [inference tutorial](runtime/inference-tutorial.md), [fresh cache controls](runtime/cache-inheritance.md) |
+| Understand method contracts | [Methods](methods/README.md) | [Architecture](methods/architecture.md), [inference](methods/inference-methods.md), [bridge](methods/bridge-methods.md), [semantic transport](methods/semantic-transport.md) |
+| Connect ontology modeling to finite probability and action | [Research](research/README.md) | [Worked conceptual connection](sumo/sumo-fep-simulations.md), [finite study](research/research.md), [Active Inference](research/active-inference.md) |
+| Inspect results through software interfaces | [Interfaces](interfaces/README.md) | [Dashboard](interfaces/dashboard.md), [interface reference](interfaces/api.md) |
+| Reproduce or review the manuscript and release | [Publication](publication/README.md) | [Manuscript recipe](publication/manuscript.md), [review guide](publication/review.md), [release methods](publication/release.md) |
+| Contribute and run quality gates | [Development](development/README.md) | [Testing](development/testing.md), [current state](development/current-state.md), [roadmap](development/roadmap.md), [contributing](../CONTRIBUTING.md) |
+
+## Follow a claim to its evidence
+
+For a source assertion, inspect its complete formula and revision. For a logical
+consequence, inspect the submitted premises, translation, conjecture and native
+result. For a finite calculation, inspect its numerical inputs, independent
+reference and support conditions. For a Lean theorem, inspect its hypotheses,
+source, dependencies and elaboration. The [verification guide](methods/verification.md)
+and [primary-source ledger](research/scholarship.md) explain the corresponding
+authorities and limits.
 
 The [manuscript source](../manuscript/rikishi.md) and
-[render recipe](manuscript.md) bind the bibliography, actual inputs, figures,
-native editions and renderer identity. The [Office interfaces](API.md#office-page-policy)
-and [content-projection contract](architecture.md#final-word-content-custody)
-describe bounded geometry/style/math verification separately from pagination.
+[rendering recipe](publication/manuscript.md) bind prose, figures and editions to
+their actual inputs. The [reproducibility guide](methods/reproducibility.md)
+explains retained reports and independent digests. The final release's
+verification summary identifies the exact source, artifacts and completed gates.
 
-Use the [current-state guide](current-state.md) for qualification boundaries and
-the generated release verification summary for actual counts, source/artifact
-hashes and independent verdicts. Private development capsules and earlier repair
-narratives are not required public installation inputs and do not transfer
-acceptance to a changed source tree.
-
-Rikishi code is [MIT licensed](../LICENSE). Original manuscript text and figures
-are [CC BY 4.0 licensed](../LICENSE-PAPER.md). Read the
-[third-party notices](../THIRD_PARTY_NOTICES.md) before redistributing source,
-styles, patches, ontology excerpts, fonts or optional evidence attachments.
+Rikishi software uses the [MIT license](../LICENSE). Original manuscript text and
+figures use [Creative Commons Attribution 4.0 International](../LICENSE-PAPER.md).
+Third-party source excerpts, tools, styles and fonts retain the terms listed in
+[the attribution inventory](../THIRD_PARTY_NOTICES.md).

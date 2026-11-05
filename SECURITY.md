@@ -41,8 +41,8 @@ shared history as an unreviewed cleanup step.
 
 Dependency and native-runtime licenses remain their owners' terms. The code's
 MIT license does not grant rights to separately acquired inputs or exempt a
-release from its public-payload review. See [release preparation](docs/release.md)
-and [reproducibility](docs/reproducibility.md).
+release from its public-payload review. See [release preparation](docs/publication/release.md)
+and [reproducibility](docs/methods/reproducibility.md).
 
 ## Published versions
 
