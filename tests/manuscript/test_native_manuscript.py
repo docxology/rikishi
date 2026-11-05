@@ -1441,3 +1441,57 @@ def test_native_fixture_copy_rejects_symbolic_inputs(
     # Then the intended symbolic-path refusal occurs before a destination exists.
     assert error.value.errno == errno.ELOOP
     assert not target.exists()
+
+
+@pytest.mark.integration
+def test_actual_editions_retain_manuscript_and_software_publication_identity(
+    rendered_native_outputs: Path,
+) -> None:
+    import tomllib
+
+    root = rendered_native_outputs
+    policy = yaml.safe_load((root / "config/manuscript.yaml").read_text())["publication"]
+    dois = [policy[key] for key in ("doi", "version_doi", "software_version_doi")]
+    urls = {*("https://doi.org/" + value for value in dois), policy["version_record"]}
+    pdf = root / "output/pdf/rikishi_combined.pdf"
+
+    def observe(command: list[str]) -> str:
+        return subprocess.run(command, stdin=subprocess.DEVNULL, capture_output=True,
+                              text=True, check=True, timeout=60).stdout
+
+    # The concept belongs on the actual template-generated cover, while the
+    # shared authored paragraph must retain every immutable object identity.
+    cover = observe(["pdftotext", "-f", "1", "-l", "1", str(pdf), "-"])
+    assert policy["doi"] in cover
+    pdf_text = observe(["pdftotext", str(pdf), "-"])
+    assert all(value in pdf_text for value in dois)
+    annotations = observe(["pdfinfo", "-url", str(pdf)])
+    pdf_urls = set(re.findall(r"https?://\S+", annotations))
+    assert urls <= pdf_urls
+
+    namespaces = {"w": "http://schemas.openxmlformats.org/wordprocessingml/2006/main"}
+    with ZipFile(root / "output/docx/rikishi.docx") as archive:
+        document = ElementTree.fromstring(archive.read("word/document.xml"))
+        relationships = ElementTree.fromstring(archive.read("word/_rels/document.xml.rels"))
+    word_text = " ".join(node.text or "" for node in document.findall(".//w:t", namespaces))
+    assert all(value in word_text for value in dois)
+    word_urls = {node.attrib["Target"] for node in relationships
+                 if node.attrib.get("TargetMode") == "External"
+                 and node.attrib.get("Type") ==
+                 "http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink"}
+    assert urls <= word_urls
+
+    receipt = json.loads((root / "output/manuscript/render-receipt.json").read_text())
+    html = _HTML((root / receipt["editions"]["html"]).read_text())
+    body, = [node for node in html.elements if node.tag == "body"]
+    assert all(value in body.text for value in dois)
+    assert urls <= {node.attrs.get("href") for node in html.elements if node.tag == "a"}
+
+    # These are real native Pandoc input metadata, without inventing PDF/DOCX
+    # properties that their backends do not serialize.
+    version = tomllib.loads((root / "pyproject.toml").read_text())["project"]["version"]
+    for filename in ("rikishi.md", "rikishi-office-web.md"):
+        staged = (root / "output/manuscript" / filename).read_text()
+        header = yaml.safe_load(staged.split("---", 2)[1])
+        assert header["doi"] == policy["doi"]
+        assert header["version"] == version

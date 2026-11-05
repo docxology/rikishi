@@ -8,7 +8,7 @@ from typing import Final
 
 import pytest
 import yaml
-from pydantic import JsonValue
+from pydantic import JsonValue, ValidationError
 
 from rikishi import fep
 from rikishi.manuscript_provenance import CorpusMeasurement
@@ -31,7 +31,16 @@ REQUIRED: Final = {
     "FEP_POSTERIOR_FIRST", "FORMAL_COMMIT", "LEAN_VERSION", "FORMAL_MODULE_COUNT",
     "FORMAL_DECLARATION_COUNT", "FORMAL_CACHE_FILES", "MODEL_STATE_LABELS", "MODEL_FIRST_STATE",
     "MODEL_SECOND_STATE", "MODEL_SCAN_POINTS", "FORMAL_SCOPE", "DECIMAL_PLACES",
+    "MANUSCRIPT_CONCEPT_DOI", "MANUSCRIPT_VERSION_DOI", "MANUSCRIPT_VERSION_RECORD",
+    "SOFTWARE_VERSION_DOI",
 }
+
+IDENTIFIER_FIELDS: Final = ("doi", "version_doi", "version_record", "software_version_doi")
+IDENTIFIER_VALUES: Final = {
+    "MANUSCRIPT_CONCEPT_DOI": "doi", "MANUSCRIPT_VERSION_DOI": "version_doi",
+    "MANUSCRIPT_VERSION_RECORD": "version_record", "SOFTWARE_VERSION_DOI": "software_version_doi",
+}
+
 
 
 def set_setting(path: Path, dotted: str, value: JsonValue = None, *, remove: bool = False) -> None:
@@ -76,6 +85,8 @@ def publication_root(tmp_path: Path, project_root: Path) -> Path:
     root = tmp_path / "project"
     (root / "config").mkdir(parents=True)
     data = yaml.safe_load((project_root / CONFIG).read_text())
+    for field in IDENTIFIER_FIELDS:
+        data["publication"].pop(field, None)
     style = data["publication"]["citation_style"]
     (root / style).parent.mkdir(parents=True, exist_ok=True)
     (root / style).write_bytes((project_root / style).read_bytes())
@@ -129,6 +140,7 @@ def test_context_hydrates_coherent_native_metadata(publication_root, corpus, sty
         "title": values["PAPER_TITLE"], "subtitle": "Measured: fixture",
         "author": ['Ada "Quill"', "Bo: Reader"], "date": values["DOCUMENT_LABEL"], "lang": "fr",
         "geometry": "margin=18mm", "fontsize": "12pt", "bibliography": "references.bib",
+        "version": "2.7.4",
         "csl": str((publication_root / resolved).resolve()),
         "biblio-style": "plainnat", "natbiboptions": "authoryear,round", "link-citations": True,
         "reference-section-title": "References", "crossref": {
@@ -140,7 +152,7 @@ def test_context_hydrates_coherent_native_metadata(publication_root, corpus, sty
         assert context.template_config[key] == native[key]
     assert context.template_config["metadata"] == {
         "language": context.metadata["lang"], "geometry": context.metadata["geometry"],
-        "fontsize": context.metadata["fontsize"], "documentclass": "article"}
+        "fontsize": context.metadata["fontsize"], "documentclass": "article", "version": "2.7.4"}
     assert native["paper"]["date"] == values["DOCUMENT_LABEL"]
     assert str(native["paper"]["year"]) == "2030"
     cover = native["paper"]["cover"]
@@ -295,3 +307,65 @@ def test_verifier_rejects_invalid_manifest(publication_root, corpus, removed, re
         manifest[key] = digest if override is None else override
     with pytest.raises(ValueError):
         verify_publication_inputs(publication_root, manifest)
+
+
+def test_unpublished_context_has_no_assigned_publication_identity(publication_root, corpus):
+    context = load_publication_context(publication_root, corpus, rendered_at=NOW)
+    assert all(getattr(context.settings.publication, key) is None for key in IDENTIFIER_FIELDS)
+    assert all(context.values[key] == "" for key in IDENTIFIER_VALUES)
+    assert "doi" not in context.metadata and "doi" not in context.template_config["metadata"]
+    assert context.metadata["version"] == "2.7.4"
+
+
+def test_release_identifiers_follow_the_hashed_configuration(publication_root, project_root, corpus):
+    policy = yaml.safe_load((project_root / CONFIG).read_text())["publication"]
+    for field in IDENTIFIER_FIELDS:
+        set_setting(publication_root / CONFIG, "publication." + field, policy[field])
+    context = load_publication_context(publication_root, corpus, rendered_at=NOW)
+    assert {key: context.values[key] for key in IDENTIFIER_VALUES} == {
+        key: policy[field] for key, field in IDENTIFIER_VALUES.items()}
+    assert context.metadata["doi"] == policy["doi"] and context.metadata["version"] == "2.7.4"
+    assert context.template_config["metadata"]["doi"] == policy["doi"]
+    assert context.input_sha256[CONFIG] == hashlib.sha256((publication_root / CONFIG).read_bytes()).hexdigest()
+    assert verify_publication_inputs(publication_root, context.input_sha256) is None
+    # A separately changed identity cannot keep the producer's original authority.
+    set_setting(publication_root / CONFIG, "publication.version_record", policy["version_record"] + "/")
+    with pytest.raises(ValueError, match="Publication input changed"):
+        verify_publication_inputs(publication_root, context.input_sha256)
+
+
+@pytest.mark.parametrize("mutation, message", [
+    ("record-pair", "version_record"), ("concept-is-version", "must differ"),
+    ("software-is-manuscript", "separate software record"),
+    ("software-is-concept", "separate software record"),
+    ("missing-concept", "complete"), ("missing-version", "complete"),
+    ("missing-record", "complete"), ("missing-software", "complete"),
+    ("doi-url", "version_doi"), ("record-http", "version_record"),
+    ("record-query", "version_record"), ("software-type", "software_version_doi"),
+])
+def test_publication_identity_rejects_wrong_record_or_role(
+    publication_root, project_root, corpus, mutation, message,
+):
+    policy = yaml.safe_load((project_root / CONFIG).read_text())["publication"]
+    for field in IDENTIFIER_FIELDS:
+        set_setting(publication_root / CONFIG, "publication." + field, policy[field])
+    # Each negative starts with actual release identities and changes a semantic
+    # role or URL property; no network response or model result is substituted.
+    updates = {
+        "record-pair": ("version_record", "https://zenodo.org/records/" + policy["doi"].rsplit(".", 1)[1]),
+        "concept-is-version": ("doi", policy["version_doi"]),
+        "software-is-manuscript": ("software_version_doi", policy["version_doi"]),
+        "software-is-concept": ("software_version_doi", policy["doi"]),
+        "missing-concept": ("doi", None),
+        "missing-version": ("version_doi", None),
+        "missing-record": ("version_record", None),
+        "missing-software": ("software_version_doi", None),
+        "doi-url": ("version_doi", "https://doi.org/" + policy["version_doi"]),
+        "record-http": ("version_record", policy["version_record"].replace("https:", "http:")),
+        "record-query": ("version_record", policy["version_record"] + "?download=1"),
+        "software-type": ("software_version_doi", 42),
+    }
+    field, value = updates[mutation]
+    set_setting(publication_root / CONFIG, "publication." + field, value)
+    with pytest.raises(ValidationError, match=message):
+        load_publication_context(publication_root, corpus, rendered_at=NOW)

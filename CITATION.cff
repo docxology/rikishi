@@ -3,7 +3,7 @@ message: "Cite this software version for Rikishi's implementation. Cite SUMO, th
 title: "Rikishi: Reproducible operation and analysis of the Suggested Upper Merged Ontology"
 type: software
 version: 1.1.0
-doi: 10.5281/zenodo.23987623
+doi: 10.5281/zenodo.23987622
 authors:
   - family-names: Friedman
     given-names: Daniel Ari
@@ -11,7 +11,7 @@ authors:
     affiliation: Active Inference Institute
 license: MIT
 repository-code: "https://github.com/docxology/rikishi"
-url: "https://github.com/docxology/rikishi"
+url: "https://zenodo.org/records/23987623"
 keywords:
   - SUMO
   - SUO-KIF

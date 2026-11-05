@@ -8,10 +8,10 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from importlib.resources import files
 from pathlib import Path
-from typing import Annotated, Final
+from typing import Annotated, Final, Self
 
 import yaml
-from pydantic import BaseModel, ConfigDict, Field, StringConstraints, TypeAdapter
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, TypeAdapter, model_validator
 
 from rikishi import fep
 from rikishi.manuscript_provenance import (
@@ -30,6 +30,8 @@ from rikishi.publication_typography import SCIENTIFIC_NOTATION_SCRIPT
 
 type Text = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 type Digest = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
+type ZenodoDoi = Annotated[str, Field(pattern=r"^10\.5281/zenodo\.[1-9][0-9]*$")]
+type ZenodoRecord = Annotated[str, Field(pattern=r"^https://zenodo\.org/records/[1-9][0-9]*$")]
 PACKAGE_MODEL: Final = "package:rikishi/data/fep-example.json"
 
 
@@ -66,7 +68,7 @@ class RenderingPolicy(_Checked):
 
 
 class PublicationPolicy(_Checked):
-    """Share one page-margin authority across the full-width PDF and HTML editions."""
+    """Validate shared edition policy and optional exact publication identities."""
 
     document_kind: Text
     decimal_places: int = Field(ge=0)
@@ -79,6 +81,28 @@ class PublicationPolicy(_Checked):
     citation_style_sha256: Digest
     citation_style_repository: Text
     citation_style_revision: Annotated[str, Field(pattern=r"^[0-9a-f]{40}$")]
+    doi: ZenodoDoi | None = None
+    version_doi: ZenodoDoi | None = None
+    version_record: ZenodoRecord | None = None
+    software_version_doi: ZenodoDoi | None = None
+
+    @model_validator(mode="after")
+    def coherent_publication_identifiers(self) -> Self:
+        """Keep manuscript series, immutable edition and software identities distinct."""
+        concept, version, record, software = (
+            self.doi, self.version_doi, self.version_record, self.software_version_doi,
+        )
+        if all(value is None for value in (concept, version, record, software)):
+            return self
+        if concept is None or version is None or record is None or software is None:
+            raise ValueError("Publication identifiers require the complete manuscript and software identity set")
+        if concept == version:
+            raise ValueError("publication.doi must differ from publication.version_doi")
+        if record != "https://zenodo.org/records/" + version.rsplit(".", 1)[1]:
+            raise ValueError("publication.version_record must identify the publication.version_doi record")
+        if software in {concept, version}:
+            raise ValueError("publication.software_version_doi must identify the separate software record")
+        return self
 
 
 class PublicationSettings(_Checked):
@@ -255,6 +279,10 @@ def load_publication_context(
         "AUTHOR_AFFILIATIONS": "; ".join(affiliations), "DOCUMENT_DATE": date.isoformat(),
         "DOCUMENT_YEAR": str(date.year), "SOFTWARE_VERSION": version,
         "DOCUMENT_LABEL": f"{settings.publication.document_kind} v{version} ({date.isoformat()})",
+        "MANUSCRIPT_CONCEPT_DOI": settings.publication.doi or "",
+        "MANUSCRIPT_VERSION_DOI": settings.publication.version_doi or "",
+        "MANUSCRIPT_VERSION_RECORD": settings.publication.version_record or "",
+        "SOFTWARE_VERSION_DOI": settings.publication.software_version_doi or "",
         "DECIMAL_PLACES": str(precision), "MODEL_STATE_COUNT": str(len(parameters.prior)),
         "MODEL_SCAN_POINTS": str(parameters.scan_points),
         "MODEL_STATE_LABELS": "(" + ", ".join(parameters.state_labels) + ")",
@@ -290,7 +318,8 @@ def load_publication_context(
     metadata: dict[str, object] = {
         "title": settings.paper.title, "subtitle": settings.paper.subtitle,
         "author": [author.name for author in settings.authors], "date": settings.paper.date,
-        "lang": settings.language, "geometry": f"margin={settings.publication.margin_mm:g}mm",
+        "lang": settings.language, "version": version,
+        "geometry": f"margin={settings.publication.margin_mm:g}mm",
         "fontsize": f"{settings.publication.font_size_pt}pt", "bibliography": "references.bib",
         "csl": str(contained_path(project, style).resolve()), "biblio-style": "plainnat",
         "natbiboptions": "authoryear,round", "link-citations": True,
@@ -298,6 +327,8 @@ def load_publication_context(
             "eqnPrefix": "Equation", "figPrefix": "Figure", "secPrefix": "Section", "linkReferences": True,
         },
     }
+    if settings.publication.doi is not None:
+        metadata["doi"] = settings.publication.doi
     cover = settings.paper.cover
     identifiers = [f"{author.name}: [ORCID {author.orcid}](https://orcid.org/{author.orcid})"
                    for author in settings.authors if author.orcid is not None]
@@ -308,6 +339,8 @@ def load_publication_context(
     template_config["metadata"] = {
         "language": metadata["lang"], "geometry": metadata["geometry"],
         "fontsize": metadata["fontsize"], "documentclass": "article",
+        "version": version,
+        **({"doi": settings.publication.doi} if settings.publication.doi is not None else {}),
     }
     return PublicationContext(settings, example, values,
         {name: hashlib.sha256(content).hexdigest() for name, content in inputs.items()},

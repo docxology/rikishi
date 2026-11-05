@@ -27,6 +27,14 @@ inspection of particular examples; it does not establish full-SUMO consistency,
 a general SUMO-to-Lean interpretation, verification of all Python execution,
 or biological validity of the Free Energy Principle (FEP).
 
+The manuscript's concept digital object identifier (DOI), covering all versions,
+is [{{MANUSCRIPT_CONCEPT_DOI}}](https://doi.org/{{MANUSCRIPT_CONCEPT_DOI}}).
+The version {{SOFTWARE_VERSION}} manuscript is identified by
+[{{MANUSCRIPT_VERSION_DOI}}](https://doi.org/{{MANUSCRIPT_VERSION_DOI}})
+and its [Zenodo version record]({{MANUSCRIPT_VERSION_RECORD}}).
+The separately archived software version {{SOFTWARE_VERSION}} is identified by
+[{{SOFTWARE_VERSION_DOI}}](https://doi.org/{{SOFTWARE_VERSION_DOI}}).
+
 # SUMO foundations and scholarship {#sec:sumo}
 
 The research question is how an ontology operator can make a proposed scientific
