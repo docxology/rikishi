@@ -5,12 +5,11 @@ from typing import Final
 from rikishi.runtime_tptp import TPTPError, parse_tptp
 
 CONTRADICTORY_CORE_BINDINGS = {
-    "prover_sha256": "5c701155e35726eec787f4a864091791c5e554e8bc7bb4e6520fd0e6eada016a",
+    "prover_sha256": "b47f3b0ab6e0782f9bd15e8b36af83227f05d9ba669e165105d037fe7fdfd2c8",
     "sigma_classes_sha256": "898c0f342c6868f1e6be3c3c9c95fed1e3565ef2143ca4a81f8524d16e3c6874",
     "sumo_lock_sha256": "0f8e785684de54ce36e1bc21c12f60a71e957fdc7d43cbb9bb3a410e0c85ac55",
-    "profile_config_sha256": "35aa55c7495ec9e3915aa4be3382220ae70c7015269c5790de8d9425e69c2d7d",
+    "profile_config_sha256": "5be865e839522326c81feb37983b3c534fedef8d92ed4e9a0ee19aac8f191c8f",
 }
-CONTRADICTORY_BACKGROUND_SHA256 = "3af8bbb0023ce53c65b6504a025cc0f30ff2132667bbd1f8cd249e2e1967e3ed"
 CONTRADICTORY_VAMPIRE_BINDINGS = dict(
     CONTRADICTORY_CORE_BINDINGS,
     prover_sha256="470529c41026e8f2844340e726bdc026406ced0b3afaaab72de7428456c84ec6",

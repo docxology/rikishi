@@ -4,7 +4,6 @@ from pathlib import Path
 import pytest
 
 from rikishi.runtime_context import (
-    CONTRADICTORY_BACKGROUND_SHA256,
     CONTRADICTORY_CORE_BINDINGS,
     background_statement_identity,
     recorded_negative_context,
@@ -14,7 +13,7 @@ from rikishi.runtime_context import (
 @pytest.mark.parametrize("payload", [b"", b"\xff", b"not_tptp.", b"fof(a,axiom,p)."])
 def test_supplied_background_must_match_its_raw_receipt(payload: bytes) -> None:
     result = recorded_negative_context(
-        CONTRADICTORY_CORE_BINDINGS, [CONTRADICTORY_BACKGROUND_SHA256],
+        CONTRADICTORY_CORE_BINDINGS, ["0" * 64],
         background_bytes=[payload],
     )
     assert result == "unknown"
@@ -34,13 +33,13 @@ def test_incomplete_background_bytes_cannot_certify_context(
     payloads: list[bytes],
 ) -> None:
     result = recorded_negative_context(
-        CONTRADICTORY_CORE_BINDINGS, [CONTRADICTORY_BACKGROUND_SHA256],
+        CONTRADICTORY_CORE_BINDINGS, ["0" * 64],
         background_bytes=payloads,
     )
     assert result == "unknown"
 
 
-@pytest.mark.parametrize("backgrounds", [[], [CONTRADICTORY_BACKGROUND_SHA256] * 2])
+@pytest.mark.parametrize("backgrounds", [[], ["0" * 64] * 2])
 def test_structural_context_requires_exactly_one_recorded_background(
     backgrounds: list[str],
 ) -> None:

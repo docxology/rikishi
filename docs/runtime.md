@@ -166,7 +166,7 @@ historical evidence in Git but cannot pass the current gate.
 `ContradictoryAxioms` becomes `inconsistent_translated_axioms`, with `proved=false`.
 Timeout and resource exhaustion are inconclusive, not countermodels.
 
-Historical negative-control context requires matching profile configuration,
+Registered negative-control context requires matching profile configuration,
 source/patch lock, prover, Sigma class bytes, and the complete registered
 translated background. Class content supplies a stable comparison across JAR
 repacking; exact archive hashes are still retained per invocation. Context recognition
@@ -193,20 +193,18 @@ A supported bootstrap can rebuild the JAR with identical class bytes but a newer
 modification time than the copied serialized cache. Sigma then rebuilds the cache
 from copied constituent paths. Its generated standalone source comments contain
 those invocation-local paths, so raw background hashes differ between queries.
-Six retained pre/post-bootstrap captures have identical complete statement text
-and order; literal comment-path substitutions explain every changed byte.
-These comparisons are retained under
-`.omo/evidence/corpus-vampire-upgrade-20261021/context-fix/`.
+The current E and Vampire builds are registered only after three complete
+captured backgrounds match that statement sequence and their exact prover,
+Sigma class, source-lock and profile-configuration identities are verified.
+Both native families independently refute the four complete contradiction
+premises extracted from those backgrounds without a conjecture. Removing
+any one premise produces `Satisfiable` under each family.
 
-The exact installed Vampire binding has its own observed context, with the
-existing E binding preserved. The five-second core Human/Artifact Vampire query
-returns `Timeout`, exit 1, and a verified inconclusive result; the Java adapter
-retains the real `ATPResult` even when Sigma throws its timeout exception.
-Independently, the four complete known contradiction premises extracted from
-that invocation's frozen background refute under Vampire without any
-conjecture, and the diagnostic exported subset also refutes. Matching queries
-therefore disclose that historical translated-background contradiction without
-turning the timed-out query into a countermodel or a proof.
+The five-second core Human/Artifact Vampire query returns `Timeout`, exit 1,
+and a verified inconclusive result; the Java adapter retains the actual
+`ATPResult` even when Sigma throws its timeout exception. Matching queries
+disclose the observed translated-background contradiction while retaining
+that query's inconclusive outcome.
 This does not label the original SUMO ontology inconsistent.
 
 ## Replay and localized contradiction

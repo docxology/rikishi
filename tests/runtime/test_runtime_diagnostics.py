@@ -10,7 +10,6 @@ import pytest
 from rikishi.runtime import prove
 from rikishi.runtime_artifacts import ArtifactError, load_capture, read_regular
 from rikishi.runtime_context import (
-    CONTRADICTORY_BACKGROUND_SHA256,
     CONTRADICTORY_CORE_BINDINGS,
     recorded_negative_context,
 )
@@ -43,7 +42,7 @@ def test_proof_premises_require_complete_refutation_block():
 def test_digest_only_context_cannot_replace_complete_background_bytes():
     with pytest.raises(TypeError, match="background_bytes"):
         recorded_negative_context(CONTRADICTORY_CORE_BINDINGS,
-                                  [CONTRADICTORY_BACKGROUND_SHA256])
+                                  ["0" * 64])
 
 
 @pytest.mark.parametrize("timeout", [0, 31])
