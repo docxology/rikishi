@@ -132,8 +132,7 @@ report. A supplied `source_report` selects an explicit frozen input instead.
 
 The default workbook location is `source-inputs/active-inference-sumo.xlsx`,
 matching the acquisition recipe below. No XLSX is packaged or acquired implicitly.
-The default source report is newly generated from the audited live index. The
-authority carries no unused saved-report locator.
+The default source report is newly generated from the audited live index.
 For a fresh installed checkout, use explicit `workbook_path` and `source_report`
 arguments as below; relative paths resolve against `root`. Keep these acquired
 inputs and all outputs on mounted GitVault, source `scripts/env.sh`, and use the
@@ -159,8 +158,8 @@ uv run --locked --no-sync python -c 'from hashlib import sha256; from pathlib im
 Save the following Python program in a new file in the checkout and execute it
 with `uv run --locked --no-sync python <file>`. It builds a fresh source index,
 uses the existing source-audit/portable-report method, and supplies both inputs
-explicitly. Neither historical `output/` nor `.omo/` files are read. The existing
-native bootstrap's `.rikishi/upstream/sumo` source must match the repository lock.
+explicitly. The native bootstrap's `.rikishi/upstream/sumo` source must match
+the repository lock.
 
 ```python
 from pathlib import Path

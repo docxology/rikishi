@@ -63,8 +63,9 @@ It rejects other option strings and repeated submission. No option is filtered
 from an arbitrary command, and the shared strict command grammar is unchanged.
 This uses existing Sigma application programming interfaces (APIs) without
 changing upstream source or the Java archive (JAR).
-The native theorem, countermodel, timeout, frozen-replay and diagnostic controls
-are recorded under `.omo/evidence/corpus-vampire-upgrade-20261021/vampire/`.
+The [native runtime test suite](../../tests/runtime) exercises theorem,
+countermodel, timeout, capture/replay and diagnostic contracts. Use the
+[verification commands](#verification) to produce current receipts.
 `--output` names a fresh repository-local log;
 existing output and evidence directories are refused. The importable interface is
 `runtime_query.run_query(root, query, prover="e", timeout=15, output=None, prover_wall_timeout=None)`.
@@ -280,11 +281,12 @@ The saved Human/Artifact negative query reproduces `ContradictoryAxioms`. Its E
 proof uses four translated premises about `path`, without the conjecture. The
 four-line fixture is unsatisfiable without a conjecture; every single-premise
 deletion is satisfiable. This establishes an inclusion-minimal contradictory
-translated subset. A real Java diagnostic reproduces the cache step adding the
-conflicting partial classification. The [fresh source-only diagnostic](cache-inheritance.md)
-extends that observation to isolated fragment and complete Merge inputs using
-real knowledge base (KB) construction and `buildCaches()`, without manually seeded maps. It does
-not reconstruct the complete four-file core or repair inheritance semantics.
+translated subset. The [fresh source-only diagnostic](cache-inheritance.md)
+constructs each knowledge base (KB) from its declared fragment or complete pinned
+`Merge.kif` input and runs native `buildCaches()`. Its five controls identify when
+the conflicting partial classification is generated. These input populations
+remain distinct from the complete four-file core; intended inheritance semantics
+and full-profile correction remain separate obligations.
 See [the source trace and limits](runtime-upstream-report.md).
 
 `runtime.prove(problem, root, timeout=10, *, prover="e", output=None)` runs E by
@@ -364,6 +366,7 @@ into an isolated temporary classpath. Canonical checkouts remain unchanged.
 Portable tests exercise real files, subprocesses, local Git, and local Hypertext
 Transfer Protocol (HTTP);
 they do not claim native acceptance. Run the full coverage gate after the full
-suite. Compact receipts and proof/core are indexed in
-`.omo/evidence/next-pass/runtime.md`; large captures remain ignored under
-`.rikishi/results/`. Earlier evidence remains preserved in Git history.
+suite. Retain each fresh capture and its independently recorded report digest
+under `.rikishi/results/`, and record test outcomes, warnings and rejected controls
+in the current release verification summary. Bind those records to the exact
+candidate and inputs before interpreting an observation.

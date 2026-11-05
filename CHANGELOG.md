@@ -7,16 +7,15 @@
 - Hash and parse each capture record from one bounded snapshot, require the
   retained report digest, and checksum referenced payloads when they are read.
 - Use shared exact direct-prover options in execution and campaign replay.
-- Remove the superseded manually seeded Java cache diagnostic and retired
-  template copies; retain generated evidence outside the tracked source tree.
+- Derive fresh-cache diagnostics through source ingestion and native cache
+  construction; retain generated evidence outside the tracked source tree.
 - Make finite Decimal calculations independent of the caller's arithmetic context.
 - Close standard input for production Git subprocesses.
-- Replace the private development workbook default with the documented public
-  input path and remove the unused saved-report locator from the study authority.
+- Use the documented public workbook input path in the packaged study authority.
 - Observe test child state through unprivileged kernel interfaces, including
   stopped and unreaped processes, under the governed offline runner.
-- Replace obsolete release-preparation statements and development narratives
-  with current method contracts and version-specific publication records.
+- Present current method contracts, thematic documentation and version-specific
+  publication records.
 
 - Correct the portable bridge-output boundary test for workers without mounted
   GitVault storage. It now checks the earlier storage rejection as well as the

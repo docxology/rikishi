@@ -16,8 +16,8 @@ attached files remain intact.
   payloads when they are read.
 - Native execution and replay share exact registered direct-prover options;
   an internally coherent capture with different options is rejected.
-- The superseded manually seeded Java cache diagnostic and retired template
-  copies are removed. Generated evidence is retained outside Git tracking.
+- Fresh-cache diagnostics construct isolated source knowledge bases through
+  native cache building. Generated evidence is retained outside Git tracking.
 - Finite Decimal calculations use explicit local arithmetic contexts so a caller's
   precision, rounding and traps cannot silently change reported values.
 - Production Git subprocesses receive closed standard input.

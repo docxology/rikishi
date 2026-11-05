@@ -21,21 +21,30 @@ and
 [workbook](https://zenodo.org/records/11463326/files/Active%20Inference%20Topics%20Aligned%20to%20SUMO.xlsx?download=1).
 Physical PDF page numbers are used below. Workbook locators preserve the exact
 sheet name, `'ActInfOntology_SUMO '`, including its trailing space, and Excel row
-numbers; they are not a count of accepted mappings. Original bytes, Hypertext Transfer Protocol (HTTP) headers,
-Secure Hash Algorithm 256-bit (SHA-256) hashes,
-application programming interface (API) checksum comparisons,
-and access date are retained in
-`.omo/evidence/precedent-upgrade/sources/source-manifest.json`. The accompanying
-`.omo/evidence/precedent-upgrade/research.md` identifies the machine-readable cell
-extraction and metadata. These are checkout-only evidence paths, excluded from
-source distributions; use the public source and export links in this guide when
-reading a distributed copy. The files were accessed on 2026-10-20. Retaining them
-fixes the inspected source, not its scientific validity.
+numbers; they are not a count of accepted mappings. The packaged
+[study authority](../../src/rikishi/data/alignment-study-v1.json) fixes the original
+workbook identity and selected cells. The
+[public acquisition method](../../src/rikishi/portable_inputs.py) verifies complete
+source bytes and retains Hypertext Transfer Protocol (HTTP) response status,
+locations, byte counts, Secure Hash Algorithm 256-bit (SHA-256) hashes and the
+actual acquisition time. Acquire the machine-readable study inputs in a fresh
+bundle from the checkout root:
+
+```bash
+source scripts/env.sh
+mkdir -p source-inputs
+uv run --locked --no-sync python scripts/prepare_portable_inputs.py --output source-inputs/precedent
+```
+
+An occupied destination is refused unless explicitly reverified with `--reuse`.
+The [study input recipe](research.md#preparing-inputs-in-a-fresh-checkout) explains
+how the original workbook and a freshly generated source report enter a native
+campaign. Source identity fixes the inspected bytes, not their scientific validity.
 
 The [JavaScript Object Notation (JSON) export](https://zenodo.org/records/11463326/export/json) labels the
 resource a preprint, gives publication date `2024-06-03`, and exposes the following
-ordered creators and roles. The separately retained API response omits that role
-detail. Both the
+ordered creators and roles. The inspected application programming interface
+(API) response omits that role detail. Both the
 [BibTeX export](https://zenodo.org/records/11463326/export/bibtex) and
 [Citation Style Language (CSL) export](https://zenodo.org/records/11463326/export/csl) explicitly put all these
 names in their author field, in this order.

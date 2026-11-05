@@ -150,5 +150,5 @@ cannot be explained only by the outer checksum.
 An explicit `RIKISHI_INFERENCE_TEST_PACKET` and
 `RIKISHI_INFERENCE_TEST_SHA256` can select a previously produced packet for focused
 replay tests. Without them, the native test fixture produces a fresh both-prover
-campaign. Missing inputs or native tools fail visibly; no historical-output
-fallback, mock prover, or automatic skip is used.
+campaign using actual native executables. Missing inputs or native tools fail
+visibly.

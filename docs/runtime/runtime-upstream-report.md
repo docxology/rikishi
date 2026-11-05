@@ -3,8 +3,10 @@
 These methods inspect pinned Suggested Upper Merged Ontology (SUMO)
 `efcd059f8feebfe3488a09f575f88d4d009b1e5c`, Sigma
 `d3cc7b43b38b0b45692291a1b33fe2b1a3de0095`, and E theorem prover
-`3b7afc70fe77d3118bb95144c4735ca45f5f31cf`. The observed results below are
-the 1.0.0 baseline; changed release candidates require fresh source-bound runs.
+`3b7afc70fe77d3118bb95144c4735ca45f5f31cf`. This guide describes the
+input-specific diagnostic and current reproduction contract. Native outcomes
+count as current acceptance evidence only when retained in source-bound records
+for the candidate being reviewed.
 No upstream issue or message is claimed. See [runtime operation](runtime.md),
 [source-only cache methods](cache-inheritance.md) and [release notes](../publication/release-notes-1.1.0.md).
 
@@ -113,7 +115,7 @@ contradiction while leaving the actual timed-out query inconclusive.
 
 `FreshCacheDiagnostic.java` uses the actual KB constructor, source ingestion
 and `KBcache.buildCaches()`. The five-case schema separately loads a declared
-39-formula fragment and complete pinned `Merge.kif`, without seeded cache maps.
+39-formula fragment and complete pinned `Merge.kif` through native cache construction.
 Both generate `PartialValuedRelation` for `path` in addition to its direct
 `CaseRole` and `TotalValuedRelation` classifications.
 

@@ -66,7 +66,7 @@ rebuilding the index and repeating reasoning checks.
 | `bridge_runner` / `bridge_replay` | Produce a fresh Lean/numerical/native packet; strictly rederive its retained evidence against an independently supplied report digest without new native execution |
 | `bridge_views` / `bridge_cli` | Join verified native cases to their rational/numerical witness, selected source claims and Lean source; adapt catalog, production, replay, inspection and figure export |
 | `bridge_figures` | Derive three PNG/SVG figures, retained figure inputs and an offline case/Lean/numerical explorer after strict bridge replay; no new proof execution |
-| `cache_inheritance` | Construct isolated knowledge bases from source and run full cache building without seeded maps; preserve controlled observations and stable bindings |
+| `cache_inheritance` | Construct isolated knowledge bases from source and run full native cache building; preserve controlled observations and stable bindings |
 | `runtime_setup` | Preserve existing source/runtime files, verify pins and patch hashes, install native environment |
 | `runtime_query` / `runtime_server` | Orchestrate native processes explicitly, without process work on import |
 | `fep` | Validate linear/log finite models; share logarithmic objective/support calculations; retain explicit projection underflow and decomposition residual |

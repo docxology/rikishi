@@ -202,7 +202,7 @@ returned `SZSTheorem`, while the negative control `(subclass Human Artifact)`
 returned `SZSContradictoryAxioms`. The retained four-premise refutation
 identifies a generated cache classification. The separate
 [source-only experiment](../runtime/cache-inheritance.md) uses real KB construction,
-source ingestion and `buildCaches()` without seeded maps. Its five controls
+source ingestion and native `buildCaches()`. Its five controls
 cover an isolated fragment and complete pinned Merge: parent-classification and
 edge removal eliminate generated partial classification; a synthetic inheritable
 class link leaves it present. It does not reconstruct or test consistency of

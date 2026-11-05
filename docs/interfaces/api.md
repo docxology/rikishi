@@ -187,7 +187,7 @@ it does not authenticate historical execution or independently check proof objec
 `cache-diagnostic` requires a fresh repository-local directory and a 1–120 second
 shared deadline. It exits 0 for `status="observed"`, 2 for `status="failed"`;
 caught input/runtime errors exit 1, as for the research commands. It uses real knowledge base (KB)
-construction, source ingestion and `buildCaches()` without seeded maps, covering
+construction, source ingestion and native `buildCaches()`, covering
 the declared fragment and complete Merge only. It does not check the four-file
 core's consistency or implement a repair. See [cache contracts](../runtime/cache-inheritance.md).
 
