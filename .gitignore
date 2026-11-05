@@ -19,16 +19,13 @@ coverage_project.json
 
 # Local upstream source, toolchains, indexes, and credentials are never published.
 .rikishi/
+/source-inputs/
 .env
 .env.*
 !.env.example
 *.sqlite
 *.sqlite3
-output/logs/
-output/coverage/
 dist/
-.omo/evidence/runtime/*.tptp
-.omo/evidence/runtime/sigma-server*.log
 
 # Private development evidence and generated builds are not public source payloads.
 # Ignore rules do not remove historical tracked content; review publication history.

@@ -110,15 +110,20 @@ additional disk space for each invocation.
 
 An invocation-local executable adapter captures inputs before launching the real
 prover. Sigma's existing translator and preprocessing paths remain in use.
-`run_bounded` supplies a wall-clock bound and kills its process group on timeout
-or interruption. Cleanup signals the group before inspecting the direct child,
-so an exited parent does not leave live descendants. A macOS permission error
-from an exited zombie is retried after reaping; only an absent group is accepted
-without a successful signal. Permission failures for a live child or on the
-retry propagate promptly without an implicit context-manager wait. If the
-operating system denies termination, the group may remain alive and the call
-fails explicitly. The deadline still reports a timeout if natural exit races
-permitted cleanup. Without an override, the prover's wall bound remains its
+`run_bounded` bounds waiting for the direct child. On timeout or interruption,
+cleanup sends `SIGKILL` to the owned process group before inspecting or reaping
+the direct child, including when the group leader has already exited. Cleanup
+waits for and reaps the direct child. Successful signal delivery does not
+synchronously establish that every descendant has exited. The process controls
+independently require each observed descendant to reach zombie state or confirmed
+absence within five seconds; unavailable observations and a still-live process
+fail those controls. This observation deadline does not extend a native run's
+execution budget. A macOS permission error from an exited zombie is retried
+after reaping; only an absent group is accepted without a successful signal.
+Permission failures for a live child or on the retry propagate promptly without
+an implicit context-manager wait. If the operating system denies termination,
+the group may remain alive and the call fails explicitly. The deadline still
+reports a timeout if natural exit races permitted cleanup. Without an override, the prover's wall bound remains its
 native query limit plus five seconds, and the Java wall bound remains 600 seconds
 plus the native limit. `--prover-wall-timeout N` independently selects 1–3600
 seconds of prover wall time; it preserves the native `--timeout` limit and gives
@@ -164,9 +169,9 @@ Timeout and resource exhaustion are inconclusive, not countermodels.
 Historical negative-control context requires matching profile configuration,
 source/patch lock, prover, Sigma class bytes, and the complete registered
 translated background. Class content supplies a stable comparison across JAR
-repacking; exact archive hashes are still retained per invocation. The historical
-raw-hash API recognizes only the original exact background digest. Native queries
-also supply the checksum-verified background bytes to the unchanged structural
+repacking; exact archive hashes are still retained per invocation. Context recognition
+requires the checksum-verified complete background bytes; a raw digest alone cannot
+identify the registered context. Native queries supply those bytes to the structural
 Thousands of Problems for Theorem Provers (TPTP) parser. They require all **36,697** complete statements, in their original
 order, with fingerprint
 `ab478bdfc42d614399c8e016a3bfbfc36f9a4578d029e8ac56bbf23144c959df`.
@@ -175,7 +180,7 @@ one newline, without a trailing newline. Names, roles, formulas, inner whitespac
 inner comments and annotations remain bound. Only standalone layout and comments
 omitted by the parser are outside this fingerprint's scope. Missing or changed
 statements, changed order, invalid bytes or missing provenance report `unknown`;
-invalid supplied bytes never fall back to the historical raw-hash path.
+invalid or omitted background bytes cannot certify the registered context.
 
 `negative_control_context_binding` is null for unknown context. A recognized
 native result records the scope `complete_translated_background_statement_sequence`,

@@ -1,8 +1,13 @@
-# Current release candidate and evidence
+# Current methods and release evidence
 
-Rikishi is preparing its first public **1.0.0** release. Source metadata,
-a staged archive, or a locally rendered Portable Document Format (PDF) does not establish a published
-release or a passing qualification gate.
+[Rikishi 1.0.0](https://github.com/docxology/rikishi/releases/tag/v1.0.0)
+was published on 2026-10-31 from commit
+`c13b7d1807e523bc8b996eb845a4149b9e6986e0`. Its attached verification summary
+describes that release's exact source and artifacts. Version **1.1.0** has its own
+[release record and verification summary](https://github.com/docxology/rikishi/releases/tag/v1.1.0).
+A staged archive or a locally rendered Portable Document Format (PDF) does not
+establish qualification or publication; inspect the actual linked records.
+See the [1.1.0 release notes](release-notes-1.1.0.md).
 
 Use the [review guide](review.md) to identify the actual PDF and source.
 The [release checklist](../RELEASE_CHECKLIST.md) records the required gates;
@@ -52,8 +57,8 @@ documented source/configuration/scripts. See [installation](installation.md).
 
 Microsoft Word native pagination, physical print/phones, native zoom and
 large text, full screen-reader/keyboard/clipboard operation, cold-offline loading,
-transient UI states and hosted-platform qualification need their own actual
-observations. Saved viewports or accessibility trees do not substitute for them.
+transient interface states and qualification of a changed source on each hosted
+platform need their own actual observations. Saved viewports or accessibility trees do not substitute for them.
 
 Full-width prose, a fixed light publication surface and distinct scholarly
 prose/interface/code roles are declared design choices. Generic checklist
@@ -66,7 +71,7 @@ approval. Publication does not remove these limits.
 
 ## Publication identities and rights
 
-`CITATION.cff` and `.zenodo.json` describe the software candidate. The manuscript
+`CITATION.cff` and `.zenodo.json` describe the software version. The manuscript
 PDF is a distinct artifact with accurate metadata and its own real identifier.
 The alignment precedent's digital object identifier (DOI) is not Rikishi's DOI.
 

@@ -1,8 +1,11 @@
 # Install and choose a workflow
 
-Use the source and lockfile for the version you are reviewing. The 1.0.0 files
-are release preparation until the release checklist records the actual tagged
-commit and published assets. No PyPI installation is promised by this guide.
+Use the source and lockfile for the version you are reviewing. Download the
+qualified 1.0.0 packages and source from its
+[GitHub release](https://github.com/docxology/rikishi/releases/tag/v1.0.0), or
+work from the current 1.1.0 candidate with its own verification record.
+The documented distribution channel is GitHub Releases; no PyPI installation is
+promised by this guide.
 
 ## Portable methods from a source checkout
 
@@ -72,8 +75,10 @@ Use a new destination for the clone, or an independently verified existing
 template checkout. This preparation reads a pinned Git archive and verifies its
 source files; it does not launch a renderer, install Sigma or prove a theorem.
 The portable GitHub workflow checks out the same full renderer revision and calls
-the same preparation method before the type gate. Its declaration still needs
-an actual hosted run before claiming hosted-CI success.
+the same preparation method before the type gate. The corrected 1.0.0 development
+head completed a hosted Linux portable run, as recorded in the
+[published release notes](https://github.com/docxology/rikishi/releases/tag/v1.0.0).
+Each changed candidate still needs its own actual hosted result.
 
 ## Native workstation workflow
 

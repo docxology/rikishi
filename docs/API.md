@@ -174,8 +174,9 @@ that a native campaign or figure export has completed.
 report; `--source-report PATH` explicitly selects a frozen input. `--workbook PATH`
 changes only acquisition location: the original workbook hash remains pinned.
 The workbook is not bundled; fresh installations must supply `--workbook` with
-the acquired, hash-verified file. Omitting it retains the study's historical
-default location and does not acquire or substitute inputs. See
+the acquired, hash-verified file, or place it at the documented
+`source-inputs/active-inference-sumo.xlsx` default. Omitting the option never
+acquires or substitutes inputs. See
 [input preparation](research.md). The command
 retains complete report/source/study/workbook/extension bytes, problems and native
 captures. Both research commands exit 0 for a complete declared campaign and 2

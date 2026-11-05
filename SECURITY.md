@@ -44,9 +44,10 @@ MIT license does not grant rights to separately acquired inputs or exempt a
 release from its public-payload review. See [release preparation](docs/release.md)
 and [reproducibility](docs/reproducibility.md).
 
-## Supported-version record
+## Published versions
 
-No public 1.0.0 release or maintenance window is claimed by this draft. Once a
-release is published, record its supported version and security-reporting route
-here as an explicit maintainer commitment. Do not infer ongoing support from a
-development branch or an archived native-run receipt.
+[Version 1.0.0](https://github.com/docxology/rikishi/releases/tag/v1.0.0) is
+published. [Version 1.1.0](https://github.com/docxology/rikishi/releases/tag/v1.1.0)
+has its own versioned source and release record. Use the private
+contact above for reports concerning either version and include the exact
+affected commit. No fixed maintenance window or response deadline is promised.

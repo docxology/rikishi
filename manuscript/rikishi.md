@@ -825,9 +825,8 @@ subset, not uniqueness or minimum cardinality over the complete background.
 
 The localized path combines a source assertion classifying *path* as total, a
 generated cache assertion classifying it as partial, and disjointness conditions.
-An initial Java diagnostic seeded cache maps before exercising the inheritance
-step. A subsequent isolated experiment instead constructs a real fresh knowledge base (KB),
-ingests source-only KIF, and calls `KBcache.buildCaches()` without seeded maps.
+The isolated experiment constructs a fresh knowledge base (KB), ingests
+source-only KIF, and calls `KBcache.buildCaches()` with no prepopulated maps.
 Both its declared minimal fragment and complete pinned *Merge.kif* input produce
 the additional partial classification while retaining the direct total one.
 Removing the parent's partial classification or the subrelation edge removes
@@ -1174,8 +1173,8 @@ Competency questions should include intended consequences and unwanted ones,
 following the testing distinctions in
 [@sec:competency-questions-reengineering-and-benchmarks]. A syntactically valid
 mapping that admits an unintended consequence remains a modeling problem.
-The older finite campaign and isolated elaboration remain separate
-experiments; the shared-witness study below adds an explicit common input binding.
+The finite alignment campaign and isolated elaboration are separate
+experiments; the shared-witness study below supplies a common input binding.
 
 ## Executed finite interpretation and controls {#sec:alignment-campaign}
 

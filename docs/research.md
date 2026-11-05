@@ -77,7 +77,10 @@ errors and predeclared tolerances. Counts are measured from produced rows.
 
 The reference directly exponentiates the exact binary-float log inputs in an
 80-digit Decimal context, sums positive joint masses, and computes posterior,
-objective and Kullback-Leibler (KL) divergence using Decimal logarithms. It does not call `free_energy_log`.
+objective and Kullback-Leibler (KL) divergence using Decimal logarithms. It does not call `free_energy_log`. Reference arithmetic and error comparisons
+use fresh Decimal contexts at the authority's declared precision and maximal
+exponent range. Caller precision, rounding, exponent bounds, traps and flags
+are neither inherited nor changed.
 Separate controls reverse states and rescale likelihoods by the authority's
 factor, checking objective/evidence shifts and posterior invariance. Ordinary
 and extreme cases use their respective fixed tolerances. The objective is
@@ -127,11 +130,10 @@ report. A supplied `source_report` selects an explicit frozen input instead.
 
 ## Preparing inputs in a fresh checkout
 
-The default workbook location supports this working checkout's retained
-evidence. It is not distributed input data. No XLSX is packaged. The default
-source report is newly generated from the audited live index, not historical
-output. `study.source_report_path` records the historical saved-fixture location
-for explicit reuse only; it is not consulted by the default runner.
+The default workbook location is `source-inputs/active-inference-sumo.xlsx`,
+matching the acquisition recipe below. No XLSX is packaged or acquired implicitly.
+The default source report is newly generated from the audited live index. The
+authority carries no unused saved-report locator.
 For a fresh installed checkout, use explicit `workbook_path` and `source_report`
 arguments as below; relative paths resolve against `root`. Keep these acquired
 inputs and all outputs on mounted GitVault, source `scripts/env.sh`, and use the

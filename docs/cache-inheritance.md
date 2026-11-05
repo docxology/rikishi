@@ -19,8 +19,8 @@ The versioned input authority is
 [`src/rikishi/data/fresh-cache-v1.json`](../src/rikishi/data/fresh-cache-v1.json).
 Its schema 2 fixes source selections, exact text and original line numbers,
 installed source/dependency hashes, complete JAR content identities, resource
-policy, and controlled input changes. The filename is retained for application programming interface (API) stability;
-schema 1 historical packets are not accepted as schema 2 evidence.
+policy, and controlled input changes. Readers require schema 2 and all declared
+custody checks.
 The Suggested Upper Merged Ontology (SUMO) is pinned to `efcd059f8feebfe3488a09f575f88d4d009b1e5c`; Sigma is pinned to
 `d3cc7b43b38b0b45692291a1b33fe2b1a3de0095`, as recorded in
 `config/sumo.lock.json` and the installed JAR's `build.commit=d3cc7b4` stamp.
@@ -75,14 +75,14 @@ raw warning messages are retained in its observation; no source bytes or
 classifications are filtered. The complete file contains 5520 parsed source
 statements and 5519 unique formulas after Sigma's normal duplicate handling.
 
-## Reproduction and API
+## Reproduction and application programming interface (API)
 
 Run from the mounted checkout after sourcing the external environment:
 
 ```bash
 source scripts/env.sh
 uv run --no-sync python -c 'import sys; print(sys.prefix); print(sys.base_prefix)'
-uv run --no-sync python -c 'from pathlib import Path; from rikishi.cache_inheritance import diagnose_cache_inheritance; print(diagnose_cache_inheritance(Path.cwd(), Path(".omo/evidence/research-agenda-20261021/fresh-cache-reproduction")))'
+uv run --no-sync python -c 'from pathlib import Path; from rikishi.cache_inheritance import diagnose_cache_inheritance; print(diagnose_cache_inheritance(Path.cwd(), Path("output/research/NEW_CACHE_RUN")))'
 ```
 
 `diagnose_cache_inheritance(root: Path, output: Path, *, timeout: int = 60)`
@@ -118,7 +118,7 @@ arrays, raw stdout/stderr, exit/timeout receipts,
 observations and a final result. Source, lock, patch, active-profile configuration,
 JARs, dependencies and toolchain are hashed before and after. `jar-content.json`
 records complete executable archive identities, including non-class resources;
-`jar-classes.json` is supplementary historical comparison data. The generated
+`jar-classes.json` is supplementary class-content comparison data. The generated
 adapter class has its own digest. Inputs
 and isolated configuration have per-case pre-execution hashes and final
 rechecks. Toolchain bindings include Java, javac, Java Development Kit (JDK) release, modules and JVM
@@ -164,16 +164,10 @@ bound. Its `build.commit` must identify the full pinned revision and agree with
 timestamp. Sigma reads these properties in `KBmanager.java:69–98`; changing
 their values changes runtime-visible version semantics and fails identity.
 
-The earlier schema 1 authority pinned archive
-`5791274c5773616386e16295fa8f30e628ef3375bb0540a467db280716ff6593`.
-The unchanged installed archive observed during the F2 reproduction was
-`1c8054cb05a0f6fc1780e5c801e1c34daaadcd6c539aa6112fe5c6744f1eb27a`,
-which the old operation rejected before executing any case. Matching historical
-class digests alone does not establish matching resources or valid acceptance.
-Those failed and historical receipts retain their original status and identity;
-they are never silently relabeled. New schema 2 observations require a fresh
-execution and complete custody checks. The pinned Sigma complete content digest
-is `b75282c03fa007c2d10366dd832e3e07ff03cf09dc122093c74cebb280dc3a93`.
+Matching class digests alone does not establish matching non-class resources
+or valid acceptance. Schema 2 observations require fresh execution and complete
+custody checks. The pinned Sigma complete content digest is
+`b75282c03fa007c2d10366dd832e3e07ff03cf09dc122093c74cebb280dc3a93`.
 
 ## Verification and limits
 
@@ -185,23 +179,13 @@ Python subprocess applies the original expectation to the reclassified-parent
 Java observation and exits unsuccessfully; its failed receipt and traceback
 are retained. No mocking framework is used.
 
-Evidence is under `.omo/evidence/research-agenda-20261021/fresh-cache*`.
-`fresh-cache-probe-1` retains an early adapter serialization defect: Java exited
-successfully but JSON-simple serialized sets as non-JSON text. This probe is
-not accepted evidence. Probe 2 corrected this with explicit lists, and subsequent
-observations are schema-validated. The separate fresh complete-file probe also
-succeeded. `fresh-cache-verification-1` retains 26 passing focused tests and
-100% statement/branch coverage for the new Python module, together with its
-initial import-order lint failure. Final verification receipts accompany the
-source/evidence freeze.
+A release verification summary must bind the actual result, retained inputs,
+tool identities, warnings and rejecting controls to its source candidate.
+Previous development receipts remain preserved under their original identities;
+they do not qualify a changed candidate.
 
-The first coverage invocation wrote the shared ignored `.coverage` file; its
-output was copied to `fresh-cache-verification-1/earlier-default.coverage`.
-Subsequent coverage output used that verification directory's dedicated file.
-No prior coverage file was restored over concurrent work.
-
-The earlier manually seeded diagnostic and four-premise refutation/deletion
-experiments remain separate context. No cache semantics, ontology assertion,
-existing runtime implementation, lock, patch or canonical cache was changed.
-No complete-core consistency result, correction, scientific interpretation,
-upstream acceptance or manuscript readiness follows from this experiment.
+The independent four-premise translated refutation and deletion controls are
+described in [runtime findings](runtime-upstream-report.md). The source-only
+experiment changes no canonical cache, ontology assertion or upstream method.
+No complete-core consistency result, repair, scientific interpretation, upstream
+acceptance or manuscript readiness follows from this experiment.

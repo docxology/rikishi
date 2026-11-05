@@ -1,9 +1,11 @@
-# Prepare the GitHub and Zenodo release
+# Versioned GitHub and Zenodo releases
 
-The proposed first public version is **1.0.0**. This guide describes preparation;
-it does not report that a tag, public repository, digital object identifier (DOI) or Zenodo record exists.
-Use the [release checklist](../RELEASE_CHECKLIST.md) as the concrete decision
-record and the [review guide](review.md) for the manuscript artifact.
+The existing [1.0.0 release](https://github.com/docxology/rikishi/releases/tag/v1.0.0)
+was published on 2026-10-31. Preserve its tag and attached files. This guide
+describes qualification and publication of the **1.1.0** candidate, whose
+new artifacts and digital object identifiers (DOIs) must be verified separately.
+Use the [release checklist](../RELEASE_CHECKLIST.md),
+[candidate notes](release-notes-1.1.0.md) and [review guide](review.md).
 
 ## Freeze one release candidate
 
@@ -48,12 +50,10 @@ reviewed third-party notices; do not relabel upstream material as MIT. Keep the
 source acquisition recipe, pins, public source locators and reproducibility
 instructions available without requiring private evidence trees.
 
-The maintained archive also excludes the historical `_template_resources/` and
-`template_reference/` scaffold copies. Their Git tree and history remain visible
-when the repository is made public, so their original notices and the historical
-research evidence require an explicit exposure review. See the
-[third-party inventory](../THIRD_PARTY_NOTICES.md). Preserve unrelated working
-deletions and local evidence; an archive exclusion is not a Git-history cleanup.
+The maintained source tree contains the operator, methods, tests and documentation.
+Prior commits retain removed development snapshots and their original attribution
+obligations; see the [third-party inventory](../THIRD_PARTY_NOTICES.md).
+Preserve local evidence separately from the public source and asset allowlists.
 
 Keep the edition's actual embedded-font license and attribution files with its
 deposit notices. Check the selected document with `pdffonts` after regeneration;
@@ -77,7 +77,7 @@ The selected record license must accurately describe the supplied files; see
 
 | Object | Prepared identity and review |
 | --- | --- |
-| GitHub source release | Approved `v1.0.0` tag at the exact reviewed commit; code/package metadata and changelog agree. |
+| GitHub source release | New `v1.1.0` tag at the exact reviewed commit; code/package metadata and changelog agree. Preserve the existing `v1.0.0`. |
 | Zenodo software archive | Archive of that GitHub release, or a separately reviewed manual software upload; verify the resulting record and its DOI. |
 | Zenodo manuscript | Actual inspected PDF with its own accurate resource type, title, creators, license, files and identifier. |
 
@@ -101,12 +101,12 @@ Perform these effects only after the exact release payload and remaining limits
 have been reviewed and publication explicitly authorized:
 
 1. Verify the final source revision, ordinary push target and absence of an
-   existing conflicting `v1.0.0` tag. Preserve unrelated work; do not force-push or
-   rewrite shared history.
-2. Complete any approved public-visibility change only after the history and
-   payload exposure review. Configure the intended private security-reporting
-   route. The GitHub–Zenodo integration requires a public repository, and an
-   organization may need to approve the Zenodo app's access.
+   existing conflicting `v1.1.0` tag. Preserve unrelated work and the existing
+   `v1.0.0`; do not force-push or rewrite shared history.
+2. Review the exact new public source/history and payload, and retain the
+   [private security-reporting contact](../SECURITY.md). The repository is already
+   public. The GitHub–Zenodo integration also requires the correct account and
+   app access; a public GitHub release alone does not configure that integration.
 3. Enable the selected GitHub repository in the correct Zenodo account, if using
    the software integration. Create the approved GitHub release from the exact
    tag and attach only the manifest-bound assets.

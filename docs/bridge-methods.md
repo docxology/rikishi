@@ -75,6 +75,10 @@ posterior atoms. `bridge_study.numerical` executes the existing
 `fep.free_energy` implementation on the float projections of those inputs. An
 independent high-precision Decimal calculation starts from the exact rational
 fractions and directly evaluates products, normalization, and natural logarithms.
+Reference arithmetic and error comparisons use fresh Decimal contexts at the
+authority's declared precision and maximal exponent range, independent of
+the caller's precision, rounding, exponent bounds, traps and flags. The
+caller context remains unchanged.
 
 Each numerical row retains both results, exact rational evidence and posterior,
 maximum reference error, exact posterior reconstruction residuals, and the

@@ -1,16 +1,19 @@
-# 1.0.0 publication checklist
+# 1.1.0 publication checklist
 
-Status: **PREPARATION — NOT RELEASED**. These boxes are decisions and actual
-evidence requirements, not promises. Mark an item only for the exact release
-candidate and retain the evidence locator in the release record. The detailed
-procedure is in [release preparation](docs/release.md).
+Use this checklist for **1.1.0** source and artifact qualification. The existing
+[1.0.0 GitHub release](https://github.com/docxology/rikishi/releases/tag/v1.0.0)
+is published and remains intact. These boxes apply only to the new candidate;
+mark an item for its exact source and artifacts and retain the evidence locator.
+See [release methods](docs/release.md) and
+[candidate notes](docs/release-notes-1.1.0.md).
 
 ## Candidate and package
 
 - [ ] Freeze the intended source commit and complete maintained-file inventory.
-- [ ] Reconcile 1.0.0 across package/Python/server metadata, project lock entry,
+- [ ] Reconcile 1.1.0 across package/Python/server metadata, project lock entry,
   citation files, changelog, release notes and public guides.
-- [ ] Confirm that `v1.0.0` does not conflict with an existing tag or release.
+- [ ] Confirm that `v1.1.0` does not conflict with an existing tag or release;
+  preserve the published `v1.0.0`.
 - [ ] Run the actual complete native `make check` for that source: every collected
   case, zero failures/errors/skips, unchanged 90% core and 60% infrastructure
   branch-inclusive floors, no excluded source lines, and package build success.
@@ -47,15 +50,15 @@ procedure is in [release preparation](docs/release.md).
 - [ ] Verify that the actual PDF, figure supplements, package notices and deposit
   metadata carry those scopes; complete third-party attribution/conditions without
   silently relicensing upstream material.
-- [ ] Confirm a working private security-reporting route or an explicit private
-  security contact before enabling public access.
+- [ ] Verify that the release retains the explicit private security contact in
+  [SECURITY.md](SECURITY.md).
 - [ ] Record the actual remaining product/evidence limits and the maintainer's
   disposition; do not convert a literal departure into compliance.
 
 ## GitHub and Zenodo publication
 
-- [ ] Obtain explicit authorization for the concrete reviewed visibility,
-  ordinary push/tag/release and Zenodo publication actions.
+- [ ] Bind the authorized ordinary push/tag/release and Zenodo publication
+  actions to the concrete reviewed payload.
 - [ ] Verify the actual public GitHub repository and approved tag/commit.
 - [ ] Configure the correct Zenodo account/app access if using GitHub software
   archiving; keep `.zenodo.json` and `CITATION.cff` consistent.

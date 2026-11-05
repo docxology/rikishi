@@ -199,9 +199,9 @@ separately, and retain inconclusive results as inconclusive.
 The observed native Sigma core run illustrates this distinction. With four core
 constituents and the versioned compound-type guard patch, `(subclass Human Animal)`
 returned `SZSTheorem`, while the negative control `(subclass Human Artifact)`
-returned `SZSContradictoryAxioms`. The retained four-premise refutation and
-historical seeded Java diagnostic localize a generated cache classification.
-The newer [fresh experiment](cache-inheritance.md) uses real KB construction,
+returned `SZSContradictoryAxioms`. The retained four-premise refutation
+identifies a generated cache classification. The separate
+[source-only experiment](cache-inheritance.md) uses real KB construction,
 source ingestion and `buildCaches()` without seeded maps. Its five controls
 cover an isolated fragment and complete pinned Merge: parent-classification and
 edge removal eliminate generated partial classification; a synthetic inheritable

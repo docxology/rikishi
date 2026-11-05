@@ -82,6 +82,11 @@ packet-access `FileNotFoundError` is not accepted. Existing directories remain
 empty and aliases remain intact. Symlinked and missing parents retain their
 separate rejection controls. This does not permit rendering off GitVault.
 
+The fresh public-acquisition integration case performs real HTTPS requests to
+the pinned source URLs. It requires network admission independently of
+offline portable verification and loopback HTTP transfer controls. A denied
+network operation is a failed observation, never a passing acquisition.
+
 Portable selector:
 
 ```bash

@@ -31,10 +31,14 @@ separates completed implementation from the next minor, medium and major work.
 
 ## Install and choose a workflow
 
-The proposed first public release is **1.0.0**. Preparation does not mean a
-GitHub release or Zenodo record has been published. Use the
-[review guide](docs/review.md) and [release checklist](RELEASE_CHECKLIST.md) to
-identify actual source, artifact and verification records.
+The published [1.0.0 release](https://github.com/docxology/rikishi/releases/tag/v1.0.0)
+contains the software packages, manuscript and verification records from its
+tagged source. This checkout identifies **1.1.0**. Download versioned assets and
+their verification summary from the
+[1.1.0 release](https://github.com/docxology/rikishi/releases/tag/v1.1.0). Follow the
+[release notes](docs/release-notes-1.1.0.md), [review guide](docs/review.md) and
+[release checklist](RELEASE_CHECKLIST.md). Zenodo software and manuscript records
+will be linked only after actual publication and verification.
 
 Start with the [installation/support guide](docs/installation.md). Installing
 the wheel supplies the Python package; a source checkout is required for the
@@ -223,8 +227,8 @@ walks through the distinction between execution and inspection.
 
 The [fresh cache experiment](docs/cache-inheritance.md) observes five controls
 using source ingestion and `buildCaches()` in isolated knowledge bases, including complete
-pinned `Merge.kif`. It extends the historical seeded diagnostic and localized
-translated refutation in the [runtime record](docs/runtime-upstream-report.md).
+pinned `Merge.kif`. The [runtime findings](docs/runtime-upstream-report.md)
+separately describe the localized translated refutation and its source trace.
 It establishes neither complete four-file-core consistency nor source-ontology
 inconsistency or repair. Sigma supplies its own native translation path; the
 laboratory supplies a declared fragment compiler. Neither establishes a general
@@ -257,6 +261,7 @@ provenance. No command automatically publishes to upstream SUMO, PyPI or Zenodo.
   [report a security concern](SECURITY.md).
 - [Prepare the GitHub/Zenodo release](docs/release.md).
 
-Public release assets and DOI links will be recorded only after they exist.
-A local output path, badge, version string or old build receipt is not evidence
-that the current candidate is published or qualified.
+Use the exact tag and attached checksum inventories when downloading a published
+edition. A local output path or an earlier release's successful checks do not
+qualify changed 1.1.0 source or artifacts. Verified archival identifiers belong to the
+specific software and manuscript records they identify.

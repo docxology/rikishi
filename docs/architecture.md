@@ -103,9 +103,9 @@ repositories; they do not replace methods with mocked return values.
 The [finite study](research.md) declares its FOL interpretation and exclusions;
 it does not translate arbitrary SUO-KIF or encode probability arithmetic as FOL.
 The [fresh cache experiment](cache-inheritance.md) loads a selected fragment and
-complete Merge separately, not the four-file core. The historical seeded cache
-step and translated refutation remain distinct evidence. None supplies a
-SUMO-to-Lean preservation theorem or empirical validation.
+complete Merge separately, not the four-file core. The localized translated
+refutation has its own retained premises and deletion controls. Neither method
+supplies a SUMO-to-Lean preservation theorem or empirical validation.
 
 The [inference laboratory tutorial](inference-tutorial.md) and
 [method contract](inference-methods.md) distinguish selected source kernels from
