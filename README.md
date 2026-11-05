@@ -31,14 +31,14 @@ separates completed implementation from the next minor, medium and major work.
 
 ## Install and choose a workflow
 
-The published [1.0.0 release](https://github.com/docxology/rikishi/releases/tag/v1.0.0)
-contains the software packages, manuscript and verification records from its
-tagged source. This checkout identifies **1.1.0**. Download versioned assets and
-their verification summary from the
-[1.1.0 release](https://github.com/docxology/rikishi/releases/tag/v1.1.0). Follow the
-[release notes](docs/release-notes-1.1.0.md), [review guide](docs/review.md) and
-[release checklist](RELEASE_CHECKLIST.md). Zenodo software and manuscript records
-will be linked only after actual publication and verification.
+This checkout identifies **1.1.0**. Download its versioned software packages,
+manuscript and verification summary from the
+[1.1.0 GitHub release](https://github.com/docxology/rikishi/releases/tag/v1.1.0).
+Follow the [release notes](docs/release-notes-1.1.0.md),
+[review guide](docs/review.md) and [release checklist](RELEASE_CHECKLIST.md).
+The [software archive](https://doi.org/10.5281/zenodo.23987623) and
+[manuscript](https://doi.org/10.5281/zenodo.23987671) have distinct versioned
+Zenodo records and licenses. Cite the record that supplies the work you use.
 
 Start with the [installation/support guide](docs/installation.md). Installing
 the wheel supplies the Python package; a source checkout is required for the
