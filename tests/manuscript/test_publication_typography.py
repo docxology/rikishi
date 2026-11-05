@@ -151,8 +151,10 @@ def _observe(directory: Path, mutation: Literal["none", "gap", "numbers", "table
     paper = directory / "fixture.html"
     paper.write_bytes(rendered.stdout)
     (directory / "pandoc.stderr").write_bytes(rendered.stderr)
+    sandbox_flags = (["--no-sandbox"]
+                     if os.environ.get("RIKISHI_CHROMIUM_NO_SANDBOX") == "1" else [])
     result = run_bounded([
-        executable, "--headless=new", "--no-first-run", "--disable-background-networking",
+        executable, *sandbox_flags, "--headless=new", "--no-first-run", "--disable-background-networking",
         "--disable-component-update", "--disable-extensions", "--disable-sync", "--disable-gpu",
         f"--user-data-dir={directory / 'profile'}", "--window-size=800,900",
         "--dump-dom", "--virtual-time-budget=2000", paper.as_uri(),

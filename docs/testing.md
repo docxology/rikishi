@@ -16,7 +16,11 @@ the typography tests invoke that exact file in a private headless profile and
 reject a missing setting. For example, select an executable with
 `export RIKISHI_CHROMIUM="$(command -v chromium)"` on a system that provides
 `chromium`, then invoke it with `"$RIKISHI_CHROMIUM" --version` to verify it works.
-Use the actual application executable on macOS. These tests are integration
+Use the actual application executable on macOS. A separately confined test runner
+whose kernel sandbox rejects Chromium's nested sandbox may explicitly set
+`RIKISHI_CHROMIUM_NO_SANDBOX=1` for this generated local fixture. This adds
+`--no-sandbox` to the test browser only; the outer runner must retain its own
+network and write restrictions. These tests are integration
 cases and are excluded by `make portable`; a source-only pass does not establish
 browser behavior. Give concurrent pytest runs distinct external `--basetemp`
 directories so their retention cleanup cannot interfere.
@@ -83,8 +87,8 @@ empty and aliases remain intact. Symlinked and missing parents retain their
 separate rejection controls. This does not permit rendering off GitVault.
 
 The fresh public-acquisition integration case performs real HTTPS requests to
-the pinned source URLs. It requires network admission independently of
-offline portable verification and loopback HTTP transfer controls. A denied
+the pinned source Uniform Resource Locators (URLs). It requires network
+admission independently of offline portable verification and loopback HTTP transfer controls. A denied
 network operation is a failed observation, never a passing acquisition.
 
 Portable selector:
