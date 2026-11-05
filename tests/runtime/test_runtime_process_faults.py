@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import json
-import subprocess
 import sys
 from pathlib import Path
 
 import pytest
+from process_observation import wait_for_process_exit
 
 from rikishi.runtime import compare, prove
 from rikishi.runtime_artifacts import ArtifactError, load_capture
@@ -57,9 +57,8 @@ def test_direct_process_timeout_kills_descendants_and_retains_capture(tmp_path: 
     assert capture.timed_out
     assert capture.returncode < 0
     pid = (output / "stdout.txt").read_text().strip()
-    process = subprocess.run(["ps", "-o", "stat=", "-p", pid], check=False,
-                             capture_output=True, text=True, timeout=5)
-    assert not process.stdout.strip() or process.stdout.strip().startswith("Z")
+    state = wait_for_process_exit(int(pid))
+    assert not state or state.startswith("Z")
 
 
 def test_comparison_process_resource_fault_is_inconclusive(tmp_path: Path) -> None:

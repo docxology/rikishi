@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import math
-from decimal import Decimal, localcontext
+from decimal import MAX_EMAX, MIN_EMIN, Context, Decimal, localcontext
 from hashlib import sha256
 from importlib.resources import files
 from pathlib import Path
@@ -64,9 +64,8 @@ class DecimalReference(Frozen):
 
 
 def decimal_reference(inputs: NumericalInput, precision: int) -> DecimalReference:
-    """Independent direct Decimal exp/sum/log, using the exact supplied binary floats."""
-    with localcontext() as context:
-        context.prec = precision
+    """Direct Decimal exp/sum/log from exact float inputs in a fresh fixed context."""
+    with localcontext(Context(prec=precision, Emax=MAX_EMAX, Emin=MIN_EMIN)):
         joint = [Decimal(0) if p is None or l is None else
                  (Decimal.from_float(float(p)) + Decimal.from_float(float(l))).exp()
                  for p, l in zip(inputs.log_prior, inputs.log_likelihood, strict=True)]
@@ -111,55 +110,56 @@ class NumericalRow(Frozen):
 
 
 def _compare_row(inputs: NumericalInput, spec: NumericalStudy, *, extreme: bool) -> NumericalRow:
-    result = _evaluate(inputs)
-    reference = decimal_reference(inputs, spec.decimal_precision)
-    comparisons = [(result.free_energy, reference.free_energy),
-                   (result.log_evidence, reference.log_evidence),
-                   (result.kl_to_posterior, reference.kl_to_posterior),
-                   (result.surprise, str(-Decimal(reference.log_evidence))),
-                   *zip(result.exact_posterior, reference.exact_posterior, strict=True)]
-    errors = [abs(Decimal.from_float(a) - Decimal(b)) for a, b in comparisons]
-    for actual, expected in zip(result.log_exact_posterior, reference.log_exact_posterior, strict=True):
-        if actual is not None and expected is not None:
-            errors.append(abs(Decimal.from_float(actual) - Decimal(expected)))
-        elif actual is not expected:
-            raise AlignmentError("Structural zero differs from the Decimal support")
-    expected_underflow = [i for i, (mass, logmass) in enumerate(
-        zip(reference.exact_posterior, reference.log_exact_posterior, strict=True))
-        if logmass is not None and float(Decimal(mass)) == 0.0]
-    evidence = float(Decimal(reference.evidence))
-    support_passed = (result.posterior_underflow_indices == expected_underflow
-                      and (result.evidence is None) == (evidence == 0.0))
-    if result.evidence is not None:
-        errors.append(abs(Decimal.from_float(result.evidence) - Decimal(reference.evidence)))
-    permuted = _evaluate(inputs.model_copy(update={
-        "log_prior": inputs.log_prior[::-1], "log_likelihood": inputs.log_likelihood[::-1],
-        "posterior": inputs.posterior[::-1]}))
-    permutation_error = max(abs(result.free_energy - permuted.free_energy),
-                            abs(result.kl_to_posterior - permuted.kl_to_posterior),
-                            abs(result.log_evidence - permuted.log_evidence),
-                            *(abs(a - b) for a, b in zip(
-                                result.exact_posterior, permuted.exact_posterior[::-1], strict=True)))
-    shift = math.log(spec.likelihood_rescaling)
-    scaled = _evaluate(inputs.model_copy(update={"log_likelihood": [
-        None if v is None else float(v) + shift for v in inputs.log_likelihood]}))
-    rescaling_error = max(abs(scaled.free_energy - result.free_energy + shift),
-                          abs(scaled.log_evidence - result.log_evidence - shift),
-                          abs(scaled.kl_to_posterior - result.kl_to_posterior),
-                          *(abs(a - b) for a, b in zip(
-                              scaled.exact_posterior, result.exact_posterior, strict=True)))
-    tolerance = spec.extreme_tolerance if extreme else spec.ordinary_tolerance
-    bound = Decimal(tolerance)
-    max_error = max(errors)
-    passed = (max_error <= bound and permutation_error <= float(bound)
-              and rescaling_error <= float(bound) and support_passed
-              and abs(result.identity_residual) <= float(bound)
-              and result.kl_to_posterior >= -float(bound))
-    return NumericalRow(input=inputs, dimension=len(inputs.posterior), model_index=None,
-                        candidate="boundary", prior_weights=[], likelihood_weights=[],
-                        result=result, reference=reference, max_reference_error=float(max_error),
-                        permutation_max_error=permutation_error, rescaling_max_error=rescaling_error,
-                        tolerance=tolerance, passed=passed)
+    with localcontext(Context(prec=spec.decimal_precision, Emax=MAX_EMAX, Emin=MIN_EMIN)):
+        result = _evaluate(inputs)
+        reference = decimal_reference(inputs, spec.decimal_precision)
+        comparisons = [(result.free_energy, reference.free_energy),
+                       (result.log_evidence, reference.log_evidence),
+                       (result.kl_to_posterior, reference.kl_to_posterior),
+                       (result.surprise, str(-Decimal(reference.log_evidence))),
+                       *zip(result.exact_posterior, reference.exact_posterior, strict=True)]
+        errors = [abs(Decimal.from_float(a) - Decimal(b)) for a, b in comparisons]
+        for actual, expected in zip(result.log_exact_posterior, reference.log_exact_posterior, strict=True):
+            if actual is not None and expected is not None:
+                errors.append(abs(Decimal.from_float(actual) - Decimal(expected)))
+            elif actual is not expected:
+                raise AlignmentError("Structural zero differs from the Decimal support")
+        expected_underflow = [i for i, (mass, logmass) in enumerate(
+            zip(reference.exact_posterior, reference.log_exact_posterior, strict=True))
+            if logmass is not None and float(Decimal(mass)) == 0.0]
+        evidence = float(Decimal(reference.evidence))
+        support_passed = (result.posterior_underflow_indices == expected_underflow
+                          and (result.evidence is None) == (evidence == 0.0))
+        if result.evidence is not None:
+            errors.append(abs(Decimal.from_float(result.evidence) - Decimal(reference.evidence)))
+        permuted = _evaluate(inputs.model_copy(update={
+            "log_prior": inputs.log_prior[::-1], "log_likelihood": inputs.log_likelihood[::-1],
+            "posterior": inputs.posterior[::-1]}))
+        permutation_error = max(abs(result.free_energy - permuted.free_energy),
+                                abs(result.kl_to_posterior - permuted.kl_to_posterior),
+                                abs(result.log_evidence - permuted.log_evidence),
+                                *(abs(a - b) for a, b in zip(
+                                    result.exact_posterior, permuted.exact_posterior[::-1], strict=True)))
+        shift = math.log(spec.likelihood_rescaling)
+        scaled = _evaluate(inputs.model_copy(update={"log_likelihood": [
+            None if v is None else float(v) + shift for v in inputs.log_likelihood]}))
+        rescaling_error = max(abs(scaled.free_energy - result.free_energy + shift),
+                              abs(scaled.log_evidence - result.log_evidence - shift),
+                              abs(scaled.kl_to_posterior - result.kl_to_posterior),
+                              *(abs(a - b) for a, b in zip(
+                                  scaled.exact_posterior, result.exact_posterior, strict=True)))
+        tolerance = spec.extreme_tolerance if extreme else spec.ordinary_tolerance
+        bound = Decimal(tolerance)
+        max_error = max(errors)
+        passed = (max_error <= bound and permutation_error <= float(bound)
+                  and rescaling_error <= float(bound) and support_passed
+                  and abs(result.identity_residual) <= float(bound)
+                  and result.kl_to_posterior >= -float(bound))
+        return NumericalRow(input=inputs, dimension=len(inputs.posterior), model_index=None,
+                            candidate="boundary", prior_weights=[], likelihood_weights=[],
+                            result=result, reference=reference, max_reference_error=float(max_error),
+                            permutation_max_error=permutation_error, rescaling_max_error=rescaling_error,
+                            tolerance=tolerance, passed=passed)
 
 
 class InvalidObservation(Frozen):

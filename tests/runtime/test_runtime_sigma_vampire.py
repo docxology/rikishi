@@ -18,7 +18,6 @@ from rikishi.runtime_artifacts import (
     read_regular,
 )
 from rikishi.runtime_context import (
-    CONTRADICTORY_BACKGROUND_SHA256,
     CONTRADICTORY_CORE_BINDINGS,
     CONTRADICTORY_VAMPIRE_BINDINGS,
     recorded_negative_context,
@@ -267,19 +266,23 @@ def test_actual_core_queries_disclose_bound_contradiction_without_changing_query
             assert report["outcome"] == "entailed", report
 
 
+@pytest.mark.integration
 @pytest.mark.parametrize("family", ["e", "v"])
 @pytest.mark.parametrize("changed", [None, "prover", "classes", "lock", "config", "background", "extra"])
-def test_context_binding_requires_every_pinned_identity(family: str, changed: str | None) -> None:
+def test_context_binding_requires_every_pinned_identity(
+    project_root: Path, family: str, changed: str | None,
+) -> None:
     bindings = dict(CONTRADICTORY_CORE_BINDINGS if family == "e" else CONTRADICTORY_VAMPIRE_BINDINGS)
     keys = {"prover": "prover_sha256", "classes": "sigma_classes_sha256",
             "lock": "sumo_lock_sha256", "config": "profile_config_sha256"}
-    backgrounds = [CONTRADICTORY_BACKGROUND_SHA256]
+    data = (project_root / ".rikishi/sigma/core/KBs/SUMO.tptp").read_bytes()
+    backgrounds = [hashlib.sha256(data).hexdigest()]
     if changed in keys:
         bindings[keys[changed]] = "0" * 64
     elif changed == "background":
         backgrounds = ["0" * 64]
     elif changed == "extra":
         backgrounds.append("0" * 64)
-    context = recorded_negative_context(bindings, backgrounds)
+    context = recorded_negative_context(bindings, backgrounds, background_bytes=[data])
     assert context == ("contradictory_translated_axioms_previously_observed"
                        if changed is None else "unknown")

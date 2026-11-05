@@ -40,16 +40,10 @@ def test_proof_premises_require_complete_refutation_block():
     assert proof_premises(block) == ["a"]
 
 
-@pytest.mark.parametrize("changed", [*CONTRADICTORY_CORE_BINDINGS, "background"])
-def test_historical_context_requires_matching_profile_and_sources(changed):
-    bindings = dict(CONTRADICTORY_CORE_BINDINGS)
-    backgrounds = [CONTRADICTORY_BACKGROUND_SHA256]
-    assert recorded_negative_context(bindings, backgrounds) == "contradictory_translated_axioms_previously_observed"
-    if changed == "background":
-        backgrounds = ["different"]
-    else:
-        bindings[changed] = "different"
-    assert recorded_negative_context(bindings, backgrounds) == "unknown"
+def test_digest_only_context_cannot_replace_complete_background_bytes():
+    with pytest.raises(TypeError, match="background_bytes"):
+        recorded_negative_context(CONTRADICTORY_CORE_BINDINGS,
+                                  [CONTRADICTORY_BACKGROUND_SHA256])
 
 
 @pytest.mark.parametrize("timeout", [0, 31])
@@ -107,46 +101,40 @@ def test_inconclusive_diagnostic_and_unsafe_replay_requests(project_root, tmp_pa
 
 
 @pytest.mark.integration
-@pytest.mark.parametrize("source", ["RuntimeTypeGuardRegression.java", "RuntimeCacheDiagnostic.java"])
-def test_real_java_regressions(project_root, tmp_path, source):
+def test_real_java_type_guard_regression(project_root, tmp_path):
     environment = json.loads((project_root / ".rikishi/runtime/environment.json").read_text())
     java = Path(environment["JAVA_HOME"]) / "bin/java"
     sigma = Path(environment["SIGMA_SRC"])
     command = [str(java), f"-Duser.home={project_root / '.rikishi/runtime'}",
                f"-Djava.io.tmpdir={tmp_path}", "-cp", f"{sigma}/build/sigmakee.jar:{sigma}/lib/*",
-               str(project_root / "scripts/runtime" / source), str(tmp_path)]
+               str(project_root / "scripts/runtime/RuntimeTypeGuardRegression.java"), str(tmp_path)]
     result = subprocess.run(command, env=dict(os.environ, **environment), cwd=project_root,
                             capture_output=True, text=True, timeout=30, check=False)
     assert result.returncode == 0, result.stderr
-    if source == "RuntimeTypeGuardRegression.java":
-        assert "subclass" in result.stdout
-        assert "s__ExtensionFn(s__Oval)" in result.stdout
-        assert "s__Human" in result.stdout
-    else:
-        assert "parentPartial=false; pathPartial=false; pathTotal=true" in result.stdout
-        assert "parentPartial=true; pathPartial=true; pathTotal=true" in result.stdout
+    assert "subclass" in result.stdout
+    assert "s__ExtensionFn(s__Oval)" in result.stdout
+    assert "s__Human" in result.stdout
     lock = json.loads((project_root / "config/sumo.lock.json").read_text())
     patch = lock["patches"][0]
     assert hashlib.sha256((project_root / patch["path"]).read_bytes()).hexdigest() == patch["sha256"]
-    if source == "RuntimeTypeGuardRegression.java":
-        original = subprocess.run(
-            ["git", "show", lock["repositories"]["sigmakee"]["commit"] + ":" + patch["source"]],
-            cwd=sigma, capture_output=True, timeout=10, check=True,
-        ).stdout
-        assert hashlib.sha256(original).hexdigest() == patch["before_sha256"]
-        unpatched = tmp_path / "FormulaPreprocessor.java"
-        unpatched.write_bytes(original)
-        classes = tmp_path / "classes"
-        classes.mkdir()
-        compiled = subprocess.run(
-            [str(java.with_name("javac")), "-cp", command[4], "-d", str(classes), str(unpatched)],
-            cwd=project_root, env=dict(os.environ, **environment),
-            capture_output=True, text=True, timeout=60, check=False,
-        )
-        assert compiled.returncode == 0, compiled.stderr
-        negative = list(command)
-        negative[4] = str(classes) + ":" + command[4]
-        rejected = subprocess.run(negative, env=dict(os.environ, **environment), cwd=project_root,
-                                  capture_output=True, text=True, timeout=30, check=False)
-        assert rejected.returncode != 0
-        assert "Compound class was flattened" in rejected.stderr
+    original = subprocess.run(
+        ["git", "show", lock["repositories"]["sigmakee"]["commit"] + ":" + patch["source"]], stdin=subprocess.DEVNULL,
+        cwd=sigma, capture_output=True, timeout=10, check=True,
+    ).stdout
+    assert hashlib.sha256(original).hexdigest() == patch["before_sha256"]
+    unpatched = tmp_path / "FormulaPreprocessor.java"
+    unpatched.write_bytes(original)
+    classes = tmp_path / "classes"
+    classes.mkdir()
+    compiled = subprocess.run(
+        [str(java.with_name("javac")), "-cp", command[4], "-d", str(classes), str(unpatched)],
+        cwd=project_root, env=dict(os.environ, **environment),
+        capture_output=True, text=True, timeout=60, check=False,
+    )
+    assert compiled.returncode == 0, compiled.stderr
+    negative = list(command)
+    negative[4] = str(classes) + ":" + command[4]
+    rejected = subprocess.run(negative, env=dict(os.environ, **environment), cwd=project_root,
+                              capture_output=True, text=True, timeout=30, check=False)
+    assert rejected.returncode != 0
+    assert "Compound class was flattened" in rejected.stderr

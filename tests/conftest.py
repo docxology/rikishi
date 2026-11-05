@@ -93,16 +93,16 @@ def portable_inputs(project_root: Path) -> PortableInputs:
 def git_commit() -> Callable[[Path], str]:
     """Commit real fixture files without an inherited filesystem monitor."""
     def commit(directory: Path) -> str:
-        subprocess.run(["git", "-c", "core.fsmonitor=false", "init", "-b", "main", str(directory)],
+        subprocess.run(["git", "-c", "core.fsmonitor=false", "init", "-b", "main", str(directory)], stdin=subprocess.DEVNULL,
                        check=True, capture_output=True)
         command = ["git", "-c", "core.fsmonitor=false", "-C", str(directory)]
-        subprocess.run([*command, "config", "--local", "core.fsmonitor", "false"],
+        subprocess.run([*command, "config", "--local", "core.fsmonitor", "false"], stdin=subprocess.DEVNULL,
                        check=True, capture_output=True)
-        subprocess.run([*command, "add", "."], check=True, capture_output=True)
+        subprocess.run([*command, "add", "."], stdin=subprocess.DEVNULL, check=True, capture_output=True)
         subprocess.run([*command, "-c", "user.name=Fixture", "-c",
-                        "user.email=fixture@example.invalid", "commit", "-m", "Fixture"],
+                        "user.email=fixture@example.invalid", "commit", "-m", "Fixture"], stdin=subprocess.DEVNULL,
                        check=True, capture_output=True)
-        return subprocess.run([*command, "rev-parse", "HEAD"], check=True,
+        return subprocess.run([*command, "rev-parse", "HEAD"], stdin=subprocess.DEVNULL, check=True,
                               capture_output=True, text=True).stdout.strip()
     return commit
 

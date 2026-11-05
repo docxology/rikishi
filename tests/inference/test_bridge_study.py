@@ -1,6 +1,6 @@
 """Pure source/model controls: these tests never invoke native tools."""
 
-from decimal import Decimal
+from decimal import ROUND_DOWN, ROUND_UP, Context, Decimal, Inexact, Rounded, localcontext
 from fractions import Fraction
 
 import pytest
@@ -132,3 +132,25 @@ def test_removed_source_premise_really_changes_selected_kernel(portable_inputs: 
         removed = next(c.problem for c in generated if c.group == scenario.id and c.kind == "removed-premise")
         assert any(line.endswith(f",axiom,{formula}).") for line in positive.splitlines())
         assert not any(line.endswith(f",axiom,{formula}).") for line in removed.splitlines())
+
+
+@pytest.mark.parametrize("rounding", [ROUND_DOWN, ROUND_UP])
+def test_references_and_witness_comparisons_ignore_hostile_decimal_context(rounding):
+    study = catalog()
+    expected = tuple(decimal_reference(witness, study.decimal_precision)
+                     for witness in study.witnesses)
+    expected_rows = numerical(study)
+    with localcontext(Context(prec=3, rounding=rounding, Emax=9, Emin=-9)) as caller:
+        caller.traps[Inexact] = True
+        caller.traps[Rounded] = True
+        before = caller.copy()
+        actual = tuple(decimal_reference(witness, study.decimal_precision)
+                       for witness in study.witnesses)
+        replayed = numerical(study)
+        assert (caller.prec, caller.rounding, caller.Emax, caller.Emin,
+                caller.traps, caller.flags) == (
+                    before.prec, before.rounding, before.Emax, before.Emin,
+                    before.traps, before.flags)
+    assert actual == expected
+    assert replayed == expected_rows
+    assert all(row.passed for row in replayed)

@@ -12,6 +12,7 @@ from pathlib import Path
 from types import FrameType, FunctionType
 from typing import Final
 
+from process_observation import process_executable, process_state
 from pydantic import BaseModel, ConfigDict
 
 from rikishi import runtime_process
@@ -48,19 +49,7 @@ def _platform() -> tuple[str, str, list[str]]:
 
 
 def _state(pid: int) -> str:
-    result = subprocess.run(["ps", "-o", "stat=,pgid=,comm=", "-p", str(pid)],
-                            capture_output=True, text=True, check=False, timeout=5)
-    assert result.returncode in {0, 1}, result.stderr
-    return result.stdout.strip()
-
-
-def _executable(pid: int, state: str) -> Path:
-    match sys.platform:
-        case "darwin":
-            return Path(state.split(maxsplit=2)[2])
-        case "linux":
-            return Path(os.readlink(f"/proc/{pid}/exe"))
-    raise AssertionError(f"unsupported executable observation platform: {sys.platform}")
+    return process_state(pid)
 
 
 def _kill_group(pid: int) -> str:
@@ -115,11 +104,14 @@ def _worker(directory: Path) -> None:
                     assert time.monotonic() < deadline, "native loader did not acknowledge SIGSTOP"
                     os.sched_yield()
                 state = _state(pid)
-                history.append({"pid": pid, "wait_status": status, "state": state})
+                executable = process_executable(pid)
+                group = os.getpgid(pid)
+                history.append({"pid": pid, "wait_status": status, "state": state,
+                                "process_group": group, "executable": str(executable)})
                 assert pid == process.pid and os.WIFSTOPPED(status), history
                 assert os.WSTOPSIG(status) == signal.SIGSTOP, history
                 assert state.startswith("T") and "X" not in state.split()[0], history
-                assert _executable(pid, state) == Path(request.command[0]), history
+                assert group == process.pid and executable == Path(request.command[0]), history
                 assert process.poll() is None
             else:
                 while not (state := _state(process.pid)).startswith("Z"):

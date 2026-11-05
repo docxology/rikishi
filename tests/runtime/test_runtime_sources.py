@@ -9,16 +9,16 @@ from rikishi.runtime_setup import apply_compatibility_patch, copy_corpus, ensure
 def test_interrupted_git_checkout_resumes_and_preserves_wrong_pin(tmp_path):
     ensure = ensure_repository
     source = tmp_path / "origin"
-    subprocess.run(["git", "init", str(source)], check=True, capture_output=True)
+    subprocess.run(["git", "init", str(source)], stdin=subprocess.DEVNULL, check=True, capture_output=True)
     (source / "Merge.kif").write_text("(subclass Human Animal)")
-    subprocess.run(["git", "add", "."], cwd=source, check=True, capture_output=True)
+    subprocess.run(["git", "add", "."], stdin=subprocess.DEVNULL, cwd=source, check=True, capture_output=True)
     subprocess.run(["git", "-c", "user.name=Runtime Test", "-c", "user.email=test@example.invalid",
-                    "-c", "commit.gpgsign=false", "commit", "-m", "fixture"], cwd=source,
+                    "-c", "commit.gpgsign=false", "commit", "-m", "fixture"], stdin=subprocess.DEVNULL, cwd=source,
                    check=True, capture_output=True)
-    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=source, text=True).strip()
+    commit = subprocess.check_output(["git", "rev-parse", "HEAD"], stdin=subprocess.DEVNULL, cwd=source, text=True).strip()
     pin = {"url": str(source), "commit": commit}
     destination = tmp_path / "interrupted"
-    subprocess.run(["git", "init", str(destination)], check=True, capture_output=True)
+    subprocess.run(["git", "init", str(destination)], stdin=subprocess.DEVNULL, check=True, capture_output=True)
     with pytest.raises(subprocess.CalledProcessError):
         ensure(destination, {"url": str(tmp_path / "absent"), "commit": commit})
     ensure(destination, pin)
@@ -28,7 +28,7 @@ def test_interrupted_git_checkout_resumes_and_preserves_wrong_pin(tmp_path):
         ensure(destination, dict(pin, commit="0" * 40))
     ensure(tmp_path / "fresh", pin)
     interrupted_dirty = tmp_path / "dirty"
-    subprocess.run(["git", "init", str(interrupted_dirty)], check=True, capture_output=True)
+    subprocess.run(["git", "init", str(interrupted_dirty)], stdin=subprocess.DEVNULL, check=True, capture_output=True)
     (interrupted_dirty / "owned.txt").write_text("preserve")
     with pytest.raises(RuntimeError, match="local files"):
         ensure(interrupted_dirty, pin)
@@ -45,10 +45,10 @@ def test_sigma_copy_pin_guard_and_partial_resume(tmp_path):
     (source / "nested/data.kif").write_text("nested")
     kb = tmp_path / "sigma/KBs"
     kb.mkdir(parents=True)
-    (kb / "Merge.kif").write_text("legacy data")
+    (kb / "Merge.kif").write_text("existing data")
     with pytest.raises(RuntimeError, match="unmarked Sigma file differs"):
         copy(source, kb, "pin-one")
-    assert (kb / "Merge.kif").read_text() == "legacy data"
+    assert (kb / "Merge.kif").read_text() == "existing data"
     (kb / "Merge.kif").write_text("complete")
     copy(source, kb, "pin-one")
     assert (kb / "Merge.kif").read_text() == "complete"
@@ -63,7 +63,7 @@ def test_sigma_copy_pin_guard_and_partial_resume(tmp_path):
 
 def test_compatibility_patch_integrity_and_idempotence(tmp_path):
     apply = apply_compatibility_patch
-    subprocess.run(["git", "init", str(tmp_path)], check=True, capture_output=True)
+    subprocess.run(["git", "init", str(tmp_path)], stdin=subprocess.DEVNULL, check=True, capture_output=True)
     target = tmp_path / "fixture.txt"
     target.write_text("original\n")
     patch = tmp_path / "fix.patch"

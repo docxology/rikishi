@@ -79,7 +79,7 @@ def test_real_vampire_sigma_command_is_single_frozen_problem(
 
 
 @pytest.mark.integration
-def test_pinned_vampire_rejects_sigma_legacy_option_before_input(
+def test_pinned_vampire_rejects_unsupported_sigma_option_before_input(
     project_root: Path, tmp_path: Path,
 ) -> None:
     binary = project_root / ".rikishi/runtime/vampire"

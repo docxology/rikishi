@@ -54,6 +54,7 @@ def test_transfer_preserves_real_source_bytes(portable_inputs: PortableInputs) -
     assert final_url == url
 
 
+@pytest.mark.integration
 def test_new_public_acquisition_verifies_packaged_sources(tmp_path: Path) -> None:
     result = prepare_portable_inputs(tmp_path / "public", reuse=True, timeout=30)
     assert result.merge_bytes == result.source_report.source.text.encode()

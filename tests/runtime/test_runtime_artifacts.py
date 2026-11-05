@@ -1,12 +1,12 @@
 import hashlib
 import json
 import os
-import subprocess
 import sys
 import zipfile
 from pathlib import Path
 
 import pytest
+from process_observation import wait_for_process_exit
 
 from rikishi.runtime_artifacts import (
     Artifact,
@@ -171,6 +171,23 @@ def test_capture_replays_frozen_transitive_include_bytes(tmp_path):
         load_capture(directory / "capture.json", "stale")
 
 
+def test_capture_outer_digest_rejects_coherently_replaced_output(atp_sidecar):
+    sidecar = atp_sidecar()
+    path = sidecar.parent / "atp.artifacts/capture.json"
+    trusted = hashlib.sha256(path.read_bytes()).hexdigest()
+    original = load_capture(path, expected_sha256=trusted)
+    output = path.parent / original.stdout.path
+    changed = output.read_bytes() + b"\n% substituted after report replay\n"
+    output.write_bytes(changed)
+    payload = json.loads(path.read_bytes())
+    payload["stdout"].update(size=len(changed), sha256=hashlib.sha256(changed).hexdigest())
+    path.write_text(json.dumps(payload))
+    # The replacement is internally coherent, but no longer bound to the report.
+    assert load_capture(path).stdout.sha256 == hashlib.sha256(changed).hexdigest()
+    with pytest.raises(ArtifactError, match="Capture digest"):
+        load_capture(path, expected_sha256=trusted)
+
+
 @pytest.mark.parametrize("directive", ["include('missing').", "include('x', [a])."])
 def test_unrecorded_include_cannot_replay(atp_sidecar, directive):
     sidecar = atp_sidecar()
@@ -202,9 +219,8 @@ def test_process_wall_bound_kills_descendants(tmp_path):
     assert result.timed_out
     assert result.returncode < 0
     pid = (tmp_path / "out").read_text().strip()
-    process = subprocess.run(["ps", "-o", "stat=", "-p", pid],
-                             capture_output=True, text=True, timeout=5, check=False)
-    assert not process.stdout.strip() or process.stdout.strip().startswith("Z")
+    state = wait_for_process_exit(int(pid))
+    assert not state or state.startswith("Z")
 
 
 def test_process_invalid_bound_and_missing_executable(tmp_path):

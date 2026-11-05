@@ -30,7 +30,7 @@ def test_matching_raw_receipt_cannot_register_an_unobserved_background(payload: 
 
 
 @pytest.mark.parametrize("payloads", [[], [b"first", b"second"]])
-def test_incomplete_background_bytes_never_fall_back_to_historical_hash(
+def test_incomplete_background_bytes_cannot_certify_context(
     payloads: list[bytes],
 ) -> None:
     result = recorded_negative_context(

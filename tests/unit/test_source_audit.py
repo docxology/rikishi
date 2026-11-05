@@ -48,9 +48,9 @@ def test_committed_revision_and_worktree_observations_are_separate(
     dirty = audit_sources(index)
     assert dirty.matches_index is True
     assert dirty.current_clean is False
-    subprocess.run(["git", "-C", str(source), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(source), "add", "."], stdin=subprocess.DEVNULL, check=True)
     subprocess.run(["git", "-C", str(source), "-c", "user.name=Fixture", "-c",
-                    "user.email=fixture@example.invalid", "commit", "-m", "Notes"],
+                    "user.email=fixture@example.invalid", "commit", "-m", "Notes"], stdin=subprocess.DEVNULL,
                    check=True, capture_output=True)
     changed_revision = audit_sources(index)
     assert changed_revision.matches_index is True

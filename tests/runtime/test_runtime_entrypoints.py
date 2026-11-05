@@ -129,7 +129,7 @@ def test_installed_bootstrap_is_repeatable(project_root, tmp_path):
         (tomcat / name).mkdir()
     for checkout in (private / ".rikishi/upstream").iterdir():
         subprocess.run(["git", "-C", str(checkout), "config", "--local",
-                        "core.fsmonitor", "false"], check=True, capture_output=True)
+                        "core.fsmonitor", "false"], stdin=subprocess.DEVNULL, check=True, capture_output=True)
     environment = dict(os.environ, RIKISHI_ROOT=str(private),
                        RIKISHI_VAULT_ROOT=str(project_root.parents[3]))
     for attempt in range(2):

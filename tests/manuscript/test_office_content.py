@@ -575,8 +575,8 @@ def test_archive_disk_fields_are_rejected(package: bytes, offset: int) -> None:
     b'<w:pict><v:rect xmlns:v="urn:schemas-microsoft-com:vml"/></w:pict>',
     b'<w:object/>',
 ])
-def test_legacy_graphics_rows_are_rejected(package: bytes, fragment: bytes) -> None:
-    # Given a legacy graphical object in an otherwise ordinary row paragraph.
+def test_unsupported_graphics_rows_are_rejected(package: bytes, fragment: bytes) -> None:
+    # Given an unsupported graphical object in an otherwise ordinary row paragraph.
     xml = payload(package).replace(b"<w:tr><w:tc>", b"<w:tr><w:tc><w:p><w:r>" +
                                    fragment + b"</w:r></w:p>", 1)
     changed = replace(package, "word/document.xml", xml)

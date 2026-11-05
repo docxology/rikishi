@@ -2,14 +2,13 @@
   "schema_version": 1,
   "study_id": "rikishi-finite-alignment-v1",
   "scope": "Selected subclass/instance inheritance, typed abstractCounterpart, and Physical/Abstract exclusion in an explicitly local FOL interpretation. Separate finite numerical experiments. No general SUO-KIF translation, full-SUMO consistency, alignment equivalence, Lean bridge, physiological realization or biological validation.",
-  "source_report_path": "output/demonstrations/source-report.json",
   "index_path": ".rikishi/ontology.sqlite",
   "sumo_path": ".rikishi/upstream/sumo/Merge.kif",
   "sumo_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
   "sumo_sha256": "2e4c3d6b8392a4cb6fbeccb6eb7441e11d6b45592082333285c951fd7c7d3e14",
   "sumo_url": "https://github.com/ontologyportal/sumo/blob/efcd059f8feebfe3488a09f575f88d4d009b1e5c/Merge.kif",
   "citation_lines": [139, 146, 911, 2134, 2135, 3162, 3163, 3164, 3165, 3166, 3168, 3334, 3335, 3336, 3337, 3338, 3340, 4506, 4507, 7546, 7547, 7548, 7549, 7551],
-  "workbook_path": ".omo/evidence/precedent-upgrade/sources/Active Inference Topics Aligned to SUMO.xlsx",
+  "workbook_path": "source-inputs/active-inference-sumo.xlsx",
   "workbook_sha256": "fd527c3201b03b0f2b27af8fee35321c0556c4f8c846bbf552a91c312c7d615c",
   "workbook_url": "https://zenodo.org/records/11463326/files/Active%20Inference%20Topics%20Aligned%20to%20SUMO.xlsx?download=1",
   "access_date": "2026-10-20",
@@ -17,7 +16,7 @@
   "workbook_rows": [13, 23, 33, 54, 86, 155, 176, 177, 190, 192, 217, 431],
   "workbook_columns": ["D", "E", "H", "I", "J", "K", "L"],
   "bindings": {
-    "uv.lock": "bb6ec5e7ab9aba2b5795dbb0ccc0eaccb458bc85d379914084ce73730fe46309",
+    "uv.lock": "57b596f1b7290c0d86f5141a1b43b125ea5526f005e98d511b5dfc3fc87bf095",
     "config/sumo.lock.json": "0f8e785684de54ce36e1bc21c12f60a71e957fdc7d43cbb9bb3a410e0c85ac55"
   },
   "senses": [

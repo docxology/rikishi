@@ -57,18 +57,18 @@ def module_formal_repo(formal_repo, git_commit):
     return formal_repo
 
 
-def test_module_audit_uses_module_imports_and_matches_native_legacy_axioms(
+def test_module_audit_uses_module_imports_and_matches_native_import_syntax_axioms(
     module_formal_repo, compiler, tmp_path
 ):
     output = tmp_path / "compiled-module"
     result = verify_formalization(module_formal_repo, compiler, output, revision="HEAD")
     audit = (output / "DeclarationAudit.lean").read_text()
     assert audit.startswith("module\n")
-    legacy = output / "LegacyAudit.lean"
-    legacy.write_text(audit.removeprefix("module\n"))
+    imported = output / "ImportSyntaxAudit.lean"
+    imported.write_text(audit.removeprefix("module\n"))
     reference = _compile(
-        [str(compiler), str(legacy)], output,
-        dict(os.environ, LEAN_PATH=str(output / "lib")), 180, output / "legacy-axioms.log",
+        [str(compiler), str(imported)], output,
+        dict(os.environ, LEAN_PATH=str(output / "lib")), 180, output / "import-syntax-axioms.log",
     )
     assert result["declaration_axioms"] == reference
     assert reference.splitlines() == [

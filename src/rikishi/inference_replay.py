@@ -14,8 +14,8 @@ from rikishi.inference_models import (
 from rikishi.inference_study import cases, derive_source_claims, load_study, study_sha256
 from rikishi.runtime_artifacts import (
     SZS_STATUS,
-    ProverKind,
     checked_source_path,
+    direct_prover_flags,
     expanded_problem,
     load_capture,
     read_regular,
@@ -41,11 +41,6 @@ def implementation_bindings() -> dict[str, str]:
             for name in IMPLEMENTATION}
 
 
-def command_flags(prover: ProverKind, timeout: int) -> list[str]:
-    return (["--auto", "--tstp-format", "--proof-object", f"--cpu-limit={timeout}"]
-            if prover == "e" else ["--proof", "tptp", "--mode", "casc", "-t", str(timeout)])
-
-
 def replay_case(directory: Path, run: CaseOutcome, case: InferenceCase,
                 timeout: int) -> str:
     expected_path = f"captures/{run.prover}/{case.id}/capture.json"
@@ -53,12 +48,10 @@ def replay_case(directory: Path, run: CaseOutcome, case: InferenceCase,
             or run.expected != case.expected or run.capture != expected_path):
         raise InferenceError("Case identity, polarity or capture path differs from the study")
     path = checked_source_path(directory / run.capture)
-    if sha256(read_regular(path)).hexdigest() != run.capture_sha256:
-        raise InferenceError("Capture digest differs from the report")
-    capture = load_capture(path, run.invocation_id)
+    capture = load_capture(path, run.invocation_id, expected_sha256=run.capture_sha256)
     raw = case.problem.encode()
     if (capture.prover != run.prover or capture.includes
-            or capture.command[1:-1] != command_flags(run.prover, timeout)
+            or capture.command[1:-1] != direct_prover_flags(run.prover, timeout)
             or capture.source_problem != capture.command[-1]
             or capture.provenance != {"prover_sha256": run.prover_sha256}
             or sha256(raw).hexdigest() != run.problem_sha256

@@ -11,15 +11,10 @@ from pathlib import Path
 from types import FrameType
 
 import pytest
+from process_observation import process_state as _state
+from process_observation import wait_for_process_exit
 
 from rikishi.runtime_process import run_bounded
-
-
-def _state(pid: int) -> str:
-    result = subprocess.run(["ps", "-o", "stat=", "-p", str(pid)],
-                            capture_output=True, text=True, check=False, timeout=5)
-    assert result.returncode in {0, 1}, result.stderr
-    return result.stdout.strip()
 
 
 def _await_zombie(pid: int) -> None:
@@ -89,7 +84,7 @@ def test_timeout_kills_live_descendant_after_leader_exits(tmp_path: Path) -> Non
         assert result.timed_out
         assert result.returncode == 17
         descendant = int((tmp_path / "out").read_text())
-        state = _state(descendant)
+        state = wait_for_process_exit(descendant)
         assert not state or state.startswith("Z")
     finally:
         if (tmp_path / "out").exists() and (tmp_path / "out").read_text().strip():
@@ -149,7 +144,7 @@ def test_interrupt_kills_real_descendant_before_reraising(tmp_path: Path) -> Non
                         stdout=tmp_path / "out", stderr=tmp_path / "err", timeout=5)
         parent, descendant = map(int, (tmp_path / "out").read_text().split())
         assert _state(parent) == ""
-        state = _state(descendant)
+        state = wait_for_process_exit(descendant)
         assert not state or state.startswith("Z")
     finally:
         if (tmp_path / "out").exists() and (tmp_path / "out").read_text().strip():

@@ -15,6 +15,7 @@ from rikishi.runtime_artifacts import (
     Capture,
     ProverKind,
     checked_source_path,
+    direct_prover_flags,
     load_capture,
     read_regular,
     verified_bytes,
@@ -36,12 +37,12 @@ def status(root: Path) -> dict[str, object]:
         changes = None
         if (checkout / ".git").exists():
             result = subprocess.run(
-                ["git", "-C", str(checkout), "rev-parse", "HEAD"],
+                ["git", "-C", str(checkout), "rev-parse", "HEAD"], stdin=subprocess.DEVNULL,
                 capture_output=True, text=True, check=True, timeout=10,
             )
             revision = result.stdout.strip()
             changes = subprocess.run(
-                ["git", "-C", str(checkout), "status", "--porcelain"],
+                ["git", "-C", str(checkout), "status", "--porcelain"], stdin=subprocess.DEVNULL,
                 capture_output=True, text=True, check=True, timeout=10,
             ).stdout.splitlines()
         repositories[name] = {"commit": revision, "pinned": revision == specification["commit"],
@@ -93,8 +94,7 @@ def prove(
     problem = checked_source_path(problem)
     problem_hash = hashlib.sha256(read_regular(problem)).hexdigest()
     binary = prover_executable(root, prover)
-    flags = (["--auto", "--tstp-format", "--proof-object", f"--cpu-limit={timeout}"]
-             if prover == "e" else ["--proof", "tptp", "--mode", "casc", "-t", str(timeout)])
+    flags = direct_prover_flags(prover, timeout)
     command = [str(binary), *flags, str(problem)]
     invocation_id = uuid.uuid4().hex
     provenance = {"prover_sha256": hashlib.sha256(read_regular(binary)).hexdigest()}

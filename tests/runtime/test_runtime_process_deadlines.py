@@ -12,6 +12,7 @@ from types import FrameType
 from typing import BinaryIO
 
 import pytest
+from process_observation import process_state
 
 from rikishi.runtime_process import run_bounded
 
@@ -88,10 +89,7 @@ def test_denied_signal_delivers_error_before_child_exit(tmp_path: Path) -> None:
             assert delivery["streams_closed"] == [True, True], delivery
             assert len(delivery["signal_failure_seconds"]) == 1, delivery
             assert delivery["signal_failure_seconds"][0] <= delivery["elapsed_seconds"]
-            state = subprocess.run(
-                ["ps", "-o", "stat=", "-p", str(delivery["pid"])],
-                capture_output=True, text=True, check=True, timeout=5,
-            ).stdout.strip()
+            state = process_state(delivery["pid"])
             assert state and not state.startswith("Z"), state
             deadline = time.monotonic() + 5
             while ((tmp_path / "out").read_text() != "out\n"

@@ -299,22 +299,25 @@ def inspect_formalization(repo: Path, revision: str = PIN) -> FormalizationInspe
     """Inspect committed source at the recorded pin, without running Lean or modifying it."""
     repo = repo.resolve(strict=True)
     commit = subprocess.run(
-        ["git", "-C", str(repo), "rev-parse", "--verify", f"{revision}^{{commit}}"],
+        ["git", "-C", str(repo), "rev-parse", "--verify", f"{revision}^{{commit}}"], stdin=subprocess.DEVNULL,
         check=True,
         capture_output=True,
         text=True,
+        timeout=30,
     ).stdout.strip()
     source = subprocess.run(
-        ["git", "-C", str(repo), "show", f"{commit}:{SOURCE}"],
+        ["git", "-C", str(repo), "show", f"{commit}:{SOURCE}"], stdin=subprocess.DEVNULL,
         check=True,
         capture_output=True,
         text=True,
+        timeout=30,
     ).stdout
     status = subprocess.run(
-        ["git", "-C", str(repo), "status", "--porcelain"],
+        ["git", "-C", str(repo), "status", "--porcelain"], stdin=subprocess.DEVNULL,
         check=True,
         capture_output=True,
         text=True,
+        timeout=30,
     ).stdout
     declarations: list[Declaration] = []
     for name in DECLARATIONS:

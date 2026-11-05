@@ -1,5 +1,6 @@
 import json
 import shutil
+import sys
 from hashlib import sha256
 from pathlib import Path
 from uuid import uuid4
@@ -13,6 +14,7 @@ from rikishi.dashboard import create_app
 from rikishi.inference_study import catalog
 from rikishi.inference_views import (
     CaseSelection,
+    _report,
     inspect_case,
     inspect_report,
     publish_report,
@@ -97,6 +99,40 @@ def native_campaign():
     assert report.summary.passed
     assert main(["--root", str(root), "inference-run", str(output)]) == 1
     return root, output
+
+
+@pytest.mark.integration
+def test_case_inspection_rejects_capture_replaced_after_replay(native_campaign, tmp_path):
+    from rikishi.runtime_artifacts import ArtifactError
+
+    _, original = native_campaign
+    copied = tmp_path / "campaign"
+    shutil.copytree(original, copied)
+    path = copied / "inference-report.json"
+    payload = json.loads(path.read_bytes())
+    run = payload["cases"][0]
+    capture_path = copied / run["capture"]
+    mutated = []
+
+    def after_replay(frame, event, result):
+        if event == "return" and frame.f_code is _report.__code__ and result is not None:
+            capture = json.loads(capture_path.read_bytes())
+            stdout = capture_path.parent / capture["stdout"]["path"]
+            changed = stdout.read_bytes() + b"\n% substituted after verified replay\n"
+            stdout.write_bytes(changed)
+            capture["stdout"].update(size=len(changed), sha256=sha256(changed).hexdigest())
+            capture_path.write_text(json.dumps(capture))
+            mutated.append(capture_path)
+
+    previous = sys.getprofile()
+    try:
+        sys.setprofile(after_replay)
+        with pytest.raises(ArtifactError, match="Capture digest"):
+            inspect_case(tmp_path, CaseSelection("campaign/inference-report.json",
+                         sha256(path.read_bytes()).hexdigest(), run["id"], run["prover"]))
+    finally:
+        sys.setprofile(previous)
+    assert mutated == [capture_path]
 
 
 @pytest.mark.integration

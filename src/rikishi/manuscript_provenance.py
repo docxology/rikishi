@@ -88,9 +88,10 @@ def prepare_renderer(
     if not re.fullmatch(r"[0-9a-f]{40}", revision):
         raise ProvenanceError("Renderer revision must be a full Git object identifier")
     archive_bytes = subprocess.run(
-        ["git", "-C", str(checkout), "archive", revision, "infrastructure", "pyproject.toml"],
+        ["git", "-C", str(checkout), "archive", revision, "infrastructure", "pyproject.toml"], stdin=subprocess.DEVNULL,
         check=True,
         capture_output=True,
+        timeout=30,
     ).stdout
     archive_hash = hashlib.sha256(archive_bytes).hexdigest()
     snapshot = root / ".rikishi" / "template-renderer" / revision

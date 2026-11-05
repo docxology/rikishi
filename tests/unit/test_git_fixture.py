@@ -32,7 +32,7 @@ def monitor_global(tmp_path: Path) -> Iterator[MonitorInputs]:
     )
     hook.chmod(0o700)
     config = tmp_path / "isolated.gitconfig"
-    subprocess.run(["git", "config", "--file", str(config), "core.fsmonitor", str(hook)],
+    subprocess.run(["git", "config", "--file", str(config), "core.fsmonitor", str(hook)], stdin=subprocess.DEVNULL,
                    check=True, capture_output=True)
     original = {key: os.environ.get(key) for key in ("GIT_CONFIG_GLOBAL", "GIT_CONFIG_NOSYSTEM")}
     os.environ.update(GIT_CONFIG_GLOBAL=str(config), GIT_CONFIG_NOSYSTEM="1")
@@ -51,10 +51,10 @@ def test_real_monitor_observes_unisolated_git(tmp_path: Path, monitor_global: Mo
     source = tmp_path / "unisolated"
     source.mkdir()
     (source / "Merge.kif").write_text("(subclass Human Animal)\n", encoding="utf-8")
-    subprocess.run(["git", "init", "-b", "main", str(source)], check=True, capture_output=True)
-    subprocess.run(["git", "-C", str(source), "add", "."], check=True, capture_output=True)
+    subprocess.run(["git", "init", "-b", "main", str(source)], stdin=subprocess.DEVNULL, check=True, capture_output=True)
+    subprocess.run(["git", "-C", str(source), "add", "."], stdin=subprocess.DEVNULL, check=True, capture_output=True)
     subprocess.run(["git", "-C", str(source), "-c", "user.name=Fixture", "-c",
-                    "user.email=fixture@example.invalid", "commit", "-m", "Fixture"],
+                    "user.email=fixture@example.invalid", "commit", "-m", "Fixture"], stdin=subprocess.DEVNULL,
                    check=True, capture_output=True)
     assert monitor_global.marker.read_bytes().splitlines()
     assert monitor_global.config.read_bytes() == monitor_global.config_bytes
@@ -69,12 +69,12 @@ def test_shared_git_fixture_isolates_ambient_monitor(
     formula = b"(subclass Human Animal)\n"
     (source / "Merge.kif").write_bytes(formula)
     revision = git_commit(source)
-    committed = subprocess.run(["git", "-C", str(source), "show", "HEAD:Merge.kif"],
+    committed = subprocess.run(["git", "-C", str(source), "show", "HEAD:Merge.kif"], stdin=subprocess.DEVNULL,
                                check=True, capture_output=True)
-    head = subprocess.run(["git", "-C", str(source), "rev-parse", "HEAD"],
+    head = subprocess.run(["git", "-C", str(source), "rev-parse", "HEAD"], stdin=subprocess.DEVNULL,
                           check=True, capture_output=True, text=True)
     (source / "Merge.kif").write_text("(subclass Human Entity)\n", encoding="utf-8")
-    dirty = subprocess.run(["git", "-C", str(source), "status", "--porcelain"],
+    dirty = subprocess.run(["git", "-C", str(source), "status", "--porcelain"], stdin=subprocess.DEVNULL,
                            check=True, capture_output=True, text=True)
     assert committed.stdout == formula
     assert head.stdout.strip() == revision

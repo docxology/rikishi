@@ -20,7 +20,7 @@ UPSTREAM = STATE / "upstream"
 
 def run(command: list[str], cwd: Path = ROOT, env: dict[str, str] | None = None) -> None:
     print("+", " ".join(command), flush=True)
-    subprocess.run(command, cwd=cwd, env=env, check=True)
+    subprocess.run(command, stdin=subprocess.DEVNULL, cwd=cwd, env=env, check=True)
 
 
 def archive(url: str, filename: str, digest: str, algorithm: str = "sha512") -> None:
@@ -39,19 +39,19 @@ def ensure_repository(destination: Path, pin: dict[str, str]) -> None:
     if not destination.exists():
         run(["git", "init", str(destination)])
         run(["git", "remote", "add", "origin", pin["url"]], destination)
-    revision = subprocess.run(["git", "rev-parse", "--verify", "HEAD"], cwd=destination,
+    revision = subprocess.run(["git", "rev-parse", "--verify", "HEAD"], stdin=subprocess.DEVNULL, cwd=destination,
                               text=True, capture_output=True, check=False)
     if revision.returncode != 0:
-        changes = subprocess.check_output(["git", "status", "--porcelain"], cwd=destination, text=True)
+        changes = subprocess.check_output(["git", "status", "--porcelain"], stdin=subprocess.DEVNULL, cwd=destination, text=True)
         if changes.strip():
             raise RuntimeError(f"{destination.name}: incomplete checkout has local files; refusing overwrite")
-        remote = subprocess.run(["git", "remote", "get-url", "origin"], cwd=destination,
+        remote = subprocess.run(["git", "remote", "get-url", "origin"], stdin=subprocess.DEVNULL, cwd=destination,
                                 text=True, capture_output=True, check=False)
         if remote.returncode != 0:
             run(["git", "remote", "add", "origin", pin["url"]], destination)
         run(["git", "fetch", "--depth", "1", pin["url"], pin["commit"]], destination)
         run(["git", "checkout", "--detach", pin["commit"]], destination)
-        revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=destination,
+        revision = subprocess.run(["git", "rev-parse", "HEAD"], stdin=subprocess.DEVNULL, cwd=destination,
                                   text=True, capture_output=True, check=True)
     if revision.stdout.strip() != pin["commit"]:
         raise RuntimeError(f"{destination.name}: expected {pin['commit']}, found {revision.stdout.strip()}; refusing reset")
@@ -113,7 +113,7 @@ def main(argv: list[str] | None = None) -> None:
     lock = json.loads((ROOT / "config/sumo.lock.json").read_text())
     for name, pin in lock["repositories"].items():
         ensure_repository(UPSTREAM / name, pin)
-    changes = subprocess.check_output(["git", "status", "--porcelain"], cwd=UPSTREAM / "sumo", text=True)
+    changes = subprocess.check_output(["git", "status", "--porcelain"], stdin=subprocess.DEVNULL, cwd=UPSTREAM / "sumo", text=True)
     if changes.strip():
         raise RuntimeError("SUMO source checkout has local changes; refusing to certify it as pinned")
     for specification in lock["patches"]:

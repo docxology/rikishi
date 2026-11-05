@@ -40,9 +40,9 @@ def renderer_repository(tmp_path: Path) -> tuple[Path, str]:
             "fixture",
         ],
     ):
-        subprocess.run(["git", "-C", str(checkout), *command], check=True, capture_output=True)
+        subprocess.run(["git", "-C", str(checkout), *command], stdin=subprocess.DEVNULL, check=True, capture_output=True)
     revision = subprocess.check_output(
-        ["git", "-C", str(checkout), "rev-parse", "HEAD"], text=True
+        ["git", "-C", str(checkout), "rev-parse", "HEAD"], stdin=subprocess.DEVNULL, text=True
     ).strip()
     return checkout, revision
 
@@ -69,7 +69,7 @@ def test_snapshot_rejects_corruption_without_overwrite(tmp_path, renderer_reposi
 def test_snapshot_rejects_symlink_archive(tmp_path, renderer_repository):
     checkout, _ = renderer_repository
     (checkout / "infrastructure" / "link.py").symlink_to("__init__.py")
-    subprocess.run(["git", "-C", str(checkout), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(checkout), "add", "."], stdin=subprocess.DEVNULL, check=True)
     subprocess.run(
         [
             "git",
@@ -82,12 +82,12 @@ def test_snapshot_rejects_symlink_archive(tmp_path, renderer_repository):
             "commit",
             "-m",
             "link",
-        ],
+        ], stdin=subprocess.DEVNULL,
         check=True,
         capture_output=True,
     )
     revision = subprocess.check_output(
-        ["git", "-C", str(checkout), "rev-parse", "HEAD"], text=True
+        ["git", "-C", str(checkout), "rev-parse", "HEAD"], stdin=subprocess.DEVNULL, text=True
     ).strip()
     with pytest.raises(ProvenanceError, match="Unsupported archive"):
         prepare_renderer(tmp_path / "project", checkout, revision)

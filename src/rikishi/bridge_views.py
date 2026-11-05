@@ -80,7 +80,8 @@ def _case_view(directory: Path, report: BridgeReport, run: CaseOutcome) -> Bridg
         raise BridgeError("Bridge scenario has no shared numerical witness")
     _retained(directory, run.capture, run.capture_sha256)
     capture_path = directory / run.capture
-    capture = load_capture(capture_path, run.invocation_id)
+    capture = load_capture(capture_path, run.invocation_id,
+                           expected_sha256=run.capture_sha256)
     source = _retained(directory, report.lean.source, report.lean.source_sha256)
     selected_lines = {item.line for item in scenario.selections}
     omitted_lines = tuple(item.line for index, item in enumerate(scenario.selections)

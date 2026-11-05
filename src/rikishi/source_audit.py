@@ -65,9 +65,9 @@ def audit_sources(index: OntologyIndex) -> SourceAudit:
     commit, clean = "unversioned", None
     if (root / ".git").exists():
         command = ["git", "-C", str(root)]
-        commit = subprocess.run([*command, "rev-parse", "HEAD"], check=True, timeout=10,
+        commit = subprocess.run([*command, "rev-parse", "HEAD"], stdin=subprocess.DEVNULL, check=True, timeout=10,
                                 capture_output=True, text=True).stdout.strip()
-        clean = not bool(subprocess.run([*command, "status", "--porcelain"], check=True,
+        clean = not bool(subprocess.run([*command, "status", "--porcelain"], stdin=subprocess.DEVNULL, check=True,
                                        timeout=10, capture_output=True, text=True).stdout)
     return SourceAudit(stats["source_commit"], commit, stats["source_clean"], clean, unchanged,
                        tuple(sorted(discovered.keys() - manifest.keys())),

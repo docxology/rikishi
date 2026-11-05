@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from decimal import Decimal, localcontext
+from decimal import MAX_EMAX, MIN_EMIN, Context, Decimal, localcontext
 from fractions import Fraction
 from hashlib import sha256
 from importlib.resources import files
@@ -77,9 +77,8 @@ def exact_posterior(witness: FiniteWitness) -> tuple[Fraction, tuple[Fraction, F
 
 
 def decimal_reference(witness: FiniteWitness, precision: int) -> DecimalValues:
-    """Independent direct rational-to-Decimal products and natural logarithms."""
-    with localcontext() as context:
-        context.prec = precision
+    """Independent rational-to-Decimal arithmetic in a fresh fixed context."""
+    with localcontext(Context(prec=precision, Emax=MAX_EMAX, Emin=MIN_EMIN)):
         prior, likelihood, candidate = [
             [Decimal(p.numerator) / Decimal(p.denominator) for p in probabilities(values)]
             for values in (witness.prior, witness.likelihood, witness.candidate)
@@ -98,33 +97,34 @@ def decimal_reference(witness: FiniteWitness, precision: int) -> DecimalValues:
 
 def numerical_witness(witness: FiniteWitness, study: BridgeStudy) -> NumericalWitness:
     """Compare existing finite Python execution to an independent exact-input reference."""
-    raw = free_energy(*[[float(p) for p in probabilities(values)] for values in (
-        witness.prior, witness.likelihood, witness.candidate)])
-    result = EnergyValues(
-        evidence=raw["evidence"], surprise=raw["surprise"], free_energy=raw["free_energy"],
-        kl_to_posterior=raw["kl_to_posterior"],
-        exact_posterior=(raw["exact_posterior"][0], raw["exact_posterior"][1]),
-        identity_residual=raw["identity_residual"])
-    reference = decimal_reference(witness, study.decimal_precision)
-    pairs = [(result.evidence, reference.evidence), (result.surprise, reference.surprise),
-             (result.free_energy, reference.free_energy),
-             (result.kl_to_posterior, reference.kl_to_posterior),
-             *zip(result.exact_posterior, reference.exact_posterior, strict=True)]
-    error = max(float(abs(Decimal.from_float(actual) - Decimal(expected)))
-                for actual, expected in pairs)
-    evidence, posterior = exact_posterior(witness)
-    prior, likelihood = probabilities(witness.prior), probabilities(witness.likelihood)
-    residuals = tuple(str(posterior[i] * evidence - prior[i] * likelihood[i]) for i in range(2))
-    passed = (error <= study.tolerance and abs(result.identity_residual) <= study.tolerance
-              and abs(Decimal(reference.identity_residual)) <= Decimal(str(study.tolerance))
-              and result.kl_to_posterior >= -study.tolerance
-              and result.free_energy + study.tolerance >= result.surprise
-              and all(value == "0" for value in residuals))
-    return NumericalWitness(
-        witness_id=witness.id, input=witness, evidence=str(evidence),
-        exact_posterior=(str(posterior[0]), str(posterior[1])), result=result, reference=reference,
-        max_reference_error=error, reconstruction_residuals=(residuals[0], residuals[1]),
-        tolerance=study.tolerance, passed=passed)
+    with localcontext(Context(prec=study.decimal_precision, Emax=MAX_EMAX, Emin=MIN_EMIN)):
+        raw = free_energy(*[[float(p) for p in probabilities(values)] for values in (
+            witness.prior, witness.likelihood, witness.candidate)])
+        result = EnergyValues(
+            evidence=raw["evidence"], surprise=raw["surprise"], free_energy=raw["free_energy"],
+            kl_to_posterior=raw["kl_to_posterior"],
+            exact_posterior=(raw["exact_posterior"][0], raw["exact_posterior"][1]),
+            identity_residual=raw["identity_residual"])
+        reference = decimal_reference(witness, study.decimal_precision)
+        pairs = [(result.evidence, reference.evidence), (result.surprise, reference.surprise),
+                 (result.free_energy, reference.free_energy),
+                 (result.kl_to_posterior, reference.kl_to_posterior),
+                 *zip(result.exact_posterior, reference.exact_posterior, strict=True)]
+        error = max(float(abs(Decimal.from_float(actual) - Decimal(expected)))
+                    for actual, expected in pairs)
+        evidence, posterior = exact_posterior(witness)
+        prior, likelihood = probabilities(witness.prior), probabilities(witness.likelihood)
+        residuals = tuple(str(posterior[i] * evidence - prior[i] * likelihood[i]) for i in range(2))
+        passed = (error <= study.tolerance and abs(result.identity_residual) <= study.tolerance
+                  and abs(Decimal(reference.identity_residual)) <= Decimal(str(study.tolerance))
+                  and result.kl_to_posterior >= -study.tolerance
+                  and result.free_energy + study.tolerance >= result.surprise
+                  and all(value == "0" for value in residuals))
+        return NumericalWitness(
+            witness_id=witness.id, input=witness, evidence=str(evidence),
+            exact_posterior=(str(posterior[0]), str(posterior[1])), result=result, reference=reference,
+            max_reference_error=error, reconstruction_residuals=(residuals[0], residuals[1]),
+            tolerance=study.tolerance, passed=passed)
 
 
 def numerical(study: BridgeStudy) -> tuple[NumericalWitness, ...]:

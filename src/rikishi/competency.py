@@ -18,6 +18,7 @@ from rikishi.runtime_artifacts import (
     ArtifactError,
     ProverKind,
     checked_source_path,
+    direct_prover_flags,
     expanded_problem,
     load_capture,
     read_regular,
@@ -83,7 +84,6 @@ class Study(Frozen):
     schema_version: Literal[1]
     study_id: str
     scope: str
-    source_report_path: str
     index_path: str
     sumo_path: str
     sumo_commit: str
@@ -216,13 +216,9 @@ def replay_logical_run(directory: Path, run: LogicalRun, problem: str,
     if run.capture != f"captures/{run.id}/capture.json":
         raise AlignmentError("Unexpected campaign capture path")
     path = checked_source_path(directory / run.capture)
-    if sha256(read_regular(path)).hexdigest() != run.capture_sha256:
-        raise AlignmentError("Capture receipt differs from the campaign binding")
-    capture = load_capture(path, run.invocation_id)
+    capture = load_capture(path, run.invocation_id, expected_sha256=run.capture_sha256)
     raw = problem.encode()
-    command_bound = (f"--cpu-limit={timeout}" in capture.command if prover == "e"
-                     else ["-t", str(timeout)] == capture.command[
-                         capture.command.index("-t"):capture.command.index("-t") + 2])
+    command_bound = capture.command[1:-1] == direct_prover_flags(prover, timeout)
     if (capture.prover != prover or not command_bound
             or capture.includes or capture.provenance != {"prover_sha256": run.prover_sha256}
             or capture.source_problem != capture.command[-1]

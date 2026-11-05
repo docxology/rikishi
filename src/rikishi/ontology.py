@@ -128,14 +128,14 @@ class OntologyIndex:
                 commit, clean = "unversioned", None
                 if (source / ".git").exists():
                     revision = subprocess.run(
-                        ["git", "-C", str(source), "rev-parse", "HEAD"],
+                        ["git", "-C", str(source), "rev-parse", "HEAD"], stdin=subprocess.DEVNULL,
                         capture_output=True,
                         text=True,
                         check=True,
                         timeout=10,
                     )
                     worktree = subprocess.run(
-                        ["git", "-C", str(source), "status", "--porcelain"],
+                        ["git", "-C", str(source), "status", "--porcelain"], stdin=subprocess.DEVNULL,
                         capture_output=True,
                         text=True,
                         check=True,

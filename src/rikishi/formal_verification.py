@@ -35,7 +35,7 @@ class CompilationReceipt(TypedDict):
 
 
 def _git(repo: Path, *arguments: str) -> bytes:
-    return subprocess.run(["git", "--no-optional-locks", "-C", str(repo), *arguments], check=True,
+    return subprocess.run(["git", "--no-optional-locks", "-C", str(repo), *arguments], stdin=subprocess.DEVNULL, check=True,
                           capture_output=True, timeout=30).stdout
 
 

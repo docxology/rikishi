@@ -81,7 +81,7 @@ def _invalid_bound(capture_path: Path, expected: ExpectedATPInvocation) -> None:
 
 
 @pytest.fixture
-def legacy_symlink_capture(tmp_path, native_e):
+def unqualified_symlink_capture(tmp_path, native_e):
     inputs = tmp_path / "inputs"
     lexical, target = inputs / "lexical", inputs / "target"
     lexical.mkdir(parents=True)
@@ -97,7 +97,7 @@ def legacy_symlink_capture(tmp_path, native_e):
     original = tmp_path / "native-original"
     _native(command, original, "Theorem")
 
-    directory = tmp_path / "legacy.artifacts"
+    directory = tmp_path / "unqualified.artifacts"
     directory.mkdir()
     for source, saved in [(problem, "problem.p"), (outer, "include-0.p"),
                            (target / "background.p", "include-1.p"),
@@ -111,7 +111,7 @@ def legacy_symlink_capture(tmp_path, native_e):
     provenance = _provenance(native_e)
     payload = {
         "command_policy": COMMAND_POLICY, "prover": "e",
-        "invocation_id": "r3-legacy", "command": command, "source_problem": str(problem),
+        "invocation_id": "r3-unqualified", "command": command, "source_problem": str(problem),
         "problem": receipt(directory / "problem.p", directory).model_dump(),
         "includes": [
             {**receipt(directory / "include-0.p", directory).model_dump(), "source": str(outer)},
@@ -124,14 +124,14 @@ def legacy_symlink_capture(tmp_path, native_e):
     }
     capture_path = directory / "capture.json"
     capture_path.write_text(json.dumps(payload))
-    expected = ExpectedATPInvocation("r3-legacy", native_e, provenance,
+    expected = ExpectedATPInvocation("r3-unqualified", native_e, provenance,
                                      hashlib.sha256(problem.read_bytes()).hexdigest())
     return capture_path, expected, inputs
 
 
-def test_native_file_symlink_nested_include_rejected_before_execution(legacy_symlink_capture,
+def test_native_file_symlink_nested_include_rejected_before_execution(unqualified_symlink_capture,
                                                                      tmp_path):
-    capture_path, expected, _ = legacy_symlink_capture
+    capture_path, expected, _ = unqualified_symlink_capture
     command = json.loads(capture_path.read_text())["command"]
     rejected = tmp_path / "rejected"
     rejected.mkdir()
@@ -143,8 +143,8 @@ def test_native_file_symlink_nested_include_rejected_before_execution(legacy_sym
 
 
 @pytest.mark.parametrize("policy", [None, "resolved-v0"])
-def test_legacy_symlink_capture_requires_exact_policy(legacy_symlink_capture, policy):
-    capture_path, expected, _ = legacy_symlink_capture
+def test_unqualified_symlink_capture_requires_exact_policy(unqualified_symlink_capture, policy):
+    capture_path, expected, _ = unqualified_symlink_capture
     if policy is not None:
         payload = json.loads(capture_path.read_text())
         payload["path_policy"] = policy
@@ -155,9 +155,9 @@ def test_legacy_symlink_capture_requires_exact_policy(legacy_symlink_capture, po
 
 
 def test_adding_policy_cannot_rehabilitate_resolved_metadata_after_inputs_move(
-    legacy_symlink_capture, tmp_path,
+    unqualified_symlink_capture, tmp_path,
 ):
-    capture_path, expected, inputs = legacy_symlink_capture
+    capture_path, expected, inputs = unqualified_symlink_capture
     payload = json.loads(capture_path.read_text())
     payload["path_policy"] = "lexical-absolute-no-symlinks-v1"
     capture_path.write_text(json.dumps(payload))

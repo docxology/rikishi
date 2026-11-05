@@ -58,8 +58,8 @@ def inspect_case(root: Path, selection: CaseSelection) -> dict[str, object]:
                 if item.id == selection.case_id and item.prover == selection.prover), None)
     if run is None:
         raise KeyError("Inference case not found in the verified report")
-    path = report_path(root, selection.report).parent / run.capture
-    capture = load_capture(path, run.invocation_id)
+    path = checked_source_path(report_path(root, selection.report).parent / run.capture)
+    capture = load_capture(path, run.invocation_id, expected_sha256=run.capture_sha256)
     return {"case": run.model_dump(mode="json"), "command": capture.command,
             "problem": verified_bytes(capture.problem, path.parent).decode("utf-8"),
             "stdout": verified_bytes(capture.stdout, path.parent).decode("utf-8"),

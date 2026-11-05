@@ -44,7 +44,7 @@ UNSUPPORTED_E_ARGUMENTS: Final = [
 
 
 @dataclass(frozen=True, slots=True)
-class LegacyCapture:
+class UnqualifiedCapture:
     path: Path
     sidecar: Path
     expected: ExpectedATPInvocation
@@ -81,10 +81,10 @@ def _arguments(arguments: tuple[str, ...], binary: Path,
 
 
 @pytest.fixture
-def legacy_multi_input(tmp_path: Path, native_e: Path,
-                       problem_files: tuple[Path, Path]) -> LegacyCapture:
+def unqualified_multi_input(tmp_path: Path, native_e: Path,
+                       problem_files: tuple[Path, Path]) -> UnqualifiedCapture:
     root, extra = problem_files
-    directory = tmp_path / "legacy.artifacts"
+    directory = tmp_path / "unqualified.artifacts"
     directory.mkdir()
     frozen = directory / "problem.p"
     frozen.write_bytes(root.read_bytes())
@@ -109,7 +109,7 @@ def legacy_multi_input(tmp_path: Path, native_e: Path,
     }
     capture_path = directory / "capture.json"
     capture_path.write_text(json.dumps(payload))
-    sidecar = tmp_path / "legacy.json"
+    sidecar = tmp_path / "unqualified.json"
     sidecar.write_text(json.dumps({
         "status": "Theorem", "atp_returncode": process.returncode,
         "stdout_lines": len(stdout.read_bytes().splitlines()),
@@ -117,14 +117,14 @@ def legacy_multi_input(tmp_path: Path, native_e: Path,
     }))
     expected = ExpectedATPInvocation("r3-multi-input", native_e, provenance,
                                      hashlib.sha256(root.read_bytes()).hexdigest(), prover="e")
-    return LegacyCapture(capture_path, sidecar, expected)
+    return UnqualifiedCapture(capture_path, sidecar, expected)
 
 
 def test_native_multiple_inputs_prove_more_than_frozen_final_file(
-    legacy_multi_input: LegacyCapture, native_e: Path, tmp_path: Path,
+    unqualified_multi_input: UnqualifiedCapture, native_e: Path, tmp_path: Path,
 ) -> None:
     # Given: real E proved the two-input invocation; only root's bytes were frozen.
-    frozen = legacy_multi_input.path.parent / "problem.p"
+    frozen = unqualified_multi_input.path.parent / "problem.p"
     # When: the same E options run against those frozen bytes alone.
     stdout, stderr = tmp_path / "replay.stdout.txt", tmp_path / "replay.stderr.txt"
     replay = run_bounded(_command(native_e, frozen), cwd=tmp_path,
@@ -135,15 +135,15 @@ def test_native_multiple_inputs_prove_more_than_frozen_final_file(
     assert set(SZS_STATUS.findall(stdout.read_text())) == {"CounterSatisfiable"}
 
 
-def test_legacy_multi_input_capture_without_command_policy_is_rejected(
-    legacy_multi_input: LegacyCapture,
+def test_unqualified_multi_input_capture_without_command_policy_is_rejected(
+    unqualified_multi_input: UnqualifiedCapture,
 ) -> None:
     # Given: all real process receipts and trusted invocation bindings agree.
     # When: the reader encounters the independently built pre-policy capture.
     with pytest.raises(ValidationError, match="command_policy"):
-        load_capture(legacy_multi_input.path)
-    result = interpret_sigma_result(legacy_multi_input.sidecar, 0,
-                                    expected=legacy_multi_input.expected)
+        load_capture(unqualified_multi_input.path)
+    result = interpret_sigma_result(unqualified_multi_input.sidecar, 0,
+                                    expected=unqualified_multi_input.expected)
     # Then: historical output cannot certify a current proof.
     assert result["status"] == "InvalidATPResult"
     assert result["outcome"] == "error"
@@ -153,19 +153,19 @@ def test_legacy_multi_input_capture_without_command_policy_is_rejected(
 
 @pytest.mark.parametrize("arguments", UNSUPPORTED_E_ARGUMENTS)
 def test_current_policy_cannot_authorize_unsafe_saved_e_command(
-    legacy_multi_input: LegacyCapture, native_e: Path,
+    unqualified_multi_input: UnqualifiedCapture, native_e: Path,
     problem_files: tuple[Path, Path], arguments: tuple[str, ...],
 ) -> None:
     # Given: even an adversarial capture carries both current policy labels.
-    payload = json.loads(legacy_multi_input.path.read_text())
+    payload = json.loads(unqualified_multi_input.path.read_text())
     payload["command_policy"] = COMMAND_POLICY
     payload["command"] = _arguments(arguments, native_e, problem_files)
-    legacy_multi_input.path.write_text(json.dumps(payload))
+    unqualified_multi_input.path.write_text(json.dumps(payload))
     # When: semantic command checks run on the saved record and bound result.
     with pytest.raises(ArtifactError, match="command|argument"):
-        load_capture(legacy_multi_input.path)
-    result = interpret_sigma_result(legacy_multi_input.sidecar, 0,
-                                    expected=legacy_multi_input.expected)
+        load_capture(unqualified_multi_input.path)
+    result = interpret_sigma_result(unqualified_multi_input.sidecar, 0,
+                                    expected=unqualified_multi_input.expected)
     # Then: policy labels never rehabilitate an unsupported command.
     assert result["status"] == "InvalidATPResult"
     assert result["outcome"] == "error"

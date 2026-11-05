@@ -14,7 +14,7 @@ from rikishi.alignment import (
 )
 from rikishi.competency import AlignmentError
 from rikishi.ontology import OntologyIndex
-from rikishi.runtime_artifacts import ArtifactError
+from rikishi.runtime_artifacts import ArtifactError, load_capture
 from rikishi.sumo_demonstrations import demonstrate_sumo
 
 
@@ -68,6 +68,24 @@ def test_portable_replay_uses_frozen_sources_and_captures(copied, campaign):
     path = copied / "alignment-report.json"
     outer = sha256(path.read_bytes()).hexdigest()
     assert validate_alignment_report(path, trusted_report_sha256=outer) == campaign[1]
+
+
+@pytest.mark.integration
+@pytest.mark.parametrize("option", ["--answers=1", "--conjectures-are-questions"])
+def test_alignment_replay_rejects_supported_but_unregistered_options(copied, option):
+    path = copied / "alignment-report.json"
+    report = json.loads(path.read_bytes())
+    run = report["logical"][1]
+    capture_path = copied / run["capture"]
+    capture = json.loads(capture_path.read_bytes())
+    capture["command"].insert(-1, option)
+    _write(capture_path, capture)
+    # The generic Sigma reader admits these options; this direct campaign does not.
+    assert option in load_capture(capture_path).command
+    _bind_capture(copied, report, 1)
+    _write(path, report)
+    with pytest.raises(AlignmentError, match="resource policy"):
+        validate_alignment_report(path, trusted_report_sha256=sha256(path.read_bytes()).hexdigest())
 
 
 @pytest.mark.integration

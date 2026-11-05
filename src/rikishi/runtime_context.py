@@ -30,25 +30,23 @@ def background_statement_identity(data: bytes) -> tuple[int, str]:
 
 def recorded_negative_context(
     provenance: Mapping[str, str], backgrounds: Sequence[str], *,
-    background_bytes: Sequence[bytes] | None = None,
+    background_bytes: Sequence[bytes],
 ) -> str:
+    """Recognize the registered complete background from verified bytes and provenance."""
     if (len(backgrounds) != 1 or not any(
         all(provenance.get(key) == value for key, value in bindings.items())
         for bindings in (CONTRADICTORY_CORE_BINDINGS, CONTRADICTORY_VAMPIRE_BINDINGS)
     )):
         return "unknown"
-    if background_bytes is None:
-        matches = backgrounds[0] == CONTRADICTORY_BACKGROUND_SHA256
-    else:
-        if (len(background_bytes) != 1
-                or hashlib.sha256(background_bytes[0]).hexdigest() != backgrounds[0]):
-            return "unknown"
-        try:
-            matches = background_statement_identity(background_bytes[0]) == (
-                CONTRADICTORY_STATEMENT_COUNT, CONTRADICTORY_STATEMENT_SHA256,
-            )
-        except (TPTPError, UnicodeDecodeError):
-            return "unknown"
+    if (len(background_bytes) != 1
+            or hashlib.sha256(background_bytes[0]).hexdigest() != backgrounds[0]):
+        return "unknown"
+    try:
+        matches = background_statement_identity(background_bytes[0]) == (
+            CONTRADICTORY_STATEMENT_COUNT, CONTRADICTORY_STATEMENT_SHA256,
+        )
+    except (TPTPError, UnicodeDecodeError):
+        return "unknown"
     if matches:
         return "contradictory_translated_axioms_previously_observed"
     return "unknown"

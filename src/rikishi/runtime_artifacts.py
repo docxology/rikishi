@@ -29,6 +29,17 @@ class ArtifactError(ValueError):
     """Saved evidence is missing, unsafe, oversized, or no longer matches its receipt."""
 
 
+def direct_prover_flags(prover: ProverKind, timeout: int) -> list[str]:
+    """The exact native options registered for direct finite-campaign problems."""
+    if type(timeout) is not int or not 1 <= timeout <= 300:
+        raise ArtifactError("direct prover timeout must be an integer from 1 through 300")
+    if prover == "e":
+        return ["--auto", "--tstp-format", "--proof-object", f"--cpu-limit={timeout}"]
+    if prover == "v":
+        return ["--proof", "tptp", "--mode", "casc", "-t", str(timeout)]
+    raise ArtifactError("direct prover must be 'e' or 'v'")
+
+
 class Artifact(BaseModel):
     model_config = ConfigDict(strict=True, frozen=True, extra="forbid")
     path: str
@@ -158,8 +169,14 @@ def verified_bytes(artifact: Artifact, directory: Path) -> bytes:
     return data
 
 
-def load_capture(path: Path, invocation_id: str | None = None) -> Capture:
-    capture = Capture.model_validate_json(read_regular(path, limit=64 * 1024))
+def load_capture(
+    path: Path, invocation_id: str | None = None, *, expected_sha256: str | None = None,
+) -> Capture:
+    """Validate one bounded byte snapshot against any independently retained digest."""
+    raw = read_regular(path, limit=64 * 1024)
+    if expected_sha256 is not None and hashlib.sha256(raw).hexdigest() != expected_sha256:
+        raise ArtifactError("Capture digest differs from the expected SHA-256")
+    capture = Capture.model_validate_json(raw)
     if invocation_id is not None and capture.invocation_id != invocation_id:
         raise ArtifactError("capture belongs to another invocation")
     validate_prover_command(capture.command, capture.prover)

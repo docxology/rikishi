@@ -1,5 +1,5 @@
 import json
-from decimal import Decimal
+from decimal import ROUND_DOWN, ROUND_UP, Context, Decimal, Inexact, Rounded, localcontext
 from hashlib import sha256
 
 import pytest
@@ -149,3 +149,23 @@ def test_decimal_reference_keeps_positive_evidence_below_float_range():
     assert Decimal(reference.evidence) > 0
     assert float(Decimal(reference.evidence)) == 0
     assert abs(Decimal(reference.free_energy) - Decimal("1000.5")) < Decimal("1e-15")
+
+
+@pytest.mark.parametrize("rounding", [ROUND_DOWN, ROUND_UP])
+def test_reference_and_complete_matrix_ignore_hostile_decimal_context(matrix, rounding):
+    study = load_study()
+    inputs = study.numerical.extremes[0]
+    expected = decimal_reference(inputs, study.numerical.decimal_precision)
+    with localcontext(Context(prec=3, rounding=rounding, Emax=9, Emin=-9)) as caller:
+        caller.traps[Inexact] = True
+        caller.traps[Rounded] = True
+        before = caller.copy()
+        actual = decimal_reference(inputs, study.numerical.decimal_precision)
+        replayed = numerical_matrix(study)
+        assert (caller.prec, caller.rounding, caller.Emax, caller.Emin,
+                caller.traps, caller.flags) == (
+                    before.prec, before.rounding, before.Emax, before.Emin,
+                    before.traps, before.flags)
+    assert actual == expected
+    assert replayed == matrix
+    assert all(row.passed for row in (*replayed.rows, *replayed.extremes))

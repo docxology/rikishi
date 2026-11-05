@@ -75,8 +75,8 @@ def render_manuscript(root: Path) -> None:
         "RIKISHI_TEMPLATE_ROOT", root.parent.parent / "Public" / "template"
     )).resolve(strict=True)
     checkout_status = subprocess.run(
-        ["git", "-C", str(checkout), "status", "--porcelain"],
-        check=True, capture_output=True, text=True,
+        ["git", "-C", str(checkout), "status", "--porcelain"], stdin=subprocess.DEVNULL,
+        check=True, capture_output=True, text=True, timeout=30,
     ).stdout
     template, renderer_sources, archive_hash = prepare_renderer(root, checkout)
     sys.path.insert(0, str(template))
