@@ -5,7 +5,7 @@ import subprocess
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from rikishi.ontology import OntologyIndex
+from rikishi.ontology import OntologyIndex, _read_kif_file
 
 
 @dataclass(frozen=True, slots=True)
@@ -20,11 +20,14 @@ class SourceAudit:
     modified: tuple[str, ...]
     escaped_paths: tuple[str, ...]
     parse_failures_at_index: int
+    unavailable_paths: tuple[str, ...] = ()
 
     @property
     def matches_index(self) -> bool:
-        return not (self.added or self.missing or self.modified or self.escaped_paths
-                    or self.parse_failures_at_index)
+        return not (
+            self.added or self.missing or self.modified or self.escaped_paths
+            or self.unavailable_paths or self.parse_failures_at_index
+        )
 
     @property
     def revision_matches(self) -> bool | None:
@@ -44,20 +47,35 @@ class SourceAudit:
 def audit_sources(index: OntologyIndex) -> SourceAudit:
     """Compare current KIF bytes and Git revision to the indexed snapshot, without rebuilding.
 
-    File agreement and revision agreement are separate observations. A symlink
-    outside the recorded source root is never followed for verification.
+    File agreement and revision agreement are separate observations. Paths
+    rejected by the indexer's input boundary cannot supply hash observations.
     """
     stats = index.stats()
-    root = Path(stats["source_root"]).resolve(strict=True)
+    root = Path(stats["source_root"])
+    if root.resolve(strict=True) != root:
+        raise ValueError("Recorded ontology source root is no longer its original resolved path")
     manifest = {str(row["path"]): row for row in index.source_manifest()}
     discovered = {path.relative_to(root).as_posix(): path for path in root.rglob("*.kif")
                   if ".git" not in path.parts}
-    escaped = tuple(sorted(relative for relative, path in discovered.items()
-                           if not path.resolve().is_relative_to(root)))
+    escaped = []
+    for relative, path in sorted(discovered.items()):
+        try:
+            if not path.resolve().is_relative_to(root):
+                escaped.append(relative)
+        except (OSError, RuntimeError):
+            # Resolution is a diagnostic only. The bounded reader decides whether
+            # an indexed path can provide an actual hash observation.
+            continue
+    unavailable = []
     modified = []
     unchanged = 0
-    for relative in sorted(manifest.keys() & discovered.keys() - set(escaped)):
-        digest = hashlib.sha256(discovered[relative].read_bytes()).hexdigest()
+    for relative in sorted((manifest.keys() & discovered.keys()) - set(escaped)):
+        try:
+            raw = _read_kif_file(root, Path(relative))
+        except (OSError, ValueError):
+            unavailable.append(relative)
+            continue
+        digest = hashlib.sha256(raw).hexdigest()
         if digest == manifest[relative]["sha256"]:
             unchanged += 1
         else:
@@ -71,5 +89,5 @@ def audit_sources(index: OntologyIndex) -> SourceAudit:
                                        timeout=10, capture_output=True, text=True).stdout)
     return SourceAudit(stats["source_commit"], commit, stats["source_clean"], clean, unchanged,
                        tuple(sorted(discovered.keys() - manifest.keys())),
-                       tuple(sorted(manifest.keys() - discovered.keys())), tuple(modified), escaped,
-                       len(stats["parse_errors"]))
+                       tuple(sorted(manifest.keys() - discovered.keys())), tuple(modified),
+                       tuple(escaped), len(stats["parse_errors"]), tuple(unavailable))

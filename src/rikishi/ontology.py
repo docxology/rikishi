@@ -2,9 +2,10 @@ import hashlib
 import json
 import os
 import sqlite3
+import stat
 import subprocess
 import tempfile
-from contextlib import closing
+from contextlib import ExitStack, closing
 from pathlib import Path
 
 from rikishi.corpus_query import (
@@ -34,6 +35,8 @@ from rikishi.ontology_analysis import (
 )
 from rikishi.taxonomy_paths import TaxonomyPathQuery, taxonomy_path
 
+MAX_KIF_FILE_BYTES = 64 * 1024 * 1024
+
 SCHEMA = """
 CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);
 CREATE TABLE files (path TEXT PRIMARY KEY, sha256 TEXT NOT NULL, formulas INTEGER NOT NULL);
@@ -51,6 +54,55 @@ CREATE INDEX edge_subject ON edges(subject);
 CREATE INDEX edge_object ON edges(object);
 CREATE INDEX doc_term ON documentation(term);
 """
+
+
+def _source_version(info: os.stat_result) -> tuple[int, int, int, int, int, int]:
+    return info.st_dev, info.st_ino, info.st_mode, info.st_size, info.st_mtime_ns, info.st_ctime_ns
+
+
+def _read_kif_file(source: Path, relative: Path) -> bytes:
+    """Read one stable regular file through no-follow directory descriptors."""
+    if source.anchor != "/" or relative.is_absolute() or not relative.parts or ".." in relative.parts:
+        raise ValueError("Ontology source file must stay inside its absolute source directory")
+    if (
+        not all(hasattr(os, flag) for flag in ("O_DIRECTORY", "O_NOFOLLOW", "O_NONBLOCK"))
+        or os.open not in os.supports_dir_fd
+        or os.stat not in os.supports_dir_fd
+        or os.stat not in os.supports_follow_symlinks
+    ):
+        raise NotImplementedError("Ontology source reads require POSIX no-follow directory descriptors")
+    path = source / relative
+    directory_flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
+    file_flags = os.O_RDONLY | os.O_NONBLOCK | os.O_NOFOLLOW
+    try:
+        with ExitStack() as descriptors:
+            directory = os.open(path.anchor, directory_flags)
+            descriptors.callback(os.close, directory)
+            for component in path.parent.parts[1:]:
+                directory = os.open(component, directory_flags, dir_fd=directory)
+                descriptors.callback(os.close, directory)
+            before = os.stat(path.name, dir_fd=directory, follow_symlinks=False)
+            if not stat.S_ISREG(before.st_mode):
+                raise ValueError(f"Ontology source is not a regular file: {relative}")
+            if before.st_size > MAX_KIF_FILE_BYTES:
+                raise ValueError(f"Ontology source exceeds the 64 MiB file limit: {relative}")
+            descriptor = os.open(path.name, file_flags, dir_fd=directory)
+            with os.fdopen(descriptor, "rb") as stream:
+                version = _source_version(before)
+                if _source_version(os.fstat(stream.fileno())) != version:
+                    raise ValueError(f"Ontology source changed before read: {relative}")
+                raw = stream.read(before.st_size + 1)
+                if (
+                    len(raw) != before.st_size
+                    or _source_version(os.fstat(stream.fileno())) != version
+                    or _source_version(
+                        os.stat(path.name, dir_fd=directory, follow_symlinks=False)
+                    ) != version
+                ):
+                    raise ValueError(f"Ontology source changed during read: {relative}")
+    except OSError as error:
+        raise OSError(f"Cannot safely read ontology source: {relative}") from error
+    return raw
 
 
 class OntologyIndex:
@@ -79,8 +131,9 @@ class OntologyIndex:
             with closing(sqlite3.connect(temporary)) as connection:
                 connection.executescript(SCHEMA)
                 for path in paths:
-                    relative = path.relative_to(source).as_posix()
-                    raw = path.read_bytes()
+                    relative_path = path.relative_to(source)
+                    relative = relative_path.as_posix()
+                    raw = _read_kif_file(source, relative_path)
                     try:
                         formulas = list(parse(raw.decode("utf-8-sig"), relative))
                     except (UnicodeDecodeError, KifError) as error:

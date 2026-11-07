@@ -1,6 +1,8 @@
 import json
+import os
 import sqlite3
 import subprocess
+import sys
 
 import pytest
 
@@ -130,3 +132,59 @@ def test_git_provenance_dirty_and_atomic_failure(tmp_path, git_commit):
         index.build(source)
     assert index.search("Grace")[0]["name"] == "Grace"
     assert list(tmp_path.glob("index-*.sqlite")) == []
+
+
+@pytest.mark.parametrize(
+    "kind, message",
+    [
+        ("outside-link", "not a regular file"),
+        ("inside-link", "not a regular file"),
+        ("broken-link", "not a regular file"),
+        ("fifo", "not a regular file"),
+        ("oversized", "64 MiB file limit"),
+    ],
+)
+def test_unsafe_source_leaves_the_existing_cli_index_intact(tmp_path, kind, message):
+    source = tmp_path / "source"
+    source.mkdir()
+    safe = source / "a-safe.kif"
+    safe.write_text("(instance Ada Human)")
+    root = tmp_path / "project"
+    index = OntologyIndex(root / ".rikishi/ontology.sqlite")
+    index.build(source)
+    before = index.path.read_bytes()
+
+    safe.write_text("(instance Changed Human)")
+    unsafe = source / "z-unsafe.kif"
+    if kind == "outside-link":
+        outside = tmp_path / "outside.kif"
+        outside.write_text("(instance Outside Human)")
+        unsafe.symlink_to(outside)
+    elif kind == "inside-link":
+        unsafe.symlink_to(safe)
+    elif kind == "broken-link":
+        unsafe.symlink_to(source / "absent.kif")
+    elif kind == "fifo":
+        os.mkfifo(unsafe)
+    else:
+        with unsafe.open("wb") as stream:
+            stream.truncate(64 * 1024 * 1024 + 1)
+
+    result = subprocess.run(
+        [
+            sys.executable, "-B", "-c",
+            "from rikishi.cli import main; raise SystemExit(main())",
+            "--root", str(root), "index", "--source", str(source),
+        ],
+        stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=10, check=False,
+    )
+
+    assert result.returncode == 1
+    assert result.stdout == ""
+    error = json.loads(result.stderr)
+    assert message in error["message"] and "z-unsafe.kif" in error["message"]
+    assert index.path.read_bytes() == before
+    assert index.search("Ada")[0]["name"] == "Ada"
+    assert index.search("Changed") == []
+    assert list(index.path.parent.glob("index-*.sqlite")) == []
+    assert not (root / "output").exists()

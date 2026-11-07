@@ -1,5 +1,11 @@
+import json
+import os
 import subprocess
+import sys
 
+import pytest
+
+from rikishi.ontology import OntologyIndex
 from rikishi.source_audit import audit_sources
 
 
@@ -64,3 +70,52 @@ def test_rejected_file_never_becomes_complete_source_agreement(tmp_path, corpus_
     audit = audit_sources(index)
     assert audit.parse_failures_at_index == 1
     assert audit.passed is False
+
+
+@pytest.mark.parametrize("kind", ["fifo", "internal-link"])
+def test_rejected_indexed_file_is_unavailable_and_keeps_database(tmp_path, kind):
+    source = tmp_path / "source"
+    source.mkdir()
+    indexed = source / "Merge.kif"
+    indexed.write_text("(subclass Human Animal)")
+    (source / "Other.kif").write_text("(instance Ada Human)")
+    root = tmp_path / "project"
+    index = OntologyIndex(root / ".rikishi/ontology.sqlite")
+    index.build(source)
+    before = index.path.read_bytes()
+
+    indexed.unlink()
+    if kind == "fifo":
+        os.mkfifo(indexed)
+    else:
+        replacement = source / "same-bytes.txt"
+        replacement.write_text("(subclass Human Animal)")
+        indexed.symlink_to(replacement)
+
+    result = subprocess.run(
+        [
+            sys.executable, "-B", "-c",
+            "from rikishi.cli import main; raise SystemExit(main())",
+            "--root", str(root), "verify-source",
+        ],
+        stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=10, check=False,
+    )
+
+    assert result.returncode == 1
+    assert result.stderr == ""
+    observed = json.loads(result.stdout)
+    assert observed["unavailable_paths"] == ["Merge.kif"]
+    assert observed["modified"] == observed["escaped_paths"] == []
+    assert observed["unchanged_files"] == 1
+    assert observed["matches_index"] is False and observed["passed"] is False
+    assert index.path.read_bytes() == before
+
+
+def test_replaced_recorded_source_root_cannot_verify_a_different_tree(tmp_path, corpus_factory):
+    index = corpus_factory(tmp_path, {"Merge.kif": "(subclass Human Animal)"})
+    source = tmp_path / "source"
+    moved = source.rename(tmp_path / "other-source")
+    source.symlink_to(moved, target_is_directory=True)
+
+    with pytest.raises(ValueError, match="original resolved path"):
+        audit_sources(index)

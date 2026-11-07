@@ -21,6 +21,29 @@ taxonomy = index.taxonomy_analysis(TaxonomyQuery(relation="subclass"))
 path = index.taxonomy_path(TaxonomyPathQuery("Human", "Entity", path="Merge.kif"))
 ```
 
+## Building an index
+
+`rikishi index --source <directory>` scans `.kif` files under the resolved
+source directory and excludes Git metadata. It opens source paths through
+directory descriptors without following symlinks. An input must be a regular
+file no larger than 64 MiB and remain stable during its read. A symlinked
+`.kif` entry, special file, oversized file, or failed read aborts the rebuild
+and preserves the previous database. Discovery skips directory symlinks.
+These reads require POSIX no-follow and directory-descriptor support, as
+provided by the macOS operator environment and Linux CI.
+
+For admitted files, malformed Standard Upper Ontology Knowledge Interchange
+Format (SUO-KIF) input or invalid UTF-8 produces recorded per-file parse
+diagnostics. Other admitted files remain indexable. File hashes bind the same
+bytes supplied to the parser.
+
+`rikishi verify-source` uses the same input boundary to recheck indexed files.
+It reports paths known to resolve outside the source under `escaped_paths`.
+An indexed path that fails admission or reading appears under
+`unavailable_paths`, while `modified` reports actual digest differences.
+Either outcome prevents a passing audit. A replaced source-root symlink fails
+before inspecting the substituted tree.
+
 ## Corpus pages
 
 `FileQuery.path` matches a literal, case-sensitive substring. `sort` is `path` or

@@ -46,8 +46,8 @@ rebuilding the index and repeating reasoning checks.
 | Module | Interface and failure contract |
 | --- | --- |
 | `kif` | Parse complete source expressions with file/line attribution; reject malformed syntax |
-| `ontology` | Atomically replace a complete SQLite index; never publish partially parsed bad files |
-| `source_audit` | Compare recorded source hashes and revision with disk without changing the index |
+| `ontology` | Admit bounded regular SUO-KIF sources without following links, retain parse diagnostics, and preserve the existing SQLite index when input admission fails |
+| `source_audit` | Compare recorded source hashes and revision with disk without changing the index; report unavailable reads separately from digest differences |
 | `sumo_demonstrations` | Audit and freeze selected SUMO examples; replay exact source bytes and formula locations portably; optional proof delegates to the existing restricted taxonomy method |
 | `analytics` | Read-only exact aggregation over the indexed population; undefined ratios are null |
 | `corpus_query` | Literal bounded file/formula queries with complete and filtered totals and retained source identities |
