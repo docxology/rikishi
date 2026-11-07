@@ -5,7 +5,7 @@
   "source_sha256": "2e4c3d6b8392a4cb6fbeccb6eb7441e11d6b45592082333285c951fd7c7d3e14",
   "source_commit": "efcd059f8feebfe3488a09f575f88d4d009b1e5c",
   "lock_sha256": "0f8e785684de54ce36e1bc21c12f60a71e957fdc7d43cbb9bb3a410e0c85ac55",
-  "dependency_lock_sha256": "57b596f1b7290c0d86f5141a1b43b125ea5526f005e98d511b5dfc3fc87bf095",
+  "dependency_lock_sha256": "44cbc7e635087d3c48a3fbb5600aa88e55871ba34cc772d2a20303d092246198",
   "formal_revision": "9a0694f16b8e89b66b2f7f8cc7426c650dd2c4de",
   "formal_sources": {
     "lean/FepSketches/finite_probability.lean": "d99ae05fec4d012ecbb83601d1e361b01b22458790a316bb2ba3e360dfa11380",

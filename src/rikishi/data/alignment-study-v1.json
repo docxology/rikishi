@@ -16,7 +16,7 @@
   "workbook_rows": [13, 23, 33, 54, 86, 155, 176, 177, 190, 192, 217, 431],
   "workbook_columns": ["D", "E", "H", "I", "J", "K", "L"],
   "bindings": {
-    "uv.lock": "57b596f1b7290c0d86f5141a1b43b125ea5526f005e98d511b5dfc3fc87bf095",
+    "uv.lock": "44cbc7e635087d3c48a3fbb5600aa88e55871ba34cc772d2a20303d092246198",
     "config/sumo.lock.json": "0f8e785684de54ce36e1bc21c12f60a71e957fdc7d43cbb9bb3a410e0c85ac55"
   },
   "senses": [
