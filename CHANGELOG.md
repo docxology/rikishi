@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+### Security
+
+- Require Pillow 13.0.0 or newer and lock the current environment to 13.0.0.
+  Bind the packaged alignment and FEP/SUMO study authorities to the updated lock.
+  The v1.1.0 release and its verification records still describe the archived
+  source edition.
+
 ## 1.1.0 — 2026-11-05
 
 - Require complete checksum-verified translated background bytes when recognizing
