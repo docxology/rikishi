@@ -1,5 +1,12 @@
 # Rikishi
 
+<p align="center">
+  <a href="https://github.com/docxology/rikishi/actions/workflows/check.yml"><img alt="check.yml workflow status on main" src="https://github.com/docxology/rikishi/actions/workflows/check.yml/badge.svg?branch=main"></a>
+  <a href="https://doi.org/10.5281/zenodo.23987622"><img alt="Digital Object Identifier (DOI), Zenodo record: 10.5281/zenodo.23987622" src="https://zenodo.org/badge/DOI/10.5281/zenodo.23987622.svg"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <img alt="Requires Python 3.12 or newer" src="https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white">
+</p>
+
 A source-bound operator and research workbench for the
 [Suggested Upper Merged Ontology (SUMO)](https://github.com/ontologyportal/sumo).
 Rikishi installs Sigma and an automated theorem proving (ATP) environment,
