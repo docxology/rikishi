@@ -5,13 +5,13 @@
 This contract describes the live corpus dashboard and portable corpus report.
 The manuscript reader has its own full-width 12 mm publication policy, fixed
 light paper, 17 px body text and 15 px code/secondary floor. See
-[manuscript methods](docs/publication/manuscript.md) and [current state](docs/development/current-state.md)
+[manuscript methods](../publication/manuscript.md) and [current state](../development/current-state.md)
 for that distinction and the exact saved verification scope.
 
 ## 1. Atmosphere and identity
 
 A compact, white research workspace. Corpus measurements lead directly to exact
-KIF evidence. A persistent document hierarchy makes corpus, term, and finite-model
+Knowledge Interchange Format (KIF) evidence. A persistent document hierarchy makes corpus, term, and finite-model
 tasks easy to find. There is no promotional hero. Notion's restrained typography
 and hairline table structure inform the design; the user's white/neutral brief
 overrides warm paper and decorative reference treatments.
@@ -97,7 +97,7 @@ lists are bounded at 320px. Result buttons retain natural height inside their
   12px horizontal padding, and the existing 24px gaps.
 - Standalone page/section heading links: 44px minimum targets with 8px vertical
   and 12px horizontal padding; inline prose links retain ordinary text flow.
-- Graph: SVG edges and focusable linked node groups; click or Enter selects a
+- Graph: Scalable Vector Graphics (SVG) edges and focusable linked node groups; click or Enter selects a
   term. Text alternatives list every visible relationship below the graph.
 - Measures: semantic definition list, tabular numerals, no decorative icons.
 - Source entries: details/summary, source path and line, wrapping preformatted KIF.
@@ -116,7 +116,7 @@ No decorative motion or scroll hijacking. Search submits explicitly and announce
 Initial hash navigation preserves the destination while ancestor data loads,
 without moving focus. Preservation ends immediately on wheel, key, pointer, or
 touch input, or when initial requests settle. Metrics reserve one 88px row on
-desktop and two on phone, plus their existing padding/gaps. The FEP canvas reserves
+desktop and two on phone, plus their existing padding/gaps. The Free Energy Principle (FEP) canvas reserves
 200–512px by viewport width before its SVG loads. Evidence tables reserve 560px;
 file and analytics loading regions reserve 640px and 240px respectively. These
 slots remain readable and scrollable; data is never hidden to reduce layout shifts.
@@ -154,8 +154,8 @@ screen-reader user inspecting row populations and exact formulas; phone user
 filtering a corpus without page overflow. These are design requirements, not a
 claim of complete accessibility certification. Actual screen-reader operation,
 full keyboard traversal, physical-device behavior and other unverified scopes
-remain explicit in the [current-state register](docs/development/current-state.md) and
-[TODO](docs/development/roadmap.md). Browser failures and unavailable audit tools must be
+remain explicit in the [current-state register](../development/current-state.md) and
+[TODO](../development/roadmap.md). Browser failures and unavailable audit tools must be
 recorded without invented scores.
 
 ## 9. Publication reader
@@ -167,7 +167,7 @@ The manuscript's explicit 12 mm/fixed-light policy remains separate from the
 dashboard theme and prose-measure rules.
 
 Publication non-policy spacing uses 4, 8, 12, 16 and 24 px tokens with a 4 px
-radius. TOC targets retain at least 44 CSS px on both axes and 8 px separation.
+radius. TOC targets retain at least 44 Cascading Style Sheets (CSS) px on both axes and 8 px separation.
 Tables use available width and intentional cell wrapping rather than intrinsic
 max-content widths. Short scientific-notation values remain atomic; long
 identifiers remain breakable, and source/code/math content is preserved.

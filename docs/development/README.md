@@ -7,3 +7,5 @@ Check the implemented state, choose the next bounded task, and run the required 
 - [Run the required checks](testing.md)
 
 Return to the [documentation map](../README.md).
+
+The [November 10 workflow review](workflow-review-2026-11-10.md) records a historical inspection.

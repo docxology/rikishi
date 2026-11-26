@@ -195,7 +195,7 @@ def _input_bytes(root: Path, identifier: str) -> bytes:
 
 def verify_publication_inputs(root: Path, input_sha256: dict[str, str]) -> None:
     """Reject changed publication inputs, resolving only contained files or the exact package ID."""
-    fixed = {"config/manuscript.yaml", "pyproject.toml", "output/formalization/verification.json"}
+    fixed = {"docs/manuscript/native/manuscript.yaml", "pyproject.toml", "output/formalization/verification.json"}
     require_evidence(fixed <= input_sha256.keys() and len(input_sha256) == len(fixed) + 2,
                      "Publication input manifest requires all authorities and one model")
     observed: dict[str, bytes] = {}
@@ -204,7 +204,7 @@ def verify_publication_inputs(root: Path, input_sha256: dict[str, str]) -> None:
         observed[identifier] = _input_bytes(root, identifier)
         actual = hashlib.sha256(observed[identifier]).hexdigest()
         require_evidence(actual == digest, f"Publication input changed: {identifier}")
-    policy = PublicationSettings.model_validate(yaml.safe_load(observed["config/manuscript.yaml"])).publication
+    policy = PublicationSettings.model_validate(yaml.safe_load(observed["docs/manuscript/native/manuscript.yaml"])).publication
     parts = re.split(r"(\{\{[A-Z][A-Z0-9_]*\}\})", policy.citation_style)
     pattern = "".join(".*" if part.startswith("{{") else re.escape(part) for part in parts)
     styles = [key for key in input_sha256.keys() - fixed if key != PACKAGE_MODEL
@@ -250,9 +250,9 @@ def load_publication_context(
     project = root.resolve(strict=True)
     measurement = CorpusMeasurement.model_validate(corpus.model_dump())
     inputs = {name: _input_bytes(project, name) for name in (
-        "config/manuscript.yaml", "pyproject.toml", "output/formalization/verification.json"
+        "docs/manuscript/native/manuscript.yaml", "pyproject.toml", "output/formalization/verification.json"
     )}
-    settings = PublicationSettings.model_validate(yaml.safe_load(inputs["config/manuscript.yaml"]))
+    settings = PublicationSettings.model_validate(yaml.safe_load(inputs["docs/manuscript/native/manuscript.yaml"]))
     model_id, parameter_file = PACKAGE_MODEL, None
     if parameters_path is not None:
         parameter_file = (project / parameters_path).resolve()

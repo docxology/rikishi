@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 @pytest.fixture
 def settings() -> PublicationSettings:
-    return PublicationSettings.model_validate(yaml.safe_load((ROOT / "config/manuscript.yaml").read_text()))
+    return PublicationSettings.model_validate(yaml.safe_load((ROOT / "docs/manuscript/native/manuscript.yaml").read_text()))
 
 
 def test_configured_link_contrast_exceeds_normal_text_threshold(settings: PublicationSettings) -> None:
@@ -382,7 +382,7 @@ def test_actual_narrow_pdf_is_rejected(
 
 
 def test_verification_shell_continuations_preserve_digest_argument() -> None:
-    source = (ROOT / "manuscript/rikishi.md").read_text()
+    source = (ROOT / "docs/manuscript/native/rikishi.md.in").read_text()
     command = source.split("```bash\n")[-2].split("```", 1)[0]
     arguments = shlex.split(command.replace("\\\n", " "))
     assert arguments == ["uv", "run", "--locked", "--no-sync", "rikishi", "inference-verify",

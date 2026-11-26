@@ -1,6 +1,6 @@
 # Scholarship and claim-to-evidence ledger
 
-[`manuscript/references.bib`](../../manuscript/references.bib) owns publication
+[`docs/manuscript/native/references.bib`](../manuscript/native/references.bib) owns publication
 metadata and Pandoc citation keys. Primary sources explain theories and
 published methods. Pinned source files establish what Rikishi inspected.
 Source-bound execution records establish what the implementation actually

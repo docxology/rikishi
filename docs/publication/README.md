@@ -2,7 +2,8 @@
 
 Reproduce and review the actual editions and figures, then use the versioned release procedure with current acceptance evidence.
 
-- [Build and verify document editions](manuscript.md)
+- [Build the offline companion](../manuscript/README.md)
+- [Build and verify native research editions](manuscript.md)
 - [Review the manuscript and evidence](review.md)
 - [Interpret publication figures](visualizations.md)
 - [Explore selected campaign controls](research-visualizations.md)

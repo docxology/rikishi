@@ -43,7 +43,9 @@ Start with [SUMO modeling commitments](docs/sumo/ontology.md),
 [systems and translations](docs/sumo/systems.md). These guides explain how classes,
 instances, relations, functions, quantifiers and contextual formulas affect the
 questions that a source index or a theorem prover can answer. The
-[documentation map](docs/README.md) organizes all guides by task.
+[documentation map](docs/README.md) organizes all guides by task. The
+[offline manuscript](docs/manuscript/README.md) reproduces source-index behavior
+from a synthetic local catalog.
 
 ## Install and choose a workflow
 
@@ -51,7 +53,7 @@ This checkout identifies **1.1.0**. Download its versioned software packages,
 manuscript and verification summary from the
 [1.1.0 GitHub release](https://github.com/docxology/rikishi/releases/tag/v1.1.0).
 Follow the [release notes](docs/publication/release-notes-1.1.0.md),
-[review guide](docs/publication/review.md) and [release checklist](RELEASE_CHECKLIST.md).
+[review guide](docs/publication/review.md) and [release checklist](docs/publication/release-checklist.md).
 The [software archive](https://doi.org/10.5281/zenodo.23987623) and
 [manuscript](https://doi.org/10.5281/zenodo.23987671) have distinct versioned
 Zenodo records and licenses. Cite the record that supplies the work you use.
@@ -273,7 +275,7 @@ provenance. No command automatically publishes to upstream SUMO, PyPI or Zenodo.
 - [Cite the software](CITATION.cff); cite the manuscript's real record separately
   once published. The alignment-precedent digital object identifier (DOI) above is not Rikishi's DOI.
 - [Read the changes](CHANGELOG.md),
-  [contribute](CONTRIBUTING.md), or
+  [contribute](docs/development/contributing.md), or
   [report a security concern](SECURITY.md).
 - [Prepare the GitHub/Zenodo release](docs/publication/release.md).
 

@@ -1,0 +1,27 @@
+manuscript_dir: docs/manuscript
+
+paper:
+  title: "Inspecting Source Formulas and Asserted Edges in Rikishi"
+
+authors:
+  - name: Daniel Ari Friedman
+    orcid: "0000-0001-6232-9096"
+
+publication:
+  github_repository: docxology/rikishi
+  repository_url: https://github.com/docxology/rikishi
+
+metadata:
+  language: en
+  license: CC-BY-4.0
+
+steganography:
+  enabled: false
+
+render:
+  formats:
+    pdf: true
+    html: true
+    slides: false
+    docx: false
+    epub: false

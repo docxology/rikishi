@@ -381,7 +381,7 @@ def _copy_native_outputs(project_root: Path, tmp_path: Path, *,
     snapshot = receipt["renderer_snapshot"]
     for relative in (
         "output/manuscript", "output/pdf", "output/web", "output/docx", "output/figures",
-        "manuscript", "config", snapshot,
+        "docs/manuscript/native", "config", snapshot,
     ):
         shutil.copytree(project_root / relative, root / relative,
                         copy_function=copy_file, ignore=_reject_native_links)
@@ -680,7 +680,7 @@ def test_rebound_empty_editions_are_rejected_by_actual_parsers(
 
 @pytest.mark.integration
 @pytest.mark.parametrize("relative", [
-    "manuscript/references.bib", "output/analytics.json", "manuscript/rikishi.md",
+    "docs/manuscript/native/references.bib", "output/analytics.json", "docs/manuscript/native/rikishi.md.in",
     "output/data/corpus.json",
 ])
 def test_verifier_rejects_stale_authored_inputs(manuscript_copy, relative):
@@ -692,7 +692,7 @@ def test_verifier_rejects_stale_authored_inputs(manuscript_copy, relative):
 
 @pytest.mark.integration
 @pytest.mark.parametrize("relative", [
-    "config/manuscript.yaml", "config/references.csl", "pyproject.toml",
+    "docs/manuscript/native/manuscript.yaml", "docs/manuscript/native/references.csl", "pyproject.toml",
     "output/formalization/verification.json",
 ])
 def test_verifier_rejects_stale_publication_inputs(manuscript_copy, relative):
@@ -1450,7 +1450,7 @@ def test_actual_editions_retain_manuscript_and_software_publication_identity(
     import tomllib
 
     root = rendered_native_outputs
-    policy = yaml.safe_load((root / "config/manuscript.yaml").read_text())["publication"]
+    policy = yaml.safe_load((root / "docs/manuscript/native/manuscript.yaml").read_text())["publication"]
     dois = [policy[key] for key in ("doi", "version_doi", "software_version_doi")]
     urls = {*("https://doi.org/" + value for value in dois), policy["version_record"]}
     pdf = root / "output/pdf/rikishi_combined.pdf"

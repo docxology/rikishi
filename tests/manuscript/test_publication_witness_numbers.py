@@ -87,7 +87,7 @@ def test_manuscript_uses_only_resolvable_inline_number_tokens(
     corpus_factory: Callable[[Path, Mapping[str, str]], OntologyIndex],
     git_commit: Callable[[Path], str],
 ) -> None:
-    source = (project_root / "manuscript/rikishi.md").read_text()
+    source = (project_root / "docs/manuscript/native/rikishi.md.in").read_text()
     required = set(re.findall(r"\{\{(NUM_[A-Z0-9_]+)\}\}", source))
     values = witness_number_substitutions(*prose_inputs, decimal_places=6)
     assert len(required) >= 40

@@ -2,7 +2,7 @@
 
 Verification joins a particular source candidate to actual observed outputs.
 The [current-state guide](../development/current-state.md) describes supported scope; the
-[release checklist](../../RELEASE_CHECKLIST.md) defines publication requirements.
+[release checklist](../publication/release-checklist.md) defines publication requirements.
 A prior development acceptance does not qualify a changed package or Portable Document Format (PDF).
 
 ## Source and inputs

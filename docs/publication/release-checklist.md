@@ -4,8 +4,8 @@ Use this checklist for **1.1.0** source and artifact qualification. The existing
 [1.0.0 GitHub release](https://github.com/docxology/rikishi/releases/tag/v1.0.0)
 is published and remains intact. These boxes apply only to the new candidate;
 mark an item for its exact source and artifacts and retain the evidence locator.
-See [release methods](docs/publication/release.md) and
-[candidate notes](docs/publication/release-notes-1.1.0.md).
+See [release methods](release.md) and
+[candidate notes](release-notes-1.1.0.md).
 
 ## Candidate and package
 
@@ -46,12 +46,12 @@ See [release methods](docs/publication/release.md) and
 - [ ] Exclude environments, native downloads/caches, browser profiles, private
   `.omo` trees, unreviewed raw packets and the original alignment workbook.
 - [x] Record the author's license choice: [CC BY 4.0 for original manuscript text
-  and figures](LICENSE-PAPER.md); code remains MIT and third-party terms remain separate.
+  and figures](../../LICENSE-PAPER.md); code remains MIT and third-party terms remain separate.
 - [ ] Verify that the actual PDF, figure supplements, package notices and deposit
   metadata carry those scopes; complete third-party attribution/conditions without
   silently relicensing upstream material.
 - [ ] Verify that the release retains the explicit private security contact in
-  [SECURITY.md](SECURITY.md).
+  [SECURITY.md](../../SECURITY.md).
 - [ ] Record the actual remaining product/evidence limits and the maintainer's
   disposition; do not convert a literal departure into compliance.
 

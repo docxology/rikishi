@@ -9,8 +9,9 @@ INLINE_LINK: Final = re.compile(r"\[[^\]\n]*\]\(<?([^\s)>]+)>?(?:\s+\"[^\"\n]*\"
 
 
 def _missing_local_links(root: Path, *, include_generated: bool = True) -> list[str]:
-    documents = [root / name for name in ("README.md", "AGENTS.md")]
+    documents = [root / name for name in ("README.md", "AGENTS.md", "CONTRIBUTING.md")]
     documents.extend(sorted((root / "docs").rglob("*.md")))
+    documents.append(root / "docs/manuscript/native/rikishi.md.in")
     missing = []
     for document in documents:
         if not document.is_file():
@@ -21,7 +22,15 @@ def _missing_local_links(root: Path, *, include_generated: bool = True) -> list[
             url = urlsplit(href)
             if url.scheme or url.netloc or not url.path:
                 continue
-            target = document.parent / unquote(url.path)
+            # The native renderer stages and hydrates this source before resolving links.
+            base = (
+                root / "output/manuscript"
+                if document == root / "docs/manuscript/native/rikishi.md.in"
+                else document.parent
+            )
+            if base != document.parent and url.path.startswith("{{"):
+                continue  # Native publication metadata resolves this substitution.
+            target = base / unquote(url.path)
             if not include_generated:
                 resolved = target.resolve()
                 generated = (root / "output", root / "dist", root / ".omo/evidence")

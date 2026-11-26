@@ -119,7 +119,7 @@ def _observe(directory: Path, mutation: Literal["none", "gap", "numbers", "table
         raise pytest.UsageError("Native typography tests require RIKISHI_CHROMIUM")
     directory.mkdir()
     settings = PublicationSettings.model_validate(yaml.safe_load(
-        (ROOT / "config/manuscript.yaml").read_text()))
+        (ROOT / "docs/manuscript/native/manuscript.yaml").read_text()))
     headers = publication_headers(settings.publication, edition="html")
     match mutation:
         case "numbers":

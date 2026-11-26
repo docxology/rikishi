@@ -8,7 +8,7 @@ supports the final manuscript render; publication and retrieved-file parity
 must subsequently be verified.
 
 The existing [v1.0.0 GitHub release](https://github.com/docxology/rikishi/releases/tag/v1.0.0)
-remains intact. Use the [1.1.0 checklist](../../RELEASE_CHECKLIST.md),
+remains intact. Use the [1.1.0 checklist](release-checklist.md),
 [candidate notes](release-notes-1.1.0.md) and [review guide](review.md) for the
 new version. This guide follows the canonical
 [`docxology/template` publication runbook](https://github.com/docxology/template/blob/50ee012974466c230bfd0d23dbece6556c89cf36/docs/guides/publication-runbook.md)
@@ -35,7 +35,7 @@ distinction in reservation evidence and verify both identifiers again against
 the published resources.
 
 The manuscript's identity fields belong in
-[`config/manuscript.yaml`](../../config/manuscript.yaml):
+[`docs/manuscript/native/manuscript.yaml`](../manuscript/native/manuscript.yaml):
 
 ```yaml
 publication:
@@ -87,7 +87,7 @@ before publication. A subsequent source edit or artifact regeneration requires
 the affected qualification and review again.
 
 Use the correct mounted runtime and governed repository operations described
-in [contributing](../../CONTRIBUTING.md). Expensive checks belong in their
+in [contributing](../development/contributing.md). Expensive checks belong in their
 qualified bounded execution context; short publication leases protect the
 final source/tag and external mutations.
 
@@ -125,7 +125,7 @@ sources or third-party material inside its archive.
 Use the verified canonical template checkout with a qualified runtime carrying
 the client's actual dependencies. Bind
 the actual imported template source/version in the publication receipt.
-Rikishi is a standalone repository with `config/manuscript.yaml`; template's
+Rikishi is a standalone repository with `docs/manuscript/native/manuscript.yaml`; template's
 project release command-line interface (CLI) expects its own project layout
 and does not accept these existing draft IDs. Reuse the public client directly
 with the two approved IDs instead of creating another template project or

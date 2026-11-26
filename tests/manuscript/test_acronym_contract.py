@@ -49,7 +49,7 @@ EXPANSIONS = {
 }
 SPELLINGS = {name: (name, "SHA256") if name == "SHA-256" else (name,) for name in EXPANSIONS}
 ARTIFACTS = (
-    "manuscript/rikishi.md",
+    "docs/manuscript/native/rikishi.md.in",
     "README.md",
     *(path.relative_to(ROOT).as_posix() for path in sorted((ROOT / "docs").rglob("*.md"))),
 )
@@ -128,7 +128,7 @@ def _figure_captions(markdown: str) -> dict[str, str]:
     ("witness-evidence-scaling", ()),
 ])
 def test_detached_figure_caption_defines_its_local_keys(identifier, required) -> None:
-    caption = _figure_captions((ROOT / "manuscript/rikishi.md").read_text())[identifier]
+    caption = _figure_captions((ROOT / "docs/manuscript/native/rikishi.md.in").read_text())[identifier]
     for acronym in required:
         assert f"{EXPANSIONS[acronym]} ({acronym})" in caption
     assert _undefined_first_uses(caption) == []

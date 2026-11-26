@@ -7,6 +7,13 @@ work from the current 1.1.0 candidate with its own verification record.
 The documented distribution channel is GitHub Releases; no PyPI installation is
 promised by this guide.
 
+## Inspect a local catalog
+
+The [offline manuscript build](../manuscript/README.md) uses the Python
+source directly with a synthetic catalog. It requires no full corpus,
+native theorem prover, or formal proof receipts. It records what the index
+preserves as formulas and what it projects as asserted edges.
+
 ## Portable methods from a source checkout
 
 Rikishi requires Python 3.12 or newer; development and the current workstation
@@ -105,7 +112,7 @@ external volume is absent.
 
 GitVault operators run project mutations and gates under the supported
 `with-repo docxology/rikishi` repository admission, as described in
-[contributing](../../CONTRIBUTING.md). The same repository and shared Git store
+[contributing](../development/contributing.md). The same repository and shared Git store
 serialize; unrelated repository leases remain compatible. A different project's
 tests are not a prerequisite for Rikishi. Genuine collection-wide deployment,
 configuration and migration operations retain their separate exclusive admission.
