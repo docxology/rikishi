@@ -75,7 +75,7 @@ interactive failure states need their own operated evidence. Saved images,
 accessibility trees and source inspection supply narrower observations.
 
 The review-ready handoff supplies a current inspected document. Publication also
-requires the [release checklist](../../RELEASE_CHECKLIST.md), public-payload and
+requires the [release checklist](release-checklist.md), public-payload and
 license review, final metadata, and an explicit release decision. Historical
 local acceptance, a green test count or a visual verdict alone supplies none of
 those additional decisions.

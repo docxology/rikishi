@@ -5,7 +5,7 @@ Updated 2026-11-05 for the 1.1.0 candidate. The
 retains its own source, artifacts and verification summary. Work below concerns
 new source and future research; previous evidence does not qualify a changed
 candidate. See [current methods](current-state.md) and the
-[release checklist](../../RELEASE_CHECKLIST.md).
+[release checklist](../publication/release-checklist.md).
 
 ## Current release
 

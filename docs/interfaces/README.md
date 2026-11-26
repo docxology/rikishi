@@ -6,3 +6,5 @@ Use the shared command, Python, browser and service methods to inspect or produc
 - [Explore the browser workbench](dashboard.md)
 
 Return to the [documentation map](../README.md).
+
+See the [dashboard design system](design-system.md) for interface layout and presentation.

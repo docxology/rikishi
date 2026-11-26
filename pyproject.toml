@@ -66,7 +66,7 @@ packages = ["src/rikishi"]
 
 [tool.hatch.build.targets.sdist]
 include = ["/src", "/scripts", "/config", "/examples", "/skills", "/.agents",
-  "/manuscript", "/docs", "/tests", "/README.md", "/AGENTS.md", "/CITATION.cff",
+  "/docs", "/tests", "/README.md", "/AGENTS.md", "/CITATION.cff",
   "/LICENSE", "/LICENSE-PAPER.md", "/Makefile", "/uv.lock", "/.python-version", "/typings",
-  "/CHANGELOG.md", "/CONTRIBUTING.md", "/SECURITY.md", "/RELEASE_CHECKLIST.md",
+  "/CHANGELOG.md", "/CONTRIBUTING.md", "/SECURITY.md",
   "/THIRD_PARTY_NOTICES.md", "/.zenodo.json", "/.gitattributes"]

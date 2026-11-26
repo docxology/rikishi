@@ -1,4 +1,7 @@
-# Reproduce the manuscript
+# Reproduce the native research manuscript
+
+The [offline companion build](../manuscript/README.md) exercises local source indexing
+and renders through pinned Template without the native campaign prerequisites below.
 
 After environment setup, prepare the pinned sources/index and verified finite
 Lean receipt using [runtime](../runtime/runtime.md) and [Free Energy Principle (FEP) methods](../research/fep.md). Acquire the
@@ -380,8 +383,8 @@ they do not authenticate a historical process or a coherently replaced bundle.
 
 ## Authorities and numbering
 
-`manuscript/rikishi.md` owns scientific prose, symbolic equations and stable labels;
-`manuscript/references.bib` owns literature metadata. `config/manuscript.yaml` owns
+`docs/manuscript/native/rikishi.md.in` owns scientific prose, symbolic equations and stable labels;
+`docs/manuscript/native/references.bib` owns literature metadata. `docs/manuscript/native/manuscript.yaml` owns
 title, authors, affiliations, typography and rendering policy. Software version
 comes from pyproject.toml, publication date from the recorded Coordinated Universal Time (UTC) rendering time,
 corpus quantities from output/data/corpus.json, and Lean metadata from
@@ -417,9 +420,9 @@ measured results and configurable model values are injected.
 
 PDF citations use native natbib/BibTeX with plainnat; HTML and Word use citeproc
 with the pinned Harvard Cite Them Right Citation Style Language (CSL) in
-[config/references.csl](../../config/references.csl). The style retains its Creative Commons Attribution-ShareAlike 3.0
+[docs/manuscript/native/references.csl](../../docs/manuscript/native/references.csl). The style retains its Creative Commons Attribution-ShareAlike 3.0
 license and upstream attribution. Its repository revision and SHA-256 are checked
-against config/manuscript.yaml. The bibliography's formal-source revision is
+against docs/manuscript/native/manuscript.yaml. The bibliography's formal-source revision is
 injected from the same checked Lean authority. Native filter order is formalism,
 crossref, then citeproc. Source checks parse actual Pandoc abstract syntax tree (AST) and BibTeX, rejecting
 unknown citations, duplicate or missing labels, unlabeled display equations and

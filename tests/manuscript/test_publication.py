@@ -20,9 +20,9 @@ from rikishi.publication import (
 
 NOW: Final = datetime(2031, 1, 1, 1, tzinfo=timezone(timedelta(hours=3)))
 PACKAGED: Final = "package:rikishi/data/fep-example.json"
-CONFIG: Final = "config/manuscript.yaml"
+CONFIG: Final = "docs/manuscript/native/manuscript.yaml"
 FORMAL: Final = "output/formalization/verification.json"
-AUTHORITIES: Final = (CONFIG, "pyproject.toml", FORMAL, "config/references.csl", PACKAGED)
+AUTHORITIES: Final = (CONFIG, "pyproject.toml", FORMAL, "docs/manuscript/native/references.csl", PACKAGED)
 REQUIRED: Final = {
     "PAPER_TITLE", "PAPER_SUBTITLE", "AUTHOR_NAMES", "AUTHOR_AFFILIATIONS", "DOCUMENT_DATE",
     "DOCUMENT_YEAR", "DOCUMENT_LABEL", "SOFTWARE_VERSION", "MODEL_PRIOR", "MODEL_LIKELIHOOD",
@@ -117,10 +117,10 @@ def publication_root(tmp_path: Path, project_root: Path) -> Path:
 
 
 @pytest.mark.parametrize("style", [
-    "config/references.csl", "config/{{SOFTWARE_VERSION}}.csl", "{{DOCUMENT_YEAR}}"])
+    "docs/manuscript/native/references.csl", "config/{{SOFTWARE_VERSION}}.csl", "{{DOCUMENT_YEAR}}"])
 def test_context_hydrates_coherent_native_metadata(publication_root, corpus, style):
     resolved = style.replace("{{SOFTWARE_VERSION}}", "2.7.4").replace("{{DOCUMENT_YEAR}}", "2030")
-    (publication_root / resolved).write_bytes((publication_root / "config/references.csl").read_bytes())
+    (publication_root / resolved).write_bytes((publication_root / "docs/manuscript/native/references.csl").read_bytes())
     set_setting(publication_root / CONFIG, "publication.citation_style", style)
     context: PublicationContext = load_publication_context(publication_root, corpus, rendered_at=NOW)
     assert context.settings.publication.citation_style == resolved
@@ -287,7 +287,7 @@ def test_naive_datetime_is_rejected(publication_root, corpus):
     (PACKAGED, "package:rikishi/data/other.json", None),
     (PACKAGED, "https://example.invalid/input", None), (PACKAGED, "../outside", None),
     (PACKAGED, "absolute", None), (PACKAGED, "escape", None),
-    ("config/references.csl", "config/unrecognized.csl", None),
+    ("docs/manuscript/native/references.csl", "config/unrecognized.csl", None),
     (PACKAGED, "nonmodel.json", hashlib.sha256(b"{}").hexdigest()),
 ])
 def test_verifier_rejects_invalid_manifest(publication_root, corpus, removed, replacement, override):
@@ -296,7 +296,7 @@ def test_verifier_rejects_invalid_manifest(publication_root, corpus, removed, re
     outside.write_bytes(files("rikishi").joinpath("data/fep-example.json").read_bytes())
     (publication_root / "escape").symlink_to(outside)
     (publication_root / "config/unrecognized.csl").write_bytes(
-        (publication_root / "config/references.csl").read_bytes())
+        (publication_root / "docs/manuscript/native/references.csl").read_bytes())
     (publication_root / "nonmodel.json").write_bytes(b"{}")
     if override == "policy":
         set_setting(publication_root / CONFIG, "publication.citation_style_sha256", "0" * 64)

@@ -10,7 +10,7 @@ establish qualification or publication; inspect the actual linked records.
 See the [1.1.0 release notes](../publication/release-notes-1.1.0.md).
 
 Use the [review guide](../publication/review.md) to identify the actual PDF and source.
-The [release checklist](../../RELEASE_CHECKLIST.md) records the required gates;
+The [release checklist](../publication/release-checklist.md) records the required gates;
 the [prioritized backlog](roadmap.md) separates product, platform and research work.
 
 ## Implemented scope

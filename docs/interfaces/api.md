@@ -385,7 +385,7 @@ three-display fixture cannot satisfy the complete-body requirement. The relation
 fields retain the two required occurrence counts. This is a manuscript-specific serialization check, not a general math
 verifier, scientific validation or theorem proof.
 
-The shared canonical [`manuscript/rikishi.md`](../../manuscript/rikishi.md) uses
+The shared canonical [`docs/manuscript/native/rikishi.md.in`](../manuscript/native/rikishi.md.in) uses
 `gathered` displays, repeats `F(q)=` on each decomposition row, and uses atomic
 `\nvDash` for non-entailment. All editions use that shared source; the row
 projection neither repairs math nor creates a Word-only mathematical fork.

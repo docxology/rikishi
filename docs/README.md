@@ -34,8 +34,8 @@ helps turn a domain idea into explicit assumptions and competency questions.
 | Understand method contracts | [Methods](methods/README.md) | [Architecture](methods/architecture.md), [inference](methods/inference-methods.md), [bridge](methods/bridge-methods.md), [semantic transport](methods/semantic-transport.md) |
 | Connect ontology modeling to finite probability and action | [Research](research/README.md) | [Worked conceptual connection](sumo/sumo-fep-simulations.md), [finite study](research/research.md), [Active Inference](research/active-inference.md) |
 | Inspect results through software interfaces | [Interfaces](interfaces/README.md) | [Dashboard](interfaces/dashboard.md), [interface reference](interfaces/api.md) |
-| Reproduce or review the manuscript and release | [Publication](publication/README.md) | [Manuscript recipe](publication/manuscript.md), [review guide](publication/review.md), [release methods](publication/release.md) |
-| Contribute and run quality gates | [Development](development/README.md) | [Testing](development/testing.md), [current state](development/current-state.md), [roadmap](development/roadmap.md), [contributing](../CONTRIBUTING.md) |
+| Reproduce or review the manuscript and release | [Publication](publication/README.md) | [Offline manuscript](manuscript/README.md), [native recipe](publication/manuscript.md), [review guide](publication/review.md), [release methods](publication/release.md) |
+| Contribute and run quality gates | [Development](development/README.md) | [Testing](development/testing.md), [current state](development/current-state.md), [roadmap](development/roadmap.md), [contributing](development/contributing.md) |
 
 ## Follow a claim to its evidence
 
@@ -47,9 +47,10 @@ source, dependencies and elaboration. The [verification guide](methods/verificat
 and [primary-source ledger](research/scholarship.md) explain the corresponding
 authorities and limits.
 
-The [manuscript source](../manuscript/rikishi.md) and
-[rendering recipe](publication/manuscript.md) bind prose, figures and editions to
-their actual inputs. The [reproducibility guide](methods/reproducibility.md)
+The [offline manuscript](manuscript/README.md) shows how a fixture and its evidence
+produce the Template editions. The [native research source](manuscript/native/rikishi.md.in)
+and [native recipe](publication/manuscript.md) bind the research editions to the
+required campaigns and receipts. The [reproducibility guide](methods/reproducibility.md)
 explains retained reports and independent digests. The final release's
 verification summary identifies the exact source, artifacts and completed gates.
 

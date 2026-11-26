@@ -198,7 +198,7 @@ receipt. Reference/final geometry remains independently checked under the
 existing `office_reference` contract; recorded counts alone establish nothing.
 
 The mathematical source belongs to the shared canonical
-[`manuscript/rikishi.md`](../../manuscript/rikishi.md): three `gathered` displays,
+[`docs/manuscript/native/rikishi.md.in`](../manuscript/native/rikishi.md.in): three `gathered` displays,
 repeated `F(q)=` on finite-objective rows, and atomic `\nvDash`. It feeds every
 edition without a Word-only math fork. The row projection never edits math.
 `verify_office_content_math` binds the supported complete manuscript math sequence:

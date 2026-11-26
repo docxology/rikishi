@@ -295,8 +295,8 @@ def _projections(
 ) -> tuple[PublicationContext, SumoReport, ResearchContext, BridgeContext]:
     output = root / "output/manuscript"
     for relative, digest in (
-        ("manuscript/rikishi.md", receipt.source_sha256),
-        ("manuscript/references.bib", receipt.bibliography_sha256),
+        ("docs/manuscript/native/rikishi.md.in", receipt.source_sha256),
+        ("docs/manuscript/native/references.bib", receipt.bibliography_sha256),
         ("output/analytics.json", receipt.analytics_sha256),
         ("output/data/corpus.json", receipt.corpus_export_sha256),
     ):
@@ -332,17 +332,17 @@ def _projections(
     structure = _ontology_report(output / "ontology-structure.json", sumo.source,
                                  receipt.ontology_structure_sha256)
     _ontology_figures(root, context, structure)
-    hydrated = hydrate_manuscript((root / "manuscript/rikishi.md").read_text(), corpus,
+    hydrated = hydrate_manuscript((root / "docs/manuscript/native/rikishi.md.in").read_text(), corpus,
                                   values={**context.values, **sumo_values, **research.values,
                                           **inference.values, **bridge.values,
                                           **structure_substitutions(structure)})
     require_evidence(hydrated.substitutions == receipt.substitutions, "Substitutions differ")
-    bibliography = (root / "manuscript/references.bib").read_text().replace(
+    bibliography = (root / "docs/manuscript/native/references.bib").read_text().replace(
         "{{FORMAL_COMMIT}}", context.values["FORMAL_COMMIT"]
     )
     require_evidence((output / "references.bib").read_text() == bibliography,
                      "Staged bibliography differs from authored projection")
-    require_evidence(validate_publication_source(root / "manuscript/rikishi.md",
+    require_evidence(validate_publication_source(root / "docs/manuscript/native/rikishi.md.in",
                                                 output / "references.bib") == receipt.source_checks.model_dump(),
                      "Source checks differ from actual Pandoc AST")
     metadata = {**context.metadata, "csl": str(output / "references.csl")}

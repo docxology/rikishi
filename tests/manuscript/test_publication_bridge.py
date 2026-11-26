@@ -20,7 +20,7 @@ def test_calculation_description_follows_every_actual_selected_source_kernel(
     bridge_packet: BridgePacket,
 ) -> None:
     report = bridge_packet.report
-    source = (Path(__file__).resolve().parents[2] / "manuscript/rikishi.md").read_text()
+    source = (Path(__file__).resolve().parents[2] / "docs/manuscript/native/rikishi.md.in").read_text()
     paragraph = source.split("The calculation chain is equally specific.", 1)[1].split(
         "The positive query", 1)[0]
     described = re.findall(r"`([^`]+)`", paragraph)

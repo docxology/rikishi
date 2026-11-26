@@ -201,8 +201,8 @@ def render_manuscript(root: Path) -> None:
     require_evidence(cover.is_file() and cover in generated,
                      "Configured cover must be a generated manuscript figure")
 
-    source = root / "manuscript" / "rikishi.md"
-    source_bib = root / "manuscript" / "references.bib"
+    source = root / "docs" / "manuscript" / "native" / "rikishi.md.in"
+    source_bib = root / "docs" / "manuscript" / "native" / "references.bib"
     hydrated = hydrate_manuscript(source.read_text(), corpus, values=values)
     bibliography = output / "references.bib"
     bibliography.write_text(source_bib.read_text().replace(
